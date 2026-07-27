@@ -11,7 +11,7 @@ export default function Badge({ variant = "good", children, className = "" }) {
   const isBad = variant === "bad";
   return (
     <span
-      className={`inline-flex h-5 items-center justify-center rounded px-2 text-caption-semibold-10 ${
+      className={`inline-flex h-5 w-fit shrink-0 items-center justify-center self-start rounded px-2 text-caption-semibold-10 ${
         isBad ? "bg-2light-grey text-grey" : "bg-point-orange2 text-point-orange"
       } ${className}`}
     >

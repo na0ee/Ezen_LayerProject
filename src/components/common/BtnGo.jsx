@@ -19,7 +19,7 @@ export default function BtnGo({ variant = 'more', children, className = '', ...r
     return (
       <button
         type="button"
-        className={`text-body-medium-14-line text-point-orange ${className}`}
+        className={`w-fit shrink-0 text-body-medium-14-line text-point-orange ${className}`}
         {...rest}
       >
         {label}
@@ -31,7 +31,7 @@ export default function BtnGo({ variant = 'more', children, className = '', ...r
     return (
       <button
         type="button"
-        className={`flex items-center gap-1.5 rounded-full bg-offblack/20 py-2 pl-4 pr-2.5 ${className}`}
+        className={`flex w-fit shrink-0 items-center gap-1.5 rounded-full bg-offblack/20 py-2 pl-4 pr-2.5 ${className}`}
         {...rest}
       >
         <span className="text-body-regular-14 text-offwhite">{label}</span>
@@ -41,7 +41,11 @@ export default function BtnGo({ variant = 'more', children, className = '', ...r
   }
 
   return (
-    <button type="button" className={`flex items-center gap-1 ${className}`} {...rest}>
+    <button
+      type="button"
+      className={`flex w-fit shrink-0 items-center gap-1 ${className}`}
+      {...rest}
+    >
       {variant === 'ai' && <img src={sparkles} alt="" className="size-4" />}
       <span className="flex items-center gap-1.5">
         <span className="text-body-regular-14 text-grey">{label}</span>

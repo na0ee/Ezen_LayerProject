@@ -35,6 +35,8 @@
 ### 폰트 스타일 (피그마 Text Styles → `text-*` 유틸리티)
 
 기본 폰트는 Pretendard (index.html에서 CDN 로드, body 기본 적용, letter-spacing -2%).
+**행간 주의**: 피그마 행간이 AUTO인 스타일은 CSS에 `line-height: normal`을 명시해야 한다.
+안 그러면 Tailwind preflight의 `1.5`를 상속받아 피그마보다 줄간격이 벌어지고, 카드 안 요소 위치가 어긋난다.
 `en/*` 스타일은 Cormorant Garamond라서 **`font-en`을 같이** 붙인다: `<p className="font-en text-en-title-28">`.
 
 | 피그마 스타일 | 클래스 | 스펙 |
@@ -83,8 +85,8 @@ radius/padding은 피그마 수치 그대로 Tailwind 유틸리티 사용: `roun
 | heart | `Heart` | abled, grey1, grey2, grey3 | ✅ |
 | bell | `Bell` | ring, none | ✅ |
 | checkBox | `CheckBox` | orange, white | ✅ |
-| icon (좋아요/댓글 카운트) | `Icon` | - | ⬜ |
-| profile | `Profile` | Default, none | ⬜ |
+| icon (좋아요/댓글 카운트) | `Icon` | `likes`/`comments` props | ✅ |
+| profile | `Profile` | default, none(익명) — `name`/`time`/`img` props | ✅ |
 
 ### 헤더/내비게이션
 
@@ -101,7 +103,10 @@ radius/padding은 피그마 수치 그대로 Tailwind 유틸리티 사용: `roun
 | --- | --- | --- | --- |
 | title-main | `TitleMain` | title1, title2, title3 | ✅ |
 | title-section | `TitleSection` | default, button | ✅ |
-| title-mag | `TitleMag` | default, +subtext | ⬜ |
+| title-mag | `TitleMag` | default(영문 세리프), subtext(한글+부제) — 피그마 `+subtext` | ✅ |
+| middlecard | `MiddleCard` | 190×256, 배경이미지+그라데이션+하트 | ✅ |
+| card (3212:33337, 매거진) ⚠️ | `MagListCard` | 262×289. 피그마 이름이 `card`라 겹침 + `card-mag`(=`CardMag`)와 헷갈려서 `MagListCard`로 등록 — 피그마 개명 권장 | ✅ |
+| magazine_card | `MagazineCard` | 262×336, 태그+제목+본문 | ✅ |
 
 ### 검색/카테고리/태그
 
@@ -109,34 +114,44 @@ radius/padding은 피그마 수치 그대로 Tailwind 유틸리티 사용: `roun
 | --- | --- | --- | --- |
 | search | `Search` | icon, no-icon (피그마 `< icon`/`no icon`) | ✅ |
 | category | `Category` | page, tab — `items`/`active`/`onChange` props | ✅ |
-| categorychip | `CategoryChip` | - | ⬜ |
+| categorychip | `CategoryChip` | 188×54 큰 칩 (향 계열 선택용) | ✅ |
 | keywordlist | `KeywordList` | white, grey — `keywords` 배열 prop, # 자동 부착 | ✅ |
 | badge | `Badge` | good, bad, review, q&a | ✅ |
 | tab (2208:5166 칩) | `Tab` | default(=active)/variant1 → `active` boolean | ✅ |
 | tab-sub | `TabSub` | a(내가 추천한), b(추천받은) — 피그마에서 `tab`→`tab-sub`로 개명됨 | ✅ |
-| tag-mag | `TagMag` | - | ⬜ |
+| tag-mag | `TagMag` | 이미지 위 반투명 태그 | ✅ |
 | # | `HashTag` | - | ⬜ |
 
 ### 카드
 
 | 피그마 이름 | 컴포넌트 | variants | 상태 |
 | --- | --- | --- | --- |
-| card ⚠️ | - | `card` 프레임 2개 남음(perfume/raffle용 2208:19691, small/medium용 2208:20373) — 작업 시 분리 이름 결정 필요. 챗봇용은 `ChatCard`로 완료 | ⬜ |
-| card/rank | `CardRank` | - | ⬜ |
-| card-mag | `CardMag` | - | ⬜ |
-| card-challenge | `CardChallenge` | - | ⬜ |
-| recom_card | `RecomCard` | - | ⬜ |
-| review | `Review` | - | ⬜ |
-| review_summary | `ReviewSummary` | - | ⬜ |
-| review_Aisummary | `ReviewAiSummary` | - | ⬜ |
-| main/banner | `MainBanner` | -, text(main/banner/text) | ⬜ |
-| img | `Img` | xsmall/small/medium/big × white/grey | ⬜ |
+| card-info | `CardInfo` | `variant="perfume\|raffle"` × `type="a\|b\|c\|d"` (피그마에서 `card`→`card-info` 개명) | ✅ |
+| card-small | `CardSmall` | small, medium-a, medium-b(+`showHeart`), medium-recommend (피그마에서 `card`→`card-small` 개명) | ✅ |
+| card-challenge-small | `CardChallengeSmall` | 380×120 가로형 | ✅ |
+| card-challenge | `CardChallenge` | 390×260 배경이미지형 | ✅ |
+| card/rank | `CardRank` | 240×300, 순위 뱃지 + 이미지 + 이름/브랜드 + 하트 | ✅ |
+| card/main/review | `CardMainReview` | 320×380, 배경이미지 + 하단 반투명 박스 | ✅ |
+| card-mag- ⚠️ | `CardMag` | 320×452 배경이미지 + 하단 반투명 박스(높이 124px 고정). 피그마 이름 끝에 하이픈이 붙어 있음(`card-mag-`) — 오타로 보임 | ✅ |
+| review | `Review` | 390×127, 리뷰 작성 유도 카드 | ✅ |
+| review_summary | `ReviewSummary` | 390×192, 프로필+뱃지+본문+카운트 | ✅ |
+| review_summary1 | `ReviewSummary1` | 390×303, 향수 여러 개 + 키워드 + 날짜 | ✅ |
+| review_summary2 | `ReviewSummary2` | 300×128, 가로 목록용 (본문 2줄 말줄임). 피그마에서 `recom_card`→개명 | ✅ |
+| review_Aisummary | `ReviewAiSummary` | 390×108, AI 리뷰 요약 | ✅ |
+| main/banner | `MainBanner` | 390×214, 이미지만 | ✅ |
+| main/banner/text | `MainBannerText` | 390×214, 라벨+카피+응모 버튼 | ✅ |
+| main/card/challenge | - | `card-challenge-small`과 동일한 디자인 → `CardChallengeSmall` 사용 | ✅ |
+| img | `Img` | `size="xsmall\|small\|medium\|big"` × `color="grey\|white"` (38/50/60/100px) | ✅ |
 
 ### 커뮤니티
 
 | 피그마 이름 | 컴포넌트 | variants | 상태 |
 | --- | --- | --- | --- |
-| community ⚠️ | `Community` | 프레임 2개(입력폼용 title/brand/ml/txt, 토글용 on/off) — 작업 시 분리 이름 결정 필요 | ⬜ |
+| community-enter | `CommunityEnter` | title, brand, ml, txt — 글작성 폼 필드 (피그마에서 개명됨) | ✅ |
+| community-toggle | `CommunityToggle` | on/off → `checked` boolean (스위치는 CSS 구현) | ✅ |
+| # | `HashTag` | 삭제 버튼 포함 태그 칩 | ✅ |
+| Community/질문게시판/댓글 (3243:32261) | - | 신규 추가된 심볼 — 배치 지정 시 등록 | ⬜ |
+| card (3257:72937), Frame 1707482726, con2 | - | 커뮤니티 섹션에 신규 추가된 심볼들 — 이름 정리 후 배치 지정 필요 | ⬜ |
 
 ### 챗봇
 
