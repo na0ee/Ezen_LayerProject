@@ -1,15 +1,31 @@
+import { useState } from "react";
 import {
+  Badge,
   Bell,
+  BottomNav,
   BtnBig,
   BtnGo,
   BtnHero,
   BtnSmall,
+  Bubble,
+  Category,
+  ChatCard,
   CheckBox,
   Header,
   Heart,
+  Input,
+  KeywordList,
+  QuickCategory,
+  Search,
+  TabSub,
+  TitleMain,
+  TitleSection,
 } from "./components/common";
 
 function App() {
+  const [navTab, setNavTab] = useState("home");
+  const [pageTab, setPageTab] = useState("향 계열/향기");
+  const [chipTab, setChipTab] = useState("전체");
   return (
     <div className="mx-auto min-h-screen max-w-[430px] bg-offwhite p-5">
       <h1 className="text-xl font-semibold text-offblack">
@@ -93,6 +109,125 @@ function App() {
         <Header variant="write" />
         <Header variant="write-tit" title="향수 기록하기" />
         <Header variant="community" title="커뮤니티" />
+      </div>
+
+      <h2 className="mt-8 text-sm font-semibold text-subtext">섹션 타이틀</h2>
+      <div className="mt-3 flex flex-col gap-6">
+        <TitleMain
+          variant="title1"
+          title="Record"
+          sub={
+            <>
+              이번주 <span className="text-point-orange">5일</span> 기록했어요
+            </>
+          }
+        />
+        <TitleMain variant="title2" title="Record" />
+        <TitleMain
+          variant="title3"
+          title="Record"
+          sub={
+            <>
+              이번주 <span className="text-point-orange">5일</span> 기록했어요
+            </>
+          }
+        />
+        <TitleSection title="오늘의 HOT리뷰" />
+        <TitleSection variant="button" title="오늘의 HOT리뷰" />
+      </div>
+
+      <h2 className="mt-8 text-sm font-semibold text-subtext">
+        하단바 (탭 클릭 가능)
+      </h2>
+      <div className="mt-3 rounded-2xl bg-light-grey p-4">
+        <BottomNav active={navTab} onChange={setNavTab} />
+      </div>
+
+      <h2 className="mt-8 text-sm font-semibold text-subtext">검색창</h2>
+      <div className="mt-3 flex flex-col gap-4">
+        <Search />
+        <Search variant="no-icon" />
+      </div>
+
+      <h2 className="mt-8 text-sm font-semibold text-subtext">
+        카테고리 (클릭 가능)
+      </h2>
+      <div className="mt-3 flex flex-col gap-4">
+        <Category
+          variant="page"
+          items={["브랜드", "향 계열/향기", "용량"]}
+          active={pageTab}
+          onChange={setPageTab}
+          className="-mx-5"
+        />
+        <Category
+          variant="tab"
+          items={["전체", "선물", "여성", "20대", "30대", "남성"]}
+          active={chipTab}
+          onChange={setChipTab}
+        />
+      </div>
+
+      <h2 className="mt-8 text-sm font-semibold text-subtext">탭/뱃지</h2>
+      <div className="mt-3 flex flex-col gap-4">
+        <div className="flex items-center gap-3">
+          <TabSub variant="a" />
+          <TabSub variant="b" />
+        </div>
+        <div className="flex items-center gap-3">
+          <Badge variant="good" />
+          <Badge variant="bad" />
+          <Badge variant="review" />
+          <Badge variant="q&a" />
+        </div>
+      </div>
+
+      <h2 className="mt-8 text-sm font-semibold text-subtext">키워드</h2>
+      <div className="mt-3 flex flex-col gap-2">
+        <div className="inline-flex rounded-lg bg-offblack p-3">
+          <KeywordList keywords={["알데하이드", "피오니", "머스크"]} />
+        </div>
+        <div className="p-3">
+          <KeywordList
+            variant="grey"
+            keywords={["알데하이드", "피오니", "머스크"]}
+          />
+        </div>
+      </div>
+
+      <h2 className="mt-8 text-sm font-semibold text-subtext">챗봇</h2>
+      <div className="mt-3 flex flex-col gap-4 rounded-2xl bg-background p-4">
+        <div className="flex flex-col gap-3">
+          <Bubble>
+            안녕하세요
+            <br />
+            저는 챗봇 레이예요.
+          </Bubble>
+          <div className="self-end">
+            <Bubble variant="user">안녕 반가워 레이</Bubble>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <QuickCategory>오늘의 향수 추천받기</QuickCategory>
+          <QuickCategory variant="selected">오늘의 향수 추천받기</QuickCategory>
+          <QuickCategory variant="under">오늘의 향수 추천받기</QuickCategory>
+        </div>
+        <Input />
+        <ChatCard
+          variant="shop"
+          name="시로 성수"
+          brand="SHIRO"
+          address="서울 성동구 연무장길 57 1~2층"
+          hours="영업 중  10:00 ~ 21:00"
+          phone="070-8657-2176"
+          website="https://shiro-shiro.kr/"
+        />
+        <ChatCard
+          variant="chatbot"
+          brand="Maison Margiela Fragrances"
+          name="Lazy Sunday Morning"
+          keywords={["아이리스", "화이트머스크", "은방울꽃"]}
+        />
       </div>
 
       <h2 className="mt-8 text-sm font-semibold text-subtext">폰트 스타일</h2>

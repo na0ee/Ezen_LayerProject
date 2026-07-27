@@ -91,28 +91,29 @@ radius/padding은 피그마 수치 그대로 Tailwind 유틸리티 사용: `roun
 | 피그마 이름 | 컴포넌트 | variants | 상태 |
 | --- | --- | --- | --- |
 | header | `Header` | main, main2, detail, detail-back, write, write-tit, community (피그마의 `Detail`은 소문자 `detail`로 통일) | ✅ |
-| bottomnav | `BottomNav` | Default, Variant2~4 | ⬜ |
-| tab-nav | `TabNav` | home/community/magazine/my × white/grey | ⬜ |
-| icon-bottomnav | `IconBottomNav` | home/commu/mag/my × white/grey (BottomNav 내부용) | ⬜ |
+| bottomnav | `BottomNav` | Default/Variant2~4 → `active="home\|community\|magazine\|my"` prop으로 통합 | ✅ |
+| tab-nav | `TabNav` | variant=home/community/magazine/my, 속성2(white/grey) → `active` boolean | ✅ |
+| icon-bottomnav | `IconBottomNav` | variant=home/community/magazine/my + `active` (BottomNav 내부용) | ✅ |
 
 ### 타이틀
 
 | 피그마 이름 | 컴포넌트 | variants | 상태 |
 | --- | --- | --- | --- |
-| title-main | `TitleMain` | title1, title2, title3 | ⬜ |
-| title-section | `TitleSection` | Default, button | ⬜ |
+| title-main | `TitleMain` | title1, title2, title3 | ✅ |
+| title-section | `TitleSection` | default, button | ✅ |
 | title-mag | `TitleMag` | default, +subtext | ⬜ |
 
 ### 검색/카테고리/태그
 
 | 피그마 이름 | 컴포넌트 | variants | 상태 |
 | --- | --- | --- | --- |
-| search | `Search` | icon, no icon | ⬜ |
-| category | `Category` | tab, page | ⬜ |
+| search | `Search` | icon, no-icon (피그마 `< icon`/`no icon`) | ✅ |
+| category | `Category` | page, tab — `items`/`active`/`onChange` props | ✅ |
 | categorychip | `CategoryChip` | - | ⬜ |
-| keywordlist | `KeywordList` | white, grey | ⬜ |
-| badge | `Badge` | good, bad, review, q&a | ⬜ |
-| tab ⚠️ | `Tab` | 피그마에 `tab` 프레임이 2개(2208:5166, 2208:5194) — 작업 시 어느 쪽인지 확인 필요 | ⬜ |
+| keywordlist | `KeywordList` | white, grey — `keywords` 배열 prop, # 자동 부착 | ✅ |
+| badge | `Badge` | good, bad, review, q&a | ✅ |
+| tab (2208:5166 칩) | `Tab` | default(=active)/variant1 → `active` boolean | ✅ |
+| tab-sub | `TabSub` | a(내가 추천한), b(추천받은) — 피그마에서 `tab`→`tab-sub`로 개명됨 | ✅ |
 | tag-mag | `TagMag` | - | ⬜ |
 | # | `HashTag` | - | ⬜ |
 
@@ -120,7 +121,7 @@ radius/padding은 피그마 수치 그대로 Tailwind 유틸리티 사용: `roun
 
 | 피그마 이름 | 컴포넌트 | variants | 상태 |
 | --- | --- | --- | --- |
-| card ⚠️ | - | `card` 프레임이 3개(perfume/raffle용 2208:19691, small/medium용 2208:20373, 챗봇용 3135:18607) — 작업 시 분리 이름 결정 필요 | ⬜ |
+| card ⚠️ | - | `card` 프레임 2개 남음(perfume/raffle용 2208:19691, small/medium용 2208:20373) — 작업 시 분리 이름 결정 필요. 챗봇용은 `ChatCard`로 완료 | ⬜ |
 | card/rank | `CardRank` | - | ⬜ |
 | card-mag | `CardMag` | - | ⬜ |
 | card-challenge | `CardChallenge` | - | ⬜ |
@@ -141,6 +142,7 @@ radius/padding은 피그마 수치 그대로 Tailwind 유틸리티 사용: `roun
 
 | 피그마 이름 | 컴포넌트 | variants | 상태 |
 | --- | --- | --- | --- |
-| Bubble | `Bubble` | botBubble, userBubble | ⬜ |
-| quickcategory | `QuickCategory` | Default, Selected, under | ⬜ |
-| input | `Input` | Default, focused, ing | ⬜ |
+| Bubble | `Bubble` | botBubble/userBubble → `variant="bot"\|"user"` | ✅ |
+| quickcategory | `QuickCategory` | default, selected, under | ✅ |
+| input | `Input` | Default/focused/ing → CSS 상태로 자동 처리 (focus-within) | ✅ |
+| card (3135:18607 챗봇용) | `ChatCard` | shop, chatbot — 이름 겹침 회피로 ChatCard로 등록 | ✅ |
