@@ -1,0 +1,85 @@
+@import 'tailwindcss';
+
+/* 피그마 디자인 토큰 (Variables 기준)
+   사용 예: bg-point-orange, text-offblack, text-grey, border-light-grey */
+@theme {
+  --color-offwhite: #ffffff;
+  --color-offwhite70: #ffffffb2; /* offwhite70% */
+  --color-offblack: #1a1a1a;
+  --color-offblack70: #1a1a1ab2; /* offblack70% */
+  --color-background: #f7f7f7;
+  --color-grey: #8a8a8a;
+  --color-light-grey: #dddddd;
+  --color-2light-grey: #ededed;
+  --color-subtext: #4d4d4d;
+  --color-point-orange: #ff4800;
+  --color-point-orange2: #ffede6;
+
+  --font-sans: 'Pretendard', 'Pretendard Variable', sans-serif;
+  --font-en: 'Cormorant Garamond', serif; /* en/* 스타일용 */
+
+  /* 피그마 텍스트 스타일 → text-* 유틸리티
+     사용 예: <p className="text-title-semibold-18">, en 계열은 font-en과 함께:
+     <p className="font-en text-en-title-28"> */
+  --text-title-medium-20: 20px;
+  --text-title-medium-20--font-weight: 500;
+  --text-title-semibold-18: 18px;
+  --text-title-semibold-18--line-height: 1.4;
+  --text-title-semibold-18--font-weight: 600;
+  --text-title-semibold-24: 24px;
+  --text-title-semibold-24--letter-spacing: -0.03em;
+  --text-title-semibold-24--font-weight: 600;
+  --text-title-semibold-30: 30px;
+  --text-title-semibold-30--font-weight: 600;
+  --text-subtitle-regular-16: 16px;
+  --text-subtitle-regular-16--line-height: 1.4;
+  --text-subtitle-regular-16--font-weight: 400;
+  --text-body-regular-14: 14px;
+  --text-body-regular-14--line-height: 1.4;
+  --text-body-regular-14--font-weight: 400;
+  --text-body-medium-14: 14px;
+  --text-body-medium-14--font-weight: 500;
+  --text-body-medium-16: 16px;
+  --text-body-medium-16--font-weight: 500;
+  --text-body-semibold-16: 16px;
+  --text-body-semibold-16--font-weight: 600;
+  --text-body-regular-18: 18px;
+  --text-body-regular-18--line-height: 1;
+  --text-body-regular-18--font-weight: 400;
+  --text-caption-semibold-10: 10px;
+  --text-caption-semibold-10--font-weight: 600;
+  --text-caption-regular-12: 12px;
+  --text-caption-regular-12--font-weight: 400;
+  --text-caption-medium-12: 12px;
+  --text-caption-medium-12--line-height: 1.4;
+  --text-caption-medium-12--font-weight: 500;
+  --text-chatbot-18: 18px;
+  --text-chatbot-18--line-height: 1.3;
+  --text-chatbot-18--font-weight: 400;
+  --text-btn-icon: 14px;
+  --text-btn-icon--font-weight: 400;
+  --text-btn-cta: 18px;
+  --text-btn-cta--font-weight: 600;
+  --text-en-title-24: 24px;
+  --text-en-title-24--font-weight: 600;
+  --text-en-title-28: 28px;
+  --text-en-title-28--font-weight: 600;
+  --text-en-semibold-16: 16px;
+  --text-en-semibold-16--font-weight: 600;
+  --text-en-semibold-24: 24px;
+  --text-en-semibold-24--font-weight: 600;
+}
+
+/* body/medium-14px-line — 밑줄 포함 (링크성 텍스트용) */
+@utility text-body-medium-14-line {
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration-line: underline;
+}
+
+body {
+  font-family: var(--font-sans);
+  letter-spacing: -0.02em; /* 피그마 letterSpacing -2% */
+  color: var(--color-offblack);
+  background: var(--color-offwhite);
+}

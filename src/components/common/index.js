@@ -1,0 +1,8 @@
+export { default as Bell } from './Bell'
+export { default as BtnBig } from './BtnBig'
+export { default as BtnGo } from './BtnGo'
+export { default as BtnHero } from './BtnHero'
+export { default as BtnSmall } from './BtnSmall'
+export { default as CheckBox } from './CheckBox'
+export { default as Header } from './Header'
+export { default as Heart } from './Heart'
