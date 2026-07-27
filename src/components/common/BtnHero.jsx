@@ -1,5 +1,5 @@
 // 피그마: btn-hero (히어로 배너 위 반투명 버튼)
-export default function BtnHero({ children, className = '', ...rest }) {
+export default function BtnHero({ children, className = "", ...rest }) {
   return (
     <button
       type="button"
@@ -8,5 +8,5 @@ export default function BtnHero({ children, className = '', ...rest }) {
     >
       {children}
     </button>
-  )
+  );
 }
