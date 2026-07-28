@@ -15,7 +15,7 @@ export default function ConQuestion({
 }) {
   return (
     <div
-      className={`flex w-full flex-col items-start gap-5 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-4 ${className}`}
+      className={`flex w-full flex-col items-start gap-[20px] overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-4 ${className}`}
     >
       <Profile
         variant={anonymous ? "none" : "default"}

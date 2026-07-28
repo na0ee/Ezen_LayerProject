@@ -15,11 +15,12 @@ export default function Con2({
   keywords = [],
   likes = 0,
   comments = 0,
+  imageOverlay,
   className = "",
 }) {
   return (
     <div
-      className={`flex w-full flex-col items-center gap-6 overflow-hidden rounded-3xl bg-offwhite p-5 ${className}`}
+      className={`flex w-full flex-col items-center gap-6 overflow-hidden rounded-b-2xl bg-offwhite p-5 ${className}`}
     >
       <div className="flex w-full items-center gap-2.5">
         <div className="size-[42px] shrink-0 overflow-hidden rounded-full bg-2light-grey">
@@ -37,12 +38,19 @@ export default function Con2({
         <div className="flex w-full snap-x snap-mandatory gap-3 overflow-x-auto">
           {imgs.length > 0 ? (
             imgs.map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt=""
-                className="h-[430px] w-full shrink-0 snap-center rounded-lg object-cover"
-              />
+              <div
+                key={src}
+                className="relative h-[430px] w-full shrink-0 snap-center overflow-hidden rounded-lg"
+              >
+                <img
+                  src={src}
+                  alt=""
+                  className="size-full object-cover"
+                />
+                {typeof imageOverlay === "function"
+                  ? imageOverlay(i)
+                  : imageOverlay}
+              </div>
             ))
           ) : (
             <div className="h-[430px] w-full shrink-0 rounded-lg bg-2light-grey" />

@@ -18,7 +18,7 @@ export default function MainBannerText({
       )}
       <p className="relative font-en text-en-semibold-16 text-offwhite">{label}</p>
       <div className="relative flex w-full items-end justify-between gap-4">
-        <p className="whitespace-pre-line text-title-semibold-18 text-offwhite">
+        <p className="whitespace-pre-line text-body-semibold-16 text-offwhite">
           {title}
         </p>
         <BtnGo variant="raffle" onClick={onAction}>

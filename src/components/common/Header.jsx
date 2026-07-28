@@ -11,7 +11,7 @@ import xIcon from '../../assets/icons/x-black.svg'
 import { useNavigate } from 'react-router-dom'
 import BtnSmall from './BtnSmall'
 
-// 피그마: header (Property 1=main | main2 | detail | detail-back | write | write-tit | community)
+// 피그마: header (Property 1=main | main2 | detail | detail-back | write | write-tit | community | community-back)
 // main: 흰 로고+흰 아이콘(배너 위), main2: 검정 로고+검정 아이콘
 function IconButton({ src, label, onClick }) {
   return (
@@ -45,7 +45,11 @@ export default function Header({
         hasBg ? 'bg-offwhite' : ''
       } ${className}`}
     >
-      <div className="flex items-center gap-3">
+      <div
+        className={`flex items-center ${
+          variant === 'community-back' ? 'gap-0' : 'gap-3'
+        }`}
+      >
         {['main', 'main2', 'result'].includes(variant) && (
           <img
             src={isWhite ? logoWhite : logoBlack}
@@ -53,9 +57,22 @@ export default function Header({
             className="h-[30px] w-[72px]"
           />
         )}
-        {variant === 'detail-back' && (
-          <button type="button" aria-label="뒤로가기" onClick={onBack} className="size-5 shrink-0">
-            <img src={chevron} alt="" className="size-5 rotate-180" />
+        {['detail-back', 'community-back'].includes(variant) && (
+          <button
+            type="button"
+            aria-label="뒤로가기"
+            onClick={onBack}
+            className={`shrink-0 ${
+              variant === 'community-back' ? 'size-[21px]' : 'size-5'
+            }`}
+          >
+            <img
+              src={chevron}
+              alt=""
+              className={`rotate-180 ${
+                variant === 'community-back' ? 'size-[21px]' : 'size-5'
+              }`}
+            />
           </button>
         )}
         {['write', 'write-tit'].includes(variant) && (
@@ -63,7 +80,7 @@ export default function Header({
             <img src={xIcon} alt="" className="size-5" />
           </button>
         )}
-        {['detail', 'detail-back', 'write-tit', 'community'].includes(variant) && (
+        {['detail', 'detail-back', 'write-tit', 'community', 'community-back'].includes(variant) && (
           <span className="text-title-medium-20 text-offblack">{title}</span>
         )}
       </div>
@@ -79,13 +96,21 @@ export default function Header({
               label="검색"
               onClick={onSearch ?? (() => navigate('/category'))}
             />
-            <IconButton src={isWhite ? bellWhite : bellBlack} label="알림" onClick={onBell} />
+            <IconButton
+              src={isWhite ? bellWhite : bellBlack}
+              label="알림"
+              onClick={onBell ?? (() => navigate('/alarm'))}
+            />
           </>
         )}
-        {variant === 'community' && (
+        {['community', 'community-back'].includes(variant) && (
           <>
             <IconButton src={editPencil} label="글쓰기" onClick={onEdit} />
-            <IconButton src={bellBlack} label="알림" onClick={onBell} />
+            <IconButton
+              src={bellBlack}
+              label="알림"
+              onClick={onBell ?? (() => navigate('/alarm'))}
+            />
           </>
         )}
         {['write', 'write-tit'].includes(variant) && (

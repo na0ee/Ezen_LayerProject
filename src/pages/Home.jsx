@@ -487,13 +487,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
         <BottomNav
           active={activeNav}
           onChange={(tab) => {
-            if (tab === "my") {
-              window.location.href = "/mypage";
-              return;
-            }
             setActiveNav(tab);
-            setActiveNav(tab);
-            onNavigate?.(tab);
           }}
         />
       </div>

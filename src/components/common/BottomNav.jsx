@@ -27,13 +27,12 @@ export default function BottomNav({
 
   const handleTabChange = (tab) => {
     onChange?.(tab);
-    navigate(routeByTab[tab]);
   };
 
   return (
     <nav
       aria-label="주요 메뉴"
-      className={`flex w-[390px] max-w-full items-center ${className}`}
+      className={`pointer-events-auto z-[100] flex w-[390px] max-w-full items-center ${className}`}
     >
       <div className="flex w-[391px] shrink-0 items-center justify-center gap-1.5">
         <div className="glass-surface-dark relative h-16 min-w-0 flex-1 overflow-hidden rounded-[50px]">
@@ -49,6 +48,7 @@ export default function BottomNav({
               <TabNav
                 key={tab}
                 variant={tab}
+                to={routeByTab[tab]}
                 active={resolvedActive === tab}
                 onClick={() => handleTabChange(tab)}
                 className="relative z-10 !w-[60px] !min-w-[60px] shrink-0 !bg-transparent"

@@ -14,15 +14,15 @@ import MagazineMain from "../Magazine/Magazine_main";
 import MagazineNiche from "../Magazine/Magazine_NICHE";
 import MagazineSummer from "../Magazine/Magazine_SEASON/Magazine_summer";
 import MagazineTip from "../Magazine/Magazine_TIP";
-import { BottomNav } from "./components/common";
-import CategoryPage from "./pages/Category";
+import Category from "./pages/Category";
 import Chatbot from "./pages/Chatbot";
 import ComponentsPreview from "./pages/ComponentsPreview";
+import CommunityWriteEntryPage from "./pages/Community/CommunityWriteEntryPage";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Mypage from "./pages/Mypage";
 import MyPerfumePage from "./pages/MyPerfumePage";
 import MyReviewsPage from "./pages/MyReviewsPage";
-import Mypage from "./pages/Mypage";
 import MyWishlistPage from "./pages/MyWishlistPage";
 import OnboardingQuestion from "./pages/OnboardingQuestion";
 import OnboardingResult from "./pages/OnboardingResult";
@@ -31,6 +31,7 @@ import OnboardingLoading from "./pages/OnboardingLoading";
 import ProfileSetup from "./pages/ProfileSetup";
 import Raffle from "./pages/raffle";
 import SearchResult from "./pages/SearchResult";
+import Alarm from "./pages/alarm";
 
 const TAB_ROUTES = {
   home: "/home",
@@ -87,9 +88,7 @@ export default function App() {
         }
       />
       <Route path="/raffle" element={<Raffle onBack={() => navigate("/home")} />} />
-
-      <Route path="/category" element={<CategoryRoute />} />
-      <Route path="/search" element={<SearchRoute />} />
+      <Route path="/alarm" element={<Alarm />} />
       <Route
         path="/chatbot"
         element={<Chatbot onBack={() => navigate(-1)} onSelectPerfume={() => navigate("/category")} />}
@@ -113,55 +112,36 @@ export default function App() {
       />
       <Route path="/magazine/season" element={<MagazineSummer onBack={goBackToMagazine} />} />
       <Route path="/magazine/tip" element={<MagazineTip onBack={goBackToMagazine} />} />
-
       <Route path="/my" element={<Mypage />} />
       <Route path="/mypage" element={<Navigate to="/my" replace />} />
       <Route path="/mypage/perfumes" element={<MyPerfumePage />} />
       <Route path="/mypage/wishlist" element={<MyWishlistPage />} />
       <Route path="/mypage/reviews" element={<MyReviewsPage />} />
-
-      <Route path="/community" element={<ComingSoon title="커뮤니티" />} />
+      <Route
+        path="/category"
+        element={
+          <Category
+            onSearch={(query) => navigate(`/search?q=${encodeURIComponent(query)}`)}
+            onSelect={(_, item) =>
+              navigate(`/search?q=${encodeURIComponent(item)}`)
+            }
+          />
+        }
+      />
+      <Route path="/search" element={<SearchResultRoute />} />
+      <Route path="/community" element={<CommunityWriteEntryPage />} />
       <Route path="/components" element={<ComponentsPreview />} />
       <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
   );
 }
 
-function CategoryRoute() {
+// 검색어를 쿼리스트링(?q=)으로 받는다.
+// 카드 클릭(onSelect)은 향수 상세 페이지가 생기면 연결한다.
+function SearchResultRoute() {
   const navigate = useNavigate();
-  const search = (query) => navigate(`/search?q=${encodeURIComponent(query)}`);
-
+  const [params] = useSearchParams();
   return (
-    <CategoryPage
-      onBack={() => navigate(-1)}
-      onSearch={search}
-      onSelect={(_, item) => search(item)}
-    />
-  );
-}
-
-function SearchRoute() {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-
-  return (
-    <SearchResult
-      query={searchParams.get("q") ?? ""}
-      onBack={() => navigate("/category")}
-    />
-  );
-}
-
-function ComingSoon({ title }) {
-  return (
-    <main className="relative mx-auto flex min-h-screen w-full max-w-[430px] items-center justify-center bg-background px-5 pb-28">
-      <div className="text-center">
-        <h1 className="text-title-semibold-24 text-offblack">{title}</h1>
-        <p className="mt-2 text-body-regular-14 text-grey1">화면을 준비하고 있습니다.</p>
-      </div>
-      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[430px] px-5 pb-5">
-        <BottomNav active="community" />
-      </div>
-    </main>
+    <SearchResult query={params.get("q") ?? ""} onBack={() => navigate(-1)} />
   );
 }
