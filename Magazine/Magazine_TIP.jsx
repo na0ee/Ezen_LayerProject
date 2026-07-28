@@ -71,11 +71,16 @@ export default function MagazineTip({ onBack }) {
           </section>
 
           <article className="flex h-[2892px] w-full flex-col items-center gap-16">
-            <p className="w-full px-5 text-subtitle-regular-16 text-offblack">
-              분명 아침에 뿌렸는데 점심이면 사라지는 향수. 문제는 향수가
-              아니라 뿌리는 방법일 수 있습니다. 피부 상태와 분사 위치만
-              바꿔도 향은 훨씬 오래 머뭅니다.
-            </p>
+            <div className="flex w-full flex-col items-center justify-center gap-2 px-5 text-offblack">
+              <h2 className="w-full text-title-semibold-18">
+                오래 기억되는 향을 위한 작은 습관
+              </h2>
+              <p className="w-full text-subtitle-regular-16">
+                분명 아침에 뿌렸는데 점심이면 사라지는 향수. 문제는 향수가
+                아니라 뿌리는 방법일 수 있습니다. 피부 상태와 분사 위치만
+                바꿔도 향은 훨씬 오래 머뭅니다.
+              </p>
+            </div>
 
             {SECTIONS.map((section, index) => (
               <Fragment key={section.img}>

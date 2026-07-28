@@ -72,13 +72,20 @@ export default function MagazineNiche({ onBack }) {
           </section>
 
           <article className="flex w-full flex-col items-center gap-16">
-            <p className="w-full px-5 text-subtitle-regular-16 text-offblack">
-              최근 향수 시장은 대중적인 향수에서 벗어나 자신만의 취향과
-              개성을 표현할 수 있는 니치 향수 중심으로 빠르게 변화하고
-              있습니다. 특히 MZ세대를 중심으로 향수를 단순한 향기가 아닌
-              자신을 표현하는 하나의 아이덴티티로 인식하는 경향이 강해지고
-              있습니다.
-            </p>
+            <div className="flex w-full flex-col items-center justify-center gap-2 px-5 text-offblack">
+              <h2 className="w-full text-title-semibold-18">
+                향수가 취향을 넘어 아이덴티티가 되기까지
+              </h2>
+              <p className="w-full text-subtitle-regular-16">
+                최근 향수 시장은 대중적인 향수에서 벗어나 자신만의 취향과 개성을
+                표현할 수 있는 니치 향수 중심으로 빠르게 변화하고 있습니다.
+                특히 MZ세대를 중심으로 향수를 단순한 향기가
+                <span className="block">
+                  아닌 자신을 표현하는 하나의 아이덴티티로 인식하는 경향이
+                  강해지고 있습니다.
+                </span>
+              </p>
+            </div>
 
             {SECTIONS.map((section, index) => (
               <Fragment key={section.img}>
