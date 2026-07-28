@@ -31,7 +31,7 @@ export default function BtnGo({ variant = 'more', children, className = '', ...r
     return (
       <button
         type="button"
-        className={`flex w-fit shrink-0 items-center gap-1.5 rounded-full bg-offblack/20 py-2 pl-4 pr-2.5 ${className}`}
+        className={`glass-surface-dark flex w-fit shrink-0 items-center gap-1.5 rounded-full py-2 pl-4 pr-2.5 ${className}`}
         {...rest}
       >
         <span className="text-body-regular-14 text-offwhite">{label}</span>

@@ -3,7 +3,7 @@ export default function BtnHero({ children, className = "", ...rest }) {
   return (
     <button
       type="button"
-      className={`flex h-10 w-60 items-center justify-center rounded-[32px] bg-offblack/30 text-body-semibold-16 text-offwhite ${className}`}
+      className={`glass-surface-dark flex h-10 w-60 items-center justify-center rounded-[32px] text-body-semibold-16 text-offwhite ${className}`}
       {...rest}
     >
       {children}

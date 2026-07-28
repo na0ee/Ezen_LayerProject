@@ -36,7 +36,7 @@ export default function BottomNav({
       className={`flex w-[390px] max-w-full items-center ${className}`}
     >
       <div className="flex w-[391px] shrink-0 items-center justify-center gap-1.5">
-        <div className="relative h-16 min-w-0 flex-1 overflow-hidden rounded-[50px] bg-offblack70 backdrop-blur-[2px]">
+        <div className="glass-surface-dark relative h-16 min-w-0 flex-1 overflow-hidden rounded-[50px]">
           <span
             aria-hidden="true"
             className="absolute left-2 top-1/2 h-[52px] w-[82px] rounded-[50px] bg-grey/70 transition-transform duration-200"
@@ -60,7 +60,7 @@ export default function BottomNav({
           type="button"
           aria-label="챗봇 레이 열기"
           onClick={onCharacter ?? (() => navigate("/chatbot"))}
-          className="flex size-16 shrink-0 items-center justify-center rounded-full bg-offblack70 backdrop-blur-[2px]"
+          className="glass-surface-dark flex size-16 shrink-0 items-center justify-center rounded-full"
         >
           <span className="flex size-10 items-center justify-center overflow-hidden">
             <span className="relative h-10 w-7 overflow-hidden">
