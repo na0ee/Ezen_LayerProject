@@ -16,6 +16,7 @@ import MagazineSummer from "../Magazine/Magazine_SEASON/Magazine_summer";
 import MagazineTip from "../Magazine/Magazine_TIP";
 import CategoryPage from "./pages/Category";
 import Chatbot from "./pages/Chatbot";
+import CommunityWriteEntryPage from "./pages/Community/CommunityWriteEntryPage";
 import ComponentsPreview from "./pages/ComponentsPreview";
 import CommunityWriteEntryPage from "./pages/Community/CommunityWriteEntryPage";
 import Home from "./pages/Home";
@@ -78,7 +79,7 @@ export default function App() {
 
       <Route
         path="/home"
-        element={<Home onRaffle={() => navigate("/raffle")} onNavigate={navigateByTab} />}
+        element={<Home onRaffle={() => navigate("/raffle")} />}
       />
       <Route path="/raffle" element={<Raffle onBack={() => navigate("/home")} />} />
 

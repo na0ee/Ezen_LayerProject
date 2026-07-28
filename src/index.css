@@ -127,11 +127,26 @@ html {
   scrollbar-gutter: stable;
 }
 
+html,
+body,
+#root {
+  min-height: 100%;
+  background: #000000;
+}
+
 body {
+  margin: 0;
   font-family: var(--font-sans);
   letter-spacing: -0.02em; /* 피그마 letterSpacing -2% */
   color: var(--color-offblack);
-  background: #000000;
+}
+
+/* 모바일 기본 화면(430px) 밖의 데스크톱 여백은 검은 배경으로 유지한다. */
+#root > * {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100dvh;
+  margin-inline: auto;
 }
 
 .result-chart-grid {

@@ -1,4 +1,5 @@
 import IconBottomNav from "./IconBottomNav";
+import { Link } from "react-router-dom";
 
 // 피그마: tab-nav (속성 1=home|community|magazine|my, 속성 2=white|grey)
 // 속성 2는 active(true=white)로 대체. BottomNav 안에서 사용됨
@@ -13,11 +14,14 @@ export default function TabNav({
   variant = "home",
   active = false,
   onClick,
+  to,
   className = "",
 }) {
+  const Component = to ? Link : "button";
+
   return (
-    <button
-      type="button"
+    <Component
+      {...(to ? { to } : { type: "button" })}
       onClick={onClick}
       className={`flex h-14 min-w-[60px] flex-col items-center justify-center gap-1 rounded-[50px] ${
         active ? "bg-grey/70" : ""
@@ -31,6 +35,6 @@ export default function TabNav({
       >
         {LABELS[variant]}
       </span>
-    </button>
+    </Component>
   );
 }

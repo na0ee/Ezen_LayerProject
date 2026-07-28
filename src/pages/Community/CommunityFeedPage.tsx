@@ -133,7 +133,7 @@ export default function CommunityFeedPage({
             ))}
           </section>
 
-          <div className="community-feed-bottom-nav fixed bottom-3 left-1/2 z-20 w-full max-w-[430px] -translate-x-1/2 px-5">
+          <div className="community-feed-bottom-nav fixed bottom-0 left-1/2 z-30 w-full max-w-[430px] -translate-x-1/2 px-5 pb-5">
             <BottomNav active="community" />
           </div>
         </div>
