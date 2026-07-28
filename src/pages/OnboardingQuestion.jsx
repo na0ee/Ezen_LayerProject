@@ -28,6 +28,7 @@ import q4Feminine from "../assets/images/onboarding/q4-feminine.png";
 import q4Minimal from "../assets/images/onboarding/q4-minimal.png";
 import q5Layering from "../assets/images/onboarding/q5-layering.png";
 import q5Signature from "../assets/images/onboarding/q5-signature.png";
+import { getOnboardingResultPath } from "../utils/onboardingScoring";
 
 // 피그마: 질문 페이지_Q1~Q5 (3312:24480, 3312:15050, 15103, 15167, 15212)
 // 선택지 사진은 각 원/카드 노드를 @2x로 export한 것 (src/assets/images/onboarding/)
@@ -120,6 +121,36 @@ const QUESTIONS = [
   },
 ];
 
+function getRandomSelectedImages(answers) {
+  const selectedImages = QUESTIONS.flatMap((question, questionIndex) => {
+    const answer = answers[questionIndex + 1];
+    const values = Array.isArray(answer) ? answer : [answer];
+
+    return question.options
+      .filter((option) => values.includes(option.value))
+      .map((option) => option.img)
+      .filter(Boolean);
+  });
+
+  const fallbackImages = QUESTIONS.flatMap((question) =>
+    question.options.map((option) => option.img).filter(Boolean)
+  );
+  const candidates =
+    selectedImages.length >= 3
+      ? [...new Set(selectedImages)]
+      : [...new Set([...selectedImages, ...fallbackImages])];
+
+  for (let index = candidates.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [candidates[index], candidates[randomIndex]] = [
+      candidates[randomIndex],
+      candidates[index],
+    ];
+  }
+
+  return candidates.slice(0, 3);
+}
+
 export default function OnboardingQuestion() {
   const { step: stepParam } = useParams();
   const navigate = useNavigate();
@@ -147,8 +178,19 @@ export default function OnboardingQuestion() {
       };
     });
 
-  const goNext = () =>
-    navigate(step >= QUESTIONS.length ? "/onboarding/result" : `/onboarding/${step + 1}`);
+  const goNext = () => {
+    if (step < QUESTIONS.length) {
+      navigate(`/onboarding/${step + 1}`);
+      return;
+    }
+
+    navigate("/onboarding/loading", {
+      state: {
+        images: getRandomSelectedImages(answers),
+        resultPath: getOnboardingResultPath(answers),
+      },
+    });
+  };
 
   const goBack = () =>
     navigate(step === 1 ? "/profile" : `/onboarding/${step - 1}`);
@@ -158,18 +200,21 @@ export default function OnboardingQuestion() {
       {/* slideindicater */}
       <div className="h-0.5 w-full bg-light-grey">
         <div
-          className="h-0.5 bg-point-orange"
+          className="h-0.5 bg-point-orange transition-[width] duration-500 ease-out"
           style={{ width: `${(step / QUESTIONS.length) * 100}%` }}
         />
       </div>
 
-      <div className="mt-2.5 flex h-[18px] items-center justify-between">
+      <div className="mt-2.5 flex h-[18px] items-center justify-between px-2.5">
         {/* 뒤로가기 — 피그마에서 btn/more를 좌우 반전한 인스턴스 */}
         <button type="button" onClick={goBack} className="flex items-center gap-1.5">
           <img src={chevronGrey} alt="" className="size-[18px] rotate-180" />
           <span className="text-body-regular-14 text-grey">뒤로가기</span>
         </button>
-        <BtnGo variant="more" onClick={() => navigate("/onboarding/result")}>
+        <BtnGo
+          variant="more"
+          onClick={() => navigate("/onboarding/skip")}
+        >
           건너뛰기
         </BtnGo>
       </div>

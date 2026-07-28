@@ -1,9 +1,3 @@
-import BoldSignatureResult from "./pages/BoldSignatureResult";
-import SoftWandererResult from "./pages/SoftWandererResult";
-import WhiteCanvasResult from "./pages/WhiteCanvasResult";
-import DailyBasicResult from "./pages/DailyBasicResult";
-import MoodShifterResult from "./pages/MoodShifterResult";
-import LayerMaximalistResult from "./pages/LayerMaximalistResult";
 import {
   Navigate,
   Route,
@@ -30,6 +24,9 @@ import MyReviewsPage from "./pages/MyReviewsPage";
 import Mypage from "./pages/Mypage";
 import MyWishlistPage from "./pages/MyWishlistPage";
 import OnboardingQuestion from "./pages/OnboardingQuestion";
+import OnboardingResult from "./pages/OnboardingResult";
+import OnboardingSkip from "./pages/OnboardingSkip";
+import OnboardingLoading from "./pages/OnboardingLoading";
 import ProfileSetup from "./pages/ProfileSetup";
 import Raffle from "./pages/raffle";
 import SearchResult from "./pages/SearchResult";
@@ -63,20 +60,20 @@ export default function App() {
       <Route path="/profile" element={<ProfileSetup />} />
       <Route path="/onboarding" element={<Navigate to="/onboarding/1" replace />} />
       <Route path="/onboarding/result" element={<Navigate to="/home" replace />} />
+      <Route path="/onboarding/skip" element={<OnboardingSkip />} />
+      <Route path="/onboarding/loading" element={<OnboardingLoading />} />
       <Route path="/onboarding/:step" element={<OnboardingQuestion />} />
 
-      <Route path="/result/bold-signature" element={<BoldSignatureResult />} />
-      <Route path="/bold-signature" element={<BoldSignatureResult />} />
-      <Route path="/result/soft-wanderer" element={<SoftWandererResult />} />
-      <Route path="/soft-wanderer" element={<SoftWandererResult />} />
-      <Route path="/result/white-canvas" element={<WhiteCanvasResult />} />
-      <Route path="/white-canvas" element={<WhiteCanvasResult />} />
-      <Route path="/result/daily-basic" element={<DailyBasicResult />} />
-      <Route path="/daily-basic" element={<DailyBasicResult />} />
-      <Route path="/result/mood-shifter" element={<MoodShifterResult />} />
-      <Route path="/mood-shifter" element={<MoodShifterResult />} />
-      <Route path="/result/layer-maximalist" element={<LayerMaximalistResult />} />
-      <Route path="/layer-maximalist" element={<LayerMaximalistResult />} />
+      <Route path="/result/:resultType" element={<OnboardingResult />} />
+      <Route path="/bold-signature" element={<Navigate to="/result/bold-signature" replace />} />
+      <Route path="/soft-wanderer" element={<Navigate to="/result/soft-wanderer" replace />} />
+      <Route path="/white-canvas" element={<Navigate to="/result/white-canvas" replace />} />
+      <Route path="/daily-basic" element={<Navigate to="/result/daily-basic" replace />} />
+      <Route path="/mood-shifter" element={<Navigate to="/result/mood-shifter" replace />} />
+      <Route
+        path="/layer-maximalist"
+        element={<Navigate to="/result/layer-maximalist" replace />}
+      />
 
       <Route
         path="/home"

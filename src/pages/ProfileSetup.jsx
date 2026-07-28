@@ -12,7 +12,7 @@ export default function ProfileSetup() {
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-background px-5 pb-[82px] pt-3">
       <div className="flex justify-end">
-        <BtnGo variant="more" onClick={() => navigate("/onboarding")}>
+        <BtnGo variant="more" onClick={() => navigate("/onboarding/skip")}>
           건너뛰기
         </BtnGo>
       </div>
