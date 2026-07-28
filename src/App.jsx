@@ -15,16 +15,22 @@ import MagazineNiche from "../Magazine/Magazine_NICHE";
 import MagazineSummer from "../Magazine/Magazine_SEASON/Magazine_summer";
 import MagazineTip from "../Magazine/Magazine_TIP";
 import { BottomNav } from "./components/common";
+<<<<<<< HEAD
 import CategoryPage from "./pages/Category";
+=======
+import Category from "./pages/Category";
+>>>>>>> a726b1b4ede583a85f29330a869f82b618021d8d
 import Chatbot from "./pages/Chatbot";
 import ComponentsPreview from "./pages/ComponentsPreview";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyPerfumePage from "./pages/MyPerfumePage";
+import Mypage from "./pages/Mypage";
 import MyReviewsPage from "./pages/MyReviewsPage";
 import Mypage from "./pages/Mypage";
 import MyWishlistPage from "./pages/MyWishlistPage";
 import OnboardingQuestion from "./pages/OnboardingQuestion";
+<<<<<<< HEAD
 import OnboardingResult from "./pages/OnboardingResult";
 import OnboardingSkip from "./pages/OnboardingSkip";
 import OnboardingLoading from "./pages/OnboardingLoading";
@@ -38,6 +44,11 @@ const TAB_ROUTES = {
   magazine: "/magazine",
   my: "/my",
 };
+=======
+import ProfileSetup from "./pages/ProfileSetup";
+import Raffle from "./pages/raffle";
+import SearchResult from "./pages/SearchResult";
+>>>>>>> a726b1b4ede583a85f29330a869f82b618021d8d
 
 export default function App() {
   const navigate = useNavigate();
@@ -108,6 +119,7 @@ export default function App() {
       <Route path="/magazine/season" element={<MagazineSummer onBack={goBackToMagazine} />} />
       <Route path="/magazine/tip" element={<MagazineTip onBack={goBackToMagazine} />} />
 
+<<<<<<< HEAD
       <Route path="/my" element={<Mypage />} />
       <Route path="/mypage" element={<Navigate to="/my" replace />} />
       <Route path="/mypage/perfumes" element={<MyPerfumePage />} />
@@ -115,12 +127,38 @@ export default function App() {
       <Route path="/mypage/reviews" element={<MyReviewsPage />} />
 
       <Route path="/community" element={<ComingSoon title="커뮤니티" />} />
+=======
+      <Route
+        path="/category"
+        element={
+          <Category
+            onSearch={(query) => navigate(`/search?q=${encodeURIComponent(query)}`)}
+            onSelect={(_, item) =>
+              navigate(`/search?q=${encodeURIComponent(item)}`)
+            }
+          />
+        }
+      />
+      <Route path="/search" element={<SearchResultRoute />} />
+      <Route path="/chatbot" element={<Chatbot onBack={() => navigate(-1)} />} />
+
+      <Route
+        path="/community"
+        element={<ComingSoon title="커뮤니티" />}
+      />
+      <Route path="/my" element={<ComingSoon title="마이페이지" />} />
+      <Route path="/mypage" element={<Mypage />} />
+      <Route path="/mypage/perfumes" element={<MyPerfumePage />} />
+      <Route path="/mypage/wishlist" element={<MyWishlistPage />} />
+      <Route path="/mypage/reviews" element={<MyReviewsPage />} />
+>>>>>>> a726b1b4ede583a85f29330a869f82b618021d8d
       <Route path="/components" element={<ComponentsPreview />} />
       <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
   );
 }
 
+<<<<<<< HEAD
 function CategoryRoute() {
   const navigate = useNavigate();
   const search = (query) => navigate(`/search?q=${encodeURIComponent(query)}`);
@@ -143,6 +181,15 @@ function SearchRoute() {
       query={searchParams.get("q") ?? ""}
       onBack={() => navigate("/category")}
     />
+=======
+// 검색어를 쿼리스트링(?q=)으로 받는다.
+// 카드 클릭(onSelect)은 향수 상세 페이지가 생기면 연결한다.
+function SearchResultRoute() {
+  const navigate = useNavigate();
+  const [params] = useSearchParams();
+  return (
+    <SearchResult query={params.get("q") ?? ""} onBack={() => navigate(-1)} />
+>>>>>>> a726b1b4ede583a85f29330a869f82b618021d8d
   );
 }
 
