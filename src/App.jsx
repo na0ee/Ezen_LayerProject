@@ -19,8 +19,12 @@ import {
   CategoryChip,
   ChatCard,
   CheckBox,
+  CommunityComment,
   CommunityEnter,
   CommunityToggle,
+  Con2,
+  ConQuestion,
+  ConQuestion1,
   HashTag,
   Header,
   Heart,
@@ -290,6 +294,41 @@ function App() {
           label={profileOpen ? "프로필 공개" : "프로필 비공개"}
           checked={profileOpen}
           onChange={setProfileOpen}
+        />
+        <ConQuestion
+          profileName="예은티비"
+          profileTime="5분 전"
+          title="향수 추천해주세요"
+          text="사과향이나 오렌지같은 약간 청순하면서 발랄한? 그런 과일향이 필요해요!! 아시는 분 추천해주세요 ㅜㅜ 최소 3만원 이하로 해주시면 감사하겠습니다! 청순발랄한 향이라면 과일이 아니어도 상관 없어요!"
+          likes={42}
+          comments={8}
+        />
+        <ConQuestion1
+          profileTime="5분 전"
+          sub="익명의 향덕님이 하나 골라달래요"
+          title="여름용 데일리 향수, 어떤 게 더 좋을까요?"
+          options={[
+            { label: "조말론 우드 세이지 앤 씨솔트", percent: 60, selected: true },
+            { label: "딥디크 오 데 썽", percent: 40 },
+          ]}
+        />
+        <Con2
+          profileName="최해수"
+          profileTime="30분 전"
+          title="이불 냄새를 향수로 만든다면"
+          text="레이지 선데이 모닝은 자기 전에 뿌리는 향수예요. 갓 세탁한 이불에 파묻히는 느낌. 수면향 찾으시는 분들께 강추."
+          keywords={["머스크", "잠들기전", "포근함", "지속력좋아요"]}
+          likes={42}
+          comments={8}
+        />
+        <CommunityComment
+          items={[
+            { name: "리뷰", desc: "사용하는 향수의 후기를 남겨주세요" },
+            { name: "자유 게시글", desc: "궁금한 걸 자유롭게 물어보세요" },
+            { name: "하나 골라줘!", desc: "궁금한 걸 투표 형식으로 물어보세요" },
+            { name: "향 추천받기", desc: "유저들에게 향수 추천을 받아보세요" },
+          ]}
+          className="-mx-5 w-auto"
         />
       </div>
 

@@ -149,9 +149,12 @@ radius/padding은 피그마 수치 그대로 Tailwind 유틸리티 사용: `roun
 | --- | --- | --- | --- |
 | community-enter | `CommunityEnter` | title, brand, ml, txt — 글작성 폼 필드 (피그마에서 개명됨) | ✅ |
 | community-toggle | `CommunityToggle` | on/off → `checked` boolean (스위치는 CSS 구현) | ✅ |
-| # | `HashTag` | 삭제 버튼 포함 태그 칩 | ✅ |
-| Community/질문게시판/댓글 (3243:32261) | - | 신규 추가된 심볼 — 배치 지정 시 등록 | ⬜ |
-| card (3257:72937), Frame 1707482726, con2 | - | 커뮤니티 섹션에 신규 추가된 심볼들 — 이름 정리 후 배치 지정 필요 | ⬜ |
+| hashtag | `HashTag` | 삭제 버튼 포함 태그 칩 (피그마 `#`→개명) | ✅ |
+| Community-comment | `CommunityComment` | 글쓰기 종류 선택 바텀시트 (`items` 배열) | ✅ |
+| con-question | `ConQuestion` | 390×217 질문 글 카드 | ✅ |
+| con-question1 | `ConQuestion1` | 390×278 투표형 질문 (`options=[{label,percent,selected}]`) | ✅ |
+| con2 ⚠️ | `Con2` | 430×687 이미지 큰 피드형 게시글. 피그마 이름이 의미 불명확 — 개명 권장 | ✅ |
+| Plus (3257:73266) | - | 12×12 아이콘 심볼, 용처 미확인 — 필요 시 등록 | ⬜ |
 
 ### 챗봇
 
