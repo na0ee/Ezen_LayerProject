@@ -1,88 +1,143 @@
-import { useState } from "react";
-import Home from "./pages/Home";
-import Raffle from "./pages/raffle";
-import {
-  Badge,
-  Bell,
-  BottomNav,
-  BtnBig,
-  BtnGo,
-  BtnHero,
-  BtnSmall,
-  Bubble,
-  CardChallenge,
-  CardChallengeSmall,
-  CardInfo,
-  CardMag,
-  CardMainReview,
-  CardRank,
-  CardSmall,
-  Category,
-  CategoryChip,
-  ChatCard,
-  CheckBox,
-  CommunityComment,
-  CommunityEnter,
-  CommunityToggle,
-  Con2,
-  ConQuestion,
-  ConQuestion1,
-  HashTag,
-  Header,
-  Heart,
-  Icon,
-  Img,
-  Input,
-  KeywordList,
-  MagListCard,
-  MagazineCard,
-  MainBanner,
-  MainBannerText,
-  MiddleCard,
-  Profile,
-  QuickCategory,
-  Review,
-  ReviewAiSummary,
-  ReviewSummary,
-  ReviewSummary1,
-  ReviewSummary2,
-  Search,
-  TabSub,
-  TagMag,
-  TitleMag,
-  TitleMain,
-  TitleSection,
-} from "./components/common";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import MagazineAllView from "../Magazine/Magazine_allview";
+import MagazineByredo from "../Magazine/Magazine_BYREDO";
+import MagazineDiptyque from "../Magazine/Magazine_DIPTYQUE";
+import MagazineFragranceCollection from "../Magazine/Magazine_FragranceCollection";
+import MagazineJomalone from "../Magazine/Magazine_JOMALONE";
+import MagazineMain from "../Magazine/Magazine_main";
+import MagazineNiche from "../Magazine/Magazine_NICHE";
+import MagazineSummer from "../Magazine/Magazine_SEASON/Magazine_summer";
+import MagazineTip from "../Magazine/Magazine_TIP";
+import { BottomNav } from "./components/common";
 import ComponentsPreview from "./pages/ComponentsPreview";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import OnboardingQuestion from "./pages/OnboardingQuestion";
 import ProfileSetup from "./pages/ProfileSetup";
+import Raffle from "./pages/raffle";
 
 export default function App() {
+  const navigate = useNavigate();
+  const navigateByTab = (tab) => {
+    const routes = {
+      home: "/home",
+      community: "/community",
+      magazine: "/magazine",
+      my: "/my",
+    };
+    navigate(routes[tab]);
+  };
+  const goBackToMagazine = () => navigate("/magazine");
+  const magazineRoutes = {
+    onAllView: () => navigate("/magazine/all"),
+    onByredo: () => navigate("/magazine/byredo"),
+    onNiche: () => navigate("/magazine/niche"),
+    onJomalone: () => navigate("/magazine/jomalone"),
+    onDiptyque: () => navigate("/magazine/diptyque"),
+    onFragranceCollection: () => navigate("/magazine/collection"),
+    onSeason: () => navigate("/magazine/season"),
+    onSantalTip: () => navigate("/magazine/tip"),
+  };
+
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<Login />} />
       <Route path="/profile" element={<ProfileSetup />} />
-      <Route path="/onboarding" element={<Navigate to="/onboarding/1" replace />} />
+      <Route
+        path="/onboarding"
+        element={<Navigate to="/onboarding/1" replace />}
+      />
+      <Route
+        path="/onboarding/result"
+        element={<Navigate to="/home" replace />}
+      />
       <Route path="/onboarding/:step" element={<OnboardingQuestion />} />
-      {/* 공통 컴포넌트 미리보기 */}
+
+      <Route
+        path="/home"
+        element={
+          <Home
+            onRaffle={() => navigate("/raffle")}
+            onNavigate={navigateByTab}
+          />
+        }
+      />
+      <Route
+        path="/raffle"
+        element={<Raffle onBack={() => navigate("/home")} />}
+      />
+
+      <Route
+        path="/magazine"
+        element={
+          <MagazineMain
+            {...magazineRoutes}
+            onNavigate={navigateByTab}
+          />
+        }
+      />
+      <Route
+        path="/magazine/all"
+        element={
+          <MagazineAllView
+            {...magazineRoutes}
+            onBack={goBackToMagazine}
+          />
+        }
+      />
+      <Route
+        path="/magazine/byredo"
+        element={<MagazineByredo onBack={goBackToMagazine} />}
+      />
+      <Route
+        path="/magazine/niche"
+        element={<MagazineNiche onBack={goBackToMagazine} />}
+      />
+      <Route
+        path="/magazine/jomalone"
+        element={<MagazineJomalone onBack={goBackToMagazine} />}
+      />
+      <Route
+        path="/magazine/diptyque"
+        element={<MagazineDiptyque onBack={goBackToMagazine} />}
+      />
+      <Route
+        path="/magazine/collection"
+        element={<MagazineFragranceCollection onBack={goBackToMagazine} />}
+      />
+      <Route
+        path="/magazine/season"
+        element={<MagazineSummer onBack={goBackToMagazine} />}
+      />
+      <Route
+        path="/magazine/tip"
+        element={<MagazineTip onBack={goBackToMagazine} />}
+      />
+
+      <Route
+        path="/community"
+        element={<ComingSoon title="커뮤니티" />}
+      />
+      <Route path="/my" element={<ComingSoon title="마이페이지" />} />
       <Route path="/components" element={<ComponentsPreview />} />
+      <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
   );
 }
 
-export default function App() {
-  const [page, setPage] = useState("home");
-
-  if (window.location.pathname === "/components") {
-    return <ComponentsPreview />;
-  }
-
-  if (page === "raffle") {
-    return <Raffle onBack={() => setPage("home")} />;
-  }
-
-  return <Home onRaffle={() => setPage("raffle")} />;
+function ComingSoon({ title }) {
+  return (
+    <main className="relative mx-auto flex min-h-screen w-full max-w-[430px] items-center justify-center bg-background px-5 pb-28">
+      <div className="text-center">
+        <h1 className="text-title-semibold-24 text-offblack">{title}</h1>
+        <p className="mt-2 text-body-regular-14 text-grey1">
+          화면을 준비하고 있습니다.
+        </p>
+      </div>
+      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[430px] px-5 pb-5">
+        <BottomNav />
+      </div>
+    </main>
+  );
 }

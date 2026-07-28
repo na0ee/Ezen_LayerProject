@@ -37,6 +37,7 @@ export default function MagazineMain({
   onFragranceCollection,
   onSeason,
   onSantalTip,
+  onNavigate,
 }) {
   const [category, setCategory] = useState("전체");
 
@@ -335,6 +336,7 @@ export default function MagazineMain({
 
         <BottomNav
           active="magazine"
+          onChange={onNavigate}
           className="fixed bottom-5 left-1/2 z-50 !w-[390px] -translate-x-1/2 !gap-[5px] [&>button]:!size-[72px] [&>div]:!h-[72px] [&>div]:!w-[313px] [&>div]:!flex-none [&>div>div]:!px-0 [&>div>div>button]:!h-14"
         />
       </div>
