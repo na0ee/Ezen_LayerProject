@@ -35,7 +35,7 @@ export default function BtnGo({ variant = 'more', children, className = '', ...r
         {...rest}
       >
         <span className="text-body-regular-14 text-offwhite">{label}</span>
-        <img src={chevronWhite} alt="" className="size-[18px]" />
+        <img src={chevronWhite} alt="" className="size-4.5" />
       </button>
     )
   }
@@ -49,7 +49,7 @@ export default function BtnGo({ variant = 'more', children, className = '', ...r
       {variant === 'ai' && <img src={sparkles} alt="" className="size-4" />}
       <span className="flex items-center gap-1.5">
         <span className="text-body-regular-14 text-grey">{label}</span>
-        <img src={chevronGrey} alt="" className="size-[18px]" />
+        <img src={chevronGrey} alt="" className="size-4.5" />
       </span>
     </button>
   )

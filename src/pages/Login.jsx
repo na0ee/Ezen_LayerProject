@@ -25,17 +25,17 @@ export default function Login() {
   };
 
   return (
-    <div className="mx-auto min-h-dvh w-full max-w-[430px] bg-background">
-      {/* 피그마 wrap: 높이 647, 내용은 세로 중앙에서 17.5px 위로 → pb-[35px] */}
-      <div className="flex h-[647px] flex-col items-center justify-center gap-[60px] px-5 pb-[35px]">
+    <div className="mx-auto min-h-dvh w-full max-w-107.5 bg-background">
+      {/* 피그마 wrap: 높이 647, 내용은 세로 중앙에서 17.5px 위로 → pb-8.75 */}
+      <div className="flex h-161.75 flex-col items-center justify-center gap-15 px-5 pb-8.75">
         <div className="flex flex-col items-center justify-center gap-4">
           <p className="font-en text-en-logo-48 text-offblack">LAYER</p>
-          <p className="w-[154px] text-center text-subtitle-regular-16 leading-none text-offblack">
+          <p className="w-38.5 text-center text-subtitle-regular-16 leading-none text-offblack">
             향이 겹쳐, 취향이 되는 곳
           </p>
         </div>
 
-        <div className="flex w-full flex-col gap-[50px]">
+        <div className="flex w-full flex-col gap-12.5">
           <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
             <LoginInput
               label="이메일"

@@ -8,13 +8,13 @@ export default function CommunityComment({
 }) {
   return (
     <div
-      className={`relative w-full overflow-hidden rounded-t-2xl bg-offwhite pb-[61px] pt-[34px] ${className}`}
+      className={`relative w-full overflow-hidden rounded-t-2xl bg-offwhite pb-15.25 pt-8.5 ${className}`}
     >
       <span
         aria-hidden
-        className="absolute left-1/2 top-[14px] h-1 w-8 -translate-x-1/2 rounded-3xl bg-2light-grey"
+        className="absolute left-1/2 top-3.5 h-1 w-8 -translate-x-1/2 rounded-3xl bg-2light-grey"
       />
-      <div className="flex flex-col gap-[30px] px-5">
+      <div className="flex flex-col gap-7.5 px-5">
         <p className="pt-3 text-title-semibold-18 text-offblack">{title}</p>
         <div className="flex flex-col gap-4">
           {items.map((item) => (

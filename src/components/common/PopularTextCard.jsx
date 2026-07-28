@@ -12,11 +12,11 @@ export default function PopularTextCard({
 
   return (
     <article
-      className={`flex h-[336px] w-[262px] shrink-0 flex-col items-center gap-4 overflow-hidden rounded-lg border-[0.5px] border-light-grey bg-offwhite px-4 ${
+      className={`flex h-84 w-65.5 shrink-0 flex-col items-center gap-4 overflow-hidden rounded-lg border-[0.5px] border-light-grey bg-offwhite px-4 ${
         isJomalone ? "pb-4" : "pb-6"
       } ${className}`}
     >
-      <div className="relative h-[230px] w-[262px] shrink-0 overflow-hidden">
+      <div className="relative h-57.5 w-65.5 shrink-0 overflow-hidden">
         {baseImg && (
           <img
             src={baseImg}

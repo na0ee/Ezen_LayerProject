@@ -12,12 +12,12 @@ export default function CardChallenge({
 }) {
   return (
     <div
-      className={`relative flex h-[260px] w-[390px] items-end overflow-hidden rounded-2xl bg-light-grey p-5 shadow-[5px_4px_4px_0px_rgba(0,0,0,0.06)] ${className}`}
+      className={`relative flex h-65 w-97.5 items-end overflow-hidden rounded-2xl bg-light-grey p-5 shadow-[5px_4px_4px_0px_rgba(0,0,0,0.06)] ${className}`}
     >
       {img && (
         <img src={img} alt="" className="absolute inset-0 size-full object-cover" />
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-offblack/50 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-offblack/50 to-transparent" />
       <div className="relative flex w-full items-end justify-between gap-4">
         <div className="flex min-w-0 flex-col gap-1">
           <p className="text-title-semibold-18 text-offwhite">{title}</p>

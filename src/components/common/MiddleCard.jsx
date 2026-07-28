@@ -26,7 +26,7 @@ export default function MiddleCard({
 
   return (
     <div
-      className={`relative h-64 w-[190px] overflow-hidden rounded-2xl bg-light-grey ${
+      className={`relative h-64 w-47.5 overflow-hidden rounded-2xl bg-light-grey ${
         onClick ? "cursor-pointer" : ""
       } ${className}`}
       aria-label={ariaLabel}
@@ -38,7 +38,7 @@ export default function MiddleCard({
       {img && (
         <img src={img} alt="" className="absolute inset-0 size-full object-cover" />
       )}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80" />
+      <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/80" />
       <div className="absolute right-0 top-0 p-4">
         <Heart
           variant={liked ? "abled" : "grey1"}

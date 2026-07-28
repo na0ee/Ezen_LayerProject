@@ -154,7 +154,7 @@ export default function OnboardingQuestion() {
     navigate(step === 1 ? "/profile" : `/onboarding/${step - 1}`);
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-background pb-20">
+    <div className="mx-auto flex min-h-dvh w-full max-w-107.5 flex-col bg-background pb-20">
       {/* slideindicater */}
       <div className="h-0.5 w-full bg-light-grey">
         <div
@@ -163,10 +163,10 @@ export default function OnboardingQuestion() {
         />
       </div>
 
-      <div className="mt-2.5 flex h-[18px] items-center justify-between">
+      <div className="mt-2.5 flex h-4.5 items-center justify-between">
         {/* 뒤로가기 — 피그마에서 btn/more를 좌우 반전한 인스턴스 */}
         <button type="button" onClick={goBack} className="flex items-center gap-1.5">
-          <img src={chevronGrey} alt="" className="size-[18px] rotate-180" />
+          <img src={chevronGrey} alt="" className="size-4.5 rotate-180" />
           <span className="text-body-regular-14 text-grey">뒤로가기</span>
         </button>
         <BtnGo variant="more" onClick={() => navigate("/onboarding/result")}>
@@ -175,7 +175,7 @@ export default function OnboardingQuestion() {
       </div>
 
       {/* 타이틀 블록은 106px 고정 — 문항마다 제목 높이가 달라도 선택지가 같은 y에 오도록 */}
-      <div className="mt-[85.5px] flex h-[106px] flex-col items-center gap-2.5 px-5">
+      <div className="mt-[85.5px] flex h-26.5 flex-col items-center gap-2.5 px-5">
         <h1 className="text-center text-title-semibold-24 text-offblack">
           {question.title}
         </h1>

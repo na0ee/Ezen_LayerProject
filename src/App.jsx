@@ -2,6 +2,7 @@ import {
   Navigate,
   Route,
   Routes,
+  useLocation,
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
@@ -19,7 +20,10 @@ import Chatbot from "./pages/Chatbot";
 import ComponentsPreview from "./pages/ComponentsPreview";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import MyMembershipPage from "./pages/MyMembershipPage";
+import MyPerfumeAddPage from "./pages/MyPerfumeAddPage";
 import MyPerfumePage from "./pages/MyPerfumePage";
+import MyPerfumeRecordPage from "./pages/MyPerfumeRecordPage";
 import MyReviewsPage from "./pages/MyReviewsPage";
 import Mypage from "./pages/Mypage";
 import MyWishlistPage from "./pages/MyWishlistPage";
@@ -37,6 +41,11 @@ const TAB_ROUTES = {
 
 export default function App() {
   const navigate = useNavigate();
+  const location = useLocation();
+  // 멤버십 등급 모달을 팝업처럼 띄우기 위한 배경 라우트 패턴 — Mypage.jsx에서
+  // navigate(..., { state: { backgroundLocation } })로 넘어오면 이전 화면을 그대로 유지한 채
+  // 모달 라우트만 그 위에 겹쳐 그린다 (뒤 배경이 실제로 어두워진 콘텐츠로 보이게)
+  const backgroundLocation = location.state?.backgroundLocation;
   const navigateByTab = (tab) => navigate(TAB_ROUTES[tab]);
   const goBackToMagazine = () => navigate("/magazine");
   const magazineRoutes = {
@@ -51,56 +60,67 @@ export default function App() {
   };
 
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/profile" element={<ProfileSetup />} />
-      <Route path="/onboarding" element={<Navigate to="/onboarding/1" replace />} />
-      <Route path="/onboarding/result" element={<Navigate to="/home" replace />} />
-      <Route path="/onboarding/:step" element={<OnboardingQuestion />} />
+    <>
+      <Routes location={backgroundLocation || location}>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<ProfileSetup />} />
+        <Route path="/onboarding" element={<Navigate to="/onboarding/1" replace />} />
+        <Route path="/onboarding/result" element={<Navigate to="/home" replace />} />
+        <Route path="/onboarding/:step" element={<OnboardingQuestion />} />
 
-      <Route
-        path="/home"
-        element={<Home onRaffle={() => navigate("/raffle")} onNavigate={navigateByTab} />}
-      />
-      <Route path="/raffle" element={<Raffle onBack={() => navigate("/home")} />} />
+        <Route
+          path="/home"
+          element={<Home onRaffle={() => navigate("/raffle")} onNavigate={navigateByTab} />}
+        />
+        <Route path="/raffle" element={<Raffle onBack={() => navigate("/home")} />} />
 
-      <Route path="/category" element={<CategoryRoute />} />
-      <Route path="/search" element={<SearchRoute />} />
-      <Route
-        path="/chatbot"
-        element={<Chatbot onBack={() => navigate(-1)} onSelectPerfume={() => navigate("/category")} />}
-      />
+        <Route path="/category" element={<CategoryRoute />} />
+        <Route path="/search" element={<SearchRoute />} />
+        <Route
+          path="/chatbot"
+          element={<Chatbot onBack={() => navigate(-1)} onSelectPerfume={() => navigate("/category")} />}
+        />
 
-      <Route
-        path="/magazine"
-        element={<MagazineMain {...magazineRoutes} onNavigate={navigateByTab} />}
-      />
-      <Route
-        path="/magazine/all"
-        element={<MagazineAllView {...magazineRoutes} onBack={goBackToMagazine} />}
-      />
-      <Route path="/magazine/byredo" element={<MagazineByredo onBack={goBackToMagazine} />} />
-      <Route path="/magazine/niche" element={<MagazineNiche onBack={goBackToMagazine} />} />
-      <Route path="/magazine/jomalone" element={<MagazineJomalone onBack={goBackToMagazine} />} />
-      <Route path="/magazine/diptyque" element={<MagazineDiptyque onBack={goBackToMagazine} />} />
-      <Route
-        path="/magazine/collection"
-        element={<MagazineFragranceCollection onBack={goBackToMagazine} />}
-      />
-      <Route path="/magazine/season" element={<MagazineSummer onBack={goBackToMagazine} />} />
-      <Route path="/magazine/tip" element={<MagazineTip onBack={goBackToMagazine} />} />
+        <Route
+          path="/magazine"
+          element={<MagazineMain {...magazineRoutes} onNavigate={navigateByTab} />}
+        />
+        <Route
+          path="/magazine/all"
+          element={<MagazineAllView {...magazineRoutes} onBack={goBackToMagazine} />}
+        />
+        <Route path="/magazine/byredo" element={<MagazineByredo onBack={goBackToMagazine} />} />
+        <Route path="/magazine/niche" element={<MagazineNiche onBack={goBackToMagazine} />} />
+        <Route path="/magazine/jomalone" element={<MagazineJomalone onBack={goBackToMagazine} />} />
+        <Route path="/magazine/diptyque" element={<MagazineDiptyque onBack={goBackToMagazine} />} />
+        <Route
+          path="/magazine/collection"
+          element={<MagazineFragranceCollection onBack={goBackToMagazine} />}
+        />
+        <Route path="/magazine/season" element={<MagazineSummer onBack={goBackToMagazine} />} />
+        <Route path="/magazine/tip" element={<MagazineTip onBack={goBackToMagazine} />} />
 
-      <Route path="/my" element={<Mypage />} />
-      <Route path="/mypage" element={<Navigate to="/my" replace />} />
-      <Route path="/mypage/perfumes" element={<MyPerfumePage />} />
-      <Route path="/mypage/wishlist" element={<MyWishlistPage />} />
-      <Route path="/mypage/reviews" element={<MyReviewsPage />} />
+        <Route path="/my" element={<Mypage />} />
+        <Route path="/mypage" element={<Navigate to="/my" replace />} />
+        <Route path="/mypage/perfumes" element={<MyPerfumePage />} />
+        <Route path="/mypage/perfumes/new" element={<MyPerfumeAddPage />} />
+        <Route path="/mypage/perfumes/record" element={<MyPerfumeRecordPage />} />
+        <Route path="/mypage/wishlist" element={<MyWishlistPage />} />
+        <Route path="/mypage/reviews" element={<MyReviewsPage />} />
+        <Route path="/mypage/membership" element={<MyMembershipPage />} />
 
-      <Route path="/community" element={<ComingSoon title="커뮤니티" />} />
-      <Route path="/components" element={<ComponentsPreview />} />
-      <Route path="*" element={<Navigate to="/home" replace />} />
-    </Routes>
+        <Route path="/community" element={<ComingSoon title="커뮤니티" />} />
+        <Route path="/components" element={<ComponentsPreview />} />
+        <Route path="*" element={<Navigate to="/home" replace />} />
+      </Routes>
+
+      {backgroundLocation && (
+        <Routes>
+          <Route path="/mypage/membership" element={<MyMembershipPage />} />
+        </Routes>
+      )}
+    </>
   );
 }
 
@@ -131,7 +151,7 @@ function SearchRoute() {
 
 function ComingSoon({ title }) {
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-[430px] items-center justify-center bg-background px-5">
+    <main className="mx-auto flex min-h-screen w-full max-w-107.5 items-center justify-center bg-background px-5">
       <div className="text-center">
         <h1 className="text-title-semibold-24 text-offblack">{title}</h1>
         <p className="mt-2 text-body-regular-14 text-grey1">화면을 준비하고 있습니다.</p>

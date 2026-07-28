@@ -8,7 +8,7 @@ export default function CommunityToggle({
 }) {
   return (
     <div className={`flex w-full items-center gap-2 ${className}`}>
-      <p className="min-w-0 flex-1 py-[11px] text-[17px] leading-[22px] text-offblack">
+      <p className="min-w-0 flex-1 py-2.75 text-[17px] leading-5.5 text-offblack">
         {label}
       </p>
       <button
@@ -16,12 +16,12 @@ export default function CommunityToggle({
         role="switch"
         aria-checked={checked}
         onClick={() => onChange?.(!checked)}
-        className={`mr-2.5 h-[31px] w-[51px] shrink-0 rounded-full p-0.5 transition-colors ${
+        className={`mr-2.5 h-7.75 w-12.75 shrink-0 rounded-full p-0.5 transition-colors ${
           checked ? "bg-point-orange" : "bg-2light-grey"
         }`}
       >
         <span
-          className={`block size-[27px] rounded-full bg-offwhite shadow transition-transform ${
+          className={`block size-6.75 rounded-full bg-offwhite shadow transition-transform ${
             checked ? "translate-x-5" : ""
           }`}
         />

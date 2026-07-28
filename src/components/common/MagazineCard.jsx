@@ -10,7 +10,7 @@ export default function MagazineCard({
 }) {
   return (
     <div
-      className={`relative flex h-[336px] w-[262px] flex-col justify-end overflow-hidden rounded-2xl bg-light-grey p-5 ${className}`}
+      className={`relative flex h-84 w-65.5 flex-col justify-end overflow-hidden rounded-2xl bg-light-grey p-5 ${className}`}
     >
       {img && (
         <img src={img} alt="" className="absolute inset-0 size-full object-cover" />

@@ -7,7 +7,7 @@ function VoteBar({ label, percent, selected, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className={`relative flex h-[52px] w-full items-center justify-between overflow-hidden rounded-lg border-[0.8px] p-4 ${
+      className={`relative flex h-13 w-full items-center justify-between overflow-hidden rounded-lg border-[0.8px] p-4 ${
         selected ? "border-point-orange" : "border-2light-grey"
       }`}
     >

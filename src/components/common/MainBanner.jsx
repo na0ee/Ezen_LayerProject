@@ -8,7 +8,7 @@ export default function MainBanner({
 }) {
   return (
     <div
-      className={`relative h-[214px] w-full overflow-hidden rounded-2xl bg-light-grey ${className}`}
+      className={`relative h-53.5 w-full overflow-hidden rounded-2xl bg-light-grey ${className}`}
       {...rest}
     >
       {img && <img src={img} alt={alt} className={imgClassName} />}

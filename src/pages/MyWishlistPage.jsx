@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { BottomNav, Header, Heart } from "../components/common";
+import { useNavigate } from "react-router-dom";
+import { BottomNav, BtnSmall, Header, Heart, KeywordList } from "../components/common";
 import FilterSheet from "../components/common/FilterSheet";
 import chevronDown from "../assets/icons/chevron-down.svg";
 import buly from "../assets/images/mypage/buly.png";
 import bvlgari from "../assets/images/mypage/bvlgari.png";
+import byredo from "../assets/images/mypage/byredo.png";
 import diptyque from "../assets/images/mypage/diptyque.png";
+import jomalone from "../assets/images/mypage/jomalone.png";
 import masion from "../assets/images/mypage/masion.png";
 
 // 참고 파일(MyWishlistPage.tsx)의 레이아웃/기능을 이 프로젝트 컴포넌트·토큰으로 이식
@@ -12,11 +15,12 @@ const filterTabs = ["브랜드", "향 계열/향기", "용량"];
 const categoryTabs = ["전체", ...filterTabs];
 
 const brandOptions = [
-  "BULY",
-  "BVLGARI PERFUME",
-  "DIPTYQUE",
-  "MAISON MARGIELA FRAGRANCES",
-  "매종",
+  { name: "불리", nameEn: "BULY" },
+  { name: "불가리", nameEn: "BVLGARI PERFUME" },
+  { name: "딥티크", nameEn: "DIPTYQUE" },
+  { name: "메종 마르지엘라", nameEn: "MAISON MARGIELA FRAGRANCES" },
+  { name: "조 말론", nameEn: "JO MALONE" },
+  { name: "바이레도", nameEn: "BYREDO" },
 ];
 const fragranceOptions = ["알데하이드", "피오니", "머스크", "시트러스", "플로럴"];
 const volumeOptions = ["30ml 미만", "30ml ~ 50ml 미만", "50ml ~ 100ml 미만", "100ml ~ 200ml 미만"];
@@ -57,21 +61,21 @@ const wishItems = [
     name: "오 데 썽 오 드 뚜왈렛 100ML",
     image: diptyque,
     keywords: ["#비터 오렌지", "#오렌지 블로섬", "#패츌리"],
-    centeredImage: true,
   },
   {
     brand: "JO MALONE",
     name: "우드 세이지 앤 씨솔트 코롱 100ML",
+    image: jomalone,
     keywords: ["#라벤더", "#씨솔트", "#드라이 허브"],
   },
   {
     brand: "BYREDO",
     name: "블랑쉬 오 드 퍼퓸 100ML",
+    image: byredo,
     keywords: ["#라벤더", "#장미", "#화이트 머스크"],
   },
 ];
 
-// TODO: 참고 파일의 조 말론/바이레도 상품 이미지가 이 프로젝트에 없어 회색 placeholder로 대체
 function WishImagePlaceholder() {
   return <div className="size-full bg-2light-grey" />;
 }
@@ -82,19 +86,15 @@ function WishCard({ item }) {
 
   return (
     <article className="min-w-0">
-      <div className="relative flex h-[254px] items-center justify-center overflow-hidden bg-offwhite">
+      <div className="relative flex h-63.5 items-center justify-center overflow-hidden bg-offwhite">
         {item.image ? (
-          item.centeredImage ? (
-            <img alt={item.name} className="h-[150px] w-auto object-contain" src={item.image} />
-          ) : (
-            <img alt={item.name} className="size-full object-cover" src={item.image} />
-          )
+          <img alt={item.name} className="h-42.5 w-auto object-contain" src={item.image} />
         ) : (
           <WishImagePlaceholder />
         )}
         <Heart
           variant={isFavorite ? "abled" : "grey1"}
-          className="absolute right-4 bottom-4 size-6"
+          className="absolute right-3 bottom-3 size-6"
           onClick={() => setIsFavorite((favorite) => !favorite)}
         />
       </div>
@@ -104,35 +104,29 @@ function WishCard({ item }) {
         <h3 className="line-clamp-2 text-body-semibold-16 text-offblack">{item.name}</h3>
       </div>
 
-      <div className="mt-3 flex h-3.5 flex-wrap gap-x-2 gap-y-1 overflow-hidden">
-        {item.keywords.map((keyword) => (
-          <span className="text-caption-medium-12 text-grey" key={keyword}>
-            {keyword}
-          </span>
-        ))}
-      </div>
+      <KeywordList
+        keywords={item.keywords}
+        variant="grey"
+        className="mt-3 h-3.5 flex-wrap gap-x-2 gap-y-1 overflow-hidden"
+      />
 
-      <button
-        className="mt-3 h-[30px] w-fit rounded-full border border-light-grey px-3.5 text-caption-medium-12 text-grey"
-        onClick={() => setIsRegisteredOpen(true)}
-        type="button"
-      >
+      <BtnSmall variant="white" className="mt-3" onClick={() => setIsRegisteredOpen(true)}>
         구매 완료
-      </button>
+      </BtnSmall>
 
       {isRegisteredOpen && (
         <div
-          className="fixed inset-0 z-[80] flex items-center justify-center bg-offblack/35 px-10"
+          className="fixed inset-0 z-80 flex items-center justify-center bg-offblack/35 px-10"
           onClick={() => setIsRegisteredOpen(false)}
         >
           <section
-            className="w-full max-w-[320px] rounded-[20px] bg-offwhite px-6 py-7 text-center shadow-[0_18px_50px_rgba(0,0,0,0.22)]"
+            className="w-full max-w-80 rounded-[20px] bg-offwhite px-6 py-7 text-center shadow-[0_18px_50px_rgba(0,0,0,0.22)]"
             onClick={(event) => event.stopPropagation()}
           >
             <h2 className="text-title-medium-20 text-offblack">내 향수 등록 완료</h2>
             <p className="mt-3 text-body-regular-14 text-grey">내 향수에 등록되었어요.</p>
             <button
-              className="mt-6 h-12 w-full rounded-[32px] bg-offblack text-body-semibold-16 text-offwhite"
+              className="mt-6 h-12 w-full rounded-4xl bg-offblack text-body-semibold-16 text-offwhite"
               onClick={() => setIsRegisteredOpen(false)}
               type="button"
             >
@@ -146,6 +140,7 @@ function WishCard({ item }) {
 }
 
 export default function MyWishlistPage() {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
 
@@ -155,20 +150,19 @@ export default function MyWishlistPage() {
     );
   };
 
-  const selectedBrandFilters = selectedFilters.filter((filter) => brandOptions.includes(filter));
+  const brandNamesEn = brandOptions.map((brand) => brand.nameEn);
+  const selectedBrandFilters = selectedFilters.filter((filter) => brandNamesEn.includes(filter));
   const filteredWishItems =
     selectedBrandFilters.length === 0
       ? wishItems
       : wishItems.filter((item) => selectedBrandFilters.includes(item.brand));
 
   return (
-    <div className="mx-auto min-h-screen w-full max-w-[430px] bg-background pb-[104px]">
+    <div className="mx-auto min-h-screen w-full max-w-107.5 bg-background pb-26">
       <Header
         variant="detail-back"
         title="위시리스트"
-        onBack={() => {
-          window.location.href = "/mypage";
-        }}
+        onBack={() => navigate("/mypage")}
       />
 
       <div className="flex flex-col gap-4 px-5 pt-6">
@@ -207,14 +201,14 @@ export default function MyWishlistPage() {
           </button>
         </div>
 
-        <section className="grid grid-cols-2 gap-x-2.5 gap-y-[30px]">
+        <section className="grid grid-cols-2 gap-x-2.5 gap-y-7.5">
           {filteredWishItems.map((item) => (
             <WishCard item={item} key={item.name} />
           ))}
         </section>
       </div>
 
-      <div className="fixed bottom-0 left-1/2 w-full max-w-[430px] -translate-x-1/2 px-5 pb-5">
+      <div className="fixed bottom-0 left-1/2 w-full max-w-107.5 -translate-x-1/2 px-5 pb-5">
         <BottomNav active="my" />
       </div>
 

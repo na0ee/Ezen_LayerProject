@@ -30,24 +30,26 @@ export default function FilterSheet({
     : options;
 
   return (
-    <div className="fixed inset-0 z-[60] flex justify-center bg-offblack/40">
+    <div className="fixed inset-0 z-60 flex justify-center bg-offblack/40">
       <button aria-label="필터 닫기" className="absolute inset-0" onClick={onClose} type="button" />
-      <section className="absolute bottom-0 left-1/2 flex h-[546px] w-full max-w-[430px] -translate-x-1/2 flex-col overflow-hidden rounded-t-2xl bg-background">
-        <div className="mx-auto mt-3 h-1 w-8 shrink-0 rounded-full bg-light-grey" />
+      <section className="absolute bottom-0 left-1/2 flex h-136.5 w-full max-w-107.5 -translate-x-1/2 flex-col overflow-hidden rounded-t-2xl bg-background">
+        <div className="flex h-7.5 w-full shrink-0 items-center justify-center bg-offwhite">
+          <div className="h-1 w-8 rounded-full bg-light-grey" />
+        </div>
 
         <Category variant="page" items={tabs} active={activeTab} onChange={onSelectTab} />
 
-        <div className="no-scrollbar flex-1 overflow-y-auto pb-[159px]">
+        <div className="no-scrollbar flex-1 overflow-y-auto pb-39.75">
           {isBrandTab ? (
             <>
-              <div className="px-5 pt-[30px]">
+              <div className="px-5 pt-7.5">
                 <Search
                   variant="no-icon"
                   value={brandSearch}
                   onChange={(event) => setBrandSearch(event.target.value)}
                 />
               </div>
-              <div className="flex flex-col gap-4 px-5 pt-[30px]">
+              <div className="flex flex-col gap-4 px-5 pt-7.5">
                 {visibleOptions.map((option) => {
                   const selected = selectedFilters.includes(option.nameEn);
                   return (
@@ -66,7 +68,7 @@ export default function FilterSheet({
               </div>
             </>
           ) : (
-            <div className="grid grid-cols-2 gap-x-5 gap-y-4 px-5 pt-[30px]">
+            <div className="grid grid-cols-2 gap-y-4 px-5 pt-7.5">
               {visibleOptions.map((option) => {
                 const selected = selectedFilters.includes(option);
                 return (
@@ -87,7 +89,7 @@ export default function FilterSheet({
           )}
         </div>
 
-        <div className="absolute bottom-0 left-0 flex w-full flex-col gap-4 border-t border-light-grey bg-offwhite px-5 pt-4 pb-[30px]">
+        <div className="absolute bottom-0 left-0 flex w-full flex-col gap-4 border-t border-light-grey bg-offwhite px-5 pt-4 pb-7.5">
           {selectedFilters.length > 0 && (
             <div className="no-scrollbar flex gap-3 overflow-x-auto">
               {selectedFilters.map((filter) => (
@@ -101,7 +103,7 @@ export default function FilterSheet({
             <button
               type="button"
               onClick={onReset}
-              className="h-14 w-[134px] shrink-0 rounded-full border border-light-grey bg-offwhite text-body-semibold-16 text-offblack"
+              className="h-14 w-33.5 shrink-0 rounded-full border border-light-grey bg-offwhite text-body-semibold-16 text-offblack"
             >
               초기화
             </button>

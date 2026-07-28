@@ -10,7 +10,7 @@ export default function Input({
 }) {
   return (
     <div
-      className={`flex h-[50px] w-full items-center gap-2 rounded-[32px] border border-transparent bg-2light-grey py-3 pl-4 pr-3 focus-within:border-light-grey focus-within:bg-offwhite ${className}`}
+      className={`flex h-12.5 w-full items-center gap-2 rounded-4xl border border-transparent bg-2light-grey py-3 pl-4 pr-3 focus-within:border-light-grey focus-within:bg-offwhite ${className}`}
     >
       <input
         type="text"

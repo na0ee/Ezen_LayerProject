@@ -494,8 +494,8 @@ function BotMessage({ message, chosen, onSelectMenu, onSelectPerfume }) {
   return (
     <div className="flex w-full items-start gap-3">
       {/* 피그마: 60px 칸 안에 34×50으로 잘라 넣은 캐릭터 */}
-      <div className="flex size-[60px] shrink-0 items-center justify-center">
-        <div className="relative h-[50px] w-[34px] overflow-hidden">
+      <div className="flex size-15 shrink-0 items-center justify-center">
+        <div className="relative h-12.5 w-8.5 overflow-hidden">
           <img
             src={characterLay}
             alt="챗봇 레이"
@@ -594,8 +594,8 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
 
   return (
     <div className="min-h-screen bg-offwhite">
-      <main className="mx-auto flex w-full max-w-[430px] flex-col gap-6 bg-offwhite px-5 pb-[150px]">
-        <header className="sticky top-0 z-10 flex w-full items-start justify-between bg-offwhite pb-3 pt-[18px]">
+      <main className="mx-auto flex w-full max-w-107.5 flex-col gap-6 bg-offwhite px-5 pb-37.5">
+        <header className="sticky top-0 z-10 flex w-full items-start justify-between bg-offwhite pb-3 pt-4.5">
           <button
             type="button"
             aria-label="뒤로가기"
@@ -604,7 +604,7 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
           >
             <img src={caretLeft} alt="" className="size-6" />
           </button>
-          <h1 className="w-[232px] text-title-semibold-24 text-offblack">
+          <h1 className="w-58 text-title-semibold-24 text-offblack">
             챗봇레이
           </h1>
         </header>
@@ -631,7 +631,7 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
         </div>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[430px] bg-offwhite px-[18px] pb-5 pt-2">
+      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-107.5 bg-offwhite px-4.5 pb-5 pt-2">
         <div className="no-scrollbar mb-2.5 flex gap-2 overflow-x-auto">
           {MAIN_MENUS.map((menu) => (
             <QuickCategory

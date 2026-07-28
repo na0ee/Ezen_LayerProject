@@ -16,7 +16,7 @@ export default function Icon({
     <img
       src={liked ? heartAbled : countHeart}
       alt="좋아요"
-      className="size-[18px] object-contain"
+      className="size-4.5 object-contain"
     />
   );
 
@@ -29,7 +29,7 @@ export default function Icon({
             aria-label="좋아요"
             aria-pressed={liked}
             onClick={onLike}
-            className="flex size-[18px] shrink-0 items-center justify-center"
+            className="flex size-4.5 shrink-0 items-center justify-center"
           >
             {heartImg}
           </button>
@@ -39,7 +39,7 @@ export default function Icon({
         <span className="text-body-regular-14 text-grey">{likes}</span>
       </div>
       <div className="flex items-center gap-1">
-        <img src={countChat} alt="댓글" className="size-[18px]" />
+        <img src={countChat} alt="댓글" className="size-4.5" />
         <span className="text-body-regular-14 text-grey">{comments}</span>
       </div>
     </div>

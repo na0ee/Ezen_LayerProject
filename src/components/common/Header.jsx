@@ -31,6 +31,7 @@ export default function Header({
   onEdit,
   onSave,
   transparent = false,
+  hideActions = false,
   className = '',
 }) {
   const navigate = useNavigate()
@@ -39,7 +40,7 @@ export default function Header({
 
   return (
     <header
-      className={`flex h-[54px] w-full items-center justify-between px-5 ${
+      className={`flex h-13.5 w-full items-center justify-between px-5 ${
         hasBg ? 'bg-offwhite' : ''
       } ${className}`}
     >
@@ -48,7 +49,7 @@ export default function Header({
           <img
             src={isWhite ? logoWhite : logoBlack}
             alt="Layer"
-            className="h-[30px] w-[72px]"
+            className="h-7.5 w-18"
           />
         )}
         {variant === 'detail-back' && (
@@ -67,7 +68,7 @@ export default function Header({
       </div>
 
       <div className="flex items-center gap-5">
-        {['main', 'main2', 'detail', 'detail-back'].includes(variant) && (
+        {!hideActions && ['main', 'main2', 'detail', 'detail-back'].includes(variant) && (
           <>
             <IconButton
               src={isWhite ? searchWhite : searchBlack}

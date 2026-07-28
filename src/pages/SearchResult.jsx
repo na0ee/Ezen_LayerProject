@@ -41,7 +41,7 @@ export default function SearchResult({ query = "", onBack, onSelect }) {
 
   return (
     <div className="min-h-screen bg-background">
-      <main className="mx-auto w-full max-w-[430px] bg-background pb-6">
+      <main className="mx-auto w-full max-w-107.5 bg-background pb-6">
         <div className="flex h-16 items-center justify-center bg-offwhite px-5">
           <Search onBack={onBack} defaultValue={query} />
         </div>

@@ -162,8 +162,8 @@ export default function Home({ onRaffle, onNavigate }) {
 
   return (
     <div className="min-h-screen bg-background">
-      <main className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-background pb-32">
-        <section className="relative h-[536px] overflow-hidden bg-offblack">
+      <main className="relative mx-auto w-full max-w-107.5 overflow-hidden bg-background pb-32">
+        <section className="relative h-134 overflow-hidden bg-offblack">
           {heroSlides.map((slide, index) => (
             <div
               key={slide.button}
@@ -183,16 +183,16 @@ export default function Home({ onRaffle, onNavigate }) {
           ))}
           <Header
             variant={isPastHero ? "main2" : "main"}
-            className={`fixed inset-x-0 top-0 z-30 mx-auto max-w-[430px] transition-colors ${
+            className={`fixed inset-x-0 top-0 z-30 mx-auto max-w-107.5 transition-colors ${
               isPastHero ? "bg-offwhite" : ""
             }`}
           />
-          <div className="absolute inset-x-0 bottom-[30px] flex flex-col items-center gap-4 px-5">
+          <div className="absolute inset-x-0 bottom-7.5 flex flex-col items-center gap-4 px-5">
             <p className="text-center text-body-medium-16 text-offwhite">
               {heroSlides[activeHero].text}
             </p>
             <BtnHero>{heroSlides[activeHero].button}</BtnHero>
-            <div className="relative mt-1 h-0.5 w-[120px] bg-offwhite">
+            <div className="relative mt-1 h-0.5 w-30 bg-offwhite">
               <div
                 className="h-full bg-offblack transition-[width] duration-500"
                 style={{ width: `${(activeHero + 1) * 40}px` }}
@@ -211,8 +211,8 @@ export default function Home({ onRaffle, onNavigate }) {
           </div>
         </section>
 
-        <div className="flex flex-col gap-[60px] pt-10">
-          <section className="flex flex-col gap-[30px] px-5">
+        <div className="flex flex-col gap-15 pt-10">
+          <section className="flex flex-col gap-7.5 px-5">
             <TitleMain
               title="Record"
               actionVariant="record"
@@ -227,10 +227,10 @@ export default function Home({ onRaffle, onNavigate }) {
               {days.map(([day, date], index) => (
                 <div key={day} className="flex w-10 flex-col items-center gap-1.5">
                   <span className="text-caption-medium-12 text-grey">{day}</span>
-                  <div className="relative flex h-[50px] w-10 items-end justify-center pb-[7px] text-caption-medium-12 text-offwhite">
+                  <div className="relative flex h-12.5 w-10 items-end justify-center pb-1.75 text-caption-medium-12 text-offwhite">
                     <span
                       aria-hidden="true"
-                      className={`absolute left-[-5px] top-0 size-[50px] ${
+                      className={`absolute left-[-5px] top-0 size-12.5 ${
                         index === 4 || index === 5 ? "bg-grey" : "bg-offblack"
                       }`}
                       style={{
@@ -261,7 +261,7 @@ export default function Home({ onRaffle, onNavigate }) {
             />
           </section>
 
-          <section className="flex flex-col gap-[30px]">
+          <section className="flex flex-col gap-7.5">
             <div className="px-5">
               <TitleMain
                 title="Scent Pick"
@@ -278,7 +278,7 @@ export default function Home({ onRaffle, onNavigate }) {
             </div>
           </section>
 
-          <section className="flex flex-col gap-[30px]">
+          <section className="flex flex-col gap-7.5">
             <div className="px-5">
               <TitleMain
                 title="Challenge"
@@ -307,7 +307,7 @@ export default function Home({ onRaffle, onNavigate }) {
             </div>
           </section>
 
-          <section className="flex flex-col gap-[30px]">
+          <section className="flex flex-col gap-7.5">
             <div className="px-5">
               <TitleMain
                 title="Magazine"
@@ -333,7 +333,7 @@ export default function Home({ onRaffle, onNavigate }) {
             </div>
           </section>
 
-          <section className="flex flex-col gap-[30px]">
+          <section className="flex flex-col gap-7.5">
             <div className="px-5">
               <TitleMain
                 variant="title3"
@@ -357,7 +357,7 @@ export default function Home({ onRaffle, onNavigate }) {
                 img={rank1}
                 name="블랙베리 앤 베이"
                 brand="JO MALONE LONDON"
-                imageFrameClassName="w-[44px]"
+                imageFrameClassName="w-11"
                 imageClassName="absolute h-[154.55px] w-[155.83px] left-[-55.92px] top-[-27.27px] max-w-none"
                 className="shrink-0"
               />
@@ -366,7 +366,7 @@ export default function Home({ onRaffle, onNavigate }) {
                 img={rank2}
                 name="블랙베리 앤 베이"
                 brand="JO MALONE LONDON"
-                imageFrameClassName="w-[57px]"
+                imageFrameClassName="w-14.25"
                 imageClassName="absolute h-[106.25px] w-[105.32px] left-[-24.16px] top-0 max-w-none"
                 className="shrink-0"
               />
@@ -375,14 +375,14 @@ export default function Home({ onRaffle, onNavigate }) {
                 img={rank3}
                 name="블랙베리 앤 베이"
                 brand="JO MALONE LONDON"
-                imageFrameClassName="w-[61px]"
+                imageFrameClassName="w-15.25"
                 imageClassName="absolute h-[142.86px] w-[142.06px] left-[-40.11px] top-[-21.85px] max-w-none"
                 className="shrink-0"
               />
             </div>
           </section>
 
-          <section className="flex flex-col gap-[30px] px-5">
+          <section className="flex flex-col gap-7.5 px-5">
             <TitleMain
               title="Gift"
               actionVariant="ai"
@@ -397,7 +397,7 @@ export default function Home({ onRaffle, onNavigate }) {
         </div>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[430px] px-5 pb-5">
+      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-107.5 px-5 pb-5">
         <BottomNav
           active={activeNav}
           onChange={(tab) => {

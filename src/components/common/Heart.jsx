@@ -20,7 +20,7 @@ export default function Heart({ variant = 'abled', className = '', ...rest }) {
       className={`flex size-6 items-center justify-center ${className}`}
       {...rest}
     >
-      <img src={ICONS[variant]} alt="" className="h-[17px] w-5" />
+      <img src={ICONS[variant]} alt="" className="h-4.25 w-5" />
     </button>
   )
 }

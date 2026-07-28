@@ -22,12 +22,12 @@ export default function Con2({
       className={`flex w-full flex-col items-center gap-6 overflow-hidden rounded-3xl bg-offwhite p-5 ${className}`}
     >
       <div className="flex w-full items-center gap-2.5">
-        <div className="size-[42px] shrink-0 overflow-hidden rounded-full bg-2light-grey">
+        <div className="size-10.5 shrink-0 overflow-hidden rounded-full bg-2light-grey">
           {profileImg && (
             <img src={profileImg} alt="" className="size-full object-cover" />
           )}
         </div>
-        <div className="flex min-w-0 flex-col justify-center gap-[3px]">
+        <div className="flex min-w-0 flex-col justify-center gap-0.75">
           <p className="truncate text-body-semibold-16 text-offblack">{profileName}</p>
           <p className="truncate text-caption-medium-12 text-grey">{profileTime}</p>
         </div>
@@ -41,11 +41,11 @@ export default function Con2({
                 key={i}
                 src={src}
                 alt=""
-                className="h-[430px] w-full shrink-0 snap-center rounded-lg object-cover"
+                className="h-107.5 w-full shrink-0 snap-center rounded-lg object-cover"
               />
             ))
           ) : (
-            <div className="h-[430px] w-full shrink-0 rounded-lg bg-2light-grey" />
+            <div className="h-107.5 w-full shrink-0 rounded-lg bg-2light-grey" />
           )}
         </div>
         <div className="flex h-6 w-full items-start justify-between">
