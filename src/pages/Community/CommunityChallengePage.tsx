@@ -112,7 +112,7 @@ export default function CommunityChallengePage({
             className="community-challenge-main flex flex-col gap-[30px]"
           >
             <div id="community-main-challenge-title">
-              <TitleSection variant="button" title="오늘의 메인 챌린지" />
+              <TitleSection title="오늘의 메인 챌린지" />
             </div>
 
             <div className="community-challenge-main__carousel -mr-5 w-[410px] overflow-hidden">
@@ -121,6 +121,7 @@ export default function CommunityChallengePage({
                   <CardChallengeSmall
                     key={challenge.id}
                     img={challenge.image}
+                    imgClassName="h-[107%] w-full max-w-none object-cover object-top"
                     title={challenge.title}
                     desc={challenge.description}
                     className="[&>div:last-child]:justify-center"
@@ -135,7 +136,7 @@ export default function CommunityChallengePage({
             className="community-challenge-list flex flex-col gap-[30px]"
           >
             <div id="community-challenge-list-title">
-              <TitleSection variant="button" title="챌린지" />
+              <TitleSection title="챌린지" />
             </div>
 
             <div className="community-challenge-list__cards flex flex-col gap-[16px]">
