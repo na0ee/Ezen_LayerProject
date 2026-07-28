@@ -5,6 +5,7 @@ import sendIcon from "../../assets/icons/send.svg";
 export default function Input({
   placeholder = "무엇이든지 물어보세요!",
   onSend,
+  inputRef,
   className = "",
   ...rest
 }) {
@@ -13,6 +14,7 @@ export default function Input({
       className={`flex h-[50px] w-full items-center gap-2 rounded-[32px] border border-transparent bg-2light-grey px-4 py-3 focus-within:border-light-grey focus-within:bg-offwhite ${className}`}
     >
       <input
+        ref={inputRef}
         type="text"
         placeholder={placeholder}
         className="min-w-0 flex-1 bg-transparent text-chatbot-18 text-offblack outline-none placeholder:text-subtext"

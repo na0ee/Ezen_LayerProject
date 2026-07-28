@@ -3,7 +3,7 @@ import boldGraph from "../assets/images/result/bold-signature/profile-graph.png"
 import boldBlackberryBay from "../assets/images/result/bold-signature/blackberry-bay.png";
 import boldOrpheon from "../assets/images/result/bold-signature/orpheon.png";
 import boldMyslf from "../assets/images/result/bold-signature/myslf.png";
-import softHero from "../assets/images/result/soft-wanderer/hero.png";
+import softHero from "../assets/images/result/soft-wanderer/hero-figma.png";
 import softGraph from "../assets/images/result/soft-wanderer/profile-graph.png";
 import softBlackberryBay from "../assets/images/result/soft-wanderer/blackberry-bay.png";
 import softOrpheon from "../assets/images/result/soft-wanderer/orpheon.png";
@@ -18,7 +18,7 @@ import dailyGraph from "../assets/images/result/daily-basic/profile-graph.png";
 import dailyBlackberryBay from "../assets/images/result/daily-basic/blackberry-bay.png";
 import dailyOrpheon from "../assets/images/result/daily-basic/orpheon.png";
 import dailyMyslf from "../assets/images/result/daily-basic/myslf.png";
-import moodHero from "../assets/images/result/mood-shifter/hero.png";
+import moodHero from "../assets/images/result/mood-shifter/hero-figma.png";
 import moodGraph from "../assets/images/result/mood-shifter/profile-graph.png";
 import moodBlackberryBay from "../assets/images/result/mood-shifter/blackberry-bay.png";
 import moodOrpheon from "../assets/images/result/mood-shifter/orpheon.png";

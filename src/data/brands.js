@@ -3,6 +3,7 @@
 // id는 kebab-case, perfumeData.js의 brandId가 이 id를 참조함.
 
 export const brands = [
+  { id: "shiro", name: "시로", nameEn: "SHIRO" },
   { id: "maison-margiela", name: "메종 마르지엘라", nameEn: "Maison Margiela" },
   { id: "bvlgari", name: "불가리", nameEn: "Bvlgari" },
   { id: "buly", name: "불리", nameEn: "Buly 1803" },
