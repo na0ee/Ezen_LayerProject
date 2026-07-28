@@ -31,7 +31,7 @@ export default function RaffleDetail({ raffle, onBack, onApplied }) {
   }, []);
 
   return (
-    <div className="mx-auto min-h-screen w-full max-w-[430px] bg-background">
+    <div className="mx-auto min-h-screen w-full max-w-107.5 bg-background">
       <Header
         variant="detail-back"
         title="래플 응모하기"
@@ -41,7 +41,7 @@ export default function RaffleDetail({ raffle, onBack, onApplied }) {
 
       <main className="px-5 pt-6 pb-28">
         <section className="flex flex-col gap-3">
-          <div className="h-[338px] w-full overflow-hidden">
+          <div className="h-84.5 w-full overflow-hidden">
             <img
               src={raffle.img}
               alt={raffle.name}
@@ -49,14 +49,14 @@ export default function RaffleDetail({ raffle, onBack, onApplied }) {
             />
           </div>
 
-          <div className="flex flex-col gap-[30px]">
-            <div className="flex flex-col items-center gap-[18px]">
+          <div className="flex flex-col gap-7.5">
+            <div className="flex flex-col items-center gap-4.5">
               <div className="relative flex w-full flex-col items-center gap-2">
                 <div className="flex items-center gap-2">
                   <h1 className="text-title-semibold-24 text-offblack">
                     {raffle.detailName}
                   </h1>
-                  <span className="rounded bg-point-orange2 px-2 py-[5px] text-caption-semibold-10 text-point-orange">
+                  <span className="rounded bg-point-orange2 px-2 py-1.25 text-caption-semibold-10 text-point-orange">
                     D-1
                   </span>
                 </div>
@@ -64,13 +64,13 @@ export default function RaffleDetail({ raffle, onBack, onApplied }) {
                   {raffle.detailBrand}
                 </p>
               </div>
-              <div className="h-[3px] w-full bg-gradient-to-r from-point-orange from-[57%] to-2light-grey to-[57%]" />
+              <div className="h-0.75 w-full bg-linear-to-r from-point-orange from-[57%] to-2light-grey to-[57%]" />
             </div>
 
             <dl className="flex flex-col gap-2">
               {details.map(([label, value]) => (
                 <div key={label} className="flex items-center gap-6">
-                  <dt className="w-[51px] shrink-0 text-body-medium-14 text-offblack">
+                  <dt className="w-12.75 shrink-0 text-body-medium-14 text-offblack">
                     {label}
                   </dt>
                   <dd className="text-caption-regular-12 text-offblack">{value}</dd>
@@ -84,22 +84,22 @@ export default function RaffleDetail({ raffle, onBack, onApplied }) {
           <img
             src={detailContent1}
             alt={`${raffle.name} 제품 연출 이미지`}
-            className="h-[338px] w-full object-cover"
+            className="h-84.5 w-full object-cover"
           />
-          <div className="relative h-[338px] w-full">
+          <div className="relative h-84.5 w-full">
             <img
               src={detailContent2}
               alt={`${raffle.name} 사용 이미지`}
               className="size-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent from-[55%] to-background" />
+            <div className="absolute inset-0 bg-linear-to-b from-transparent from-[55%] to-background" />
           </div>
         </section>
       </main>
 
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40 mx-auto h-32 w-full max-w-[430px]">
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40 mx-auto h-32 w-full max-w-107.5">
         <div
-          className={`absolute inset-0 bg-gradient-to-b from-transparent to-offwhite transition-opacity duration-500 ${
+          className={`absolute inset-0 bg-linear-to-b from-transparent to-offwhite transition-opacity duration-500 ${
             showGradient ? "opacity-100" : "opacity-0"
           }`}
         />
@@ -117,7 +117,7 @@ export default function RaffleDetail({ raffle, onBack, onApplied }) {
           }}
         >
           <div
-            className="w-full max-w-[390px] rounded-2xl bg-offwhite p-5"
+            className="w-full max-w-97.5 rounded-2xl bg-offwhite p-5"
             role="dialog"
             aria-modal="true"
             aria-labelledby="raffle-popup-title"

@@ -35,7 +35,7 @@ export default function ChatCard({
   if (variant === "chatbot") {
     return (
       <div
-        className={`flex w-[318px] items-center gap-3 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${className}`}
+        className={`flex w-79.5 items-center gap-3 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${className}`}
       >
         <div className="size-[100px] shrink-0 overflow-hidden rounded-lg bg-2light-grey">
           {img && (
@@ -62,7 +62,7 @@ export default function ChatCard({
 
   return (
     <div
-      className={`flex w-[318px] flex-col items-end gap-4 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-4 ${className}`}
+      className={`flex w-79.5 flex-col items-end gap-4 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-4 ${className}`}
     >
       {(images.length > 0 || address) && (
         <div className="no-scrollbar flex w-full gap-4 overflow-x-auto">
@@ -78,7 +78,7 @@ export default function ChatCard({
           {images.map((src, i) => (
             <div
               key={i}
-              className="h-[190px] w-[250px] shrink-0 overflow-hidden rounded-lg bg-2light-grey"
+              className="h-47.5 w-62.5 shrink-0 overflow-hidden rounded-lg bg-2light-grey"
             >
               <img src={src} alt="" className="size-full object-cover" />
             </div>

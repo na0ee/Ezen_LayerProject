@@ -3,7 +3,7 @@ export default function CategoryChip({ children, className = "", ...rest }) {
   return (
     <button
       type="button"
-      className={`flex h-[54px] w-[188px] items-center justify-center rounded-[50px] border-[0.8px] border-light-grey bg-offwhite text-body-regular-14 text-offblack ${className}`}
+      className={`flex h-13.5 w-47 items-center justify-center rounded-[50px] border-[0.8px] border-light-grey bg-offwhite text-body-regular-14 text-offblack ${className}`}
       {...rest}
     >
       {children}

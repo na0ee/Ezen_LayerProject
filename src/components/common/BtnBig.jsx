@@ -4,7 +4,7 @@ export default function BtnBig({ children, disabled = false, className = '', ...
     <button
       type="button"
       disabled={disabled}
-      className={`flex w-full cursor-default items-center justify-center rounded-[32px] py-3.5 text-btn-cta text-offwhite ${
+      className={`flex w-full cursor-default items-center justify-center rounded-4xl py-3.5 text-btn-cta text-offwhite ${
         disabled ? 'bg-grey' : 'bg-offblack'
       } ${className}`}
       {...rest}
