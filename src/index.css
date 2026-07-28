@@ -94,9 +94,32 @@
   text-decoration-line: underline;
 }
 
+/* 가로 스크롤은 유지하되 스크롤바만 숨김 */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 body {
   font-family: var(--font-sans);
   letter-spacing: -0.02em; /* 피그마 letterSpacing -2% */
   color: var(--color-offblack);
   background: var(--color-offwhite);
+}
+
+/* 브라우저 기본값은 button에 pointer 커서를 주지 않으므로 전역으로 지정.
+   Tailwind의 base 레이어에 넣어야 utilities 레이어의 cursor-* 클래스로
+   개별 버튼에서 오버라이드할 수 있음 (레이어 밖 CSS는 특이도와 무관하게 항상 우선함) */
+@layer base {
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
 }

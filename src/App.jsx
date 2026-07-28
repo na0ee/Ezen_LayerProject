@@ -1,5 +1,9 @@
 import { useState } from "react";
 import Home from "./pages/Home";
+import Mypage from "./pages/Mypage";
+import MyPerfumePage from "./pages/MyPerfumePage";
+import MyReviewsPage from "./pages/MyReviewsPage";
+import MyWishlistPage from "./pages/MyWishlistPage";
 import {
   Badge,
   Bell,
@@ -564,6 +568,22 @@ function ComponentsPreview() {
 export default function App() {
   if (window.location.pathname === "/components") {
     return <ComponentsPreview />;
+  }
+
+  if (window.location.pathname === "/mypage") {
+    return <Mypage />;
+  }
+
+  if (window.location.pathname === "/mypage/perfumes") {
+    return <MyPerfumePage />;
+  }
+
+  if (window.location.pathname === "/mypage/wishlist") {
+    return <MyWishlistPage />;
+  }
+
+  if (window.location.pathname === "/mypage/reviews") {
+    return <MyReviewsPage />;
   }
 
   return <Home />;

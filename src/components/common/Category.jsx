@@ -22,23 +22,34 @@ export default function Category({
   }
 
   return (
-    <div className={`w-full bg-offwhite px-5 ${className}`}>
-      <div className="flex items-center gap-6 border-b border-light-grey pt-4">
-        {items.map((item) => (
-          <button
-            key={item}
-            type="button"
-            onClick={() => onChange?.(item)}
-            className={`-mb-px pb-3 text-body-medium-16 ${
-              item === active
-                ? "border-b-2 border-point-orange text-offblack"
-                : "text-grey"
-            }`}
-          >
-            {item}
-          </button>
-        ))}
+    <div className={`w-full bg-offwhite ${className}`}>
+      <div className="flex items-center gap-6 px-5 pt-4">
+        {items.map((item) => {
+          const isActive = item === active;
+          return (
+            <button
+              key={item}
+              type="button"
+              onClick={() => onChange?.(item)}
+              className="flex flex-col items-center gap-3"
+            >
+              <span
+                className={`text-body-medium-16 ${
+                  isActive ? "text-offblack" : "text-grey"
+                }`}
+              >
+                {item}
+              </span>
+              {/* 선택 안 된 탭은 투명 라인 — 선택된 탭(주황 라인)과 높이를 맞추기 위함 */}
+              <span
+                className={`h-0.5 w-full ${isActive ? "bg-point-orange" : "bg-transparent"}`}
+              />
+            </button>
+          );
+        })}
       </div>
+      {/* 기본 회색 구분선은 화면 가로 전체를 채움 (탭 영역의 px-5와 별개) */}
+      <div className="h-px w-full bg-light-grey" />
     </div>
   );
 }

@@ -397,7 +397,16 @@ export default function Home() {
       </main>
 
       <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[430px] px-5 pb-5">
-        <BottomNav active={activeNav} onChange={setActiveNav} />
+        <BottomNav
+          active={activeNav}
+          onChange={(tab) => {
+            if (tab === "my") {
+              window.location.href = "/mypage";
+              return;
+            }
+            setActiveNav(tab);
+          }}
+        />
       </div>
     </div>
   );
