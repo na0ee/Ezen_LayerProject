@@ -1,7 +1,10 @@
 import { useState } from "react";
 import feedBeachImage from "../../assets/Community/Feed/feed-beach.png";
+import feedRainyWalkImage from "../../assets/Community/Feed/feed-rainy-walk.png";
 import feedSunsetImage from "../../assets/Community/Feed/feed-sunset.png";
-import profileFadedscent from "../../assets/Community/comment-profile-yeeuntv.png";
+import profileFadedscent from "../../assets/Community/Profile/profile-fadedscent.png";
+import profilePassingPerfumer from "../../assets/Community/Profile/profile-passing-perfumer.png";
+import profileRainyScent from "../../assets/Community/Profile/profile-rainy-scent.png";
 import {
   BottomNav,
   BtnSmall,
@@ -17,6 +20,7 @@ const feedPosts = [
   {
     id: "sunset-commute",
     profileName: "fadedscent",
+    profileImage: profileFadedscent,
     image: feedSunsetImage,
     title: "노을 지는 퇴근길에 어울리는 향 찾아요",
     text: "매일 버스에서 노을 보면서 퇴근하는데, 이 시간이랑 어울리는 향이 있었으면 좋겠어요. 따뜻한데 살짝 쓸쓸한 느낌이면 완벽할 것 같아요.",
@@ -25,10 +29,20 @@ const feedPosts = [
   {
     id: "cloudy-seaside",
     profileName: "지나가던조향사",
+    profileImage: profilePassingPerfumer,
     image: feedBeachImage,
     title: "흐린 바다 냄새 같은 향수 있을까요",
     text: "구름 낀 날 바닷가 맨발로 걷는 기분을 향으로 남기고 싶어요. 짠내 나는 인위적인 마린 말고, 물안개처럼 투명하고 서늘한 향이면 좋겠어요. 잔향은 은은한 머스크로 끝나면 완벽할 것 같아요. 비슷한 걸 아시는 분 추천 부탁드려요.",
     keywords: ["마린노트", "클린머스크", "바다향", "산책향수"],
+  },
+  {
+    id: "rainy-evening-walk",
+    profileName: "비오는날의향",
+    profileImage: profileRainyScent,
+    image: feedRainyWalkImage,
+    title: "비 온 뒤 저녁 산책에 어울리는 향이 궁금해요",
+    text: "비가 그친 뒤 젖은 나무와 흙에서 나는 차분한 향을 좋아해요. 처음에는 싱그럽고 맑지만, 시간이 지나면 포근한 우디 머스크로 남는 향수를 추천받고 싶어요.",
+    keywords: ["레인노트", "그린우디", "우디머스크", "저녁산책"],
   },
 ] as const;
 
@@ -99,7 +113,7 @@ export default function CommunityFeedPage({
                 <Profile
                   name={post.profileName}
                   time="5분 전"
-                  img={profileFadedscent}
+                  img={post.profileImage}
                 />
 
                 <div className="community-feed-card__image relative h-[430px] w-full overflow-hidden rounded-lg bg-light-grey">
