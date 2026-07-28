@@ -12,6 +12,8 @@ export default function ReviewSummary({
   text,
   likes = 0,
   comments = 0,
+  liked = false,
+  onLike,
   className = "",
 }) {
   return (
@@ -30,7 +32,7 @@ export default function ReviewSummary({
         </div>
         <p className="whitespace-pre-line text-body-regular-14 text-subtext">{text}</p>
       </div>
-      <Icon likes={likes} comments={comments} />
+      <Icon likes={likes} comments={comments} liked={liked} onLike={onLike} />
     </div>
   );
 }
