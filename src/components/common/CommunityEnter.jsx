@@ -24,7 +24,8 @@ export default function CommunityEnter({
   const finalLabel = label ?? d.label;
   const finalRequired = required ?? d.required ?? false;
   const finalPlaceholder = placeholder ?? d.placeholder;
-  const finalMax = maxLength ?? d.maxLength;
+  // maxLength={null}을 넘기면 글자수 카운터를 숨긴다 (프로필 닉네임 필드처럼 제한 없는 경우)
+  const finalMax = maxLength === undefined ? d.maxLength : maxLength;
   const isSelect = variant === "brand" || variant === "ml";
 
   return (
@@ -68,9 +69,11 @@ export default function CommunityEnter({
               className="w-full rounded-lg border border-light-grey bg-offwhite p-4 text-body-regular-14 text-offblack outline-none placeholder:text-subtext"
             />
           )}
-          <p className="text-caption-regular-12 text-grey">
-            {value.length}/{finalMax}
-          </p>
+          {finalMax != null && (
+            <p className="text-caption-regular-12 text-grey">
+              {value.length}/{finalMax}
+            </p>
+          )}
         </div>
       )}
     </div>

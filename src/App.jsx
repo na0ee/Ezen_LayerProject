@@ -1,77 +1,19 @@
-import { useState } from "react";
-import MagazineAllView from "../Magazine/Magazine_allview";
-import MagazineByredo from "../Magazine/Magazine_BYREDO";
-import MagazineDiptyque from "../Magazine/Magazine_DIPTYQUE";
-import MagazineFragranceCollection from "../Magazine/Magazine_FragranceCollection";
-import MagazineJomalone from "../Magazine/Magazine_JOMALONE";
-import MagazineMain from "../Magazine/Magazine_main";
-import MagazineNiche from "../Magazine/Magazine_NICHE";
-import MagazineSpring from "../Magazine/Magazine_SEASON/Magazine_spring";
-import MagazineTip from "../Magazine/Magazine_TIP";
+import { Navigate, Route, Routes } from "react-router-dom";
+import ComponentsPreview from "./pages/ComponentsPreview";
+import Login from "./pages/Login";
+import OnboardingQuestion from "./pages/OnboardingQuestion";
+import ProfileSetup from "./pages/ProfileSetup";
 
 export default function App() {
-  const [page, setPage] = useState("main");
-
-  const navigate = (nextPage) => {
-    setPage(nextPage);
-    window.requestAnimationFrame(() => window.scrollTo({ top: 0 }));
-  };
-
-  if (page === "allview") {
-    return (
-      <MagazineAllView
-        onBack={() => navigate("main")}
-        onSeason={() => navigate("spring")}
-        onSantalTip={() => navigate("santal-tip")}
-        onFragranceCollection={() => navigate("fragrance-collection")}
-        onDiptyque={() => navigate("diptyque")}
-        onJomalone={() => navigate("jomalone")}
-        onByredo={() => navigate("byredo")}
-        onNiche={() => navigate("niche")}
-      />
-    );
-  }
-
-  if (page === "santal-tip") {
-    return <MagazineTip onBack={() => navigate("main")} />;
-  }
-
-  if (page === "byredo") {
-    return <MagazineByredo onBack={() => navigate("main")} />;
-  }
-
-  if (page === "niche") {
-    return <MagazineNiche onBack={() => navigate("main")} />;
-  }
-
-  if (page === "jomalone") {
-    return <MagazineJomalone onBack={() => navigate("main")} />;
-  }
-
-  if (page === "diptyque") {
-    return <MagazineDiptyque onBack={() => navigate("main")} />;
-  }
-
-  if (page === "fragrance-collection") {
-    return (
-      <MagazineFragranceCollection onBack={() => navigate("main")} />
-    );
-  }
-
-  if (page === "spring") {
-    return <MagazineSpring onBack={() => navigate("main")} />;
-  }
-
   return (
-    <MagazineMain
-      onAllView={() => navigate("allview")}
-      onByredo={() => navigate("byredo")}
-      onNiche={() => navigate("niche")}
-      onJomalone={() => navigate("jomalone")}
-      onDiptyque={() => navigate("diptyque")}
-      onFragranceCollection={() => navigate("fragrance-collection")}
-      onSeason={() => navigate("spring")}
-      onSantalTip={() => navigate("santal-tip")}
-    />
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/profile" element={<ProfileSetup />} />
+      <Route path="/onboarding" element={<Navigate to="/onboarding/1" replace />} />
+      <Route path="/onboarding/:step" element={<OnboardingQuestion />} />
+      {/* 공통 컴포넌트 미리보기 */}
+      <Route path="/components" element={<ComponentsPreview />} />
+    </Routes>
   );
 }
