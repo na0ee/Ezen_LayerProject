@@ -84,6 +84,9 @@
   --text-en-semibold-24: 24px;
   --text-en-semibold-24--line-height: normal;
   --text-en-semibold-24--font-weight: 600;
+  --text-en-logo-48: 48px;
+  --text-en-logo-48--line-height: 1;
+  --text-en-logo-48--font-weight: 500;
 }
 
 /* 가로 스크롤 목록의 스크롤바 숨김 — Firefox는 scrollbar-width,

@@ -18,10 +18,14 @@ export default function CardInfo({
   checked = true,
   onCheck,
   onBell,
+  bellVariant = "ring",
+  hideBell = false,
   day,
   time,
+  overlayLabel,
   lastUsed,
   memo,
+  onClick,
   className = "",
 }) {
   const isRaffle = variant === "raffle";
@@ -30,19 +34,36 @@ export default function CardInfo({
 
   return (
     <div
+      onClick={onClick}
+      onKeyDown={(event) => {
+        if (onClick && (event.key === "Enter" || event.key === " ")) {
+          event.preventDefault();
+          onClick();
+        }
+      }}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
       className={`flex w-[390px] justify-end gap-5 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${
         alignStart ? "items-start" : "items-end"
-      } ${className}`}
+      } ${onClick ? "cursor-pointer" : ""} ${className}`}
     >
       <div className="flex min-w-0 flex-1 items-start gap-5">
         <div className="relative size-[100px] shrink-0 overflow-hidden rounded-lg bg-2light-grey">
           {img && <img src={img} alt="" className="size-full object-cover" />}
-          {isRaffle && type === "a" && (
+          {isRaffle && (type === "a" || overlayLabel) && (
             <>
               <div className="absolute inset-0 bg-offblack/50" />
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5">
-                <p className="text-caption-semibold-10 text-offwhite">{day}</p>
-                <p className="text-body-semibold-16 text-offwhite">{time}</p>
+                {overlayLabel ? (
+                  <p className="text-body-semibold-16 text-offwhite">
+                    {overlayLabel}
+                  </p>
+                ) : (
+                  <>
+                    <p className="text-caption-semibold-10 text-offwhite">{day}</p>
+                    <p className="text-body-semibold-16 text-offwhite">{time}</p>
+                  </>
+                )}
               </div>
             </>
           )}
@@ -87,7 +108,16 @@ export default function CardInfo({
           className="shrink-0"
         />
       )}
-      {isRaffle && <Bell onClick={onBell} className="shrink-0" />}
+      {isRaffle && !hideBell && (
+        <Bell
+          variant={bellVariant}
+          onClick={(event) => {
+            event.stopPropagation();
+            onBell?.();
+          }}
+          className="shrink-0"
+        />
+      )}
     </div>
   );
 }
