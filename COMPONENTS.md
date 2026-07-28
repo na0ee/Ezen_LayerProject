@@ -62,6 +62,7 @@
 | en/title-24px | `font-en text-en-title-24` | 24px / 600 |
 | en/semibold-24px | `font-en text-en-semibold-24` | 24px / 600 |
 | en/semibold-16px | `font-en text-en-semibold-16` | 16px / 600 |
+| en/logo-48px | `font-en text-en-logo-48` | 48px / 500(Medium) / 행간 1 — 로그인 화면 LAYER 로고 |
 
 radius/padding은 피그마 수치 그대로 Tailwind 유틸리티 사용: `rounded-lg`(8px), `rounded-2xl`(16px), `rounded-3xl`(24px), `p-3`(12px), `p-4`(16px), `p-5`(20px).
 
@@ -147,7 +148,7 @@ radius/padding은 피그마 수치 그대로 Tailwind 유틸리티 사용: `roun
 
 | 피그마 이름 | 컴포넌트 | variants | 상태 |
 | --- | --- | --- | --- |
-| community-enter | `CommunityEnter` | title, brand, ml, txt — 글작성 폼 필드 (피그마에서 개명됨) | ✅ |
+| community-enter | `CommunityEnter` | title, brand, ml, txt — 글작성 폼 필드 (피그마에서 개명됨). `maxLength={null}`이면 글자수 카운터 숨김 | ✅ |
 | community-toggle | `CommunityToggle` | on/off → `checked` boolean (스위치는 CSS 구현) | ✅ |
 | hashtag | `HashTag` | 삭제 버튼 포함 태그 칩 (피그마 `#`→개명) | ✅ |
 | Community-comment | `CommunityComment` | 글쓰기 종류 선택 바텀시트 (`items` 배열) | ✅ |
@@ -164,3 +165,9 @@ radius/padding은 피그마 수치 그대로 Tailwind 유틸리티 사용: `roun
 | quickcategory | `QuickCategory` | default, selected, under | ✅ |
 | input | `Input` | Default/focused/ing → CSS 상태로 자동 처리 (focus-within) | ✅ |
 | card (3135:18607 챗봇용) | `ChatCard` | shop, chatbot — 이름 겹침 회피로 ChatCard로 등록 | ✅ |
+
+### 로그인/온보딩
+
+| 피그마 이름 | 컴포넌트 | variants | 상태 |
+| --- | --- | --- | --- |
+| loginInput | `LoginInput` | 46px 알약형 입력 필드. `label`(sr-only) + `type`/`value`/`onChange` 등 input props 그대로 전달 | ✅ |

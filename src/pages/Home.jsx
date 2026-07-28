@@ -134,7 +134,7 @@ function useDragScroll() {
   };
 }
 
-export default function Home() {
+export default function Home({ onRaffle, onNavigate }) {
   const [activeNav, setActiveNav] = useState("home");
   const [giftCategory, setGiftCategory] = useState("전체");
   const [isPastHero, setIsPastHero] = useState(false);
@@ -257,6 +257,7 @@ export default function Home() {
               label="Raffle of the week"
               title={"갖고 싶던 그 향,\n운에 맡겨보세요"}
               actionLabel="응모하기"
+              onAction={onRaffle}
             />
           </section>
 
@@ -405,6 +406,8 @@ export default function Home() {
               return;
             }
             setActiveNav(tab);
+            setActiveNav(tab);
+            onNavigate?.(tab);
           }}
         />
       </div>
