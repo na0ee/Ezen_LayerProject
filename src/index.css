@@ -84,6 +84,9 @@
   --text-en-semibold-24: 24px;
   --text-en-semibold-24--line-height: normal;
   --text-en-semibold-24--font-weight: 600;
+  --text-en-logo-48: 48px;
+  --text-en-logo-48--line-height: 1;
+  --text-en-logo-48--font-weight: 500;
 }
 
 /* body/medium-14px-line — 밑줄 포함 (링크성 텍스트용) */
