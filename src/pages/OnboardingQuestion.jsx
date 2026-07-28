@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { BtnBig, BtnGo } from "../components/common";
 import checkCircle from "../assets/icons/check-circle.svg";
 import chevronGrey from "../assets/icons/chevron-right-grey.svg";
@@ -28,6 +33,7 @@ import q4Feminine from "../assets/images/onboarding/q4-feminine.png";
 import q4Minimal from "../assets/images/onboarding/q4-minimal.png";
 import q5Layering from "../assets/images/onboarding/q5-layering.png";
 import q5Signature from "../assets/images/onboarding/q5-signature.png";
+import { getOnboardingResultPath } from "../utils/onboardingScoring";
 
 // 피그마: 질문 페이지_Q1~Q5 (3312:24480, 3312:15050, 15103, 15167, 15212)
 // 선택지 사진은 각 원/카드 노드를 @2x로 export한 것 (src/assets/images/onboarding/)
@@ -59,7 +65,7 @@ const QUESTIONS = [
     gapY: 20,
     options: [
       { value: "travel", label: "여행", img: q2Travel },
-      { value: "sleep", label: "잠들기 전Zzz...", img: q2Sleep },
+      { value: "sleep", label: "잠들기 전", img: q2Sleep },
       { value: "special", label: "특별한 날", img: q2Special },
       { value: "workout", label: "운동 후", img: q2Workout },
       { value: "work", label: "출근 / 학교", img: q2Work },
@@ -120,10 +126,43 @@ const QUESTIONS = [
   },
 ];
 
+const RESULT_STORAGE_KEY = "layer-onboarding-result-path";
+
+function getRandomSelectedImages(answers) {
+  const selectedImages = QUESTIONS.flatMap((question, questionIndex) => {
+    const answer = answers[questionIndex + 1];
+    const values = Array.isArray(answer) ? answer : [answer];
+
+    return question.options
+      .filter((option) => values.includes(option.value))
+      .map((option) => option.img)
+      .filter(Boolean);
+  });
+
+  const fallbackImages = QUESTIONS.flatMap((question) =>
+    question.options.map((option) => option.img).filter(Boolean)
+  );
+  const candidates =
+    selectedImages.length >= 3
+      ? [...new Set(selectedImages)]
+      : [...new Set([...selectedImages, ...fallbackImages])];
+
+  for (let index = candidates.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [candidates[index], candidates[randomIndex]] = [
+      candidates[randomIndex],
+      candidates[index],
+    ];
+  }
+
+  return candidates.slice(0, 3);
+}
+
 export default function OnboardingQuestion() {
   const { step: stepParam } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState(() => location.state?.answers ?? {});
 
   const step = Number(stepParam);
   const question = QUESTIONS[step - 1];
@@ -137,49 +176,80 @@ export default function OnboardingQuestion() {
 
   const pick = (value) =>
     setAnswers((prev) => {
-      if (!multi) return { ...prev, [step]: value };
-      const current = prev[step] ?? [];
-      return {
-        ...prev,
-        [step]: current.includes(value)
-          ? current.filter((v) => v !== value)
-          : [...current, value],
-      };
+      let next;
+
+      if (!multi) {
+        next = { ...prev, [step]: value };
+      } else {
+        const current = prev[step] ?? [];
+        next = {
+          ...prev,
+          [step]: current.includes(value)
+            ? current.filter((v) => v !== value)
+            : [...current, value],
+        };
+      }
+
+      return next;
     });
 
-  const goNext = () =>
-    navigate(step >= QUESTIONS.length ? "/onboarding/result" : `/onboarding/${step + 1}`);
+  const goNext = () => {
+    if (step < QUESTIONS.length) {
+      navigate(`/onboarding/${step + 1}`, { state: { answers } });
+      return;
+    }
 
-  const goBack = () =>
-    navigate(step === 1 ? "/profile" : `/onboarding/${step - 1}`);
+    const resultPath = getOnboardingResultPath(answers);
+    sessionStorage.setItem(RESULT_STORAGE_KEY, resultPath);
+
+    navigate("/onboarding/loading", {
+      state: {
+        images: getRandomSelectedImages(answers),
+        resultPath,
+      },
+    });
+  };
+
+  const goBack = () => {
+    if (step === 1) {
+      navigate("/profile");
+      return;
+    }
+
+    navigate(`/onboarding/${step - 1}`, { state: { answers } });
+  };
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-107.5 flex-col bg-background pb-20">
+    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-background pb-20">
       {/* slideindicater */}
       <div className="h-0.5 w-full bg-light-grey">
         <div
-          className="h-0.5 bg-point-orange"
+          className="h-0.5 bg-point-orange transition-[width] duration-500 ease-out"
           style={{ width: `${(step / QUESTIONS.length) * 100}%` }}
         />
       </div>
 
-      <div className="mt-2.5 flex h-4.5 items-center justify-between">
+      <div className="mt-2.5 flex h-[18px] items-center justify-between px-2.5">
         {/* 뒤로가기 — 피그마에서 btn/more를 좌우 반전한 인스턴스 */}
         <button type="button" onClick={goBack} className="flex items-center gap-1.5">
-          <img src={chevronGrey} alt="" className="size-4.5 rotate-180" />
+          <img src={chevronGrey} alt="" className="size-[18px] rotate-180" />
           <span className="text-body-regular-14 text-grey">뒤로가기</span>
         </button>
-        <BtnGo variant="more" onClick={() => navigate("/onboarding/result")}>
+        <BtnGo
+          variant="more"
+          onClick={() => navigate("/onboarding/skip")}
+        >
           건너뛰기
         </BtnGo>
       </div>
 
       {/* 타이틀 블록은 106px 고정 — 문항마다 제목 높이가 달라도 선택지가 같은 y에 오도록 */}
-      <div className="mt-[85.5px] flex h-26.5 flex-col items-center gap-2.5 px-5">
+      <div className="flex flex-1 flex-col items-center justify-center py-8">
+      <div className="flex h-[106px] flex-col items-center gap-2.5 px-5">
         <h1 className="text-center text-title-semibold-24 text-offblack">
           {question.title}
         </h1>
-        <p className="text-body-regular-14 text-grey">{question.sub}</p>
+        <p className="text-center text-body-regular-14 text-grey">{question.sub}</p>
       </div>
 
       <div
@@ -198,15 +268,31 @@ export default function OnboardingQuestion() {
               type="button"
               aria-pressed={picked}
               onClick={() => pick(value)}
-              className="relative flex flex-col items-center gap-2.5"
+              className="group relative flex flex-col items-center gap-2.5 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.97] motion-reduce:transform-none motion-reduce:transition-none"
             >
               <span
-                className={`block overflow-hidden rounded-full ${
-                  picked ? "border-2 border-point-orange" : ""
-                } ${img ? "bg-offblack" : "bg-light-grey"}`}
+                className={`relative block overflow-hidden rounded-full ${
+                  img ? "bg-offblack" : "bg-light-grey"
+                }`}
                 style={{ width, height }}
               >
-                {img && <img src={img} alt="" className="size-full object-cover" />}
+                {img && (
+                  <img
+                    src={img}
+                    alt=""
+                    className={`size-full object-cover transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+                      picked
+                        ? "scale-105 group-hover:scale-110"
+                        : "scale-100 group-hover:scale-110"
+                    }`}
+                  />
+                )}
+                {picked && (
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 rounded-full border-2 border-point-orange"
+                  />
+                )}
               </span>
               <span
                 className={`text-center text-body-medium-14 text-offblack ${
@@ -220,7 +306,11 @@ export default function OnboardingQuestion() {
                 <img
                   src={checkCircle}
                   alt=""
-                  className="absolute right-0 top-0 size-9"
+                  className={`onboarding-check-pop absolute size-9 ${
+                    step === 3 || step === 4
+                      ? "-right-1 -top-1"
+                      : "right-0 top-0"
+                  }`}
                 />
               )}
             </button>
@@ -228,8 +318,15 @@ export default function OnboardingQuestion() {
         })}
       </div>
 
-      <div className="mt-auto px-5">
-        <BtnBig onClick={goNext}>다음</BtnBig>
+      </div>
+
+      <div className="px-5">
+        <BtnBig
+          disabled={multi ? !answer?.length : !answer}
+          onClick={goNext}
+        >
+          다음
+        </BtnBig>
       </div>
     </div>
   );

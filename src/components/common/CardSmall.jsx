@@ -24,7 +24,7 @@ export default function CardSmall({
   if (variant === "small") {
     return (
       <div
-        className={`inline-flex items-center gap-2 overflow-hidden rounded-lg bg-offblack70 p-2 ${className}`}
+        className={`glass-surface-dark inline-flex items-center gap-2 overflow-hidden rounded-lg p-2 ${className}`}
         {...rest}
       >
         <div className="size-9.5 shrink-0 overflow-hidden rounded-lg bg-2light-grey">

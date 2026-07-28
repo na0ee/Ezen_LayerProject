@@ -3,7 +3,7 @@ import chevronLeft from "../../assets/icons/icon-chevron-left.svg";
 import searchIcon from "../../assets/icons/icon-search-24.svg";
 import xIcon from "../../assets/icons/x-black.svg";
 
-// 피그마: search (속성 1=< icon | no icon) → variant="icon" | "no-icon"
+// 피그마: search (속성 1=< icon | no icon | border)
 // 실제 <input>이라 value/onChange 등 input props를 그대로 넘기면 됨
 // 값이 있으면 지우기 버튼(x-black)이 뜬다. 제어 컴포넌트로 쓸 땐 onClear에서 직접 비워줘야 함
 export default function Search({
@@ -16,6 +16,7 @@ export default function Search({
   className = "",
   ...rest
 }) {
+  const isBorder = variant === "border";
   const inputRef = useRef(null);
   const [typed, setTyped] = useState(() => Boolean(rest.defaultValue));
 
@@ -35,25 +36,41 @@ export default function Search({
   };
 
   const field = (
-    <div className="flex min-w-0 flex-1 items-center gap-3 rounded-3xl bg-2light-grey px-5 py-1.5">
+    <div
+      className={`flex min-w-0 flex-1 items-center ${
+        isBorder
+          ? "h-[42px] gap-4 rounded-[50px] border-[0.6px] border-light-grey bg-offwhite px-[14px] py-3"
+          : "gap-3 rounded-3xl bg-2light-grey px-5 py-1.5"
+      }`}
+    >
       {onSearch ? (
         <button
           type="button"
           aria-label="검색"
           onClick={onSearch}
-          className="size-6 shrink-0"
+          className={isBorder ? "size-[18px] shrink-0" : "size-6 shrink-0"}
         >
-          <img src={searchIcon} alt="" className="size-6" />
+          <img
+            src={searchIcon}
+            alt=""
+            className={isBorder ? "size-[18px]" : "size-6"}
+          />
         </button>
       ) : (
-        <img src={searchIcon} alt="" className="size-6 shrink-0" />
+        <img
+          src={searchIcon}
+          alt=""
+          className={isBorder ? "size-[18px] shrink-0" : "size-6 shrink-0"}
+        />
       )}
       <input
         ref={inputRef}
         type="search"
         placeholder={placeholder}
         onChange={handleChange}
-        className="min-w-0 flex-1 bg-transparent text-body-medium-14 text-offblack outline-none placeholder:text-subtext"
+        className={`min-w-0 flex-1 bg-transparent text-body-medium-14 text-offblack outline-none ${
+          isBorder ? "placeholder:text-grey" : "placeholder:text-subtext"
+        }`}
         {...rest}
       />
       {hasValue && (
@@ -69,7 +86,7 @@ export default function Search({
     </div>
   );
 
-  if (variant === "no-icon") {
+  if (["no-icon", "border"].includes(variant)) {
     return <div className={`flex w-full ${className}`}>{field}</div>;
   }
 

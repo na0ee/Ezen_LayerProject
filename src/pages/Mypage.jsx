@@ -7,9 +7,9 @@ import {
   BtnSmall,
   CardSmall,
   Category,
+  LayerBadge,
   MagListCard,
   TabSub,
-  TagMag,
   TitleSection,
 } from "../components/common";
 import chevronRightGrey from "../assets/icons/chevron-right-grey.svg";
@@ -194,9 +194,7 @@ export default function Mypage() {
       {/* background + profile — 배경(305px) 중 프로필 카드에 가려지지 않고 보이는 높이가 210px */}
       <div className="relative h-76.25 w-full overflow-hidden">
         <img src={background} alt="" className="absolute inset-0 size-full object-cover" />
-        <TagMag className="absolute top-5 right-5">
-          <span className="font-en text-en-semibold-16 text-2light-grey">Mood Shifter</span>
-        </TagMag>
+        <LayerBadge className="absolute top-5 right-5" />
       </div>
 
       {/* 배경 이미지 위 흰 카드: 프로필 + 카테고리 탭만 흰 배경(offwhite), 그 아래 콘텐츠 영역은 페이지 배경색(background) */}

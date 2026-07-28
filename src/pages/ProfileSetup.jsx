@@ -12,16 +12,16 @@ export default function ProfileSetup() {
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-107.5 flex-col bg-background px-5 pb-20.5 pt-3">
       <div className="flex justify-end">
-        <BtnGo variant="more" onClick={() => navigate("/onboarding")}>
+        <BtnGo variant="more" onClick={() => navigate("/onboarding/skip")}>
           건너뛰기
         </BtnGo>
       </div>
 
-      <div className="mt-[85.5px] flex flex-col items-center">
+      <div className="flex flex-1 flex-col items-center justify-center py-8">
         {/* title-box */}
         <div className="flex flex-col items-center gap-2.5">
           <p className="font-en text-en-semibold-24 text-offblack">Find my LAYER</p>
-          <p className="text-body-regular-14 text-grey">
+          <p className="text-center text-body-regular-14 text-grey">
             몇 가지 질문으로 당신만의 향 취향을 찾아드릴게요
           </p>
         </div>
@@ -58,7 +58,12 @@ export default function ProfileSetup() {
         />
       </div>
 
-      <BtnBig className="mt-auto" onClick={() => navigate("/onboarding")}>
+      <BtnBig
+        onClick={() => {
+          sessionStorage.removeItem("layer-onboarding-result-path");
+          navigate("/onboarding");
+        }}
+      >
         내 향수유형 알아보기
       </BtnBig>
     </div>

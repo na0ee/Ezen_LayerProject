@@ -19,7 +19,7 @@ export default function MagazineCard({
       <div className="relative flex w-full flex-col gap-4">
         <div className="flex flex-col items-start justify-center gap-1">
           {tag && <TagMag>{tag}</TagMag>}
-          <p className="text-title-semibold-18 text-offwhite">{title}</p>
+          <p className="text-body-semibold-16 text-offwhite">{title}</p>
         </div>
         <p className="text-caption-medium-12 leading-[1.4] text-offwhite">{desc}</p>
       </div>

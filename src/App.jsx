@@ -15,9 +15,10 @@ import MagazineMain from "../Magazine/Magazine_main";
 import MagazineNiche from "../Magazine/Magazine_NICHE";
 import MagazineSummer from "../Magazine/Magazine_SEASON/Magazine_summer";
 import MagazineTip from "../Magazine/Magazine_TIP";
-import CategoryPage from "./pages/Category";
+import Category from "./pages/Category";
 import Chatbot from "./pages/Chatbot";
 import ComponentsPreview from "./pages/ComponentsPreview";
+import CommunityWriteEntryPage from "./pages/Community/CommunityWriteEntryPage";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyMembershipPage from "./pages/MyMembershipPage";
@@ -28,9 +29,13 @@ import MyReviewsPage from "./pages/MyReviewsPage";
 import Mypage from "./pages/Mypage";
 import MyWishlistPage from "./pages/MyWishlistPage";
 import OnboardingQuestion from "./pages/OnboardingQuestion";
+import OnboardingResult from "./pages/OnboardingResult";
+import OnboardingSkip from "./pages/OnboardingSkip";
+import OnboardingLoading from "./pages/OnboardingLoading";
 import ProfileSetup from "./pages/ProfileSetup";
 import Raffle from "./pages/raffle";
 import SearchResult from "./pages/SearchResult";
+import Alarm from "./pages/alarm";
 
 const TAB_ROUTES = {
   home: "/home",
@@ -67,16 +72,33 @@ export default function App() {
         <Route path="/profile" element={<ProfileSetup />} />
         <Route path="/onboarding" element={<Navigate to="/onboarding/1" replace />} />
         <Route path="/onboarding/result" element={<Navigate to="/home" replace />} />
+        <Route path="/onboarding/skip" element={<OnboardingSkip />} />
+        <Route path="/onboarding/loading" element={<OnboardingLoading />} />
         <Route path="/onboarding/:step" element={<OnboardingQuestion />} />
+
+        <Route path="/result/:resultType" element={<OnboardingResult />} />
+        <Route path="/bold-signature" element={<Navigate to="/result/bold-signature" replace />} />
+        <Route path="/soft-wanderer" element={<Navigate to="/result/soft-wanderer" replace />} />
+        <Route path="/white-canvas" element={<Navigate to="/result/white-canvas" replace />} />
+        <Route path="/daily-basic" element={<Navigate to="/result/daily-basic" replace />} />
+        <Route path="/mood-shifter" element={<Navigate to="/result/mood-shifter" replace />} />
+        <Route
+          path="/layer-maximalist"
+          element={<Navigate to="/result/layer-maximalist" replace />}
+        />
 
         <Route
           path="/home"
-          element={<Home onRaffle={() => navigate("/raffle")} onNavigate={navigateByTab} />}
+          element={
+            <Home
+              onRaffle={() => navigate("/raffle")}
+              onStartOnboarding={() => navigate("/onboarding/1")}
+              onNavigate={navigateByTab}
+            />
+          }
         />
         <Route path="/raffle" element={<Raffle onBack={() => navigate("/home")} />} />
-
-        <Route path="/category" element={<CategoryRoute />} />
-        <Route path="/search" element={<SearchRoute />} />
+        <Route path="/alarm" element={<Alarm />} />
         <Route
           path="/chatbot"
           element={<Chatbot onBack={() => navigate(-1)} onSelectPerfume={() => navigate("/category")} />}
@@ -110,7 +132,19 @@ export default function App() {
         <Route path="/mypage/reviews" element={<MyReviewsPage />} />
         <Route path="/mypage/membership" element={<MyMembershipPage />} />
 
-        <Route path="/community" element={<ComingSoon title="커뮤니티" />} />
+        <Route
+          path="/category"
+          element={
+            <Category
+              onSearch={(query) => navigate(`/search?q=${encodeURIComponent(query)}`)}
+              onSelect={(_, item) =>
+                navigate(`/search?q=${encodeURIComponent(item)}`)
+              }
+            />
+          }
+        />
+        <Route path="/search" element={<SearchResultRoute />} />
+        <Route path="/community" element={<CommunityWriteEntryPage />} />
         <Route path="/components" element={<ComponentsPreview />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
@@ -124,38 +158,12 @@ export default function App() {
   );
 }
 
-function CategoryRoute() {
+// 검색어를 쿼리스트링(?q=)으로 받는다.
+// 카드 클릭(onSelect)은 향수 상세 페이지가 생기면 연결한다.
+function SearchResultRoute() {
   const navigate = useNavigate();
-  const search = (query) => navigate(`/search?q=${encodeURIComponent(query)}`);
-
+  const [params] = useSearchParams();
   return (
-    <CategoryPage
-      onBack={() => navigate(-1)}
-      onSearch={search}
-      onSelect={(_, item) => search(item)}
-    />
-  );
-}
-
-function SearchRoute() {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-
-  return (
-    <SearchResult
-      query={searchParams.get("q") ?? ""}
-      onBack={() => navigate("/category")}
-    />
-  );
-}
-
-function ComingSoon({ title }) {
-  return (
-    <main className="mx-auto flex min-h-screen w-full max-w-107.5 items-center justify-center bg-background px-5">
-      <div className="text-center">
-        <h1 className="text-title-semibold-24 text-offblack">{title}</h1>
-        <p className="mt-2 text-body-regular-14 text-grey1">화면을 준비하고 있습니다.</p>
-      </div>
-    </main>
+    <SearchResult query={params.get("q") ?? ""} onBack={() => navigate(-1)} />
   );
 }

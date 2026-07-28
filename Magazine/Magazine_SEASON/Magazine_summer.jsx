@@ -5,11 +5,6 @@ import {
   TitleMag,
 } from "../../src/components/common";
 
-import batteryEnd from "../assets/status-battery-end.svg";
-import batteryFill from "../assets/status-battery-fill.svg";
-import batteryOutline from "../assets/status-battery-outline.svg";
-import mobileSignal from "../assets/status-signal.svg";
-import wifiIcon from "../assets/status-wifi.svg";
 import springHero from "./assets/spring-hero.png";
 import springPerfume1 from "./assets/spring-perfume-1.png";
 import springPerfume2 from "./assets/spring-perfume-2.png";
@@ -48,17 +43,14 @@ const SEASONS = [
       {
         src: springPerfume1,
         alt: "조 말론 피오니 앤 블러쉬 스웨이드",
-        imageClassName: "[&>img]:!h-[55px] [&>img]:!w-[38px]",
       },
       {
         src: springPerfume2,
         alt: "끌로에 오 드 퍼퓸",
-        imageClassName: "[&>img]:!h-[55px] [&>img]:!w-[38px]",
       },
       {
         src: springPerfume3,
         alt: "미스 디올 블루밍 부케",
-        imageClassName: "[&>img]:!h-[53px] [&>img]:!w-9",
       },
     ],
   },
@@ -76,17 +68,14 @@ const SEASONS = [
       {
         src: summerPerfume1,
         alt: "조 말론 우드 세이지 앤 씨 솔트",
-        imageClassName: "[&>img]:!h-[69px] [&>img]:!w-[52px]",
       },
       {
         src: summerPerfume2,
         alt: "아쿠아 디 파르마 미르토 디 파나레아",
-        imageClassName: "[&>img]:!h-[55px] [&>img]:!w-[38px]",
       },
       {
         src: summerPerfume3,
         alt: "티파니 앤 코 러브 포 허",
-        imageClassName: "[&>img]:!h-[53px] [&>img]:!w-9",
       },
     ],
   },
@@ -104,17 +93,14 @@ const SEASONS = [
       {
         src: fallPerfume1,
         alt: "르 라보 상탈 33",
-        imageClassName: "[&>img]:!h-[69px] [&>img]:!w-[52px]",
       },
       {
         src: fallPerfume2,
         alt: "딥티크 탐 다오",
-        imageClassName: "[&>img]:!h-[55px] [&>img]:!w-[38px]",
       },
       {
         src: fallPerfume3,
         alt: "바이레도 모하비 고스트",
-        imageClassName: "[&>img]:!h-[53px] [&>img]:!w-9",
       },
     ],
   },
@@ -132,17 +118,14 @@ const SEASONS = [
       {
         src: winterPerfume1,
         alt: "톰 포드 토바코 바닐",
-        imageClassName: "[&>img]:!h-[55px] [&>img]:!w-[38px]",
       },
       {
         src: winterPerfume2,
         alt: "메종 마르지엘라 바이 더 파이어플레이스",
-        imageClassName: "[&>img]:!h-[53px] [&>img]:!w-9",
       },
       {
         src: winterPerfume3,
-        alt: "르 라보 앙브레뜨 9",
-        imageClassName: "[&>img]:!h-[53px] [&>img]:!w-9",
+        alt: "르 라보 어나더 13",
       },
     ],
   },
@@ -292,60 +275,20 @@ export default function MagazineSummer({ onBack, initialSeason = 1 }) {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
-      <div className="relative mx-auto h-[932px] w-full max-w-[430px] overflow-hidden bg-background">
+      <div className="relative mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-background">
         <div
-          className="absolute inset-x-0 top-0 z-20 flex h-[64.555px] items-end bg-offwhite"
-          aria-label="상태 표시줄"
-        >
-          <div className="flex h-full min-w-0 flex-1 items-center justify-center pb-[3.282px] pl-[10.941px]">
-            <p className="h-[22.977px] w-[59.084px] text-center font-[-apple-system,BlinkMacSystemFont,'SF_Pro_Text',sans-serif] text-[17.51px] leading-[22.977px] font-semibold tracking-[-0.32px]">
-              9:41
-            </p>
-          </div>
-          <div className="flex h-full w-[136.768px] shrink-0 items-center justify-center">
-            <span className="h-[40.483px] w-[136.768px] rounded-[100px] bg-offblack" />
-          </div>
-          <div className="flex h-full min-w-0 flex-1 items-center justify-center pr-[12.036px]">
-            <div className="flex items-start gap-[8.753px]" aria-hidden="true">
-              <img
-                src={mobileSignal}
-                alt=""
-                className="h-[13.13px] w-[19.695px]"
-              />
-              <img
-                src={wifiIcon}
-                alt=""
-                className="h-[12.948px] w-[18.601px]"
-              />
-              <span className="relative h-[14.224px] w-[29.981px]">
-                <img
-                  src={batteryOutline}
-                  alt=""
-                  className="absolute inset-y-0 left-0 h-[14.224px] w-[27.351px]"
-                />
-                <img
-                  src={batteryEnd}
-                  alt=""
-                  className="absolute right-0 top-[4.803px] h-[4.618px] w-[1.533px]"
-                />
-                <img
-                  src={batteryFill}
-                  alt=""
-                  className="absolute left-[2.19px] top-[2.188px] h-[9.847px] w-[22.971px]"
-                />
-              </span>
-            </div>
-          </div>
-        </div>
+          className="h-[max(16px,env(safe-area-inset-top))] w-full bg-offwhite"
+          aria-hidden="true"
+        />
 
         <Header
           variant="detail-back"
           title="매거진"
           onBack={onBack}
-          className="absolute left-0 top-[65px] z-20 !bg-transparent [&>div:first-child]:!gap-0 [&>div:first-child>button]:!size-[21px] [&>div:first-child>button>img]:!size-[21px]"
+          className="relative z-20 [&>div:first-child]:!gap-0 [&>div:first-child>button]:!size-[21px] [&>div:first-child>button>img]:!size-[21px]"
         />
 
-        <main className="absolute left-0 top-[119px] h-[813px] w-full pb-10">
+        <main className="w-full pb-[max(40px,env(safe-area-inset-bottom))]">
           <div className="flex w-full flex-col gap-10">
             <section className="flex w-full flex-col items-center gap-3">
               <div
@@ -431,20 +374,19 @@ export default function MagazineSummer({ onBack, initialSeason = 1 }) {
                 </div>
               </div>
 
-              <div className="flex h-[70px] w-[390px] items-center justify-between overflow-hidden px-5">
-                <div className="flex min-w-0 flex-1 items-center gap-3">
+              <div className="flex h-[99px] w-full items-center overflow-hidden px-5">
+                <div className="flex h-[101px] items-center gap-3">
                   {activeSeason.perfumes.map((perfume) => (
                     <Img
                       key={perfume.alt}
-                      size="medium"
-                      color="white"
+                      size="big"
+                      color="grey"
                       src={perfume.src}
                       alt={perfume.alt}
-                      className={`!flex !size-[70px] !items-center !justify-center !rounded-[10px] !border-0 [&>img]:!object-cover ${perfume.imageClassName}`}
+                      className="!rounded-lg"
                     />
                   ))}
                 </div>
-                <span className="size-[18px] shrink-0" aria-hidden="true" />
               </div>
             </section>
           </div>
