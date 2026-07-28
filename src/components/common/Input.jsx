@@ -10,7 +10,7 @@ export default function Input({
 }) {
   return (
     <div
-      className={`flex h-[50px] w-full items-center gap-2 rounded-[32px] border border-transparent bg-2light-grey py-3 pl-4 pr-3 focus-within:border-light-grey focus-within:bg-offwhite ${className}`}
+      className={`flex h-[50px] w-full items-center gap-2 rounded-[32px] border border-transparent bg-2light-grey px-4 py-3 focus-within:border-light-grey focus-within:bg-offwhite ${className}`}
     >
       <input
         type="text"
@@ -18,7 +18,12 @@ export default function Input({
         className="min-w-0 flex-1 bg-transparent text-chatbot-18 text-offblack outline-none placeholder:text-subtext"
         {...rest}
       />
-      <button type="button" aria-label="전송" onClick={onSend} className="shrink-0">
+      <button
+        type="button"
+        aria-label="전송"
+        onClick={onSend}
+        className="flex size-5 shrink-0 items-center justify-center"
+      >
         <img src={sendIcon} alt="" className="size-5 rotate-45" />
       </button>
     </div>
