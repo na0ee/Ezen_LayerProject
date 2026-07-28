@@ -5,6 +5,7 @@ import fallbackTwo from "../assets/images/onboarding/q2-travel.png";
 import fallbackThree from "../assets/images/onboarding/q3-floral.png";
 
 const FALLBACK_IMAGES = [fallbackOne, fallbackTwo, fallbackThree];
+const RESULT_STORAGE_KEY = "layer-onboarding-result-path";
 
 export default function OnboardingLoading() {
   const location = useLocation();
@@ -13,7 +14,10 @@ export default function OnboardingLoading() {
     () => location.state?.images?.slice(0, 3) ?? FALLBACK_IMAGES,
     [location.state]
   );
-  const resultPath = location.state?.resultPath ?? "/result/daily-basic";
+  const resultPath =
+    location.state?.resultPath ??
+    sessionStorage.getItem(RESULT_STORAGE_KEY) ??
+    "/onboarding/1";
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -24,8 +28,8 @@ export default function OnboardingLoading() {
   }, [navigate, resultPath]);
 
   return (
-    <main className="relative mx-auto min-h-dvh w-full max-w-[430px] overflow-hidden bg-white">
-      <section className="absolute left-1/2 top-[346px] -translate-x-1/2 text-center">
+    <main className="relative mx-auto flex min-h-dvh w-full max-w-[430px] items-center justify-center overflow-hidden bg-white">
+      <section className="text-center">
         <div className="relative mx-auto h-[61px] w-[168px]">
           {images.map((image, index) => (
             <span

@@ -16,8 +16,8 @@ export default function OnboardingSkip() {
   }, [navigate]);
 
   return (
-    <main className="relative mx-auto min-h-dvh w-full max-w-[430px] overflow-hidden bg-background">
-      <section className="absolute left-1/2 top-[281px] -translate-x-1/2 text-center">
+    <main className="relative mx-auto flex min-h-dvh w-full max-w-[430px] items-center justify-center overflow-hidden bg-background">
+      <section className="text-center">
         <div className="relative mx-auto h-[61px] w-[169px]">
           <span
             className="onboarding-skip-bounce absolute left-0 top-0 size-[61px]"

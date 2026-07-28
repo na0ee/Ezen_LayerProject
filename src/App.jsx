@@ -79,7 +79,13 @@ export default function App() {
 
       <Route
         path="/home"
-        element={<Home onRaffle={() => navigate("/raffle")} />}
+        element={
+          <Home
+            onRaffle={() => navigate("/raffle")}
+            onStartOnboarding={() => navigate("/onboarding/1")}
+            onNavigate={navigateByTab}
+          />
+        }
       />
       <Route path="/raffle" element={<Raffle onBack={() => navigate("/home")} />} />
       <Route path="/alarm" element={<Alarm />} />
