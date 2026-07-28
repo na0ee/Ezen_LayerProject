@@ -31,7 +31,7 @@ export default function BottomNav({
         type="button"
         aria-label="캐릭터"
         onClick={onCharacter}
-        className="flex size-16 shrink-0 items-center justify-center rounded-full bg-offblack70 backdrop-blur-[2px]"
+        className="flex size-[72px] shrink-0 items-center justify-center rounded-full bg-offblack70 backdrop-blur-[2px]"
       >
         <img src={characterLay} alt="" className="h-10 w-auto object-contain" />
       </button>
