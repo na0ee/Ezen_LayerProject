@@ -49,9 +49,9 @@ export default function ConQuestion1({
 }) {
   return (
     <div
-      className={`flex w-full flex-col gap-6 rounded-2xl border border-light-grey bg-offwhite p-4 ${className}`}
+      className={`flex w-full flex-col gap-[20px] rounded-2xl border border-light-grey bg-offwhite p-4 ${className}`}
     >
-      <div className="flex w-full flex-col gap-4">
+      <div className="flex w-full flex-col gap-[16px]">
         <Profile
           variant={anonymous ? "none" : "default"}
           name={profileName}
@@ -63,7 +63,7 @@ export default function ConQuestion1({
           <p className="text-title-semibold-18 text-offblack">{title}</p>
         </div>
       </div>
-      <div className="flex w-full flex-col gap-4">
+      <div className="flex w-full flex-col gap-[16px]">
         {options.map((option, i) => (
           <VoteBar
             key={option.label ?? i}

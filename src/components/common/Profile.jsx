@@ -10,7 +10,7 @@ export default function Profile({
 }) {
   const isNone = variant === "none";
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
+    <div className={`flex items-center gap-[12px] ${className}`}>
       {isNone || !img ? (
         <div className="flex size-10 items-center justify-center rounded-full bg-2light-grey">
           <img src={iconUser} alt="" className="size-6" />

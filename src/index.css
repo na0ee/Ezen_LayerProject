@@ -93,6 +93,8 @@
    Chrome/Edge는 ::-webkit-scrollbar를 따로 꺼야 카드 아래가 안 잘린다 */
 @utility no-scrollbar {
   scrollbar-width: none;
+  -ms-overflow-style: none;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -121,14 +123,8 @@
       color-mix(in srgb, var(--color-offblack) 18%, transparent);
 }
 
-/* 가로 스크롤은 유지하되 스크롤바만 숨김 */
-@utility no-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+html {
+  scrollbar-gutter: stable;
 }
 
 html,
