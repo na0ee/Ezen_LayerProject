@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import chevronRight from '../../assets/icons/chevron-right-grey.svg'
 import graphGrid from '../../assets/images/result/bold-signature/graph-grid.svg'
 import BtnBig from './BtnBig'
@@ -36,6 +37,7 @@ export default function ResultTypePage({
   graphImageClassName,
   perfumes,
 }) {
+  const navigate = useNavigate()
   const sliderRef = useRef(null)
   const dragStartRef = useRef({ x: 0, scrollLeft: 0 })
   const [isDragging, setIsDragging] = useState(false)
@@ -136,7 +138,7 @@ export default function ResultTypePage({
           </div>
         </section>
 
-        <BtnBig className="mt-[60px]" onClick={() => window.location.assign('/')}>
+        <BtnBig className="mt-[60px]" onClick={() => navigate('/home')}>
           <span className="font-en text-xl font-medium">LAYER</span>
           <span className="ml-1 text-base font-normal">에서 나만의 향수 찾기</span>
         </BtnBig>

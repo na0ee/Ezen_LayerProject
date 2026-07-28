@@ -141,6 +141,7 @@ body {
 .result-chart-grid {
   background-image: radial-gradient(circle, rgb(26 26 26 / 10%) 0.7px, transparent 0.8px);
   background-size: 7px 7px;
+}
 /* 브라우저 기본값은 button에 pointer 커서를 주지 않으므로 전역으로 지정.
    Tailwind의 base 레이어에 넣어야 utilities 레이어의 cursor-* 클래스로
    개별 버튼에서 오버라이드할 수 있음 (레이어 밖 CSS는 특이도와 무관하게 항상 우선함) */
@@ -153,4 +154,30 @@ body {
     cursor: not-allowed;
   }
 }
+
+@keyframes onboarding-skip-bounce {
+  0%,
+  38%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  10% {
+    transform: translateY(3px) scale(1.04, 0.94);
+  }
+
+  21% {
+    transform: translateY(-13px) scale(0.96, 1.06);
+  }
+
+  29% {
+    transform: translateY(0) scale(1.02, 0.98);
+  }
+}
+
+.onboarding-skip-bounce {
+  animation: onboarding-skip-bounce 2.4s ease-in-out infinite;
+  animation-delay: var(--bounce-delay);
+  transform-origin: center bottom;
+  will-change: transform;
 }
