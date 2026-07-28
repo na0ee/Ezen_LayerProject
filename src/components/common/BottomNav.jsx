@@ -12,7 +12,7 @@ export default function BottomNav({
   className = "",
 }) {
   return (
-    <nav className={`flex w-full items-center gap-1.5 ${className}`}>
+    <nav className={`flex w-[390px] max-w-full items-center gap-1.5 ${className}`}>
       {/* 활성 인디케이터는 바 양끝과 8px(px-2), 상하 6px(64-52) 간격 유지 */}
       <div className="h-16 min-w-0 flex-1 rounded-[50px] bg-offblack70 backdrop-blur-[2px]">
         <div className="flex h-full items-center px-2">
