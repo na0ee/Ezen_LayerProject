@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Bubble, ChatCard, Input, QuickCategory } from "../components/common";
-import caretLeft from "../assets/icons/caret-left.svg";
+import {
+  Bubble,
+  ChatCard,
+  Header,
+  Input,
+  QuickCategory,
+} from "../components/common";
 import characterLay from "../assets/images/character-lay.png";
 import shiroStore from "../assets/images/chatbot/shiro-seongsu-store.png";
 import shiroMap from "../assets/images/chatbot/shiro-seongsu-map.png";
@@ -647,19 +652,12 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
     <div className="min-h-screen bg-background">
       <main className="mx-auto flex w-full max-w-[430px] flex-col gap-6 bg-background px-5 pb-[150px]">
         {/* -mx-5로 main의 좌우 여백을 상쇄해 헤더 배경이 화면 끝까지 닿게 한다 */}
-        <header className="sticky top-0 z-10 -mx-5 flex items-start justify-between bg-offwhite px-5 pb-3 pt-[18px]">
-          <button
-            type="button"
-            aria-label="뒤로가기"
-            onClick={onBack}
-            className="size-6 shrink-0"
-          >
-            <img src={caretLeft} alt="" className="size-6" />
-          </button>
-          <h1 className="w-[232px] text-title-medium-20 text-offblack">
-            챗봇레이
-          </h1>
-        </header>
+        <Header
+          variant="detail-back"
+          title="챗봇레이"
+          onBack={onBack}
+          className="sticky top-0 z-10 -mx-5 !h-14 !w-[calc(100%+40px)] !bg-white [&>div:first-child]:!gap-0"
+        />
 
         <div className="flex w-full flex-col gap-10">
           {messages.map((message, index) => {
