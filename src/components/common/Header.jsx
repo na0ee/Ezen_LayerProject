@@ -29,10 +29,11 @@ export default function Header({
   onBell,
   onEdit,
   onSave,
+  transparent = false,
   className = '',
 }) {
   const isWhite = variant === 'main'
-  const hasBg = !['main', 'main2'].includes(variant)
+  const hasBg = !transparent && !['main', 'main2'].includes(variant)
 
   return (
     <header

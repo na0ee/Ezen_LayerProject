@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Home from "./pages/Home";
+import Raffle from "./pages/raffle";
 import {
   Badge,
   Bell,
@@ -562,9 +563,15 @@ function ComponentsPreview() {
 }
 
 export default function App() {
+  const [page, setPage] = useState("home");
+
   if (window.location.pathname === "/components") {
     return <ComponentsPreview />;
   }
 
-  return <Home />;
+  if (page === "raffle") {
+    return <Raffle onBack={() => setPage("home")} />;
+  }
+
+  return <Home onRaffle={() => setPage("raffle")} />;
 }
