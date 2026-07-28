@@ -1,4 +1,5 @@
-import commentProfileYeeunTv from "../../assets/Community/comment-profile-yeeuntv.png";
+import profileFruityLover from "../../assets/Community/Profile/profile-fruity-lover.png";
+import profileOfficeScent from "../../assets/Community/Profile/profile-office-scent.png";
 import {
   BottomNav,
   ConQuestion,
@@ -9,8 +10,11 @@ import {
 
 const communityTabs = ["리뷰", "질문", "챌린지", "향 추천"] as const;
 
-const questionText =
+const fruitQuestionText =
   "사과향이나 오렌지같은 약간 청순하면서 발랄한? 그런 과일향이 필요해요!! 아시는 분 추천해주세요 ㅜㅜ 최소 3만원 이하로 해주시면 감사하겠습니다! 청순발랄한 향이라면 과일이 아니어도 상관 없어요!";
+
+const cleanQuestionText =
+  "향수를 처음 사보려고 해요. 출근할 때 매일 뿌려도 부담 없고, 막 세탁한 셔츠처럼 깨끗한 비누향이면 좋겠어요. 너무 달거나 파우더리하지 않은 제품으로 추천 부탁드려요!";
 
 const pollOptions = [
   {
@@ -80,11 +84,11 @@ export default function CommunityQuestionPage({
         >
           <article className="community-question-card community-question-card--recommendation">
             <ConQuestion
-              profileName="예은티비"
+              profileName="과일향러버"
               profileTime="5분 전"
-              profileImg={commentProfileYeeunTv}
-              title="향수 추천해주세요"
-              text={questionText}
+              profileImg={profileFruityLover}
+              title="상큼한 과일향 향수 추천해주세요"
+              text={fruitQuestionText}
               likes={42}
               comments={8}
             />
@@ -92,22 +96,22 @@ export default function CommunityQuestionPage({
 
           <article className="community-question-card community-question-card--recommendation-repeat">
             <ConQuestion
-              profileName="예은티비"
-              profileTime="5분 전"
-              profileImg={commentProfileYeeunTv}
-              title="향수 추천해주세요"
-              text={questionText}
-              likes={42}
-              comments={8}
+              profileName="출근향찾는중"
+              profileTime="18분 전"
+              profileImg={profileOfficeScent}
+              title="매일 뿌리기 좋은 깨끗한 비누향 있을까요?"
+              text={cleanQuestionText}
+              likes={19}
+              comments={5}
             />
           </article>
 
           <article className="community-question-card community-question-card--poll">
             <ConQuestion1
               profileName="익명"
-              profileTime="5분 전"
+              profileTime="32분 전"
               anonymous
-              sub="익명의 향덕님이 하나 골라달래요"
+              sub="익명의 향덕님이 여름 향수를 고민 중이에요"
               title="여름용 데일리 향수, 어떤 게 더 좋을까요?"
               options={[...pollOptions]}
             />

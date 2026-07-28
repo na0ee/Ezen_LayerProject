@@ -1,0 +1,88 @@
+// src/data/fragranceFamilies.js
+// 향 계열 마스터 목록 (9종 고정). 자가진단 퀴즈 로직과도 연결되어 있으므로
+// 여기서 계열을 추가/삭제하면 퀴즈 스코어링도 함께 확인할 것.
+// id는 perfumeData.js의 familyIds 배열이 참조함.
+
+export const fragranceFamilies = [
+  {
+    id: "aquatic",
+    name: "아쿠아틱",
+    emoji: "🌊",
+    keyword: "깔끔한",
+    seasons: ["봄", "여름"],
+    descriptionMain: "아쿠아틱은 물이 떠올려지는 맑고 시원한 향이에요.",
+    descriptionSub: "비 온 뒤의 공기나 바닷바람처럼 깨끗하고 청량한게 특징이며, 데일리로 부담 없이 사용하기 좋아요.",
+  },
+  {
+    id: "woody",
+    name: "우디",
+    emoji: "🌳",
+    keyword: "차분한",
+    seasons: ["가을", "겨울"],
+    descriptionMain: "우디는 나무향이 중심이 되는 깊고 안정적인 향이에요.",
+    descriptionSub: "숲속에 있는 듯한 차분함과 따뜻함이 특징이며, 신뢰감 있는 인상을 남기고 싶을 때 좋아요.",
+  },
+  {
+    id: "floral",
+    name: "플로럴",
+    emoji: "🌸",
+    keyword: "우아한",
+    seasons: ["봄"],
+    descriptionMain: "플로럴은 꽃에서 느껴지는 부드럽고 우아한 향이에요.",
+    descriptionSub: "로맨틱하고 여성스러운 분위기가 특징이며, 은은한 존재감을 남기고 싶을 때 좋아요.",
+  },
+  {
+    id: "musk",
+    name: "머스크",
+    emoji: "🤍",
+    keyword: "포근한",
+    seasons: ["사계절"],
+    descriptionMain: "머스크는 살결에 밀착된 듯한 은은하고 포근한 향이에요.",
+    descriptionSub: "파우더리하면서도 관능적인 여운이 특징이며, 가까운 사람에게만 느껴지는 향을 원할 때 좋아요.",
+  },
+  {
+    id: "citrus",
+    name: "시트러스",
+    emoji: "🍋",
+    keyword: "상큼한",
+    seasons: ["봄", "여름"],
+    descriptionMain: "시트러스는 상큼하고 톡 쏘는 과즙 같은 향이에요.",
+    descriptionSub: "활기차고 상쾌한 첫인상이 특징이며, 산뜻하게 하루를 시작하고 싶을 때 좋아요.",
+  },
+  {
+    id: "oriental",
+    name: "오리엔탈",
+    emoji: "✨",
+    keyword: "매혹적인",
+    seasons: ["가을", "겨울"],
+    descriptionMain: "오리엔탈은 스파이스와 레진의 짙고 신비로운 향이에요.",
+    descriptionSub: "매혹적이고 이국적인 존재감이 특징이에요.",
+  },
+  {
+    id: "powdery",
+    name: "파우더리",
+    emoji: "🤎",
+    keyword: "다정한",
+    seasons: ["가을", "겨울"],
+    descriptionMain: "파우더리는 분가루처럼 부드럽고 포슬포슬한 향이에요.",
+    descriptionSub: "따뜻하고 다정한 여운이 특징이며, 편안하고 친근한 인상을 주고 싶을 때 좋아요.",
+  },
+  {
+    id: "spicy",
+    name: "스파이시",
+    emoji: "🔥",
+    keyword: "강렬한",
+    seasons: ["가을", "겨울"],
+    descriptionMain: "스파이시는 향신료의 자극적이고 강렬한 향이에요.",
+    descriptionSub: "카리스마 있는 존재감이 특징이에요.",
+  },
+  {
+    id: "green",
+    name: "그린",
+    emoji: "🌿",
+    keyword: "싱그러운",
+    seasons: ["봄", "여름"],
+    descriptionMain: "그린은 풀잎과 나뭇잎에서 느껴지는 싱그러운 향이에요.",
+    descriptionSub: "자연스럽고 편안한 분위기가 특징이며, 캐주얼하게 매일 사용하기 좋아요.",
+  },
+];
