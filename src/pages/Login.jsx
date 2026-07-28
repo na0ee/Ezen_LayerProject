@@ -27,7 +27,7 @@ export default function Login() {
   return (
     <div className="mx-auto min-h-dvh w-full max-w-[430px] bg-background">
       {/* 피그마 wrap: 높이 647, 내용은 세로 중앙에서 17.5px 위로 → pb-[35px] */}
-      <div className="flex h-[647px] flex-col items-center justify-center gap-[60px] px-5 pb-[35px]">
+      <div className="flex min-h-dvh flex-col items-center justify-center gap-[60px] px-5 py-[35px]">
         <div className="flex flex-col items-center justify-center gap-4">
           <p className="font-en text-en-logo-48 text-offblack">LAYER</p>
           <p className="w-[154px] text-center text-subtitle-regular-16 leading-none text-offblack">

@@ -21,22 +21,23 @@ import heroImg from "../assets/images/home/hero.png";
 import heroRecordImg from "../assets/images/home/hero-record.png";
 import magazine1 from "../assets/images/home/magazine-1.png";
 import magazine2 from "../assets/images/home/magazine-2.png";
+import magazine3 from "../assets/images/home/magazine-3.png";
 import rank1 from "../assets/images/home/rank-1.png";
 import rank2 from "../assets/images/home/rank-2.png";
 import rank3 from "../assets/images/home/rank-3.png";
 import raffleImg from "../assets/images/home/raffle.png";
-import recordBottle from "../assets/images/home/record-bottle.png";
 import scent1 from "../assets/images/home/scent-1.png";
 import scent2 from "../assets/images/home/scent-2.png";
+import scent3 from "../assets/images/home/scent-3-new.png";
 
 const days = [
-  ["Mon", "6"],
-  ["Tue", "7"],
-  ["Wed", "8"],
-  ["Thu", "9"],
-  ["Fri", "10"],
-  ["Sat", "11"],
-  ["Sun", "12"],
+  { day: "Mon", date: "6", recorded: true },
+  { day: "Tue", date: "7", recorded: true },
+  { day: "Wed", date: "8", recorded: true },
+  { day: "Thu", date: "9", recorded: true },
+  { day: "Fri", date: "10", recorded: false },
+  { day: "Sat", date: "11", recorded: true },
+  { day: "Sun", date: "12", recorded: false },
 ];
 
 const heroSlides = [
@@ -71,9 +72,15 @@ const scentCards = [
   },
   {
     img: scent2,
-    label: "Mood Shifter",
+    label: "Daily Basic",
     name: "mellow_bin",
     keywords: ["달콤한", "바닐라"],
+  },
+  {
+    img: scent3,
+    label: "Bold Signature",
+    name: "dansu_o",
+    keywords: ["우디", "빈티지"],
   },
 ];
 
@@ -134,15 +141,85 @@ function useDragScroll() {
   };
 }
 
-export default function Home({ onRaffle, onNavigate }) {
+export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
   const [activeNav, setActiveNav] = useState("home");
   const [giftCategory, setGiftCategory] = useState("전체");
   const [isPastHero, setIsPastHero] = useState(false);
   const [activeHero, setActiveHero] = useState(0);
+  const [heroTimerKey, setHeroTimerKey] = useState(0);
+  const heroDrag = useRef({
+    active: false,
+    dragged: false,
+    pointerId: null,
+    startX: 0,
+  });
   const scentDrag = useDragScroll();
   const challengeDrag = useDragScroll();
   const magazineDrag = useDragScroll();
   const rankDrag = useDragScroll();
+
+  const changeHero = (direction) => {
+    setActiveHero(
+      (current) =>
+        (current + direction + heroSlides.length) % heroSlides.length,
+    );
+    setHeroTimerKey((current) => current + 1);
+  };
+
+  const selectHero = (index) => {
+    setActiveHero(index);
+    setHeroTimerKey((current) => current + 1);
+  };
+
+  const handleHeroPointerDown = (event) => {
+    if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) {
+      return;
+    }
+    if (event.target.closest("button, a")) return;
+
+    heroDrag.current = {
+      active: true,
+      dragged: false,
+      pointerId: event.pointerId,
+      startX: event.clientX,
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handleHeroPointerMove = (event) => {
+    if (!heroDrag.current.active) return;
+
+    if (Math.abs(event.clientX - heroDrag.current.startX) > 8) {
+      heroDrag.current.dragged = true;
+    }
+  };
+
+  const finishHeroDrag = (event) => {
+    if (
+      !heroDrag.current.active ||
+      heroDrag.current.pointerId !== event.pointerId
+    ) {
+      return;
+    }
+
+    const distance = event.clientX - heroDrag.current.startX;
+    heroDrag.current.active = false;
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    if (Math.abs(distance) >= 50) {
+      changeHero(distance < 0 ? 1 : -1);
+    }
+  };
+
+  const handleHeroClickCapture = (event) => {
+    if (!heroDrag.current.dragged) return;
+    event.preventDefault();
+    event.stopPropagation();
+    heroDrag.current.dragged = false;
+  };
 
   useEffect(() => {
     const handleScroll = () => setIsPastHero(window.scrollY >= 536);
@@ -158,12 +235,19 @@ export default function Home({ onRaffle, onNavigate }) {
     }, 5000);
 
     return () => window.clearInterval(timer);
-  }, []);
+  }, [heroTimerKey]);
 
   return (
     <div className="min-h-screen bg-background">
       <main className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-background pb-32">
-        <section className="relative h-[536px] overflow-hidden bg-offblack">
+        <section
+          className="relative h-[536px] cursor-grab touch-pan-y select-none overflow-hidden bg-offblack active:cursor-grabbing"
+          onClickCapture={handleHeroClickCapture}
+          onPointerCancel={finishHeroDrag}
+          onPointerDown={handleHeroPointerDown}
+          onPointerMove={handleHeroPointerMove}
+          onPointerUp={finishHeroDrag}
+        >
           {heroSlides.map((slide, index) => (
             <div
               key={slide.button}
@@ -191,7 +275,14 @@ export default function Home({ onRaffle, onNavigate }) {
             <p className="text-center text-body-medium-16 text-offwhite">
               {heroSlides[activeHero].text}
             </p>
-            <BtnHero>{heroSlides[activeHero].button}</BtnHero>
+            <BtnHero
+              onClick={() => {
+                if (activeHero === 0) onStartOnboarding?.();
+                if (activeHero === 2) onNavigate?.("community");
+              }}
+            >
+              {heroSlides[activeHero].button}
+            </BtnHero>
             <div className="relative mt-1 h-0.5 w-[120px] bg-offwhite">
               <div
                 className="h-full bg-offblack transition-[width] duration-500"
@@ -203,7 +294,7 @@ export default function Home({ onRaffle, onNavigate }) {
                     key={slide.button}
                     type="button"
                     aria-label={`Hero ${index + 1} 보기`}
-                    onClick={() => setActiveHero(index)}
+                    onClick={() => selectHero(index)}
                   />
                 ))}
               </div>
@@ -223,29 +314,18 @@ export default function Home({ onRaffle, onNavigate }) {
               }
               onMore={() => {}}
             />
-            <div className="flex items-start justify-between">
-              {days.map(([day, date], index) => (
-                <div key={day} className="flex w-10 flex-col items-center gap-1.5">
-                  <span className="text-caption-medium-12 text-grey">{day}</span>
-                  <div className="relative flex h-[50px] w-10 items-end justify-center pb-[7px] text-caption-medium-12 text-offwhite">
-                    <span
-                      aria-hidden="true"
-                      className={`absolute left-[-5px] top-0 size-[50px] ${
-                        index === 4 || index === 5 ? "bg-grey" : "bg-offblack"
-                      }`}
-                      style={{
-                        WebkitMaskImage: `url(${recordBottle})`,
-                        maskImage: `url(${recordBottle})`,
-                        WebkitMaskPosition: "center",
-                        maskPosition: "center",
-                        WebkitMaskRepeat: "no-repeat",
-                        maskRepeat: "no-repeat",
-                        WebkitMaskSize: "contain",
-                        maskSize: "contain",
-                      }}
-                    />
-                    <span className="relative">{date}</span>
-                  </div>
+            <div className="flex h-[72px] items-center justify-between">
+              {days.map(({ day, date, recorded }) => (
+                <div
+                  key={day}
+                  className={`flex h-[68px] w-[50px] flex-col items-center justify-center gap-2.5 rounded-[50px] border text-caption-medium-12 ${
+                    recorded
+                      ? "border-offblack bg-offblack text-offwhite"
+                      : "border-light-grey bg-offwhite text-offblack"
+                  }`}
+                >
+                  <span>{day}</span>
+                  <span>{date}</span>
                 </div>
               ))}
             </div>
@@ -270,7 +350,7 @@ export default function Home({ onRaffle, onNavigate }) {
             </div>
             <div
               {...scentDrag}
-              className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
+              className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
               {scentCards.map((card) => (
                 <CardMainReview key={card.name} {...card} className="shrink-0" />
@@ -287,7 +367,7 @@ export default function Home({ onRaffle, onNavigate }) {
             </div>
             <div
               {...challengeDrag}
-              className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
+              className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
               {challengeCards.map((card, index) => (
                 <CardChallengeSmall
@@ -316,18 +396,24 @@ export default function Home({ onRaffle, onNavigate }) {
             </div>
             <div
               {...magazineDrag}
-              className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
+              className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
               <CardMag
                 img={magazine1}
                 title="향수 지속력 높이는 꿀팁"
-                desc={"같은 향도 오래 남기는 사용법\n매거진 내용 두줄정도 요약해서 나오면 좋을듯"}
+                desc={"보습된 피부에 뿌려야 향이 오래 머물러요"}
                 className="shrink-0"
               />
               <CardMag
                 img={magazine2}
                 title="BYREDO"
                 desc="기억과 감정을 향으로 담아내는 브랜드"
+                className="shrink-0"
+              />
+              <CardMag
+                img={magazine3}
+                title="여름 밤에 어울리는 향"
+                desc={"기억과 감정을 향으로 담아내는 브랜드\n매거진 내용 두줄정도 요약해서 나오면 좋을듯"}
                 className="shrink-0"
               />
             </div>
@@ -350,7 +436,7 @@ export default function Home({ onRaffle, onNavigate }) {
             </div>
             <div
               {...rankDrag}
-              className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
+              className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
               <CardRank
                 rank="1위"
@@ -362,19 +448,19 @@ export default function Home({ onRaffle, onNavigate }) {
                 className="shrink-0"
               />
               <CardRank
-                rank="1위"
+                rank="2위"
                 img={rank2}
-                name="블랙베리 앤 베이"
-                brand="JO MALONE LONDON"
+                name="플레르 드 뽀 오 드 퍼퓸"
+                brand="DIPTYQUE"
                 imageFrameClassName="w-[57px]"
                 imageClassName="absolute h-[106.25px] w-[105.32px] left-[-24.16px] top-0 max-w-none"
                 className="shrink-0"
               />
               <CardRank
-                rank="1위"
+                rank="3위"
                 img={rank3}
-                name="블랙베리 앤 베이"
-                brand="JO MALONE LONDON"
+                name="넘버5 오 드 빠르펭"
+                brand="CHANEL"
                 imageFrameClassName="w-[61px]"
                 imageClassName="absolute h-[142.86px] w-[142.06px] left-[-40.11px] top-[-21.85px] max-w-none"
                 className="shrink-0"
