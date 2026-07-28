@@ -19,11 +19,15 @@ import Category from "./pages/Category";
 import Chatbot from "./pages/Chatbot";
 import ComponentsPreview from "./pages/ComponentsPreview";
 import Home from "./pages/Home";
-import SearchResult from "./pages/SearchResult";
 import Login from "./pages/Login";
+import MyPerfumePage from "./pages/MyPerfumePage";
+import Mypage from "./pages/Mypage";
+import MyReviewsPage from "./pages/MyReviewsPage";
+import MyWishlistPage from "./pages/MyWishlistPage";
 import OnboardingQuestion from "./pages/OnboardingQuestion";
 import ProfileSetup from "./pages/ProfileSetup";
 import Raffle from "./pages/raffle";
+import SearchResult from "./pages/SearchResult";
 
 export default function App() {
   const navigate = useNavigate();
@@ -143,6 +147,10 @@ export default function App() {
         element={<ComingSoon title="커뮤니티" />}
       />
       <Route path="/my" element={<ComingSoon title="마이페이지" />} />
+      <Route path="/mypage" element={<Mypage />} />
+      <Route path="/mypage/perfumes" element={<MyPerfumePage />} />
+      <Route path="/mypage/wishlist" element={<MyWishlistPage />} />
+      <Route path="/mypage/reviews" element={<MyReviewsPage />} />
       <Route path="/components" element={<ComponentsPreview />} />
       <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
