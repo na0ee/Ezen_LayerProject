@@ -25,10 +25,7 @@ export default function BottomNav({
     active ?? (TABS.includes(routeTab) ? routeTab : "home");
 
   const handleTabChange = (tab) => {
-    if (onChange) {
-      onChange(tab);
-      return;
-    }
+    onChange?.(tab);
     navigate(routeByTab[tab]);
   };
 
@@ -51,7 +48,7 @@ export default function BottomNav({
       <button
         type="button"
         aria-label="캐릭터"
-        onClick={onCharacter}
+        onClick={onCharacter ?? (() => navigate("/chatbot"))}
         className="flex size-[72px] shrink-0 items-center justify-center rounded-full bg-offblack70 backdrop-blur-[2px]"
       >
         <img src={characterLay} alt="" className="h-10 w-auto object-contain" />

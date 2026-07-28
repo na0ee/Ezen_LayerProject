@@ -366,12 +366,7 @@ export default function Mypage() {
       </div>
 
       <div className="fixed bottom-0 left-1/2 w-full max-w-[430px] -translate-x-1/2 px-5 pb-5">
-        <BottomNav
-          active="my"
-          onChange={(tab) => {
-            if (tab === "home") window.location.href = "/";
-          }}
-        />
+        <BottomNav active="my" />
       </div>
     </div>
   );
