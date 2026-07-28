@@ -23,6 +23,7 @@ export default function BottomNav({
   const routeTab = location.pathname.split("/")[1];
   const resolvedActive =
     active ?? (TABS.includes(routeTab) ? routeTab : "home");
+  const activeIndex = Math.max(TABS.indexOf(resolvedActive), 0);
 
   const handleTabChange = (tab) => {
     onChange?.(tab);
@@ -30,29 +31,48 @@ export default function BottomNav({
   };
 
   return (
-    <nav className={`flex w-[390px] max-w-full items-center gap-1.5 ${className}`}>
-      {/* 활성 인디케이터는 바 양끝과 8px(px-2), 상하 6px(64-52) 간격 유지 */}
-      <div className="h-16 min-w-0 flex-1 rounded-[50px] bg-offblack70 backdrop-blur-[2px]">
-        <div className="flex h-full items-center px-2">
-          {TABS.map((tab) => (
-            <TabNav
-              key={tab}
-              variant={tab}
-              active={resolvedActive === tab}
-              onClick={() => handleTabChange(tab)}
-              className="flex-1"
-            />
-          ))}
+    <nav
+      aria-label="주요 메뉴"
+      className={`flex w-[390px] max-w-full items-center ${className}`}
+    >
+      <div className="flex w-[391px] shrink-0 items-center justify-center gap-1.5">
+        <div className="relative h-16 min-w-0 flex-1 overflow-hidden rounded-[50px] bg-offblack70 backdrop-blur-[2px]">
+          <span
+            aria-hidden="true"
+            className="absolute left-2 top-1/2 h-[52px] w-[82px] rounded-[50px] bg-grey/70 transition-transform duration-200"
+            style={{
+              transform: `translate(${activeIndex * 74.333333}px, -50%)`,
+            }}
+          />
+          <div className="absolute left-1/2 top-1/2 flex h-14 w-[313px] -translate-x-1/2 -translate-y-1/2 items-center justify-between px-[15px]">
+            {TABS.map((tab) => (
+              <TabNav
+                key={tab}
+                variant={tab}
+                active={resolvedActive === tab}
+                onClick={() => handleTabChange(tab)}
+                className="relative z-10 !w-[60px] !min-w-[60px] shrink-0 !bg-transparent"
+              />
+            ))}
+          </div>
         </div>
+        <button
+          type="button"
+          aria-label="챗봇 레이 열기"
+          onClick={onCharacter ?? (() => navigate("/chatbot"))}
+          className="flex size-16 shrink-0 items-center justify-center rounded-full bg-offblack70 backdrop-blur-[2px]"
+        >
+          <span className="flex size-10 items-center justify-center overflow-hidden">
+            <span className="relative h-10 w-7 overflow-hidden">
+              <img
+                src={characterLay}
+                alt=""
+                className="absolute left-[-17px] top-[-8.5px] h-[59px] w-[62px] max-w-none"
+              />
+            </span>
+          </span>
+        </button>
       </div>
-      <button
-        type="button"
-        aria-label="캐릭터"
-        onClick={onCharacter ?? (() => navigate("/chatbot"))}
-        className="flex size-[72px] shrink-0 items-center justify-center rounded-full bg-offblack70 backdrop-blur-[2px]"
-      >
-        <img src={characterLay} alt="" className="h-10 w-auto object-contain" />
-      </button>
     </nav>
   );
 }
