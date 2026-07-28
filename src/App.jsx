@@ -11,10 +11,62 @@ import MagazineTip from "../Magazine/Magazine_TIP";
 import { BottomNav } from "./components/common";
 import ComponentsPreview from "./pages/ComponentsPreview";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import OnboardingQuestion from "./pages/OnboardingQuestion";
-import ProfileSetup from "./pages/ProfileSetup";
-import Raffle from "./pages/raffle";
+import Mypage from "./pages/Mypage";
+import MyPerfumePage from "./pages/MyPerfumePage";
+import MyReviewsPage from "./pages/MyReviewsPage";
+import MyWishlistPage from "./pages/MyWishlistPage";
+import {
+  Badge,
+  Bell,
+  BottomNav,
+  BtnBig,
+  BtnGo,
+  BtnHero,
+  BtnSmall,
+  Bubble,
+  CardChallenge,
+  CardChallengeSmall,
+  CardInfo,
+  CardMag,
+  CardMainReview,
+  CardRank,
+  CardSmall,
+  Category,
+  CategoryChip,
+  ChatCard,
+  CheckBox,
+  CommunityComment,
+  CommunityEnter,
+  CommunityToggle,
+  Con2,
+  ConQuestion,
+  ConQuestion1,
+  HashTag,
+  Header,
+  Heart,
+  Icon,
+  Img,
+  Input,
+  KeywordList,
+  MagListCard,
+  MagazineCard,
+  MainBanner,
+  MainBannerText,
+  MiddleCard,
+  Profile,
+  QuickCategory,
+  Review,
+  ReviewAiSummary,
+  ReviewSummary,
+  ReviewSummary1,
+  ReviewSummary2,
+  Search,
+  TabSub,
+  TagMag,
+  TitleMag,
+  TitleMain,
+  TitleSection,
+} from "./components/common";
 
 export default function App() {
   const navigate = useNavigate();
@@ -140,4 +192,28 @@ function ComingSoon({ title }) {
       </div>
     </main>
   );
+}
+
+export default function App() {
+  if (window.location.pathname === "/components") {
+    return <ComponentsPreview />;
+  }
+
+  if (window.location.pathname === "/mypage") {
+    return <Mypage />;
+  }
+
+  if (window.location.pathname === "/mypage/perfumes") {
+    return <MyPerfumePage />;
+  }
+
+  if (window.location.pathname === "/mypage/wishlist") {
+    return <MyWishlistPage />;
+  }
+
+  if (window.location.pathname === "/mypage/reviews") {
+    return <MyReviewsPage />;
+  }
+
+  return <Home />;
 }

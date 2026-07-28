@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx --yes playwright install chromium --with-deps)",
+      "Bash(node \"C:/Users/EZEN/AppData/Local/Temp/claude/c--pblovers-Ezen-LayerProject/51e64e34-a15d-4393-a485-7b1baeced057/scratchpad/shot.mjs\")",
+      "Bash(npm ls *)",
+      "Bash(node scratch-shot.mjs)",
+      "Bash(rm -f scratch-shot.mjs)",
+      "Bash(lsof -ti:5173 -sTCP:LISTEN)",
+      "Bash(xargs -r kill)",
+      "WebFetch(domain:liquid-glass.ybouane.com)"
+    ]
+  }
+}
