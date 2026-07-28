@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Heart from "./Heart";
 import TagMag from "./TagMag";
 
@@ -9,11 +10,22 @@ export default function TitleMag({
   tag,
   title,
   sub,
-  liked = true,
+  liked,
   onLike,
   className = "",
 }) {
+  const [internalLiked, setInternalLiked] = useState(false);
   const isSubtext = variant === "subtext";
+  const isControlled = typeof liked === "boolean";
+  const isLiked = isControlled ? liked : internalLiked;
+
+  const handleLike = (event) => {
+    if (!isControlled) {
+      setInternalLiked((current) => !current);
+    }
+    onLike?.(event);
+  };
+
   return (
     <div className={`flex w-full flex-col items-start gap-2.5 ${className}`}>
       {tag && <TagMag>{tag}</TagMag>}
@@ -28,7 +40,10 @@ export default function TitleMag({
         ) : (
           <p className="font-en text-en-semibold-24 text-offwhite">{title}</p>
         )}
-        <Heart variant={liked ? "abled" : "grey1"} onClick={onLike} />
+        <Heart
+          variant={isLiked ? "abled" : "grey3"}
+          onClick={handleLike}
+        />
       </div>
     </div>
   );
