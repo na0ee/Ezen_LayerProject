@@ -134,7 +134,7 @@ function useDragScroll() {
   };
 }
 
-export default function Home({ onRaffle, onNavigate }) {
+export default function Home({ onRaffle }) {
   const [activeNav, setActiveNav] = useState("home");
   const [giftCategory, setGiftCategory] = useState("전체");
   const [isPastHero, setIsPastHero] = useState(false);
@@ -401,13 +401,7 @@ export default function Home({ onRaffle, onNavigate }) {
         <BottomNav
           active={activeNav}
           onChange={(tab) => {
-            if (tab === "my") {
-              window.location.href = "/mypage";
-              return;
-            }
             setActiveNav(tab);
-            setActiveNav(tab);
-            onNavigate?.(tab);
           }}
         />
       </div>

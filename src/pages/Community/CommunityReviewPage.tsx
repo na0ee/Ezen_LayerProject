@@ -4,7 +4,9 @@ import diptyqueEauRoseProduct from "../../assets/Community/product-diptyque-eau-
 import joMaloneEnglishPearProduct from "../../assets/Community/product-jo-malone-english-pear.png";
 import lazySundayMorningProduct from "../../assets/Community/product-lazy-sunday-morning.png";
 import leLaboSantal33Product from "../../assets/Community/product-le-labo-santal-33.png";
-import profileHaesu from "../../assets/Community/profile-haesu.png";
+import profileCottonScent from "../../assets/Community/Profile/profile-cotton-scent.png";
+import profileHaesu from "../../assets/Community/Profile/profile-haesu-v2.png";
+import profileWoodyCollector from "../../assets/Community/Profile/profile-woody-collector.png";
 import beigeLookImage from "../../assets/Community/review-beige-look.png";
 import lazySundayMorningImage from "../../assets/Community/review-lazy-sunday-morning.png";
 import santal33Image from "../../assets/Community/review-santal-33.png";
@@ -114,27 +116,42 @@ const thirdReviewOverlay = (
 const reviewPosts = [
   {
     id: "beige-look",
+    profileName: "최해수",
+    profileTime: "30분 전",
+    profileImage: profileHaesu,
     image: beigeLookImage,
     imageOverlay: firstReviewOverlay,
     title: "햇살 좋은 날의 베이지 룩",
-    text: "따뜻한 햇살엔 부드럽고 깨끗한 향이 잘 어울리는 것 같아요. 블랑쉬로 포근하게 시작해서 오 로즈로 기분 전환해주고 마지막엔 잉글리수 페어로 잔향을 남겨줘요. 하루 종일 기분이 좋아지는 조합이에요.",
+    text: "따뜻한 햇살엔 부드럽고 깨끗한 향이 잘 어울리는 것 같아요. 블랑쉬로 포근하게 시작해서 오 로즈로 기분 전환해주고 마지막엔 잉글리쉬 페어로 잔향을 남겨줘요. 하루 종일 기분이 좋아지는 조합이에요.",
     keywords: ["데일리향수", "베이지룩", "플로럴머스크", "지속력좋아요"],
+    likes: 42,
+    comments: 8,
   },
   {
     id: "santal-33",
+    profileName: "우디수집가",
+    profileTime: "1시간 전",
+    profileImage: profileWoodyCollector,
     image: santal33Image,
     imageOverlay: secondReviewOverlay,
     title: "퇴근하고 나한테 주는 상",
     text: "상탈33은 아껴 쓰게 되는 향이에요. 하루 끝나고 손목에 한 번 뿌리면 이상하게 마음이 가라앉아요. 우디 입문으로도 추천.",
     keywords: ["우디", "가을", "퇴근후"],
+    likes: 35,
+    comments: 6,
   },
   {
     id: "lazy-sunday-morning",
+    profileName: "솜이불향",
+    profileTime: "3시간 전",
+    profileImage: profileCottonScent,
     image: lazySundayMorningImage,
     imageOverlay: thirdReviewOverlay,
     title: "이불 냄새를 향수로 만든다면",
     text: "레이지 선데이 모닝은 자기 전에 뿌리는 향수예요. 갓 세탁한 이불에 파묻히는 느낌. 수면향 찾으시는 분들께 강추.",
     keywords: ["머스크", "잠들기전", "포근함", "지속력좋아요"],
+    likes: 28,
+    comments: 4,
   },
 ] as const;
 
@@ -174,10 +191,10 @@ export default function CommunityReviewPage({
                   key={tab}
                   aria-current={isActive ? "page" : undefined}
                   onClick={() => onTabChange?.(tab)}
-                  className={`community-review-tabs__item flex items-start pb-[11.5px] text-body-medium-16 ${
+                  className={`community-review-tabs__item flex shrink-0 items-start justify-center whitespace-nowrap border-b-2 pb-[11.5px] text-center text-body-medium-16 ${
                     isActive
-                      ? "border-b-2 border-point-orange text-offblack"
-                      : "text-grey"
+                      ? "border-point-orange text-offblack"
+                      : "border-transparent text-grey"
                   }`}
                 >
                   {tab}
@@ -197,16 +214,16 @@ export default function CommunityReviewPage({
               className={`community-review-card community-review-card--${post.id}`}
             >
               <Con2
-                profileName="최해수"
-                profileTime="30분 전"
-                profileImg={profileHaesu}
+                profileName={post.profileName}
+                profileTime={post.profileTime}
+                profileImg={post.profileImage}
                 imgs={[post.image]}
                 imageOverlay={post.imageOverlay}
                 title={post.title}
                 text={post.text}
                 keywords={[...post.keywords]}
-                likes={42}
-                comments={8}
+                likes={post.likes}
+                comments={post.comments}
                 className={
                   post.id === "beige-look" ? "" : "rounded-t-2xl"
                 }
@@ -215,7 +232,7 @@ export default function CommunityReviewPage({
           ))}
         </section>
 
-        <div className="community-review-bottom-nav fixed bottom-3 left-1/2 z-20 w-full max-w-[430px] -translate-x-1/2 px-5">
+        <div className="community-review-bottom-nav fixed bottom-0 left-1/2 z-30 w-full max-w-[430px] -translate-x-1/2 px-5 pb-5">
           <BottomNav active="community" />
         </div>
 

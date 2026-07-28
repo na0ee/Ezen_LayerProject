@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import commentProfileYeeunTv from "../../assets/Community/comment-profile-yeeuntv.png";
+import profileYeeunTv from "../../assets/Community/Profile/profile-yeeuntv.png";
 import countChat from "../../assets/icons/count-chat.svg";
 import countHeart from "../../assets/icons/count-heart.svg";
 import Input from "./Input";
@@ -102,7 +102,7 @@ export default function CommunityReviewCommentSheet({
                 className="community-review-comments__item flex items-start gap-[14px]"
               >
                 <img
-                  src={commentProfileYeeunTv}
+                  src={profileYeeunTv}
                   alt=""
                   className="size-[26px] shrink-0 rounded-full object-cover"
                 />

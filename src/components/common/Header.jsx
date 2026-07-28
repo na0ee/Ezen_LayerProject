@@ -96,13 +96,21 @@ export default function Header({
               label="검색"
               onClick={onSearch ?? (() => navigate('/category'))}
             />
-            <IconButton src={isWhite ? bellWhite : bellBlack} label="알림" onClick={onBell} />
+            <IconButton
+              src={isWhite ? bellWhite : bellBlack}
+              label="알림"
+              onClick={onBell ?? (() => navigate('/alarm'))}
+            />
           </>
         )}
         {['community', 'community-back'].includes(variant) && (
           <>
             <IconButton src={editPencil} label="글쓰기" onClick={onEdit} />
-            <IconButton src={bellBlack} label="알림" onClick={onBell} />
+            <IconButton
+              src={bellBlack}
+              label="알림"
+              onClick={onBell ?? (() => navigate('/alarm'))}
+            />
           </>
         )}
         {['write', 'write-tit'].includes(variant) && (
