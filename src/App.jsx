@@ -31,6 +31,7 @@ import OnboardingLoading from "./pages/OnboardingLoading";
 import ProfileSetup from "./pages/ProfileSetup";
 import Raffle from "./pages/raffle";
 import SearchResult from "./pages/SearchResult";
+import Alarm from "./pages/alarm";
 
 const TAB_ROUTES = {
   home: "/home",
@@ -84,6 +85,7 @@ export default function App() {
 
       <Route path="/category" element={<CategoryRoute />} />
       <Route path="/search" element={<SearchRoute />} />
+      <Route path="/alarm" element={<Alarm />} />
       <Route
         path="/chatbot"
         element={<Chatbot onBack={() => navigate(-1)} onSelectPerfume={() => navigate("/category")} />}
