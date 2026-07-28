@@ -15,6 +15,8 @@ export default function CardSmall({
   showHeart = false,
   liked = true,
   onLike,
+  imgFit = "contain",
+  imgAlign = "center",
   className = "",
   ...rest
 }) {
@@ -25,7 +27,7 @@ export default function CardSmall({
         className={`glass-surface-dark inline-flex items-center gap-2 overflow-hidden rounded-lg p-2 ${className}`}
         {...rest}
       >
-        <div className="size-[38px] shrink-0 overflow-hidden rounded-lg bg-2light-grey">
+        <div className="size-9.5 shrink-0 overflow-hidden rounded-lg bg-2light-grey">
           {img && <img src={img} alt="" className="size-full object-cover" />}
         </div>
         <div className="flex min-w-0 flex-col gap-1">
@@ -40,11 +42,11 @@ export default function CardSmall({
   if (variant === "medium-a") {
     return (
       <div
-        className={`flex w-[390px] items-center justify-between rounded-2xl border border-light-grey bg-offwhite p-3 ${className}`}
+        className={`flex w-97.5 items-center justify-between rounded-2xl border border-light-grey bg-offwhite p-3 ${className}`}
         {...rest}
       >
         <div className="flex min-w-0 items-center gap-3">
-          <div className="size-[38px] shrink-0 overflow-hidden rounded-lg bg-2light-grey">
+          <div className="size-9.5 shrink-0 overflow-hidden rounded-lg bg-2light-grey">
             {img && <img src={img} alt="" className="size-full object-cover" />}
           </div>
           <div className="flex min-w-0 flex-col justify-center gap-1">
@@ -52,7 +54,7 @@ export default function CardSmall({
             <p className="truncate text-caption-regular-12 text-grey">{sub}</p>
           </div>
         </div>
-        <img src={chevronDown} alt="" className="size-[18px] shrink-0" />
+        <img src={chevronDown} alt="" className="size-4.5 shrink-0" />
       </div>
     );
   }
@@ -64,11 +66,23 @@ export default function CardSmall({
         className={`flex w-full items-start gap-3 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${className}`}
         {...rest}
       >
-        <div className="size-[60px] shrink-0 overflow-hidden rounded-lg">
-          {img && <img src={img} alt="" className="size-full object-cover" />}
+        <div
+          className={`flex size-15 shrink-0 justify-center overflow-hidden rounded-lg ${
+            imgFit === "cover" || imgAlign !== "top" ? "items-center" : "items-start"
+          }`}
+        >
+          {img && (
+            <img
+              src={img}
+              alt=""
+              className={`${imgFit === "cover" ? "size-full object-cover" : "h-10 w-auto object-contain"} ${
+                imgAlign === "top" ? "object-top" : ""
+              }`}
+            />
+          )}
         </div>
         <div className="flex min-w-0 flex-1 flex-col gap-1 overflow-hidden">
-          <div className="flex items-end gap-2">
+          <div className="flex items-center gap-2">
             <p className="truncate text-body-semibold-16 text-offblack">{name}</p>
             <p className="truncate text-caption-regular-12 text-grey">{perfume}</p>
           </div>
@@ -87,8 +101,8 @@ export default function CardSmall({
       {...rest}
     >
       <div className="flex min-w-0 items-start gap-3">
-        <div className="flex size-[60px] shrink-0 items-center justify-center overflow-hidden rounded-lg bg-2light-grey">
-          {img && <img src={img} alt="" className="h-[40px] w-auto object-contain" />}
+        <div className="flex size-15 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-2light-grey">
+          {img && <img src={img} alt="" className="h-10 w-auto object-contain" />}
         </div>
         <div className="flex min-w-0 flex-col gap-1">
           <p className="truncate text-caption-regular-12 text-grey">{brand}</p>

@@ -23,7 +23,7 @@ export default function TabNav({
     <Component
       {...(to ? { to } : { type: "button" })}
       onClick={onClick}
-      className={`flex h-14 min-w-[60px] flex-col items-center justify-center gap-1 rounded-[50px] ${
+      className={`flex h-14 min-w-15 flex-col items-center justify-center gap-1 rounded-[50px] ${
         active ? "bg-grey/70" : ""
       } ${className}`}
     >

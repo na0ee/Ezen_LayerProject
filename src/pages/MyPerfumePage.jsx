@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BottomNav, Header } from "../components/common";
 import FilterSheet from "../components/common/FilterSheet";
 import chevronDown from "../assets/icons/chevron-down.svg";
@@ -29,14 +30,15 @@ const filterOptions = {
   용량: volumeOptions,
 };
 
+// 참고: 이번 주 기록되지 않은 요일(Fri, Sun)만 흰색 배경으로 표시 — 피그마(3446:30223) 데모와 동일
 const weekDays = [
   { day: "Mon", date: "6" },
   { day: "Tue", date: "7" },
   { day: "Wed", date: "8" },
   { day: "Thu", date: "9" },
-  { day: "Fri", date: "10" },
+  { day: "Fri", date: "10", recorded: false },
   { day: "Sat", date: "11" },
-  { day: "Sun", date: "12", weekend: true },
+  { day: "Sun", date: "12", recorded: false },
 ];
 
 const perfumes = [
@@ -63,11 +65,6 @@ const perfumes = [
   },
 ];
 
-// TODO: 참고 파일의 브랜드별 병 아이콘(bottle-*.svg)이 이 프로젝트에 없어 회색 placeholder로 대체
-function BottleIconPlaceholder() {
-  return <div className="size-full rounded-full bg-grey" />;
-}
-
 function PerfumeRecordCard({ perfume }) {
   const [savedMemo, setSavedMemo] = useState(perfume.savedMemo);
   const [memo, setMemo] = useState("");
@@ -77,14 +74,14 @@ function PerfumeRecordCard({ perfume }) {
 
   return (
     <article className="flex items-start gap-2.5 rounded-2xl border border-light-grey bg-offwhite p-3">
-      <div className="flex size-[100px] shrink-0 items-center justify-center overflow-hidden rounded-lg bg-2light-grey">
-        <img src={perfume.image} alt="" className="h-[74px] w-auto object-contain" />
+      <div className="flex size-25 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-2light-grey">
+        <img src={perfume.image} alt="" className="h-18.5 w-auto object-contain" />
       </div>
       <div className="flex min-w-0 flex-1 flex-col">
         <p className="truncate text-caption-regular-12 text-grey uppercase">{perfume.brand}</p>
         <h3 className="mt-1 truncate text-body-semibold-16 text-offblack">{perfume.name}</h3>
         <p className="mt-2 text-caption-regular-12 text-subtext">{perfume.status}</p>
-        <div className="mt-3 flex h-[34px] w-full items-center gap-2.5 rounded-lg bg-2light-grey p-2">
+        <div className="mt-3 flex h-8.5 w-full items-center gap-2.5 rounded-lg bg-2light-grey p-2">
           {isEditing ? (
             <>
               <input
@@ -96,7 +93,7 @@ function PerfumeRecordCard({ perfume }) {
               {canSave && (
                 <button
                   type="button"
-                  className="shrink-0 rounded-full bg-offblack px-2.5 py-1 text-[11px] font-medium text-offwhite"
+                  className="shrink-0 rounded-full bg-offblack px-2.5 py-1 text-xs font-medium text-offwhite"
                   onClick={() => {
                     setSavedMemo(memo);
                     setIsEditing(false);
@@ -114,7 +111,7 @@ function PerfumeRecordCard({ perfume }) {
               {hasContent && (
                 <button
                   type="button"
-                  className="shrink-0 rounded-full border border-light-grey bg-offwhite px-2.5 py-1 text-[11px] font-medium text-subtext"
+                  className="shrink-0 rounded-full border border-light-grey bg-offwhite px-2.5 py-1 text-xs font-medium text-subtext"
                   onClick={() => {
                     setMemo(savedMemo);
                     setIsEditing(true);
@@ -132,6 +129,7 @@ function PerfumeRecordCard({ perfume }) {
 }
 
 export default function MyPerfumePage() {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
 
@@ -149,25 +147,21 @@ export default function MyPerfumePage() {
       : perfumes.filter((perfume) => selectedBrandFilters.includes(perfume.brand));
 
   return (
-    <div className="mx-auto min-h-screen w-full max-w-[430px] bg-background pb-[104px]">
+    <div className="mx-auto min-h-screen w-full max-w-107.5 bg-background pb-26">
       <Header
         variant="detail-back"
         title="내 향수 관리하기"
-        onBack={() => {
-          window.location.href = "/mypage";
-        }}
+        onBack={() => navigate("/mypage")}
       />
 
-      <div className="flex flex-col gap-[30px] px-5 pt-6">
+      <div className="flex flex-col gap-7.5 px-5 pt-6">
         <button
           type="button"
-          onClick={() => {
-            window.location.href = "/mypage/perfumes/new";
-          }}
-          className="flex h-[43px] items-center justify-between rounded-lg bg-offblack px-3 text-body-medium-14 text-offwhite"
+          onClick={() => navigate("/mypage/perfumes/new")}
+          className="flex h-10.75 items-center justify-between rounded-lg bg-offblack px-3 text-body-medium-14 text-offwhite"
         >
           <span>새로운 향수 등록하기</span>
-          <img src={chevronRightWhite} alt="" className="size-[18px]" />
+          <img src={chevronRightWhite} alt="" className="size-4.5" />
         </button>
 
         <div className="flex flex-col gap-4">
@@ -177,9 +171,7 @@ export default function MyPerfumePage() {
             </p>
             <button
               type="button"
-              onClick={() => {
-                window.location.href = "/mypage/perfumes/record";
-              }}
+              onClick={() => navigate("/mypage/perfumes/record")}
               className="flex items-center gap-1 text-caption-medium-12 text-grey"
             >
               기록하기
@@ -187,24 +179,25 @@ export default function MyPerfumePage() {
             </button>
           </div>
 
-          <div className="flex items-start justify-between">
-            {weekDays.map((item) => (
-              <div key={item.day} className="flex w-10 flex-col items-center gap-2">
-                <span className={`text-caption-medium-12 ${item.weekend ? "text-point-orange" : "text-grey"}`}>
-                  {item.day}
-                </span>
-                <div className="relative flex size-10 items-center justify-center">
-                  <BottleIconPlaceholder />
-                  <span
-                    className={`absolute text-caption-medium-12 font-semibold ${
-                      item.weekend ? "text-point-orange" : "text-offwhite"
-                    }`}
-                  >
+          <div className="flex items-center justify-between">
+            {weekDays.map((item) => {
+              const isRecorded = item.recorded !== false;
+              return (
+                <div
+                  key={item.day}
+                  className={`flex h-17 w-12.5 flex-col items-center justify-center gap-2.5 rounded-full ${
+                    isRecorded ? "bg-offblack" : "border border-light-grey bg-offwhite"
+                  }`}
+                >
+                  <span className={`text-caption-medium-12 ${isRecorded ? "text-offwhite" : "text-offblack"}`}>
+                    {item.day}
+                  </span>
+                  <span className={`text-caption-medium-12 ${isRecorded ? "text-offwhite" : "text-offblack"}`}>
                     {item.date}
                   </span>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -250,7 +243,7 @@ export default function MyPerfumePage() {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-1/2 w-full max-w-[430px] -translate-x-1/2 px-5 pb-5">
+      <div className="fixed bottom-0 left-1/2 w-full max-w-107.5 -translate-x-1/2 px-5 pb-5">
         <BottomNav active="my" />
       </div>
 

@@ -9,13 +9,13 @@ export default function CardMag({
 }) {
   return (
     <div
-      className={`relative flex h-[452px] w-[320px] flex-col justify-end overflow-hidden rounded-3xl bg-light-grey p-3 ${className}`}
+      className={`relative flex h-113 w-80 flex-col justify-end overflow-hidden rounded-3xl bg-light-grey p-3 ${className}`}
     >
       {img && (
         <img src={img} alt="" className={imgClassName} />
       )}
       {/* 피그마: inner 높이 124px 고정, 텍스트는 상단 정렬 */}
-      <div className="relative flex h-[124px] w-full flex-col gap-1.5 rounded-[20px] bg-offblack/50 p-4">
+      <div className="relative flex h-31 w-full flex-col gap-1.5 rounded-[20px] bg-offblack/50 p-4">
         <p className="truncate text-title-semibold-18 text-offwhite">{title}</p>
         <p className="whitespace-pre-line text-caption-medium-12 leading-[1.4] text-offwhite">
           {desc}

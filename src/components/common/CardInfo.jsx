@@ -43,13 +43,23 @@ export default function CardInfo({
       }}
       role={onClick ? "button" : undefined}
       tabIndex={onClick ? 0 : undefined}
-      className={`flex w-[390px] justify-end gap-5 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${
+      className={`flex w-97.5 justify-end gap-5 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${
         alignStart ? "items-start" : "items-end"
       } ${onClick ? "cursor-pointer" : ""} ${className}`}
     >
       <div className="flex min-w-0 flex-1 items-start gap-5">
-        <div className="relative size-[100px] shrink-0 overflow-hidden rounded-lg bg-2light-grey">
-          {img && <img src={img} alt="" className="size-full object-cover" />}
+        <div
+          className={`relative size-25 shrink-0 overflow-hidden rounded-lg bg-2light-grey ${
+            isRaffle ? "" : "flex items-center justify-center"
+          }`}
+        >
+          {img && (
+            <img
+              src={img}
+              alt=""
+              className={isRaffle ? "size-full object-cover" : "h-20 w-auto object-contain"}
+            />
+          )}
           {isRaffle && (type === "a" || overlayLabel) && (
             <>
               <div className="absolute inset-0 bg-offblack/50" />
@@ -74,7 +84,7 @@ export default function CardInfo({
             <>
               {/* 피그마: info + 사용기록은 8px, 그 아래 메모는 12px 간격 */}
               <div className="flex flex-col gap-2">
-                <div className="flex h-[37px] flex-col justify-center gap-1 overflow-hidden">
+                <div className="flex h-9.25 flex-col justify-center gap-1 overflow-hidden">
                   <p className="truncate text-caption-regular-12 text-grey">{brand}</p>
                   <p className="truncate text-body-semibold-16 text-offblack">{name}</p>
                 </div>
@@ -88,7 +98,7 @@ export default function CardInfo({
             </>
           ) : (
             <>
-              <div className="flex h-[37px] flex-col justify-center gap-1 overflow-hidden">
+              <div className="flex h-9.25 flex-col justify-center gap-1 overflow-hidden">
                 <p className="truncate text-caption-regular-12 text-grey">{brand}</p>
                 <p className="truncate text-body-semibold-16 text-offblack">{name}</p>
               </div>

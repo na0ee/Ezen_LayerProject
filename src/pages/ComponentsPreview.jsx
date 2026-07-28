@@ -60,7 +60,7 @@ function ComponentsPreview() {
   const [pageTab, setPageTab] = useState("향 계열/향기");
   const [chipTab, setChipTab] = useState("전체");
   return (
-    <div className="mx-auto min-h-screen max-w-[430px] bg-offwhite p-5">
+    <div className="mx-auto min-h-screen max-w-107.5 bg-offwhite p-5">
       <h1 className="text-xl font-semibold text-offblack">
         공통 컴포넌트 프리뷰
       </h1>
