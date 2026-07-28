@@ -1,4 +1,5 @@
 import KeywordList from "./KeywordList";
+import LayerBadge from "./LayerBadge";
 
 // 피그마: card/main/review (320×380) — 배경 이미지 + 하단 반투명 박스(브랜드/제품명/키워드)
 export default function CardMainReview({
@@ -16,12 +17,10 @@ export default function CardMainReview({
       {img && (
         <img src={img} alt="" className="absolute inset-0 size-full object-cover" />
       )}
-      <div className="relative flex h-[105px] w-full flex-col gap-2 rounded-2xl bg-offblack/50 p-4">
+      <div className="glass-surface-dark relative flex h-[105px] w-full flex-col gap-2 rounded-2xl p-4">
         <div className="flex flex-col gap-0.5">
           {(label || brand) && (
-            <p className="w-fit rounded-3xl bg-offblack/50 px-2.5 py-1 font-en text-caption-medium-12 text-2light-grey">
-              {label || brand}
-            </p>
+            <LayerBadge size="small">{label || brand}</LayerBadge>
           )}
           <p className="text-title-semibold-18 text-offwhite">{name}</p>
         </div>

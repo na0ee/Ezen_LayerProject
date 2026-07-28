@@ -9,7 +9,7 @@ export default function CardMag({ img, title, desc, className = "" }) {
         <img src={img} alt="" className="absolute inset-0 size-full object-cover" />
       )}
       {/* 피그마: inner 높이 124px 고정, 텍스트는 상단 정렬 */}
-      <div className="relative flex h-[124px] w-full flex-col gap-1.5 rounded-[20px] bg-offblack/50 p-4">
+      <div className="glass-surface-dark relative flex h-[124px] w-full flex-col gap-1.5 rounded-[20px] p-4">
         <p className="truncate text-title-semibold-18 text-offwhite">{title}</p>
         <p className="whitespace-pre-line text-caption-medium-12 leading-[1.4] text-offwhite">
           {desc}
