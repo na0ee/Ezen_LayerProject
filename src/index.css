@@ -89,6 +89,15 @@
   --text-en-logo-48--font-weight: 500;
 }
 
+/* 가로 스크롤 목록의 스크롤바 숨김 — Firefox는 scrollbar-width,
+   Chrome/Edge는 ::-webkit-scrollbar를 따로 꺼야 카드 아래가 안 잘린다 */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* body/medium-14px-line — 밑줄 포함 (링크성 텍스트용) */
 @utility text-body-medium-14-line {
   font-size: 14px;
