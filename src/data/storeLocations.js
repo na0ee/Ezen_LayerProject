@@ -2,8 +2,17 @@
 //
 // 브랜드별 오프라인 매장 정보. brands.js의 id를 키로 사용.
 // 매장이 없는 브랜드는 이 객체에 항목을 추가하지 않음 (LocCard 미표시 처리).
+import shiroSeongsuImage from "../assets/images/chatbot/shiro-seongsu-figma.png";
 
 export const storeLocations = {
+  shiro: {
+    name: "시로 성수",
+    address: "서울 성동구 연무장길 57 1~2층",
+    hours: "영업 중  10:00 ~ 21:00",
+    phone: "070-8657-2176",
+    url: "https://shiro-shiro.kr/",
+    image: shiroSeongsuImage,
+  },
   "maison-margiela": {
     name: "Maison Margiela The Hyundai Seoul",
     address: "서울특별시 영등포구 여의대로 108, 더현대 서울 2층",
