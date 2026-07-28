@@ -308,7 +308,11 @@ function App() {
           sub="익명의 향덕님이 하나 골라달래요"
           title="여름용 데일리 향수, 어떤 게 더 좋을까요?"
           options={[
-            { label: "조말론 우드 세이지 앤 씨솔트", percent: 60, selected: true },
+            {
+              label: "조말론 우드 세이지 앤 씨솔트",
+              percent: 60,
+              selected: true,
+            },
             { label: "딥디크 오 데 썽", percent: 40 },
           ]}
         />
@@ -325,7 +329,10 @@ function App() {
           items={[
             { name: "리뷰", desc: "사용하는 향수의 후기를 남겨주세요" },
             { name: "자유 게시글", desc: "궁금한 걸 자유롭게 물어보세요" },
-            { name: "하나 골라줘!", desc: "궁금한 걸 투표 형식으로 물어보세요" },
+            {
+              name: "하나 골라줘!",
+              desc: "궁금한 걸 투표 형식으로 물어보세요",
+            },
             { name: "향 추천받기", desc: "유저들에게 향수 추천을 받아보세요" },
           ]}
           className="-mx-5 w-auto"
@@ -450,7 +457,9 @@ function App() {
         />
         <CardMag
           title="향수 지속력 높이는 꿀팁"
-          desc={"같은 향도 오래 남기는 사용법\n매거진 내용 두줄정도 요약해서 나오면 좋을듯"}
+          desc={
+            "같은 향도 오래 남기는 사용법\n매거진 내용 두줄정도 요약해서 나오면 좋을듯"
+          }
         />
       </div>
 
@@ -471,11 +480,7 @@ function App() {
           label="Scent of the week"
           title={"향은 기억이 되고\n기록은 취향이 된다"}
         />
-        <CardRank
-          rank="1위"
-          name="블랙베리 앤 베이"
-          brand="JO MALONE LONDON"
-        />
+        <CardRank rank="1위" name="블랙베리 앤 베이" brand="JO MALONE LONDON" />
         <CardMainReview
           brand="JO MALONE LONDON"
           name="블랙베리 앤 베이 30ml"
