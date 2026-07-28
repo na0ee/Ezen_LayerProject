@@ -58,7 +58,7 @@ export default function ChatCard({
       className={`flex w-[318px] flex-col items-end gap-4 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-4 ${className}`}
     >
       {images.length > 0 && (
-        <div className="flex w-full gap-4 overflow-x-auto">
+        <div className="no-scrollbar flex w-full gap-4 overflow-x-auto">
           {images.map((src, i) => (
             <div
               key={i}

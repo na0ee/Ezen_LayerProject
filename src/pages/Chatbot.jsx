@@ -4,6 +4,10 @@ import caretLeft from "../assets/icons/caret-left.svg";
 import characterLay from "../assets/images/character-lay.png";
 import shiroStore from "../assets/images/chatbot/shiro-seongsu-store.png";
 import shiroMap from "../assets/images/chatbot/shiro-seongsu-map.png";
+import gangnamMap from "../assets/images/chatbot/shinsegae-gangnam-map.png";
+import garosugilMap from "../assets/images/chatbot/garosugil-map.png";
+import coexMap from "../assets/images/chatbot/hyundai-coex-map.png";
+import pangyoMap from "../assets/images/chatbot/hyundai-pangyo-map.png";
 import lazySunday from "../assets/images/perfume/lazy-sunday-hero.png";
 import chasingSunset from "../assets/images/search/replica-chasing-sunset.png";
 import matierePremiere from "../assets/images/perfume/related-matiere-premiere.png";
@@ -62,114 +66,128 @@ const MOOD_PERFUMES = [
   { mood: "매력적으로", perfume: PERFUMES.santaMaria },
 ];
 
-// 브랜드별 매장 정보 (2026-07 기준 조사).
-// [확인됨] = 브랜드 공식 매장 안내나 공공 관광 정보에서 확인한 값
-// [백화점] = 단독 매장이 없어 백화점 입점 매장으로 넣은 값.
-//            백화점 주소는 확인된 값이지만 어느 지점에 입점했는지는 확정하지 못했으므로
-//            발표 전 네이버 지도 등으로 확인할 것. 전화번호는 확인된 곳만 넣었다
-//            (없으면 ChatCard가 그 줄을 자동으로 뺀다).
+// 브랜드별 매장 정보 — 강남역 기준으로 가까운 향수 매장 (2026-07, 카카오맵 조회).
+// 지점명·주소·전화·영업시간 모두 카카오맵에 등록된 값 그대로다.
+// 강남역 인근 니치 향수는 대부분 신세계백화점 강남점 1층에 모여 있다.
+// 전화번호가 없는 곳은 카카오맵에도 없는 곳 (ChatCard가 그 줄을 자동으로 뺀다).
+const GANGNAM = "서울 서초구 신반포로 176 신세계백화점 강남점";
 const DEPT_HOURS = "영업 중  10:30 ~ 20:00";
 
 const STORES = [
+  // 피그마 시안 값. 카카오맵에도 같은 주소로 등록돼 있다
   {
     keywords: ["시로", "shiro"],
     name: "시로 성수",
     brand: "SHIRO",
     images: [shiroStore, shiroMap],
-    address: "서울 성동구 연무장길 57 1~2층",
-    hours: "영업 중  10:00 ~ 21:00",
+    address: "서울 성동구 연무장길 57 (성수동2가)",
+    hours: "영업 중  11:00 ~ 21:00",
     phone: "070-8657-2176",
     website: "https://shiro-shiro.kr/",
   },
-  // [확인됨] 르 라보 공식 매장 안내
   {
     keywords: ["르 라보", "르라보", "le labo"],
-    name: "르 라보 이태원",
+    name: "르 라보 신세계백화점 강남점",
     brand: "LE LABO",
-    address: "서울 용산구 이태원로 259-1",
-    hours: "영업 중  11:00 ~ 21:00",
-    phone: "02-796-8550",
+    images: [gangnamMap],
+    address: `${GANGNAM} 1층`,
+    hours: DEPT_HOURS,
+    phone: "02-3479-1734",
     website: "https://www.lelabofragrances.co.kr/",
   },
-  // [확인됨] 이솝 공식 매장 페이지
   {
     keywords: ["이솝", "aesop"],
-    name: "이솝 가로수길",
+    name: "이솝 신세계백화점 강남점",
     brand: "AESOP",
-    address: "서울 강남구 가로수길 54",
-    hours: "영업 중  11:00 ~ 21:00",
-    phone: "02-512-1987",
+    images: [gangnamMap],
+    address: `${GANGNAM} 1층`,
+    hours: DEPT_HOURS,
     website: "https://kr.aesop.com/",
   },
-  // [확인됨] 강남구 공식 관광 안내 (전세계 최대 규모 플래그십)
   {
     keywords: ["딥티크", "diptyque"],
-    name: "딥티크 가로수길",
+    name: "딥티크 신세계강남점",
     brand: "DIPTYQUE",
-    address: "서울 강남구 가로수길 15",
-    hours: "영업 중  11:00 ~ 21:00",
-    phone: "0507-1391-7494",
+    images: [gangnamMap],
+    address: `${GANGNAM} 1층`,
+    hours: DEPT_HOURS,
+    phone: "02-3479-6049",
     website: "https://www.diptyqueparis.com/",
   },
-  // [확인됨] 코리아 시그니처 스토어 (스타필드 코엑스몰 B1)
-  {
-    keywords: ["산타 마리아 노벨라", "산타마리아노벨라", "노벨라", "santa maria"],
-    name: "산타 마리아 노벨라 코엑스",
-    brand: "SANTA MARIA NOVELLA",
-    address: "서울 강남구 영동대로 513 스타필드 코엑스몰 B1",
-    hours: "영업 중  10:30 ~ 22:00",
-    website: "https://www.smnovella.com/",
-  },
-  // [확인됨] 아시아 첫 플래그십, 도산공원 초입 — 정확한 번지는 미확인
   {
     keywords: ["바이레도", "byredo"],
-    name: "바이레도 도산공원",
+    name: "바이레도 신세계백화점강남점",
     brand: "BYREDO",
-    address: "서울 강남구 신사동 도산공원 인근",
-    hours: "영업 중  11:00 ~ 20:00",
+    images: [gangnamMap],
+    address: `${GANGNAM} 1층`,
+    hours: DEPT_HOURS,
+    phone: "02-3479-1688",
     website: "https://www.byredo.com/",
   },
-  // [백화점] 신세계백화점 강남점 2층 입점 (LF 보도자료)
-  {
-    keywords: ["불리", "buly"],
-    name: "불리 1803 신세계 강남",
-    brand: "BULY 1803",
-    address: "서울 서초구 신반포로 176 신세계백화점 강남점 2층",
-    hours: DEPT_HOURS,
-    website: "http://www.bulykorea.com/",
-  },
-  // [백화점] 아래 4개는 입점 지점 미확인 — 백화점 주소만 확인된 값
   {
     keywords: ["조 말론", "조말론", "jo malone"],
-    name: "조 말론 런던 신세계 강남",
+    name: "조말론런던 신세계백화점강남점",
     brand: "JO MALONE LONDON",
-    address: "서울 서초구 신반포로 176 신세계백화점 강남점 1층",
+    images: [gangnamMap],
+    address: `${GANGNAM} 1층`,
     hours: DEPT_HOURS,
+    phone: "02-3479-1555",
     website: "https://www.jomalone.co.kr/",
   },
   {
-    keywords: ["메종 마르지엘라", "메종마르지엘라", "마르지엘라", "margiela"],
-    name: "메종 마르지엘라 롯데본점",
-    brand: "MAISON MARGIELA",
-    address: "서울 중구 남대문로 81 롯데백화점 본점 1층",
+    keywords: ["불리", "buly"],
+    name: "불리 신세계강남점",
+    brand: "BULY 1803",
+    images: [gangnamMap],
+    address: `${GANGNAM} 1층`,
     hours: DEPT_HOURS,
-    website: "https://www.maisonmargiela.com/",
+    phone: "02-3479-6045",
+    website: "http://www.bulykorea.com/",
   },
-  {
-    keywords: ["불가리", "bvlgari"],
-    name: "불가리 갤러리아",
-    brand: "BVLGARI",
-    address: "서울 강남구 압구정로 343 갤러리아 명품관 EAST",
-    hours: DEPT_HOURS,
-    website: "https://www.bulgari.com/",
-  },
+  // 샤넬은 같은 점포에 부티크(2층)·슈 부티크(4층)가 따로 있다. 향수는 1층 화장품
   {
     keywords: ["샤넬", "chanel"],
-    name: "샤넬 뷰티 현대 무역센터",
+    name: "샤넬화장품 신세계백화점 강남점",
     brand: "CHANEL",
-    address: "서울 강남구 테헤란로 517 현대백화점 무역센터점",
+    images: [gangnamMap],
+    address: `${GANGNAM} 1층`,
     hours: DEPT_HOURS,
+    phone: "02-3479-1704",
     website: "https://www.chanel.com/",
+  },
+  // 향수 전용 플래그십. 강남점에는 프래그런스 매장이 없다
+  {
+    keywords: ["메종 마르지엘라", "메종마르지엘라", "마르지엘라", "margiela"],
+    name: "메종마르지엘라프래그런스 서울플래그십스토어",
+    brand: "MAISON MARGIELA",
+    images: [garosugilMap],
+    address: "서울 강남구 압구정로10길 22 1-3층 (신사동)",
+    hours: "영업 중  11:00 ~ 20:00",
+    phone: "02-2087-6516",
+    website: "https://www.maisonmargiela.com/",
+  },
+  // 강남역 기준 가장 가까운 매장. 코엑스몰 바로 옆 무역센터점이다
+  {
+    keywords: ["산타 마리아 노벨라", "산타마리아노벨라", "노벨라", "santa maria"],
+    name: "산타마리아 노벨라 현대백화점무역센터점",
+    brand: "SANTA MARIA NOVELLA",
+    images: [coexMap],
+    address: "서울 강남구 테헤란로 517 2층 (삼성동)",
+    hours: DEPT_HOURS,
+    phone: "02-3467-8428",
+    website: "https://www.smnovella.com/",
+  },
+  // 강남역 근처에 불가리 퍼퓸 매장이 없어 가장 가까운 곳으로 잡았다.
+  // 같은 점포 2층 "불가리"는 주얼리·시계라 향수 매장이 아니다
+  {
+    keywords: ["불가리", "bvlgari"],
+    name: "불가리퍼퓸 현대백화점판교점",
+    brand: "BVLGARI",
+    images: [pangyoMap],
+    address: "경기 성남시 분당구 판교역로146번길 20 1층 (백현동)",
+    hours: DEPT_HOURS,
+    phone: "031-5170-3161",
+    website: "https://www.bulgari.com/",
   },
 ];
 
@@ -436,14 +454,43 @@ const GREETING = {
   menus: MAIN_MENUS,
 };
 
+// 키워드를 두 글자 이상 단어로 쪼갠다 ("가까운 매장 찾기" → [가까운, 매장, 찾기])
+function tokenize(keyword) {
+  return keyword
+    .toLowerCase()
+    .split(/\s+/)
+    .filter((word) => word.length >= 2);
+}
+
 function findReply(text) {
   const query = text.trim().toLowerCase();
-  const hit = SCRIPT.find(
+
+  // 1단계: 정확히 같거나 키워드를 그대로 포함하면 바로 채택
+  const direct = SCRIPT.find(
     (entry) =>
       entry.exact?.some((word) => query === word.toLowerCase()) ||
       entry.keywords?.some((keyword) => query.includes(keyword.toLowerCase())),
   );
-  return hit ?? FALLBACK;
+  if (direct) return direct;
+
+  // 2단계: 비슷한 말 — 퀵버튼 문구의 단어가 절반 이상 겹치면 그 답변으로 연결한다.
+  // 예: "선물 고르고 싶어" → "선물 고르기", "레이어링 알려줘" → "향수 레이어링 추천"
+  let best = null;
+  let bestScore = 0;
+  for (const entry of SCRIPT) {
+    for (const keyword of entry.keywords ?? []) {
+      const tokens = tokenize(keyword);
+      if (tokens.length === 0) continue;
+      const hit = tokens.filter((token) => query.includes(token)).length;
+      const score = hit / tokens.length;
+      if (hit > 0 && score > bestScore) {
+        bestScore = score;
+        best = entry;
+      }
+    }
+  }
+
+  return bestScore >= 0.5 ? best : FALLBACK;
 }
 
 function askQuestion(index) {
@@ -492,7 +539,7 @@ function nextReply(value, quiz, setQuiz) {
 
 function BotMessage({ message, chosen, onSelectMenu, onSelectPerfume }) {
   return (
-    <div className="flex w-full items-start gap-3">
+    <div className="flex w-full items-start gap-0">
       {/* 피그마: 60px 칸 안에 34×50으로 잘라 넣은 캐릭터 */}
       <div className="flex size-[60px] shrink-0 items-center justify-center">
         <div className="relative h-[50px] w-[34px] overflow-hidden">
@@ -565,10 +612,14 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
   const [chosenMenus, setChosenMenus] = useState({});
   // 문답 진행 중일 때만 { step, families } — 아니면 null
   const [quiz, setQuiz] = useState(null);
-  const bottomRef = useRef(null);
+  // 새 답변이 오면 그 답변의 첫 줄이 화면 위에 오도록 스크롤한다 (바로 읽을 수 있게)
+  const latestReplyRef = useRef(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    latestReplyRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   }, [messages]);
 
   const send = (text) => {
@@ -593,9 +644,10 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
   };
 
   return (
-    <div className="min-h-screen bg-offwhite">
-      <main className="mx-auto flex w-full max-w-[430px] flex-col gap-6 bg-offwhite px-5 pb-[150px]">
-        <header className="sticky top-0 z-10 flex w-full items-start justify-between bg-offwhite pb-3 pt-[18px]">
+    <div className="min-h-screen bg-background">
+      <main className="mx-auto flex w-full max-w-[430px] flex-col gap-6 bg-background px-5 pb-[150px]">
+        {/* -mx-5로 main의 좌우 여백을 상쇄해 헤더 배경이 화면 끝까지 닿게 한다 */}
+        <header className="sticky top-0 z-10 -mx-5 flex items-start justify-between bg-offwhite px-5 pb-3 pt-[18px]">
           <button
             type="button"
             aria-label="뒤로가기"
@@ -604,34 +656,42 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
           >
             <img src={caretLeft} alt="" className="size-6" />
           </button>
-          <h1 className="w-[232px] text-title-semibold-24 text-offblack">
+          <h1 className="w-[232px] text-title-medium-20 text-offblack">
             챗봇레이
           </h1>
         </header>
 
         <div className="flex w-full flex-col gap-10">
-          {messages.map((message) =>
-            message.role === "bot" ? (
-              <BotMessage
+          {messages.map((message, index) => {
+            // 마지막 봇 답변에만 ref를 달아 그 위치로 스크롤한다.
+            // scroll-mt는 상단 고정 헤더에 가려지지 않게 하는 여백
+            const isLatestReply =
+              message.role === "bot" && index === messages.length - 1;
+            return message.role === "bot" ? (
+              <div
                 key={message.id}
-                message={message}
-                chosen={chosenMenus[message.id]}
-                onSelectMenu={selectMenu}
-                onSelectPerfume={onSelectPerfume}
-              />
+                ref={isLatestReply ? latestReplyRef : null}
+                className="scroll-mt-[72px]"
+              >
+                <BotMessage
+                  message={message}
+                  chosen={chosenMenus[message.id]}
+                  onSelectMenu={selectMenu}
+                  onSelectPerfume={onSelectPerfume}
+                />
+              </div>
             ) : (
               <div key={message.id} className="flex w-full justify-end">
                 <Bubble variant="user" className="whitespace-pre-line">
                   {message.text}
                 </Bubble>
               </div>
-            ),
-          )}
-          <div ref={bottomRef} />
+            );
+          })}
         </div>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[430px] bg-offwhite px-[18px] pb-5 pt-2">
+      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[430px] bg-background px-[18px] pb-5 pt-2">
         <div className="no-scrollbar mb-2.5 flex gap-2 overflow-x-auto">
           {MAIN_MENUS.map((menu) => (
             <QuickCategory
