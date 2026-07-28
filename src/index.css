@@ -84,6 +84,18 @@
   --text-en-semibold-24: 24px;
   --text-en-semibold-24--line-height: normal;
   --text-en-semibold-24--font-weight: 600;
+  --text-en-logo-48: 48px;
+  --text-en-logo-48--line-height: 1;
+  --text-en-logo-48--font-weight: 500;
+}
+
+/* 가로 스크롤 목록의 스크롤바 숨김 — Firefox는 scrollbar-width,
+   Chrome/Edge는 ::-webkit-scrollbar를 따로 꺼야 카드 아래가 안 잘린다 */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* body/medium-14px-line — 밑줄 포함 (링크성 텍스트용) */
@@ -92,6 +104,16 @@
   line-height: normal;
   font-weight: 500;
   text-decoration-line: underline;
+}
+
+/* 가로 스크롤은 유지하되 스크롤바만 숨김 */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 body {
@@ -104,4 +126,16 @@ body {
 .result-chart-grid {
   background-image: radial-gradient(circle, rgb(26 26 26 / 10%) 0.7px, transparent 0.8px);
   background-size: 7px 7px;
+/* 브라우저 기본값은 button에 pointer 커서를 주지 않으므로 전역으로 지정.
+   Tailwind의 base 레이어에 넣어야 utilities 레이어의 cursor-* 클래스로
+   개별 버튼에서 오버라이드할 수 있음 (레이어 밖 CSS는 특이도와 무관하게 항상 우선함) */
+@layer base {
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
 }

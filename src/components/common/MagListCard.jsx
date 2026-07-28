@@ -16,7 +16,7 @@ export default function MagListCard({ img, label, title, desc, className = "" })
         </p>
         <div className="flex flex-col gap-1">
           <p className="truncate text-body-semibold-16 text-offwhite">{title}</p>
-          <p className="truncate text-caption-medium-12 text-offwhite">{desc}</p>
+          <p className="truncate text-caption-regular-12 text-offwhite">{desc}</p>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import searchBlack from '../../assets/icons/icon-search-black.svg'
 import searchWhite from '../../assets/icons/icon-search-white.svg'
 import shareResult from '../../assets/icons/share-result.svg'
 import xIcon from '../../assets/icons/x-black.svg'
+import { useNavigate } from 'react-router-dom'
 import BtnSmall from './BtnSmall'
 
 // 피그마: header (Property 1=main | main2 | detail | detail-back | write | write-tit | community)
@@ -34,6 +35,7 @@ export default function Header({
   transparent = false,
   className = '',
 }) {
+  const navigate = useNavigate()
   const isWhite = variant === 'main'
   const hasBg = !transparent && !['main', 'main2', 'result'].includes(variant)
 
@@ -72,7 +74,11 @@ export default function Header({
         )}
         {['main', 'main2', 'detail', 'detail-back'].includes(variant) && (
           <>
-            <IconButton src={isWhite ? searchWhite : searchBlack} label="검색" onClick={onSearch} />
+            <IconButton
+              src={isWhite ? searchWhite : searchBlack}
+              label="검색"
+              onClick={onSearch ?? (() => navigate('/category'))}
+            />
             <IconButton src={isWhite ? bellWhite : bellBlack} label="알림" onClick={onBell} />
           </>
         )}

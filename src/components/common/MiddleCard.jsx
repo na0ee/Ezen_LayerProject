@@ -7,18 +7,46 @@ export default function MiddleCard({
   desc,
   liked = true,
   onLike,
+  onClick,
+  ariaLabel,
   className = "",
 }) {
+  const handleKeyDown = (event) => {
+    if (
+      event.target !== event.currentTarget ||
+      !onClick ||
+      (event.key !== "Enter" && event.key !== " ")
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    onClick(event);
+  };
+
   return (
     <div
-      className={`relative h-64 w-[190px] overflow-hidden rounded-2xl bg-light-grey ${className}`}
+      className={`relative h-64 w-[190px] overflow-hidden rounded-2xl bg-light-grey ${
+        onClick ? "cursor-pointer" : ""
+      } ${className}`}
+      aria-label={ariaLabel}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
     >
       {img && (
         <img src={img} alt="" className="absolute inset-0 size-full object-cover" />
       )}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80" />
       <div className="absolute right-0 top-0 p-4">
-        <Heart variant={liked ? "abled" : "grey1"} onClick={onLike} />
+        <Heart
+          variant={liked ? "abled" : "grey1"}
+          onClick={(event) => {
+            event.stopPropagation();
+            onLike?.(event);
+          }}
+        />
       </div>
       {/* 텍스트 박스는 피그마와 동일하게 160px 고정 (패딩 폭 158px보다 2px 넓음) */}
       <div className="absolute bottom-4 left-4 flex w-40 flex-col gap-2">

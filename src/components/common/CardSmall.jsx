@@ -61,7 +61,7 @@ export default function CardSmall({
   if (variant === "medium-recommend") {
     return (
       <div
-        className={`flex w-[390px] items-start gap-3 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${className}`}
+        className={`flex w-full items-start gap-3 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${className}`}
         {...rest}
       >
         <div className="size-[60px] shrink-0 overflow-hidden rounded-lg">
@@ -81,14 +81,14 @@ export default function CardSmall({
   // medium-b: 브랜드/제품명 (+ 하트)
   return (
     <div
-      className={`flex w-[390px] justify-between gap-3 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${
+      className={`flex w-full justify-between gap-3 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${
         showHeart ? "items-end" : "items-start"
       } ${className}`}
       {...rest}
     >
       <div className="flex min-w-0 items-start gap-3">
-        <div className="size-[60px] shrink-0 overflow-hidden rounded-lg bg-2light-grey">
-          {img && <img src={img} alt="" className="size-full object-cover" />}
+        <div className="flex size-[60px] shrink-0 items-center justify-center overflow-hidden rounded-lg bg-2light-grey">
+          {img && <img src={img} alt="" className="h-[40px] w-auto object-contain" />}
         </div>
         <div className="flex min-w-0 flex-col gap-1">
           <p className="truncate text-caption-regular-12 text-grey">{brand}</p>
