@@ -6,6 +6,7 @@ import logoBlack from '../../assets/icons/logo-layer-black.svg'
 import logoWhite from '../../assets/icons/logo-layer-white.svg'
 import searchBlack from '../../assets/icons/icon-search-black.svg'
 import searchWhite from '../../assets/icons/icon-search-white.svg'
+import shareResult from '../../assets/icons/share-result.svg'
 import xIcon from '../../assets/icons/x-black.svg'
 import BtnSmall from './BtnSmall'
 
@@ -29,11 +30,12 @@ export default function Header({
   onBell,
   onEdit,
   onSave,
+  onShare,
   transparent = false,
   className = '',
 }) {
   const isWhite = variant === 'main'
-  const hasBg = !transparent && !['main', 'main2'].includes(variant)
+  const hasBg = !transparent && !['main', 'main2', 'result'].includes(variant)
 
   return (
     <header
@@ -42,7 +44,7 @@ export default function Header({
       } ${className}`}
     >
       <div className="flex items-center gap-3">
-        {['main', 'main2'].includes(variant) && (
+        {['main', 'main2', 'result'].includes(variant) && (
           <img
             src={isWhite ? logoWhite : logoBlack}
             alt="Layer"
@@ -65,6 +67,9 @@ export default function Header({
       </div>
 
       <div className="flex items-center gap-5">
+        {variant === 'result' && (
+          <IconButton src={shareResult} label="결과 공유하기" onClick={onShare} />
+        )}
         {['main', 'main2', 'detail', 'detail-back'].includes(variant) && (
           <>
             <IconButton src={isWhite ? searchWhite : searchBlack} label="검색" onClick={onSearch} />

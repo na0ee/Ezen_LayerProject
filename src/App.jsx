@@ -1,6 +1,12 @@
 import { useState } from "react";
 import Home from "./pages/Home";
 import Raffle from "./pages/raffle";
+import BoldSignatureResult from "./pages/BoldSignatureResult";
+import SoftWandererResult from "./pages/SoftWandererResult";
+import WhiteCanvasResult from "./pages/WhiteCanvasResult";
+import DailyBasicResult from "./pages/DailyBasicResult";
+import MoodShifterResult from "./pages/MoodShifterResult";
+import LayerMaximalistResult from "./pages/LayerMaximalistResult";
 import {
   Badge,
   Bell,
@@ -564,6 +570,48 @@ function ComponentsPreview() {
 
 export default function App() {
   const [page, setPage] = useState("home");
+
+  if (
+    window.location.pathname === "/result/bold-signature" ||
+    window.location.pathname === "/bold-signature"
+  ) {
+    return <BoldSignatureResult />;
+  }
+
+  if (
+    window.location.pathname === "/result/soft-wanderer" ||
+    window.location.pathname === "/soft-wanderer"
+  ) {
+    return <SoftWandererResult />;
+  }
+
+  if (
+    window.location.pathname === "/result/white-canvas" ||
+    window.location.pathname === "/white-canvas"
+  ) {
+    return <WhiteCanvasResult />;
+  }
+
+  if (
+    window.location.pathname === "/result/daily-basic" ||
+    window.location.pathname === "/daily-basic"
+  ) {
+    return <DailyBasicResult />;
+  }
+
+  if (
+    window.location.pathname === "/result/mood-shifter" ||
+    window.location.pathname === "/mood-shifter"
+  ) {
+    return <MoodShifterResult />;
+  }
+
+  if (
+    window.location.pathname === "/result/layer-maximalist" ||
+    window.location.pathname === "/layer-maximalist"
+  ) {
+    return <LayerMaximalistResult />;
+  }
 
   if (window.location.pathname === "/components") {
     return <ComponentsPreview />;
