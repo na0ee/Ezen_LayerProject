@@ -43,17 +43,14 @@ const SEASONS = [
       {
         src: springPerfume1,
         alt: "조 말론 피오니 앤 블러쉬 스웨이드",
-        imageClassName: "[&>img]:!h-[55px] [&>img]:!w-[38px]",
       },
       {
         src: springPerfume2,
         alt: "끌로에 오 드 퍼퓸",
-        imageClassName: "[&>img]:!h-[55px] [&>img]:!w-[38px]",
       },
       {
         src: springPerfume3,
         alt: "미스 디올 블루밍 부케",
-        imageClassName: "[&>img]:!h-[53px] [&>img]:!w-9",
       },
     ],
   },
@@ -71,17 +68,14 @@ const SEASONS = [
       {
         src: summerPerfume1,
         alt: "조 말론 우드 세이지 앤 씨 솔트",
-        imageClassName: "[&>img]:!h-[69px] [&>img]:!w-[52px]",
       },
       {
         src: summerPerfume2,
         alt: "아쿠아 디 파르마 미르토 디 파나레아",
-        imageClassName: "[&>img]:!h-[55px] [&>img]:!w-[38px]",
       },
       {
         src: summerPerfume3,
         alt: "티파니 앤 코 러브 포 허",
-        imageClassName: "[&>img]:!h-[53px] [&>img]:!w-9",
       },
     ],
   },
@@ -99,17 +93,14 @@ const SEASONS = [
       {
         src: fallPerfume1,
         alt: "르 라보 상탈 33",
-        imageClassName: "[&>img]:!h-[69px] [&>img]:!w-[52px]",
       },
       {
         src: fallPerfume2,
         alt: "딥티크 탐 다오",
-        imageClassName: "[&>img]:!h-[55px] [&>img]:!w-[38px]",
       },
       {
         src: fallPerfume3,
         alt: "바이레도 모하비 고스트",
-        imageClassName: "[&>img]:!h-[53px] [&>img]:!w-9",
       },
     ],
   },
@@ -127,17 +118,14 @@ const SEASONS = [
       {
         src: winterPerfume1,
         alt: "톰 포드 토바코 바닐",
-        imageClassName: "[&>img]:!h-[55px] [&>img]:!w-[38px]",
       },
       {
         src: winterPerfume2,
         alt: "메종 마르지엘라 바이 더 파이어플레이스",
-        imageClassName: "[&>img]:!h-[53px] [&>img]:!w-9",
       },
       {
         src: winterPerfume3,
-        alt: "르 라보 앙브레뜨 9",
-        imageClassName: "[&>img]:!h-[53px] [&>img]:!w-9",
+        alt: "르 라보 어나더 13",
       },
     ],
   },
@@ -386,20 +374,19 @@ export default function MagazineSummer({ onBack, initialSeason = 1 }) {
                 </div>
               </div>
 
-              <div className="flex h-[70px] w-[390px] items-center justify-between overflow-hidden px-5">
-                <div className="flex min-w-0 flex-1 items-center gap-3">
+              <div className="flex h-[99px] w-full items-center overflow-hidden px-5">
+                <div className="flex h-[101px] items-center gap-3">
                   {activeSeason.perfumes.map((perfume) => (
                     <Img
                       key={perfume.alt}
-                      size="medium"
-                      color="white"
+                      size="big"
+                      color="grey"
                       src={perfume.src}
                       alt={perfume.alt}
-                      className={`!flex !size-[70px] !items-center !justify-center !rounded-[10px] !border-0 [&>img]:!object-cover ${perfume.imageClassName}`}
+                      className="!rounded-lg"
                     />
                   ))}
                 </div>
-                <span className="size-[18px] shrink-0" aria-hidden="true" />
               </div>
             </section>
           </div>
