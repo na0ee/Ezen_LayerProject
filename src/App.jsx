@@ -14,9 +14,9 @@ import MagazineMain from "../Magazine/Magazine_main";
 import MagazineNiche from "../Magazine/Magazine_NICHE";
 import MagazineSummer from "../Magazine/Magazine_SEASON/Magazine_summer";
 import MagazineTip from "../Magazine/Magazine_TIP";
-import { BottomNav } from "./components/common";
 import CategoryPage from "./pages/Category";
 import Chatbot from "./pages/Chatbot";
+import CommunityWriteEntryPage from "./pages/Community/CommunityWriteEntryPage";
 import ComponentsPreview from "./pages/ComponentsPreview";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -78,7 +78,7 @@ export default function App() {
 
       <Route
         path="/home"
-        element={<Home onRaffle={() => navigate("/raffle")} onNavigate={navigateByTab} />}
+        element={<Home onRaffle={() => navigate("/raffle")} />}
       />
       <Route path="/raffle" element={<Raffle onBack={() => navigate("/home")} />} />
 
@@ -114,7 +114,7 @@ export default function App() {
       <Route path="/mypage/wishlist" element={<MyWishlistPage />} />
       <Route path="/mypage/reviews" element={<MyReviewsPage />} />
 
-      <Route path="/community" element={<ComingSoon title="커뮤니티" />} />
+      <Route path="/community" element={<CommunityWriteEntryPage />} />
       <Route path="/components" element={<ComponentsPreview />} />
       <Route path="*" element={<Navigate to="/home" replace />} />
     </Routes>
@@ -143,19 +143,5 @@ function SearchRoute() {
       query={searchParams.get("q") ?? ""}
       onBack={() => navigate("/category")}
     />
-  );
-}
-
-function ComingSoon({ title }) {
-  return (
-    <main className="relative mx-auto flex min-h-screen w-full max-w-[430px] items-center justify-center bg-background px-5 pb-28">
-      <div className="text-center">
-        <h1 className="text-title-semibold-24 text-offblack">{title}</h1>
-        <p className="mt-2 text-body-regular-14 text-grey1">화면을 준비하고 있습니다.</p>
-      </div>
-      <div className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[430px] px-5 pb-5">
-        <BottomNav active="community" />
-      </div>
-    </main>
   );
 }
