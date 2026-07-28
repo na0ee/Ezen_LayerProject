@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Home from "./pages/Home";
 import {
   Badge,
   Bell,
@@ -52,7 +53,7 @@ import {
   TitleSection,
 } from "./components/common";
 
-function App() {
+function ComponentsPreview() {
   const [navTab, setNavTab] = useState("home");
   const [enterTitle, setEnterTitle] = useState("");
   const [enterTxt, setEnterTxt] = useState("");
@@ -560,4 +561,10 @@ function App() {
   );
 }
 
-export default App;
+export default function App() {
+  if (window.location.pathname === "/components") {
+    return <ComponentsPreview />;
+  }
+
+  return <Home />;
+}

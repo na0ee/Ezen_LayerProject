@@ -7,6 +7,7 @@ export default function TitleMain({
   variant = "title1",
   title,
   sub,
+  actionVariant = "more",
   onMore,
   className = "",
 }) {
@@ -14,7 +15,7 @@ export default function TitleMain({
     return (
       <div className={`flex w-full items-center justify-between ${className}`}>
         <h3 className="font-en text-en-title-28 text-offblack">{title}</h3>
-        <BtnGo variant="more" onClick={onMore} />
+        <BtnGo variant={actionVariant} onClick={onMore} />
       </div>
     );
   }
@@ -27,7 +28,9 @@ export default function TitleMain({
         }`}
       >
         <h3 className="font-en text-en-title-28 text-offblack">{title}</h3>
-        {variant === "title1" && <BtnGo variant="more" onClick={onMore} />}
+        {variant === "title1" && (
+          <BtnGo variant={actionVariant} onClick={onMore} />
+        )}
       </div>
       <p className="text-subtitle-regular-16 text-offblack">{sub}</p>
     </div>
