@@ -13,6 +13,7 @@ import MagazineJomalone from "../Magazine/Magazine_JOMALONE";
 import MagazineMain from "../Magazine/Magazine_main";
 import MagazineNiche from "../Magazine/Magazine_NICHE";
 import MagazineSummer from "../Magazine/Magazine_SEASON/Magazine_summer";
+import MagazineSummerPerfume from "../Magazine/Magazine_Summerperfume";
 import MagazineTip from "../Magazine/Magazine_TIP";
 import Category from "./pages/Category";
 import Chatbot from "./pages/Chatbot";
@@ -52,6 +53,7 @@ export default function App() {
     onDiptyque: () => navigate("/magazine/diptyque"),
     onFragranceCollection: () => navigate("/magazine/collection"),
     onSeason: () => navigate("/magazine/season"),
+    onSummerPerfume: () => navigate("/magazine/summer-perfume"),
     onSantalTip: () => navigate("/magazine/tip"),
   };
 
@@ -111,6 +113,10 @@ export default function App() {
         element={<MagazineFragranceCollection onBack={goBackToMagazine} />}
       />
       <Route path="/magazine/season" element={<MagazineSummer onBack={goBackToMagazine} />} />
+      <Route
+        path="/magazine/summer-perfume"
+        element={<MagazineSummerPerfume onBack={goBackToMagazine} />}
+      />
       <Route path="/magazine/tip" element={<MagazineTip onBack={goBackToMagazine} />} />
       <Route path="/my" element={<Mypage />} />
       <Route path="/mypage" element={<Navigate to="/my" replace />} />
