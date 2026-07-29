@@ -77,7 +77,7 @@ export default function PerfumeDetail({
           <img
             src={perfume.image}
             alt={perfume.name}
-            className="h-[338px] w-[390px] object-contain"
+            className="h-[260px] w-[390px] object-contain"
           />
 
           <div className="flex w-[390px] flex-col gap-4">
