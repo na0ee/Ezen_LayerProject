@@ -11,6 +11,7 @@ export default function ConQuestion({
   text,
   likes = 0,
   comments = 0,
+  onProfileClick,
   className = "",
 }) {
   return (
@@ -22,6 +23,7 @@ export default function ConQuestion({
         name={profileName}
         time={profileTime}
         img={profileImg}
+        onClick={anonymous ? undefined : onProfileClick}
       />
       <div className="flex w-full flex-col gap-1.5">
         <p className="text-body-semibold-16 text-offblack">{title}</p>

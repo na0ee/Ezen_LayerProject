@@ -16,13 +16,18 @@ export default function Con2({
   likes = 0,
   comments = 0,
   imageOverlay,
+  onProfileClick,
   className = "",
 }) {
   return (
     <div
       className={`flex w-full flex-col items-center gap-6 overflow-hidden rounded-b-2xl bg-offwhite p-5 ${className}`}
     >
-      <div className="flex w-full items-center gap-2.5">
+      <button
+        type="button"
+        onClick={onProfileClick}
+        className="flex w-full items-center gap-2.5 text-left"
+      >
         <div className="size-[42px] shrink-0 overflow-hidden rounded-full bg-2light-grey">
           {profileImg && (
             <img src={profileImg} alt="" className="size-full object-cover" />
@@ -32,7 +37,7 @@ export default function Con2({
           <p className="truncate text-body-semibold-16 text-offblack">{profileName}</p>
           <p className="truncate text-caption-medium-12 text-grey">{profileTime}</p>
         </div>
-      </div>
+      </button>
 
       <div className="flex w-full flex-col items-end gap-3">
         <div className="flex w-full snap-x snap-mandatory gap-3 overflow-x-auto">

@@ -23,6 +23,7 @@ import Category from "./pages/Category";
 import Chatbot from "./pages/Chatbot";
 import ComponentsPreview from "./pages/ComponentsPreview";
 import CommunityWriteEntryPage from "./pages/Community/CommunityWriteEntryPage";
+import CommunityProfilePage from "./pages/CommunityProfilePage";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyMembershipPage from "./pages/MyMembershipPage";
@@ -40,6 +41,7 @@ import OnboardingLoading from "./pages/OnboardingLoading";
 import ProfileSetup from "./pages/ProfileSetup";
 import Raffle from "./pages/raffle";
 import SearchResult from "./pages/SearchResult";
+import Splash from "./pages/Splash";
 import Alarm from "./pages/alarm";
 
 const TAB_ROUTES = {
@@ -74,7 +76,7 @@ export default function App() {
     <>
       <ScrollToTop />
       <Routes location={backgroundLocation || location}>
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<Splash />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<ProfileSetup />} />
         <Route path="/onboarding" element={<Navigate to="/onboarding/1" replace />} />
@@ -154,6 +156,10 @@ export default function App() {
         <Route path="/search" element={<SearchResultRoute />} />
         <Route path="/perfume/:id" element={<PerfumeDetailRoute />} />
         <Route path="/community" element={<CommunityWriteEntryPage />} />
+        <Route
+          path="/community/profile/:profileId"
+          element={<CommunityProfilePage />}
+        />
         <Route path="/components" element={<ComponentsPreview />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>

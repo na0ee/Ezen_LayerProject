@@ -1,5 +1,7 @@
 import { useState } from "react";
+import reviewReply from "../assets/alarm/review-reply.png";
 import {
+  AlertCard,
   Badge,
   Bell,
   BottomNav,
@@ -129,6 +131,27 @@ function ComponentsPreview() {
           <Bell />
           <Bell variant="none" />
         </div>
+      </div>
+
+      <h2 className="mt-8 text-sm font-semibold text-subtext">알림 카드</h2>
+      <div className="mt-3 flex flex-col gap-3">
+        <AlertCard
+          image={reviewReply}
+          imageAlt="침구 위의 향수"
+          category="리뷰 답글"
+          time="4일 전"
+          title="내 리뷰에 댓글이 달렸어요"
+          description={'"햇살 좋은 날의 베이지 룩" 리뷰에 새 댓글이 달렸어요.'}
+          unread
+        />
+        <AlertCard
+          image={reviewReply}
+          imageAlt="침구 위의 향수"
+          category="리뷰 답글"
+          time="4일 전"
+          title="내 리뷰에 댓글이 달렸어요"
+          description={'"햇살 좋은 날의 베이지 룩" 리뷰에 새 댓글이 달렸어요.'}
+        />
       </div>
 
       <h2 className="mt-8 text-sm font-semibold text-subtext">헤더</h2>
