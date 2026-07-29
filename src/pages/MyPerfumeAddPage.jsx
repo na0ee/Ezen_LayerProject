@@ -1,44 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BtnBig, Category, CommunityEnter, Header } from "../components/common";
+import { brands } from "../data/brands";
+import { fragranceFamilies as fragranceFamilyData } from "../data/fragranceFamilies";
+import { allPerfumes, familyLabels } from "../data/perfumeUtils";
 import { getCalendarWeeks } from "../utils/calendar";
+import { matchesQuery } from "../utils/koreanSearch";
 import chevronDown from "../assets/icons/chevron-down.svg";
-import buly from "../assets/images/mypage/buly.png";
-import bvlgari from "../assets/images/mypage/bvlgari.png";
-import diptyque from "../assets/images/mypage/diptyque.png";
-import loewe from "../assets/images/mypage/loewe.png";
-import masion from "../assets/images/mypage/masion.png";
-import matiere from "../assets/images/mypage/matiere.png";
-import santamaria from "../assets/images/mypage/santamaria.png";
 
 // 참고 파일(MyPerfumeAddPage.tsx)의 레이아웃/기능을 이 프로젝트 컴포넌트·토큰으로 이식
-const brandOptions = [
-  { name: "메종 마르지엘라", nameEn: "MAISON MARGIELA FRAGRANCES" },
-  { name: "불가리", nameEn: "BVLGARI PERFUME" },
-  { name: "불리", nameEn: "BULY" },
-  { name: "조 말론", nameEn: "JO MALONE" },
-  { name: "바이레도", nameEn: "BYREDO" },
-  { name: "르 라보", nameEn: "LE LABO" },
-  { name: "이솝", nameEn: "AESOP" },
-  { name: "딥티크", nameEn: "DIPTYQUE" },
-  { name: "샤넬", nameEn: "CHANEL" },
-  { name: "산타 마리아 노벨라", nameEn: "SANTA MARIA NOVELLA" },
-  { name: "로에베", nameEn: "LOEWE PERFUMES" },
-  { name: "마티에 프리미에르", nameEn: "MATIERE PREMIERE" },
-];
-
-const perfumeCatalog = [
-  { name: "휠 오 트리플 향수 75ml - 이리 드 말트", brandId: "BULY", image: buly },
-  { name: "불가리 옴니아 아메시스트 오 드 뚜왈렛 100ml", brandId: "BVLGARI PERFUME", image: bvlgari },
-  { name: "오 데 썽 오 드 뚜왈렛 100ml", brandId: "DIPTYQUE", image: diptyque },
-  { name: "아이레 수틸레사 오 드 뚜왈렛 50ml", brandId: "LOEWE PERFUMES", image: loewe },
-  { name: "체이싱 선셋 EDT 30ml", brandId: "MAISON MARGIELA FRAGRANCES", image: masion },
-  { name: "메탈 라벤더 오 드 퍼퓸 50ml", brandId: "MATIERE PREMIERE", image: matiere },
-  { name: "엔젤 디 피렌체 오드코롱 100ml", brandId: "SANTA MARIA NOVELLA", image: santamaria },
-];
+// 브랜드/향수명/향 계열 데이터는 src/data/perfumeData.js(+brands.js, fragranceFamilies.js)에서 불러온다
+const brandOptions = brands;
+const perfumeCatalog = allPerfumes;
 
 const volumes = ["30ml", "50ml", "100ml", "150ml", "200ml", "300ml"];
-const fragranceFamilies = ["아쿠아틱", "우디", "플로럴", "머스크", "시트러스", "오리엔탈", "파우더리", "스파이시", "그린"];
+const fragranceFamilies = fragranceFamilyData.map((family) => family.name);
 const weekDayLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const formatDisplayDate = (iso) => (iso ? iso.replaceAll("-", ".") : "");
@@ -182,7 +158,7 @@ function SelectDropdownList({ options, onSelect, renderOption, emptyLabel = "선
 export default function MyPerfumeAddPage() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ brand: "", name: "", memo: "" });
-  const [selectedBrandNameEn, setSelectedBrandNameEn] = useState("");
+  const [selectedBrandId, setSelectedBrandId] = useState("");
   const [selectedFragrances, setSelectedFragrances] = useState([]);
   const [selectedVolume, setSelectedVolume] = useState("");
   const [openDate, setOpenDate] = useState("");
@@ -197,24 +173,38 @@ export default function MyPerfumeAddPage() {
   const openDateDropdownRef = useRef(null);
   const expiryDateDropdownRef = useRef(null);
 
-  const brandDropdownOptions = brandOptions.map((brand) => ({ key: brand.nameEn, ...brand }));
+  // 이미 선택되어 입력값이 옵션과 정확히 일치하면(재클릭 시) 필터링하지 않고 전체 목록을 보여준다
+  const isBrandExactMatch = brandOptions.some((brand) => brand.name === formData.brand);
+  const brandDropdownOptions = brandOptions
+    .filter(
+      (brand) =>
+        isBrandExactMatch ||
+        matchesQuery(brand.name, formData.brand) ||
+        matchesQuery(brand.nameEn, formData.brand),
+    )
+    .map((brand) => ({ key: brand.id, ...brand }));
 
-  const brandPerfumes = selectedBrandNameEn
-    ? perfumeCatalog.filter((item) => item.brandId === selectedBrandNameEn)
+  const brandPerfumes = selectedBrandId
+    ? perfumeCatalog.filter((item) => item.perfume.brandId === selectedBrandId)
     : perfumeCatalog;
-  const nameDropdownOptions = brandPerfumes.map((item) => ({ key: item.name, ...item }));
+  const isNameExactMatch = brandPerfumes.some((item) => item.name === formData.name);
+  const nameDropdownOptions = brandPerfumes
+    .filter((item) => isNameExactMatch || matchesQuery(item.name, formData.name))
+    .map((item) => ({ key: item.id, ...item }));
 
   const handleBrandSelect = (brand) => {
     setFormData({ ...formData, brand: brand.name, name: "" });
-    setSelectedBrandNameEn(brand.nameEn);
+    setSelectedBrandId(brand.id);
+    setSelectedFragrances([]);
     setOpenDropdown(null);
     setErrors({ ...errors, brand: undefined, name: undefined });
   };
 
-  const handleNameSelect = (perfume) => {
-    const brandInfo = brandOptions.find((brand) => brand.nameEn === perfume.brandId);
-    setFormData({ ...formData, name: perfume.name, brand: brandInfo?.name ?? formData.brand });
-    setSelectedBrandNameEn(perfume.brandId);
+  const handleNameSelect = (item) => {
+    const brandInfo = brandOptions.find((brand) => brand.id === item.perfume.brandId);
+    setFormData({ ...formData, name: item.name, brand: brandInfo?.name ?? formData.brand });
+    setSelectedBrandId(item.perfume.brandId);
+    setSelectedFragrances(familyLabels(item.perfume.familyIds));
     setOpenDropdown(null);
     setErrors({ ...errors, name: undefined });
   };
@@ -237,7 +227,7 @@ export default function MyPerfumeAddPage() {
   };
 
   const handleSaveDraft = () => {
-    const draft = { formData, selectedBrandNameEn, selectedFragrances, selectedVolume, openDate, expiryDate };
+    const draft = { formData, selectedBrandId, selectedFragrances, selectedVolume, openDate, expiryDate };
     sessionStorage.setItem("myPerfumeAddDraft", JSON.stringify(draft));
     setIsDraftSavedOpen(true);
   };
@@ -277,7 +267,16 @@ export default function MyPerfumeAddPage() {
         <div className="relative" ref={brandDropdownRef}>
           <CommunityEnter
             variant="brand"
+            editable
             value={formData.brand}
+            onChange={(event) => {
+              const brandName = event.target.value;
+              const matched = brandOptions.find((brand) => brand.name === brandName);
+              setFormData({ ...formData, brand: brandName });
+              setSelectedBrandId(matched ? matched.id : "");
+              setErrors({ ...errors, brand: undefined });
+              setOpenDropdown("brand");
+            }}
             onClick={() => setOpenDropdown(openDropdown === "brand" ? null : "brand")}
           />
           {openDropdown === "brand" && (
@@ -298,9 +297,18 @@ export default function MyPerfumeAddPage() {
         <div className="relative" ref={nameDropdownRef}>
           <CommunityEnter
             variant="brand"
+            editable
             label="향수명"
             placeholder="향수명을 입력해주세요"
             value={formData.name}
+            onChange={(event) => {
+              const nameValue = event.target.value;
+              const stillMatchesSelection = perfumeCatalog.some((item) => item.name === nameValue);
+              setFormData({ ...formData, name: nameValue });
+              if (!stillMatchesSelection) setSelectedFragrances([]);
+              setErrors({ ...errors, name: undefined });
+              setOpenDropdown("name");
+            }}
             onClick={() => setOpenDropdown(openDropdown === "name" ? null : "name")}
           />
           {openDropdown === "name" && (

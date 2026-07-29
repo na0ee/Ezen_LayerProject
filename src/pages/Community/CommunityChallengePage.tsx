@@ -1,3 +1,4 @@
+import { useState } from "react";
 import challengeCompletePopper from "../../assets/Community/Challenge/challenge-complete-popper.svg";
 import challengeCommunity from "../../assets/Community/Challenge/challenge-community-warm.png";
 import challengeGiftWithAi from "../../assets/Community/Challenge/challenge-gift-with-ai-warm.png";
@@ -13,15 +14,35 @@ import {
   Search,
   TitleSection,
 } from "../../components/common";
+import { useNavigate } from "react-router-dom";
+import {
+  CHALLENGE_REWARDS,
+  getCompletedChallengeIds,
+} from "../../data/challengeRewards";
+import useDragScroll from "../../hooks/useDragScroll";
 
 const communityTabs = ["리뷰", "질문", "챌린지", "향 추천"] as const;
 
-const mainChallenges = Array.from({ length: 3 }, (_, index) => ({
-  id: `community-main-${index + 1}`,
-  image: challengeMainCommunity,
-  title: "커뮤니티 이용하기",
-  description: "질문·답변·리뷰 남기고 최대 75p까지",
-}));
+const mainChallenges = [
+  {
+    id: "community-main-1",
+    image: challengeMainCommunity,
+    title: "커뮤니티 이용하기",
+    description: "질문·답변·리뷰 남기고 최대 75p까지",
+  },
+  {
+    id: "register-perfume",
+    image: challengeRegisterPerfume,
+    title: "내 향수 등록하기",
+    description: "보유 향수 등록하고 포인트 받기",
+  },
+  {
+    id: "recommend-perfume",
+    image: challengeRecommendPerfume,
+    title: "향수 추천하기",
+    description: "어울리는 향 추천하고 포인트 받기",
+  },
+];
 
 const challenges = [
   {
@@ -66,6 +87,51 @@ export default function CommunityChallengePage({
   onTabChange,
   onWrite,
 }: CommunityChallengePageProps) {
+  const navigate = useNavigate();
+  const mainChallengeRailRef = useDragScroll();
+  const [completedChallengeIds] = useState<Set<string>>(
+    getCompletedChallengeIds,
+  );
+  const [completedNoticeOpen, setCompletedNoticeOpen] = useState(false);
+  const isChallengeCompleted = (challenge: (typeof challenges)[number]) =>
+    challenge.id === "my-layer"
+      ? challenge.completed
+      : completedChallengeIds.has(challenge.id);
+  const sortedChallenges = [...challenges].sort(
+    (a, b) => Number(isChallengeCompleted(a)) - Number(isChallengeCompleted(b)),
+  );
+
+  const handleChallenge = (challengeId: string) => {
+    if (completedChallengeIds.has(challengeId) || challengeId === "my-layer") {
+      setCompletedNoticeOpen(true);
+      return;
+    }
+    const challengeReward = {
+      challengeId,
+      points: CHALLENGE_REWARDS[challengeId],
+    };
+
+    if (challengeId.startsWith("community")) {
+      navigate("/community", {
+        state: { communityTab: "리뷰", challengeReward },
+      });
+      return;
+    }
+    if (challengeId === "register-perfume") {
+      navigate("/mypage/perfumes/new", { state: { challengeReward } });
+      return;
+    }
+    if (challengeId === "recommend-perfume") {
+      navigate("/community", {
+        state: { communityTab: "향 추천", challengeReward },
+      });
+      return;
+    }
+    if (challengeId === "gift-with-ai") {
+      navigate("/chatbot?intent=gift", { state: { challengeReward } });
+    }
+  };
+
   return (
     <main className="community-challenge-page min-h-[100dvh] bg-subtext">
       <div className="community-challenge-page__wrap mx-auto min-h-[100dvh] w-full max-w-[430px] bg-background pb-28">
@@ -115,8 +181,11 @@ export default function CommunityChallengePage({
               <TitleSection title="오늘의 메인 챌린지" />
             </div>
 
-            <div className="community-challenge-main__carousel -mr-5 w-[410px] overflow-hidden">
-              <div className="flex w-max gap-3">
+            <div
+              ref={mainChallengeRailRef}
+              className="community-challenge-main__carousel no-scrollbar -mr-5 w-[calc(100%_+_20px)] cursor-grab touch-pan-x overflow-x-auto overflow-y-hidden overscroll-x-contain active:cursor-grabbing"
+            >
+              <div className="flex w-max gap-3 pr-5">
                 {mainChallenges.map((challenge) => (
                   <CardChallengeSmall
                     key={challenge.id}
@@ -124,6 +193,7 @@ export default function CommunityChallengePage({
                     imgClassName="h-[107%] w-full max-w-none object-cover object-top"
                     title={challenge.title}
                     desc={challenge.description}
+                    onAction={() => handleChallenge(challenge.id)}
                     className="[&>div:last-child]:justify-center"
                   />
                 ))}
@@ -140,7 +210,10 @@ export default function CommunityChallengePage({
             </div>
 
             <div className="community-challenge-list__cards flex flex-col gap-[16px]">
-              {challenges.map((challenge) => (
+              {sortedChallenges.map((challenge) => {
+                const isCompleted = isChallengeCompleted(challenge);
+
+                return (
                 <article
                   key={challenge.id}
                   className={`community-challenge-card community-challenge-card--${challenge.id} relative overflow-hidden rounded-2xl`}
@@ -149,10 +222,20 @@ export default function CommunityChallengePage({
                     img={challenge.image}
                     title={challenge.title}
                     desc={challenge.description}
+                    onAction={
+                      isCompleted
+                        ? () => setCompletedNoticeOpen(true)
+                        : () => handleChallenge(challenge.id)
+                    }
                   />
 
-                  {challenge.completed && (
-                    <div className="community-challenge-card__completed pointer-events-none absolute inset-0 z-10 overflow-hidden rounded-2xl bg-offblack/50">
+                  {isCompleted && (
+                    <button
+                      type="button"
+                      aria-label={`${challenge.title}: 이미 완료된 챌린지`}
+                      onClick={() => setCompletedNoticeOpen(true)}
+                      className="community-challenge-card__completed absolute inset-0 z-10 overflow-hidden rounded-2xl bg-offblack/50"
+                    >
                       <div className="absolute left-1/2 top-[42%] size-44 -translate-x-1/2 -translate-y-1/2 rounded-full bg-point-orange/40 blur-3xl" />
                       <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-2">
                         <img
@@ -164,10 +247,11 @@ export default function CommunityChallengePage({
                           챌린지 완료!
                         </p>
                       </div>
-                    </div>
+                    </button>
                   )}
                 </article>
-              ))}
+                );
+              })}
             </div>
           </section>
         </div>
@@ -175,7 +259,36 @@ export default function CommunityChallengePage({
         <div className="community-challenge-bottom-nav fixed bottom-0 left-1/2 z-30 w-full max-w-[430px] -translate-x-1/2 px-5 pb-5">
           <BottomNav active="community" />
         </div>
+
       </div>
+      {completedNoticeOpen && (
+        <div
+          className="fixed inset-0 z-[120] flex items-center justify-center bg-offblack/35 px-10"
+          onClick={() => setCompletedNoticeOpen(false)}
+        >
+          <section
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="completed-challenge-notice-title"
+            className="w-full max-w-80 rounded-[20px] bg-offwhite px-6 py-7 text-center shadow-[0_18px_50px_rgba(0,0,0,0.22)]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <h2
+              id="completed-challenge-notice-title"
+              className="text-title-medium-20 text-offblack"
+            >
+              이미 완료된 챌린지입니다
+            </h2>
+            <button
+              type="button"
+              onClick={() => setCompletedNoticeOpen(false)}
+              className="mt-6 h-12 w-full rounded-4xl bg-offblack text-body-semibold-16 text-offwhite"
+            >
+              확인
+            </button>
+          </section>
+        </div>
+      )}
     </main>
   );
 }

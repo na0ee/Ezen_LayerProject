@@ -20,7 +20,9 @@ export default function BottomNav({
     magazine: "/magazine",
     my: "/my",
   };
-  const routeTab = location.pathname.split("/")[1];
+  const routeTab = location.pathname.startsWith("/mypage")
+    ? "my"
+    : location.pathname.split("/")[1];
   const resolvedActive =
     active ?? (TABS.includes(routeTab) ? routeTab : "home");
   const activeIndex = Math.max(TABS.indexOf(resolvedActive), 0);
@@ -32,18 +34,19 @@ export default function BottomNav({
   return (
     <nav
       aria-label="주요 메뉴"
-      className={`pointer-events-auto z-[100] flex w-[390px] max-w-full items-center ${className}`}
+      className={`pointer-events-auto z-[100] flex w-[calc(100vw-40px)] max-w-[390px] items-center ${className}`}
     >
       <div className="flex w-[391px] shrink-0 items-center justify-center gap-1.5">
         <div className="glass-surface-dark glass-rim-light glass-depth relative h-16 min-w-0 flex-1 overflow-hidden rounded-[50px]">
           <span
+            key={resolvedActive}
             aria-hidden="true"
             className="absolute left-2 top-1/2 h-[52px] w-[82px] rounded-[50px] border border-offwhite/10 bg-offwhite/[0.07] shadow-[inset_0_1px_0_rgb(255_255_255_/_14%)] backdrop-blur-md transition-transform duration-200"
             style={{
-              transform: `translate(${activeIndex * 74.333333}px, -50%)`,
+              transform: `translate3d(${activeIndex * 100}%, -50%, 0)`,
             }}
           />
-          <div className="absolute left-1/2 top-1/2 flex h-14 w-[313px] -translate-x-1/2 -translate-y-1/2 items-center justify-between px-[15px]">
+          <div className="absolute inset-x-2 top-1/2 z-[3] grid h-14 -translate-y-1/2 grid-cols-4 items-center">
             {TABS.map((tab) => (
               <TabNav
                 key={tab}
@@ -51,7 +54,7 @@ export default function BottomNav({
                 to={routeByTab[tab]}
                 active={resolvedActive === tab}
                 onClick={() => handleTabChange(tab)}
-                className="relative z-10 !w-[60px] !min-w-[60px] shrink-0 !bg-transparent"
+                className="relative z-10 !w-full !min-w-0 !bg-transparent"
               />
             ))}
           </div>
@@ -62,7 +65,7 @@ export default function BottomNav({
           onClick={onCharacter ?? (() => navigate("/chatbot"))}
           className="glass-surface-dark glass-rim-light glass-depth flex size-16 shrink-0 items-center justify-center rounded-full"
         >
-          <span className="flex size-10 items-center justify-center overflow-hidden">
+          <span className="relative z-[3] flex size-10 items-center justify-center overflow-hidden">
             <span className="relative h-10 w-7 overflow-hidden">
               <img
                 src={characterLay}

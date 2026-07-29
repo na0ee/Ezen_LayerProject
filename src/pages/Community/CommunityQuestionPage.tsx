@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import profileFruityLover from "../../assets/Community/Profile/profile-fruity-lover.png";
 import profileOfficeScent from "../../assets/Community/Profile/profile-office-scent.png";
 import {
@@ -7,6 +9,8 @@ import {
   Header,
   Search,
 } from "../../components/common";
+import type { CommunityUserPost } from "./communityUserPosts";
+import { getUserProfile } from "../../data/userProfile";
 
 const communityTabs = ["리뷰", "질문", "챌린지", "향 추천"] as const;
 
@@ -32,12 +36,20 @@ const pollOptions = [
 interface CommunityQuestionPageProps {
   onTabChange?: (tab: (typeof communityTabs)[number]) => void;
   onWrite?: () => void;
+  userPosts?: CommunityUserPost[];
+  onDeletePost?: (postId: string) => void;
 }
 
 export default function CommunityQuestionPage({
   onTabChange,
   onWrite,
+  userPosts = [],
+  onDeletePost,
 }: CommunityQuestionPageProps) {
+  const navigate = useNavigate();
+  const userProfile = getUserProfile();
+  const [pollSelections, setPollSelections] = useState<Record<string, number>>({});
+
   return (
     <main className="community-question-page min-h-[100dvh] bg-subtext">
       <div className="community-question-page__wrap mx-auto min-h-[100dvh] w-full max-w-[430px] bg-background pb-28">
@@ -82,6 +94,52 @@ export default function CommunityQuestionPage({
           aria-label="커뮤니티 질문 피드"
           className="community-question-feed flex flex-col gap-4 px-5 pt-3"
         >
+          {userPosts.map((post) => {
+            if (post.kind !== "poll") {
+              return (
+                <article
+                  key={post.id}
+                  className="community-question-card community-question-card--user-post"
+                >
+                  <ConQuestion
+                    profileName={userProfile.nickname}
+                    profileTime="방금 전"
+                    profileImg={userProfile.image}
+                    title={post.title}
+                    text={post.text}
+                    likes={0}
+                    comments={0}
+                    onDelete={() => onDeletePost?.(post.id)}
+                  />
+                </article>
+              );
+            }
+
+            const selectedIndex = pollSelections[post.id];
+            const options = post.pollOptions ?? [];
+
+            return (
+              <article key={post.id} className="community-question-card community-question-card--user-poll">
+                <ConQuestion1
+                  profileName={userProfile.nickname}
+                  profileTime="방금 전"
+                  profileImg={userProfile.image}
+                  sub={post.text}
+                  title={post.title}
+                  options={options.map((label, index) => ({
+                    label,
+                    percent:
+                      selectedIndex === undefined ? 0 : selectedIndex === index ? 100 : 0,
+                    selected: selectedIndex === index,
+                  }))}
+                  onSelect={(_, index) =>
+                    setPollSelections((current) => ({ ...current, [post.id]: index }))
+                  }
+                  onDelete={() => onDeletePost?.(post.id)}
+                />
+              </article>
+            );
+          })}
           <article className="community-question-card community-question-card--recommendation">
             <ConQuestion
               profileName="과일향러버"
@@ -91,6 +149,16 @@ export default function CommunityQuestionPage({
               text={fruitQuestionText}
               likes={42}
               comments={8}
+              onProfileClick={() =>
+                navigate("/community/profile/fruity-lover", {
+                  state: {
+                    profile: {
+                      name: "과일향러버",
+                      image: profileFruityLover,
+                    },
+                  },
+                })
+              }
             />
           </article>
 
@@ -103,6 +171,16 @@ export default function CommunityQuestionPage({
               text={cleanQuestionText}
               likes={19}
               comments={5}
+              onProfileClick={() =>
+                navigate("/community/profile/office-scent", {
+                  state: {
+                    profile: {
+                      name: "출근향찾는중",
+                      image: profileOfficeScent,
+                    },
+                  },
+                })
+              }
             />
           </article>
 

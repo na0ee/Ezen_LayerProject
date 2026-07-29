@@ -39,10 +39,11 @@ export default function Header({
   const navigate = useNavigate()
   const isWhite = variant === 'main'
   const hasBg = !transparent && !['main', 'main2', 'result'].includes(variant)
+  const handleBack = onBack ?? (() => navigate(-1))
 
   return (
     <header
-      className={`flex h-13.5 w-full items-center justify-between px-5 ${
+      className={`flex h-[calc(54px+env(safe-area-inset-top))] w-full items-center justify-between px-5 pt-[env(safe-area-inset-top)] ${
         hasBg ? 'bg-offwhite' : ''
       } ${className}`}
     >
@@ -62,7 +63,7 @@ export default function Header({
           <button
             type="button"
             aria-label="뒤로가기"
-            onClick={onBack}
+            onClick={handleBack}
             className={`shrink-0 ${
               variant === 'community-back' ? 'size-[21px]' : 'size-5'
             }`}

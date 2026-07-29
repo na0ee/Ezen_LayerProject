@@ -21,36 +21,28 @@ const COMMENTS = [
   },
 ];
 
+// comments를 넘기면 그 목록을 쓰고, 없으면 기존 예시 댓글을 보여준다
 export default function CommunityReviewCommentSheet({
   open = false,
   onClose,
+  comments,
 }) {
+  const commentList = comments?.length ? comments : COMMENTS;
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (!open) return undefined;
 
     const previousOverflow = document.body.style.overflow;
-    const previousPaddingRight = document.body.style.paddingRight;
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
     const handleKeyDown = (event) => {
       if (event.key === "Escape") onClose?.();
     };
 
-    if (scrollbarWidth > 0) {
-      const currentPaddingRight =
-        Number.parseFloat(window.getComputedStyle(document.body).paddingRight) ||
-        0;
-
-      document.body.style.paddingRight = `${currentPaddingRight + scrollbarWidth}px`;
-    }
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.body.style.overflow = previousOverflow;
-      document.body.style.paddingRight = previousPaddingRight;
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [onClose, open]);
@@ -78,7 +70,7 @@ export default function CommunityReviewCommentSheet({
         role="dialog"
         aria-modal="true"
         aria-labelledby="community-review-comments-title"
-        className="community-review-comments__sheet absolute inset-x-0 bottom-0 flex h-[440px] max-h-[calc(100dvh-64px)] flex-col overflow-hidden rounded-t-2xl bg-offwhite"
+        className="community-review-comments__sheet absolute inset-x-0 bottom-0 flex h-[min(440px,calc(100dvh_-_64px))] flex-col overflow-hidden rounded-t-2xl bg-offwhite"
       >
         <span
           aria-hidden="true"
@@ -96,13 +88,13 @@ export default function CommunityReviewCommentSheet({
 
         <div className="community-review-comments__body flex min-h-0 flex-1 flex-col">
           <div className="community-review-comments__list flex min-h-0 flex-1 flex-col gap-7 overflow-y-auto px-5 pt-[30px]">
-            {COMMENTS.map((comment) => (
+            {commentList.map((comment) => (
               <article
                 key={comment.id}
                 className="community-review-comments__item flex items-start gap-[14px]"
               >
                 <img
-                  src={profileYeeunTv}
+                  src={comment.avatar ?? profileYeeunTv}
                   alt=""
                   className="size-[26px] shrink-0 rounded-full object-cover"
                 />
@@ -144,12 +136,12 @@ export default function CommunityReviewCommentSheet({
             ))}
           </div>
 
-          <div className="community-review-comments__input shrink-0 px-5 pb-[39px] pt-4">
+          <div className="community-review-comments__input shrink-0 px-5 pb-[max(20px,env(safe-area-inset-bottom))] pt-4">
             <Input
               value={message}
               onChange={(event) => setMessage(event.target.value)}
               onSend={handleSend}
-              placeholder="추천메시지를 입력하세요"
+              placeholder="댓글을 입력하세요"
             />
           </div>
         </div>

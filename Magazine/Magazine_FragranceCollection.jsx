@@ -85,11 +85,6 @@ export default function MagazineFragranceCollection({ onBack }) {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
       <div className="relative mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-background">
-        <div
-          className="h-[max(16px,env(safe-area-inset-top))] w-full bg-offwhite"
-          aria-hidden="true"
-        />
-
         <Header
           variant="detail-back"
           title="매거진"
@@ -98,11 +93,11 @@ export default function MagazineFragranceCollection({ onBack }) {
         />
 
         <main className="mt-6 w-full pb-[120px]">
-          <section className="mx-auto flex w-[390px] flex-col gap-[30px]">
+          <section className="mx-auto flex w-full flex-col gap-[30px] px-5">
             <div className="flex w-full flex-col gap-2.5">
               <TagMag className="!bg-offblack">향수 트렌드</TagMag>
-              <div className="flex w-full items-center justify-between">
-                <h1 className="text-title-semibold-24 text-offblack">
+              <div className="flex w-full items-start justify-between gap-3">
+                <h1 className="min-w-0 flex-1 text-title-semibold-24 text-offblack">
                   New Fragrance Collection 2026
                 </h1>
                 <Heart
@@ -113,11 +108,13 @@ export default function MagazineFragranceCollection({ onBack }) {
             </div>
 
             <div className="flex w-full flex-col items-center gap-10">
-              <img
-                src={heroCollection}
-                alt="2026년 주목할 향수 컬렉션"
-                className="h-[220px] w-[430px] max-w-none object-cover"
-              />
+              <div className="-mx-5 aspect-[430/220] w-[calc(100%+40px)] overflow-hidden">
+                <img
+                  src={heroCollection}
+                  alt="2026년 주목할 향수 컬렉션"
+                  className="size-full scale-[1.01] object-cover"
+                />
+              </div>
               <div className="flex w-full flex-col gap-2 text-offblack">
                 <h2 className="text-title-semibold-18">
                   올해 가장 주목해야 할 새로운 향수들
@@ -133,7 +130,7 @@ export default function MagazineFragranceCollection({ onBack }) {
           </section>
 
           <div
-            className="mt-10 w-full cursor-grab select-none overflow-x-auto overflow-y-hidden px-5 [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
+            className="mt-10 w-full cursor-grab touch-auto select-none overflow-x-auto overflow-y-hidden px-5 [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
             onPointerDown={handleRailPointerDown}
             onPointerMove={handleRailPointerMove}
             onPointerUp={handleRailPointerEnd}
@@ -156,7 +153,7 @@ export default function MagazineFragranceCollection({ onBack }) {
 
         <BottomNav
           active="magazine"
-          className="fixed bottom-5 left-1/2 z-50 !w-[390px] -translate-x-1/2"
+          className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2"
         />
       </div>
     </div>

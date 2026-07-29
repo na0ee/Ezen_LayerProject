@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import heartAbled from '../../assets/icons/heart-abled.svg'
 import heartGrey1 from '../../assets/icons/heart-grey1.svg'
 import heartGrey2 from '../../assets/icons/heart-grey2.svg'
@@ -12,15 +13,42 @@ const ICONS = {
   grey3: heartGrey3,
 }
 
-export default function Heart({ variant = 'abled', className = '', ...rest }) {
+export default function Heart({
+  variant = 'abled',
+  className = '',
+  onClick,
+  ...rest
+}) {
+  const [isLiked, setIsLiked] = useState(variant === 'abled')
+  const isControlled = typeof onClick === 'function'
+  const inactiveVariant = variant === 'abled' ? 'grey1' : variant
+  const currentVariant = isControlled
+    ? variant
+    : isLiked
+      ? 'abled'
+      : inactiveVariant
+
+  const handleClick = (event) => {
+    event.stopPropagation()
+
+    if (isControlled) {
+      onClick(event)
+      return
+    }
+
+    setIsLiked((liked) => !liked)
+  }
+
   return (
     <button
       type="button"
       aria-label="찜하기"
+      aria-pressed={currentVariant === 'abled'}
+      onClick={handleClick}
       className={`flex size-6 items-center justify-center ${className}`}
       {...rest}
     >
-      <img src={ICONS[variant]} alt="" className="h-4.25 w-5" />
+      <img src={ICONS[currentVariant]} alt="" className="h-4.25 w-5" />
     </button>
   )
 }

@@ -8,6 +8,7 @@ import badgeGold from "../assets/images/grade-badge/badge-gold.png";
 import badgeVip from "../assets/images/grade-badge/badge-vip.png";
 import badgeGrey from "../assets/images/grade-badge/badge-grey.png";
 import badgeVipGrey from "../assets/images/grade-badge/badge-vip-grey.png";
+import { getUserPoints } from "../data/userPoints";
 
 // 참고 파일(MyMembershipPage.tsx)의 레이아웃/기능을 이 프로젝트 컴포넌트·토큰으로 이식
 // 마이페이지의 "멤버십 등급 보기"에서 라우팅으로 진입하되, 화면은 팝업(바텀시트)처럼 렌더링
@@ -22,10 +23,10 @@ const tiers = [
 ];
 
 const myBadge = "NEWBIE";
-const myPoints = "1,200";
 
 export default function MyMembershipPage() {
   const navigate = useNavigate();
+  const myPoints = getUserPoints();
   const [selectedTier, setSelectedTier] = useState(myBadge);
   const activeTier = tiers.find((tier) => tier.key === selectedTier) ?? tiers[0];
   const goBack = () => navigate(-1);
@@ -41,7 +42,7 @@ export default function MyMembershipPage() {
   return (
     <div className="fixed inset-0 z-80 flex justify-center bg-offblack/40" onClick={goBack}>
       <section
-        className="absolute bottom-0 left-1/2 flex max-h-[85vh] w-full max-w-107.5 -translate-x-1/2 flex-col overflow-hidden rounded-t-2xl bg-background"
+        className="absolute bottom-0 left-1/2 flex max-h-[85dvh] w-full max-w-107.5 -translate-x-1/2 flex-col overflow-hidden rounded-t-2xl bg-background"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex h-7.5 w-full shrink-0 items-center justify-center bg-offwhite">
@@ -60,13 +61,18 @@ export default function MyMembershipPage() {
                   <p className="text-title-medium-20 text-offblack">{myBadge}</p>
                   <div className="mt-1 flex items-center gap-1">
                     <span className="text-body-regular-14 text-grey">포인트</span>
-                    <span className="text-body-medium-14 text-point-orange">{myPoints}</span>
+                    <span className="text-body-medium-14 text-point-orange">
+                      {myPoints.toLocaleString()}
+                    </span>
                   </div>
                 </div>
               </div>
               <div className="h-1.5 w-full rounded-full bg-linear-to-r from-[#f7f0bc] to-point-orange" />
               <p className="pl-1.5 text-body-regular-14 text-grey">
-                <span className="text-body-semibold-16 text-offblack">800P</span> 더 쌓으면{" "}
+                    <span className="text-body-semibold-16 text-offblack">
+                      {Math.max(0, 2000 - myPoints).toLocaleString()}P
+                    </span>{" "}
+                    더 쌓으면{" "}
                 <span className="text-body-semibold-16 text-offblack">BRONZE</span> 등급 달성!
               </p>
             </div>

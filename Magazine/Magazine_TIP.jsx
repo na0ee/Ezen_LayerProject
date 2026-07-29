@@ -38,11 +38,6 @@ export default function MagazineTip({ onBack }) {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
       <div className="relative mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-background">
-        <div
-          className="h-[max(16px,env(safe-area-inset-top))] w-full bg-offwhite"
-          aria-hidden="true"
-        />
-
         <Header
           variant="detail-back"
           title="매거진"
@@ -51,12 +46,12 @@ export default function MagazineTip({ onBack }) {
         />
 
         <main className="flex w-full flex-col gap-10 pb-[120px]">
-          <section className="relative flex h-[536px] shrink-0 flex-col items-start justify-end gap-2.5 overflow-hidden py-[30px]">
-            <div className="absolute left-0 top-0 h-[535px] w-[430px] overflow-hidden bg-offwhite">
+          <section className="relative flex aspect-[430/536] w-full shrink-0 flex-col items-start justify-end gap-2.5 overflow-hidden py-[30px]">
+            <div className="absolute inset-0 overflow-hidden bg-offwhite">
               <img
                 src={heroTip}
                 alt="확대경 아래 놓인 르 라보 상탈 33 향수"
-                className="absolute left-[-14.52px] top-[-11.13px] h-[630.58px] w-[445.05px] max-w-none"
+                className="size-full scale-[1.01] object-cover"
               />
             </div>
             <div className="relative flex w-full items-center px-5">
@@ -65,12 +60,12 @@ export default function MagazineTip({ onBack }) {
                 tag="향수 상식"
                 title="향수 지속력 높이는 꿀팁"
                 sub={'"같은 향수도 오래 머물게 하는 법"'}
-                className="!w-[386px] [&>div:last-child>div>p]:!text-offblack [&>div:last-child>div>p:first-child]:!text-title-semibold-24 [&>div:last-child>div>p:last-child]:!text-title-semibold-18"
+                className="!w-full [&>div:last-child>div>p]:!text-offblack [&>div:last-child>div>p:first-child]:!text-title-semibold-24 [&>div:last-child>div>p:last-child]:!text-title-semibold-18"
               />
             </div>
           </section>
 
-          <article className="flex h-[2892px] w-full flex-col items-center gap-16">
+          <article className="flex w-full flex-col items-center gap-16">
             <div className="flex w-full flex-col items-center justify-center gap-2 px-5 text-offblack">
               <h2 className="w-full text-title-semibold-18">
                 오래 기억되는 향을 위한 작은 습관
@@ -82,17 +77,13 @@ export default function MagazineTip({ onBack }) {
               </p>
             </div>
 
-            {SECTIONS.map((section, index) => (
+            {SECTIONS.map((section) => (
               <Fragment key={section.img}>
-                <div
-                  className={`flex w-full shrink-0 items-start justify-center ${
-                    index === 0 ? "h-[467px]" : "h-[469px]"
-                  }`}
-                >
+                <div className="aspect-[430/469] w-full shrink-0 overflow-hidden">
                   <img
                     src={section.img}
                     alt={section.alt}
-                    className="h-[469px] w-[430px] max-w-none object-cover"
+                    className="size-full object-cover"
                   />
                 </div>
                 <div className="flex w-full flex-col gap-2 px-5 text-offblack">
@@ -106,7 +97,7 @@ export default function MagazineTip({ onBack }) {
 
         <BottomNav
           active="magazine"
-          className="fixed bottom-5 left-1/2 z-50 !w-[390px] -translate-x-1/2"
+          className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2"
         />
       </div>
     </div>

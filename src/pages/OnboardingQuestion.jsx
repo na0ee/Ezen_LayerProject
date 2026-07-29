@@ -34,6 +34,7 @@ import q4Minimal from "../assets/images/onboarding/q4-minimal.png";
 import q5Layering from "../assets/images/onboarding/q5-layering.png";
 import q5Signature from "../assets/images/onboarding/q5-signature.png";
 import { getOnboardingResultPath } from "../utils/onboardingScoring";
+import { saveOnboardingResultType } from "../data/onboardingProfile";
 
 // 피그마: 질문 페이지_Q1~Q5 (3312:24480, 3312:15050, 15103, 15167, 15212)
 // 선택지 사진은 각 원/카드 노드를 @2x로 export한 것 (src/assets/images/onboarding/)
@@ -163,6 +164,7 @@ export default function OnboardingQuestion() {
   const location = useLocation();
   const navigate = useNavigate();
   const [answers, setAnswers] = useState(() => location.state?.answers ?? {});
+  const returnTo = location.state?.returnTo;
 
   const step = Number(stepParam);
   const question = QUESTIONS[step - 1];
@@ -170,6 +172,7 @@ export default function OnboardingQuestion() {
 
   const { multi, cols, width, height, gapX, gapY, noWrapLabel } = question;
   const answer = answers[step];
+  const responsiveOptionSize = `min(${width}px, calc((100vw - 40px - ${(cols - 1) * gapX}px) / ${cols}))`;
 
   const isPicked = (value) =>
     multi ? (answer ?? []).includes(value) : answer === value;
@@ -195,11 +198,14 @@ export default function OnboardingQuestion() {
 
   const goNext = () => {
     if (step < QUESTIONS.length) {
-      navigate(`/onboarding/${step + 1}`, { state: { answers } });
+      navigate(`/onboarding/${step + 1}`, {
+        state: { answers, returnTo },
+      });
       return;
     }
 
     const resultPath = getOnboardingResultPath(answers);
+    saveOnboardingResultType(resultPath.replace("/result/", ""));
     sessionStorage.setItem(RESULT_STORAGE_KEY, resultPath);
 
     navigate("/onboarding/loading", {
@@ -212,15 +218,17 @@ export default function OnboardingQuestion() {
 
   const goBack = () => {
     if (step === 1) {
-      navigate("/profile");
+      navigate(returnTo ?? "/profile");
       return;
     }
 
-    navigate(`/onboarding/${step - 1}`, { state: { answers } });
+    navigate(`/onboarding/${step - 1}`, {
+      state: { answers, returnTo },
+    });
   };
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-background pb-20">
+    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-background pb-[max(20px,env(safe-area-inset-bottom))] pt-[env(safe-area-inset-top)]">
       {/* slideindicater */}
       <div className="h-0.5 w-full bg-light-grey">
         <div
@@ -255,7 +263,7 @@ export default function OnboardingQuestion() {
       <div
         className="grid self-center"
         style={{
-          gridTemplateColumns: `repeat(${cols}, ${width}px)`,
+          gridTemplateColumns: `repeat(${cols}, ${responsiveOptionSize})`,
           columnGap: `${gapX}px`,
           rowGap: `${gapY}px`,
         }}
@@ -274,7 +282,10 @@ export default function OnboardingQuestion() {
                 className={`relative block overflow-hidden rounded-full ${
                   img ? "bg-offblack" : "bg-light-grey"
                 }`}
-                style={{ width, height }}
+                style={{
+                  width: responsiveOptionSize,
+                  aspectRatio: `${width} / ${height}`,
+                }}
               >
                 {img && (
                   <img
@@ -298,7 +309,11 @@ export default function OnboardingQuestion() {
                 className={`text-center text-body-medium-14 text-offblack ${
                   noWrapLabel ? "whitespace-nowrap" : ""
                 }`}
-                style={noWrapLabel ? undefined : { width }}
+                style={
+                  noWrapLabel
+                    ? undefined
+                    : { width: responsiveOptionSize }
+                }
               >
                 {label}
               </span>

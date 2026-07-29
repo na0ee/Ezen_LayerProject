@@ -67,7 +67,7 @@ export default function CardSmall({
         {...rest}
       >
         <div
-          className={`flex size-15 shrink-0 justify-center overflow-hidden rounded-lg ${
+          className={`flex size-15 shrink-0 justify-center overflow-hidden rounded-lg bg-2light-grey ${
             imgFit === "cover" || imgAlign !== "top" ? "items-center" : "items-start"
           }`}
         >
