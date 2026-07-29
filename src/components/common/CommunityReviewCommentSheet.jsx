@@ -43,10 +43,12 @@ export default function CommunityReviewCommentSheet({
     };
 
     document.body.style.overflow = "hidden";
+    document.body.classList.add("comment-sheet-open");
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.body.style.overflow = previousOverflow;
+      document.body.classList.remove("comment-sheet-open");
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [onClose, open]);
@@ -167,6 +169,15 @@ export default function CommunityReviewCommentSheet({
             <Input
               value={message}
               onChange={(event) => setMessage(event.target.value)}
+              onKeyDown={(event) => {
+                if (
+                  event.key === "Enter" &&
+                  !event.nativeEvent.isComposing
+                ) {
+                  event.preventDefault();
+                  handleSend();
+                }
+              }}
               onSend={handleSend}
               placeholder="댓글을 입력하세요"
             />
