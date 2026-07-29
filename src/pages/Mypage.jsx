@@ -464,7 +464,7 @@ export default function Mypage() {
                     className="flex shrink-0 flex-col items-center gap-7.5 rounded-2xl border border-light-grey bg-offwhite px-5 pt-5 pb-7.5"
                   >
                     <div className="flex size-30 items-center justify-center overflow-hidden rounded-lg">
-                      <img src={item.img} alt="" className="h-25 w-auto object-contain" />
+                      <img src={item.img} alt="" className="h-[90px] w-auto object-contain" />
                     </div>
                     <div className="flex w-42.5 flex-col items-center gap-1">
                       <p className="truncate text-body-semibold-16 text-offblack">{item.brand}</p>
