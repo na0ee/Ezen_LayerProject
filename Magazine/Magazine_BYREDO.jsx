@@ -31,7 +31,7 @@ export default function MagazineByredo({ onBack }) {
             </div>
           </section>
 
-          <article className="flex w-full flex-col items-center gap-16">
+          <article className="flex w-full flex-col items-center gap-10">
             <div className="flex w-full flex-col gap-2 px-5 text-offblack">
               <h1 className="text-title-semibold-18">
                 기억과 감정을 향으로 담아내는 브랜드

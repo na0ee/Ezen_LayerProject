@@ -14,4 +14,5 @@ export const brands = [
   { id: "diptyque", name: "딥티크", nameEn: "Diptyque" },
   { id: "chanel", name: "샤넬", nameEn: "Chanel" },
   { id: "santa-maria-novella", name: "산타 마리아 노벨라", nameEn: "Santa Maria Novella" },
+  { id: "ysl", name: "입생로랑", nameEn: "Yves Saint Laurent" },
 ];
