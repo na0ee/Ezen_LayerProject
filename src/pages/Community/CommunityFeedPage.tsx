@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import feedBeachImage from "../../assets/Community/Feed/feed-beach.png";
 import feedRainyWalkImage from "../../assets/Community/Feed/feed-rainy-walk.png";
 import feedSunsetImage from "../../assets/Community/Feed/feed-sunset.png";
@@ -13,6 +14,8 @@ import {
   Search,
 } from "../../components/common";
 import CommunityRecommendationSelectSheet from "./CommunityRecommendationSelectSheet";
+import type { CommunityUserPost } from "./communityUserPosts";
+import { getUserProfile } from "../../data/userProfile";
 
 const communityTabs = ["리뷰", "질문", "챌린지", "향 추천"] as const;
 
@@ -49,14 +52,21 @@ const feedPosts = [
 interface CommunityFeedPageProps {
   onTabChange?: (tab: (typeof communityTabs)[number]) => void;
   onWrite?: () => void;
+  userPosts?: CommunityUserPost[];
+  onDeletePost?: (postId: string) => void;
 }
 
 export default function CommunityFeedPage({
   onTabChange,
   onWrite,
+  userPosts = [],
+  onDeletePost,
 }: CommunityFeedPageProps) {
-  const [isRecommendationSheetOpen, setIsRecommendationSheetOpen] =
-    useState(false);
+  const navigate = useNavigate();
+  const userProfile = getUserProfile();
+  const [recommendationRecipient, setRecommendationRecipient] = useState<
+    string | null
+  >(null);
 
   return (
     <>
@@ -103,6 +113,55 @@ export default function CommunityFeedPage({
             aria-label="커뮤니티 향 추천 피드"
             className="community-feed-list flex flex-col gap-[12px]"
           >
+            {userPosts.map((post, index) => (
+              <article
+                key={post.id}
+                className={`community-feed-card flex w-full flex-col gap-6 bg-offwhite p-5 ${
+                  index === 0 ? "rounded-b-2xl" : "rounded-2xl"
+                }`}
+              >
+                <Profile
+                  name={userProfile.nickname}
+                  time="방금 전"
+                  img={userProfile.image}
+                  trailing={
+                    <button
+                      type="button"
+                      aria-label="게시물 삭제"
+                      onClick={() => onDeletePost?.(post.id)}
+                      className="flex size-8 shrink-0 items-center justify-center text-[26px] font-light leading-none text-grey"
+                    >
+                      ×
+                    </button>
+                  }
+                />
+                <div className="flex aspect-square w-full snap-x snap-mandatory gap-3 overflow-x-auto rounded-lg">
+                  {post.images.map((image, imageIndex) => (
+                    <img
+                      key={`${post.id}-${imageIndex}`}
+                      src={image}
+                      alt={`게시물 사진 ${imageIndex + 1}`}
+                      className="size-full shrink-0 snap-center object-cover"
+                    />
+                  ))}
+                </div>
+                <div className="flex w-full flex-col gap-[6px]">
+                  <h2 className="text-body-semibold-16 text-offblack">{post.title}</h2>
+                  <p className="text-body-regular-14 text-subtext">{post.text}</p>
+                  {post.keywords.length > 0 && (
+                    <p className="mt-[6px] text-caption-regular-12 text-subtext">
+                      {post.keywords.map((keyword) => `#${keyword}`).join("　")}
+                    </p>
+                  )}
+                </div>
+                <BtnSmall
+                  className="self-end"
+                  onClick={() => setRecommendationRecipient(userProfile.nickname)}
+                >
+                  추천하기
+                </BtnSmall>
+              </article>
+            ))}
             {feedPosts.map((post, index) => (
               <article
                 key={post.id}
@@ -114,9 +173,19 @@ export default function CommunityFeedPage({
                   name={post.profileName}
                   time="5분 전"
                   img={post.profileImage}
+                  onClick={() =>
+                    navigate(`/community/profile/${post.id}`, {
+                      state: {
+                        profile: {
+                          name: post.profileName,
+                          image: post.profileImage,
+                        },
+                      },
+                    })
+                  }
                 />
 
-                <div className="community-feed-card__image relative h-[430px] w-full overflow-hidden rounded-lg bg-light-grey">
+                <div className="community-feed-card__image relative aspect-square w-full overflow-hidden rounded-lg bg-light-grey">
                   <img
                     src={post.image}
                     alt=""
@@ -139,7 +208,7 @@ export default function CommunityFeedPage({
 
                 <BtnSmall
                   className="community-feed-card__recommend self-end"
-                  onClick={() => setIsRecommendationSheetOpen(true)}
+                  onClick={() => setRecommendationRecipient(post.profileName)}
                 >
                   추천하기
                 </BtnSmall>
@@ -154,8 +223,9 @@ export default function CommunityFeedPage({
       </main>
 
       <CommunityRecommendationSelectSheet
-        open={isRecommendationSheetOpen}
-        onClose={() => setIsRecommendationSheetOpen(false)}
+        open={recommendationRecipient !== null}
+        recipientName={recommendationRecipient ?? undefined}
+        onClose={() => setRecommendationRecipient(null)}
       />
     </>
   );

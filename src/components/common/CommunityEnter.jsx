@@ -18,6 +18,7 @@ export default function CommunityEnter({
   onChange,
   maxLength,
   onClick,
+  editable = false,
   className = "",
 }) {
   const d = DEFAULTS[variant];
@@ -36,18 +37,34 @@ export default function CommunityEnter({
       </p>
 
       {isSelect ? (
-        <button
-          type="button"
-          onClick={onClick}
-          className="flex w-full items-center justify-between rounded-lg border border-light-grey bg-offwhite p-4"
-        >
-          <span
-            className={`text-body-regular-14 ${value ? "text-offblack" : "text-subtext"}`}
+        editable ? (
+          <div className="flex w-full items-center justify-between gap-2 rounded-lg border border-light-grey bg-offwhite p-4">
+            <input
+              type="text"
+              value={value}
+              onChange={onChange}
+              onFocus={onClick}
+              placeholder={finalPlaceholder}
+              className="w-full bg-transparent text-body-regular-14 text-offblack outline-none placeholder:text-subtext"
+            />
+            <button type="button" onClick={onClick} className="shrink-0">
+              <img src={chevronDown} alt="" className="size-4.5" />
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={onClick}
+            className="flex w-full items-center justify-between rounded-lg border border-light-grey bg-offwhite p-4"
           >
-            {value || finalPlaceholder}
-          </span>
-          <img src={chevronDown} alt="" className="size-4.5" />
-        </button>
+            <span
+              className={`text-body-regular-14 ${value ? "text-offblack" : "text-subtext"}`}
+            >
+              {value || finalPlaceholder}
+            </span>
+            <img src={chevronDown} alt="" className="size-4.5" />
+          </button>
+        )
       ) : (
         <div className="flex w-full flex-col items-end gap-1.5">
           {variant === "txt" ? (

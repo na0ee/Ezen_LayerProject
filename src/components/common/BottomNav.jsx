@@ -1,4 +1,5 @@
 import characterLay from "../../assets/images/character-lay.png";
+import { createPortal } from "react-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import TabNav from "./TabNav";
 
@@ -10,6 +11,7 @@ export default function BottomNav({
   active,
   onChange,
   onCharacter,
+  fixed = true,
   className = "",
 }) {
   const location = useLocation();
@@ -20,7 +22,9 @@ export default function BottomNav({
     magazine: "/magazine",
     my: "/my",
   };
-  const routeTab = location.pathname.split("/")[1];
+  const routeTab = location.pathname.startsWith("/mypage")
+    ? "my"
+    : location.pathname.split("/")[1];
   const resolvedActive =
     active ?? (TABS.includes(routeTab) ? routeTab : "home");
   const activeIndex = Math.max(TABS.indexOf(resolvedActive), 0);
@@ -29,21 +33,26 @@ export default function BottomNav({
     onChange?.(tab);
   };
 
-  return (
+  const navigation = (
     <nav
       aria-label="주요 메뉴"
-      className={`pointer-events-auto z-[100] flex w-[390px] max-w-full items-center ${className}`}
+      data-bottom-nav
+      className={`pointer-events-auto z-[100] flex w-[calc(100vw-40px)] max-w-[390px] items-center ${
+        fixed ? "fixed bottom-5 left-1/2 -translate-x-1/2" : ""
+      } ${className}`}
     >
-      <div className="flex w-[391px] shrink-0 items-center justify-center gap-1.5">
-        <div className="glass-surface-dark relative h-16 min-w-0 flex-1 overflow-hidden rounded-[50px]">
+      <div className="flex w-full min-w-0 items-center justify-center gap-1.5">
+        <div className="glass-surface-dark glass-rim-light glass-depth bottom-nav-glass-tone relative h-16 min-w-0 flex-1 overflow-hidden rounded-[50px]">
           <span
+            key={resolvedActive}
             aria-hidden="true"
-            className="absolute left-2 top-1/2 h-[52px] w-[82px] rounded-[50px] bg-grey/70 transition-transform duration-200"
+            className="absolute left-2 top-1/2 h-[52px] w-[calc((100%_-_16px)/4)] rounded-[50px] border border-offwhite/10 shadow-[inset_0_1px_0_rgb(255_255_255_/_14%)] transition-transform duration-200"
             style={{
-              transform: `translate(${activeIndex * 74.333333}px, -50%)`,
+              backgroundColor: "#353535",
+              transform: `translate3d(${activeIndex * 100}%, -50%, 0)`,
             }}
           />
-          <div className="absolute left-1/2 top-1/2 flex h-14 w-[313px] -translate-x-1/2 -translate-y-1/2 items-center justify-between px-[15px]">
+          <div className="absolute inset-x-2 top-1/2 z-[3] grid h-14 -translate-y-1/2 grid-cols-4 items-center">
             {TABS.map((tab) => (
               <TabNav
                 key={tab}
@@ -51,7 +60,7 @@ export default function BottomNav({
                 to={routeByTab[tab]}
                 active={resolvedActive === tab}
                 onClick={() => handleTabChange(tab)}
-                className="relative z-10 !w-[60px] !min-w-[60px] shrink-0 !bg-transparent"
+                className="relative z-10 !w-full !min-w-0"
               />
             ))}
           </div>
@@ -60,9 +69,9 @@ export default function BottomNav({
           type="button"
           aria-label="챗봇 레이 열기"
           onClick={onCharacter ?? (() => navigate("/chatbot"))}
-          className="glass-surface-dark flex size-16 shrink-0 items-center justify-center rounded-full"
+          className="glass-surface-dark glass-rim-light glass-depth bottom-nav-glass-tone flex size-16 shrink-0 items-center justify-center rounded-full"
         >
-          <span className="flex size-10 items-center justify-center overflow-hidden">
+          <span className="relative z-[3] flex size-10 items-center justify-center overflow-hidden">
             <span className="relative h-10 w-7 overflow-hidden">
               <img
                 src={characterLay}
@@ -75,4 +84,6 @@ export default function BottomNav({
       </div>
     </nav>
   );
+
+  return fixed ? createPortal(navigation, document.body) : navigation;
 }

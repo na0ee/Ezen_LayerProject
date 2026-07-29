@@ -276,11 +276,6 @@ export default function MagazineSummer({ onBack, initialSeason = 1 }) {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
       <div className="relative mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-background">
-        <div
-          className="h-[max(16px,env(safe-area-inset-top))] w-full bg-offwhite"
-          aria-hidden="true"
-        />
-
         <Header
           variant="detail-back"
           title="매거진"
@@ -292,7 +287,7 @@ export default function MagazineSummer({ onBack, initialSeason = 1 }) {
           <div className="flex w-full flex-col gap-10">
             <section className="flex w-full flex-col items-center gap-3">
               <div
-                className="h-0.5 w-[390px] overflow-hidden bg-light-grey"
+                className="mx-5 h-0.5 w-[calc(100%_-_40px)] overflow-hidden bg-light-grey"
                 aria-label={`${activeIndex + 1}번째 계절 가이드`}
                 aria-valuemax={SEASONS.length}
                 aria-valuemin={1}
@@ -305,10 +300,10 @@ export default function MagazineSummer({ onBack, initialSeason = 1 }) {
                 />
               </div>
 
-              <div className="relative h-[440px] w-full overflow-hidden">
+              <div className="relative aspect-[430/440] w-full overflow-hidden">
                 <div
                   ref={railRef}
-                  className="flex size-full cursor-grab snap-x snap-mandatory select-none overflow-x-auto overflow-y-hidden overscroll-x-contain [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  className="flex size-full cursor-grab touch-auto snap-x snap-mandatory select-none overflow-x-auto overflow-y-hidden overscroll-x-contain [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                   onScroll={handleScroll}
                   onScrollEnd={handleScrollEnd}
                   onPointerDown={handlePointerDown}
@@ -341,7 +336,7 @@ export default function MagazineSummer({ onBack, initialSeason = 1 }) {
                     tag="향수 상식"
                     title="계절별 향수 선택 가이드"
                     sub={activeSeason.sub}
-                    className="!w-[386px] [&_button]:pointer-events-auto"
+                    className="!w-full [&_button]:pointer-events-auto"
                   />
                 </div>
               </div>
@@ -362,7 +357,7 @@ export default function MagazineSummer({ onBack, initialSeason = 1 }) {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="no-scrollbar flex items-center gap-2 overflow-x-auto">
                   {activeSeason.keywords.map((keyword) => (
                     <span
                       key={keyword}
@@ -374,7 +369,7 @@ export default function MagazineSummer({ onBack, initialSeason = 1 }) {
                 </div>
               </div>
 
-              <div className="flex h-[99px] w-full items-center overflow-hidden px-5">
+              <div className="no-scrollbar flex h-[99px] w-full items-center overflow-x-auto px-5">
                 <div className="flex h-[101px] items-center gap-3">
                   {activeSeason.perfumes.map((perfume) => (
                     <Img

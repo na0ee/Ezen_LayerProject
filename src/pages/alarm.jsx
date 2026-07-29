@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import raffleOpen from "../assets/alarm/raffle-open.png";
 import raffleResult from "../assets/alarm/raffle-result.png";
 import recommendation from "../assets/alarm/recommendation.png";
 import reviewReply from "../assets/alarm/review-reply.png";
 import newFollower from "../assets/alarm/new-follower.png";
-import { Header } from "../components/common";
+import { AlertCard, Header } from "../components/common";
 
 const TODAY_NOTIFICATIONS = [
   {
@@ -66,103 +67,76 @@ const WEEK_NOTIFICATIONS = [
   },
 ];
 
-function NotificationRow({
-  image,
-  imageAlt,
-  category,
-  time,
-  title,
-  description,
-  accent = false,
-  bordered = false,
-  imageClassName = "",
-}) {
-  return (
-    <article
-      className={`flex w-full gap-3.5 px-5 py-3.5 ${
-        bordered ? "rounded-[11px] border border-2light-grey" : ""
-      }`}
-    >
-      <img
-        src={image}
-        alt={imageAlt}
-        className={`size-11 shrink-0 rounded-lg object-cover ${imageClassName}`}
-      />
-
-      <div className="flex min-w-0 flex-1 flex-col gap-[5px]">
-        <div className="flex items-start justify-between gap-3">
-          <span
-            className={`text-caption-medium-12 ${
-              accent ? "text-point-orange" : "text-grey"
-            }`}
-          >
-            {category}
-          </span>
-          <time className="shrink-0 text-caption-regular-12 text-grey">
-            {time}
-          </time>
-        </div>
-
-        <h2 className="text-body-medium-14 text-offblack">{title}</h2>
-        <p className="whitespace-pre-line text-caption-regular-12 text-subtext">
-          {description}
-        </p>
-      </div>
-    </article>
-  );
-}
-
-function NotificationGroup({ title, notifications, divided = false }) {
+function NotificationGroup({ title, notifications, unreadIds, onRead }) {
   return (
     <section aria-labelledby={`alarm-${title}`}>
       <h1
         id={`alarm-${title}`}
-        className="px-5 pb-2 pt-[18px] text-caption-semibold-10 text-grey"
+        className="pb-2 pt-4 text-body-medium-14 text-grey"
       >
         {title}
       </h1>
 
-      {notifications.map((notification, index) => (
-        <div key={notification.id}>
-          {divided && index > 0 && <div className="mx-5 h-px bg-2light-grey" />}
-          <NotificationRow {...notification} />
-        </div>
-      ))}
+      <div className="flex flex-col gap-3">
+        {notifications.map((notification) => (
+          <AlertCard
+            key={notification.id}
+            {...notification}
+            unread={unreadIds.has(notification.id)}
+            onClick={() => onRead(notification.id)}
+          />
+        ))}
+      </div>
     </section>
   );
 }
 
 export default function Alarm() {
   const navigate = useNavigate();
+  const [unreadIds, setUnreadIds] = useState(
+    () =>
+      new Set(
+        [...TODAY_NOTIFICATIONS, ...WEEK_NOTIFICATIONS]
+          .filter((notification) => notification.accent)
+          .map((notification) => notification.id),
+      ),
+  );
+
+  const markAsRead = (id) => {
+    setUnreadIds((current) => {
+      if (!current.has(id)) return current;
+      const next = new Set(current);
+      next.delete(id);
+      return next;
+    });
+  };
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-offwhite">
       <div className="mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-offwhite">
-        <div
-          aria-hidden="true"
-          className="h-[max(16px,env(safe-area-inset-top))] w-full"
-        />
-
         <Header
           variant="detail-back"
           title="알림"
           onBack={() => navigate(-1)}
           onBell={() => navigate("/alarm")}
-          className="[&>div:first-child]:!gap-3"
+          className="[&>div:first-child]:!gap-0"
         />
 
         <main className="px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
           <NotificationGroup
             title="오늘"
             notifications={TODAY_NOTIFICATIONS}
+            unreadIds={unreadIds}
+            onRead={markAsRead}
           />
           <NotificationGroup
             title="이번 주"
             notifications={WEEK_NOTIFICATIONS}
-            divided
+            unreadIds={unreadIds}
+            onRead={markAsRead}
           />
 
-          <p className="px-5 pb-2 pt-7 text-center text-caption-regular-12 text-light-grey">
+          <p className="pb-2 pt-7 text-center text-caption-regular-12 text-light-grey">
             최근 30일간의 알림을 보여드려요
           </p>
         </main>

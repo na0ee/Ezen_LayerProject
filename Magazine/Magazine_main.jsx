@@ -6,7 +6,6 @@ import {
   Category,
   Header,
   MagListCard,
-  MainBanner,
   PopularTextCard,
   TitleSection,
 } from "../src/components/common";
@@ -19,6 +18,8 @@ import popularDiptyque from "./assets/popular-diptyque.png";
 import popularJomalone from "./assets/popular-jomalone.png";
 import popularTip from "./assets/popular-tip.png";
 import exploreSummer from "./assets/summer-perfume-detail/hero.png";
+import trendBanner from "./assets/trend-banner-figma.png";
+import trendChevronRight from "./assets/trend-chevron-right.svg";
 
 const CATEGORIES = ["전체", "향수 상식", "추천", "트렌드", "선물", "브랜드"];
 
@@ -172,11 +173,6 @@ export default function MagazineMain({
   return (
     <div className="min-h-screen overflow-x-hidden bg-2light-grey">
       <div className="relative mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-2light-grey">
-        <div
-          className="h-[max(16px,env(safe-area-inset-top))] w-full bg-offwhite"
-          aria-hidden="true"
-        />
-
         <Header
           variant="detail"
           title="매거진"
@@ -195,11 +191,6 @@ export default function MagazineMain({
             <div
               className="relative h-[214px] w-full cursor-pointer"
               onClick={onNiche}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") onNiche?.();
-              }}
-              role="button"
-              tabIndex={0}
               aria-label="니치 향수 트렌드 읽기"
             >
               <MainBanner
@@ -222,9 +213,14 @@ export default function MagazineMain({
                   className="!border-0 !bg-offblack/20 !shadow-none !backdrop-blur-none [&>span]:!text-body-regular-14"
                 >
                   지금 읽어보기
-                </BtnGo>
-              </div>
-            </div>
+                  <img
+                    src={trendChevronRight}
+                    alt=""
+                    className="size-[18px] shrink-0"
+                  />
+                </span>
+              </span>
+            </button>
           </section>
 
           <section className="h-[395px]" aria-labelledby="popular-heading">
@@ -233,7 +229,7 @@ export default function MagazineMain({
               className="ml-5 h-[29px] leading-[29px]"
             />
             <div
-              className="mt-[30px] w-full cursor-grab select-none overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
+              className="mt-[30px] w-full cursor-grab touch-auto select-none overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
               {...dragRailProps}
             >
               <div className="flex w-max gap-2.5 px-5">
@@ -289,7 +285,7 @@ export default function MagazineMain({
               className="ml-5 h-[29px] leading-[29px]"
             />
             <div
-              className="mt-[30px] w-full cursor-grab select-none overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
+              className="mt-[30px] w-full cursor-grab touch-auto select-none overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
               {...dragRailProps}
             >
               <div className="flex w-max gap-4 px-5">
@@ -335,20 +331,6 @@ export default function MagazineMain({
                     className="shrink-0 [&>div]:!rounded-2xl"
                   />
                 </button>
-                <button
-                  type="button"
-                  onClick={onSummerPerfume}
-                  className="block shrink-0 text-left"
-                  aria-label="여름 밤에 어울리는 향 보기"
-                >
-                  <CardMag
-                    img={exploreSummer}
-                    title="여름 밤에 어울리는 향"
-                    desc={"해가 진 뒤에 피어나는 관능적인 노트들\n열대야의 공기와 어울리는 향수를 소개합니다"}
-                    imgClassName="absolute inset-0 size-full max-w-none object-bottom rounded-3xl"
-                    className="shrink-0 [&>div]:!rounded-2xl"
-                  />
-                </button>
               </div>
             </div>
           </section>
@@ -358,7 +340,7 @@ export default function MagazineMain({
             id="magazine-list"
             aria-labelledby="explore-heading"
           >
-            <div className="mx-5 flex h-[29px] w-[390px] items-center justify-between overflow-hidden">
+            <div className="mx-5 flex h-[29px] items-center justify-between overflow-hidden">
               <TitleSection
                 title="더 둘러보기"
                 className="h-[29px] leading-[29px]"
@@ -372,7 +354,7 @@ export default function MagazineMain({
 
             <div className="mt-[30px]">
               <div
-                className="cursor-grab select-none overflow-x-auto overflow-y-hidden px-5 [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                className="cursor-grab touch-auto select-none overflow-x-auto overflow-y-hidden px-5 [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 {...dragRailProps}
               >
                 <Category
@@ -380,11 +362,11 @@ export default function MagazineMain({
                   items={CATEGORIES}
                   active={category}
                   onChange={setCategory}
-                  className="w-max !gap-2.5 [&>button]:!h-[31px] [&>button]:!border-[0.8px] [&>button]:!leading-normal"
+                  className="w-max [&>button]:!border-[0.8px] [&>button]:!leading-normal"
                 />
               </div>
               <div
-                className="mt-4 w-full cursor-grab select-none overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
+                className="mt-4 w-full cursor-grab touch-auto select-none overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
                 {...dragRailProps}
               >
                 <div className="flex w-max gap-4 px-5">
@@ -415,7 +397,7 @@ export default function MagazineMain({
         <BottomNav
           active="magazine"
           onChange={onNavigate}
-          className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 [&>div]:!w-[390px] [&>div]:!gap-[5px] [&>div>button]:!size-[72px] [&>div>div]:!h-[72px] [&>div>div]:!w-[313px] [&>div>div]:!flex-none [&>div>div>span]:!h-14 [&>div>div>span]:!w-[79px]"
+          className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2"
         />
       </div>
     </div>

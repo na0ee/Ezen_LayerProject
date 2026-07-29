@@ -61,7 +61,7 @@ export default function Category({ onBack, onSelect, onSearch }) {
               <h2 className="px-5 text-body-medium-16 text-offblack">
                 {section.title}
               </h2>
-              <div className="grid grid-cols-[repeat(2,188px)] justify-center gap-x-3.5 gap-y-4">
+              <div className="grid grid-cols-2 justify-center gap-x-3.5 gap-y-4 px-5">
                 {section.items.map((item) => (
                   <CategoryChip
                     key={item}

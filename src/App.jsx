@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   Navigate,
   Route,
@@ -17,10 +19,18 @@ import MagazineNiche from "../Magazine/Magazine_NICHE";
 import MagazineSummer from "../Magazine/Magazine_SEASON/Magazine_summer";
 import MagazineSummerPerfume from "../Magazine/Magazine_Summerperfume";
 import MagazineTip from "../Magazine/Magazine_TIP";
+import { findPerfume } from "./data/perfumeUtils";
+import {
+  completeChallenge,
+  getCompletedChallengeIds,
+} from "./data/challengeRewards";
+import { addUserPoints } from "./data/userPoints";
 import Category from "./pages/Category";
 import Chatbot from "./pages/Chatbot";
 import ComponentsPreview from "./pages/ComponentsPreview";
 import CommunityWriteEntryPage from "./pages/Community/CommunityWriteEntryPage";
+import CommunityRecommendationDetailPage from "./pages/Community/CommunityRecommendationDetailPage";
+import CommunityProfilePage from "./pages/CommunityProfilePage";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyMembershipPage from "./pages/MyMembershipPage";
@@ -29,6 +39,7 @@ import MyPerfumePage from "./pages/MyPerfumePage";
 import MyPerfumeRecordPage from "./pages/MyPerfumeRecordPage";
 import MyReviewsPage from "./pages/MyReviewsPage";
 import Mypage from "./pages/Mypage";
+import PerfumeDetail from "./pages/PerfumeDetail";
 import MyWishlistPage from "./pages/MyWishlistPage";
 import OnboardingQuestion from "./pages/OnboardingQuestion";
 import OnboardingResult from "./pages/OnboardingResult";
@@ -38,6 +49,7 @@ import PerfumeDetail from "./pages/PerfumeDetail";
 import ProfileSetup from "./pages/ProfileSetup";
 import Raffle from "./pages/raffle";
 import SearchResult from "./pages/SearchResult";
+import Splash from "./pages/Splash";
 import Alarm from "./pages/alarm";
 import { findPerfume } from "./data/perfumeUtils";
 
@@ -71,8 +83,41 @@ export default function App() {
 
   return (
     <>
+      <svg aria-hidden="true" className="pointer-events-none absolute size-0">
+        <defs>
+          <filter
+            id="glass-refraction"
+            x="-20%"
+            y="-30%"
+            width="140%"
+            height="160%"
+            colorInterpolationFilters="sRGB"
+          >
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.012 0.065"
+              numOctaves="1"
+              seed="8"
+              result="refractionNoise"
+            />
+            <feGaussianBlur
+              in="SourceGraphic"
+              stdDeviation="0.8"
+              result="softBackdrop"
+            />
+            <feDisplacementMap
+              in="softBackdrop"
+              in2="refractionNoise"
+              scale="18"
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
+        </defs>
+      </svg>
+      <ScrollToTop />
       <Routes location={backgroundLocation || location}>
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<Splash />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<ProfileSetup />} />
         <Route path="/onboarding" element={<Navigate to="/onboarding/1" replace />} />
@@ -97,7 +142,9 @@ export default function App() {
           element={
             <Home
               onRaffle={() => navigate("/raffle")}
-              onStartOnboarding={() => navigate("/onboarding/1")}
+              onStartOnboarding={() =>
+                navigate("/onboarding/1", { state: { returnTo: "/home" } })
+              }
               onNavigate={navigateByTab}
             />
           }
@@ -106,7 +153,7 @@ export default function App() {
         <Route path="/alarm" element={<Alarm />} />
         <Route
           path="/chatbot"
-          element={<Chatbot onBack={() => navigate(-1)} onSelectPerfume={() => navigate("/category")} />}
+          element={<Chatbot onBack={() => navigate(-1)} onSelectPerfume={(entry) => navigate(`/perfume/${entry.id}`)} />}
         />
 
         <Route
@@ -126,6 +173,10 @@ export default function App() {
           element={<MagazineFragranceCollection onBack={goBackToMagazine} />}
         />
         <Route path="/magazine/season" element={<MagazineSummer onBack={goBackToMagazine} />} />
+        <Route
+          path="/magazine/summer-perfume"
+          element={<MagazineSummerPerfume onBack={goBackToMagazine} />}
+        />
         <Route path="/magazine/tip" element={<MagazineTip onBack={goBackToMagazine} />} />
 
         <Route path="/my" element={<Mypage />} />
@@ -141,6 +192,7 @@ export default function App() {
           path="/category"
           element={
             <Category
+              onBack={() => navigate(-1)}
               onSearch={(query) => navigate(`/search?q=${encodeURIComponent(query)}`)}
               onSelect={(_, item) =>
                 navigate(`/search?q=${encodeURIComponent(item)}`)
@@ -149,7 +201,16 @@ export default function App() {
           }
         />
         <Route path="/search" element={<SearchResultRoute />} />
+        <Route path="/perfume/:id" element={<PerfumeDetailRoute />} />
         <Route path="/community" element={<CommunityWriteEntryPage />} />
+        <Route
+          path="/community/post/:postId"
+          element={<CommunityRecommendationDetailPage />}
+        />
+        <Route
+          path="/community/profile/:profileId"
+          element={<CommunityProfilePage />}
+        />
         <Route path="/components" element={<ComponentsPreview />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
@@ -201,8 +262,26 @@ export default function App() {
   );
 }
 
-// 검색어를 쿼리스트링(?q=)으로 받는다.
-// 카드 클릭(onSelect)은 향수 상세 페이지가 생기면 연결한다.
+// 화면이 바뀌면 항상 맨 위에서 시작한다 (뒤로가기로 돌아올 때도 포함)
+function ScrollToTop() {
+  const { pathname, search } = useLocation();
+
+  // 브라우저는 뒤로가기 때 이전 스크롤 위치를 되살리는데(scrollRestoration),
+  // 그게 아래 scrollTo보다 나중에 실행돼 화면 중간에서 열린다. 그래서 꺼둔다
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname, search]);
+
+  return null;
+}
+
+// 검색어를 쿼리스트링(?q=)으로 받는다. 카드를 누르면 그 향수의 상세로 이동한다.
 function SearchResultRoute() {
   const navigate = useNavigate();
   const [params] = useSearchParams();

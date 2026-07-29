@@ -11,7 +11,7 @@ export default function LayerBadge({
 }) {
   return (
     <span
-      className={`glass-surface-dark inline-flex w-fit shrink-0 items-center justify-center rounded-2xl bg-offblack/20 font-en font-bold leading-normal tracking-[-0.02em] text-2light-grey ${SIZE_STYLES[size]} ${className}`}
+      className={`glass-surface-dark glass-rim-light glass-depth inline-flex w-fit shrink-0 items-center justify-center rounded-2xl font-en font-bold leading-normal tracking-[-0.02em] text-2light-grey ${SIZE_STYLES[size]} ${className}`}
     >
       {children}
     </span>

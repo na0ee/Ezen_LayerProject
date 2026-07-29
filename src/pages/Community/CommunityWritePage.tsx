@@ -2,7 +2,6 @@ import { useState } from "react";
 import byredoBlancheProduct from "../../assets/Community/product-byredo-blanche.png";
 import diptyqueEauRoseProduct from "../../assets/Community/product-diptyque-eau-rose.png";
 import joMaloneEnglishPearProduct from "../../assets/Community/product-jo-malone-english-pear.png";
-import communityWritePhoto from "../../assets/Community/Write/community-write-photo.png";
 import chevronDown from "../../assets/icons/chevron-down.svg";
 import {
   BtnBig,
@@ -13,6 +12,8 @@ import {
   Header,
   Tab,
 } from "../../components/common";
+import CommunityPhotoPicker from "./CommunityPhotoPicker";
+import type { CommunityUserPost } from "./communityUserPosts";
 
 const moodTags = [
   "깔끔한",
@@ -123,6 +124,9 @@ interface CommunityWritePageProps {
   onClose?: () => void;
   onPerfumeAdd?: () => void;
   selectedPerfumeIds?: readonly string[];
+  onSubmit?: (
+    post: Omit<CommunityUserPost, "id" | "createdAt">,
+  ) => void;
 }
 
 export default function CommunityWritePage({
@@ -131,7 +135,17 @@ export default function CommunityWritePage({
   onClose,
   onPerfumeAdd,
   selectedPerfumeIds = [],
+  onSubmit,
 }: CommunityWritePageProps) {
+  const [images, setImages] = useState<string[]>([]);
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+  const [hashtagInput, setHashtagInput] = useState("");
+  const [hashtags, setHashtags] = useState<string[]>([]);
+  const [selectedMood, setSelectedMood] =
+    useState<(typeof moodTags)[number]>("깔끔한");
+  const [selectedSituation, setSelectedSituation] =
+    useState<(typeof situationTags)[number]>("데일리");
   const visiblePerfumes = perfumeTags.filter((perfume) =>
     selectedPerfumeIds.includes(perfume.id),
   );
@@ -177,7 +191,24 @@ export default function CommunityWritePage({
           onClose={onClose}
         />
 
-        <form className="community-write-form flex flex-col gap-8 px-5 pb-10 pt-[30px]">
+        <form
+          className="community-write-form flex flex-col gap-8 px-5 pb-10 pt-[30px]"
+          onSubmit={(event) => {
+            event.preventDefault();
+            onSubmit?.({
+              category: "리뷰",
+              title: title.trim(),
+              text: text.trim(),
+              keywords: [
+                ...hashtags,
+                ...hashtagInput.split(/[\s,#]+/).filter(Boolean),
+                selectedMood,
+                selectedSituation,
+              ],
+              images,
+            });
+          }}
+        >
           <section className="community-write-category">
             <CommunityEnter
               variant="brand"
@@ -189,39 +220,21 @@ export default function CommunityWritePage({
             />
           </section>
 
-          <section className="community-write-photo flex w-full flex-col gap-4">
-            <div className="community-write-photo__heading flex w-full items-center justify-between">
-              <h2 className="text-body-semibold-16 text-offblack">사진 추가</h2>
-              <span className="text-caption-regular-12 text-grey">1/5</span>
-            </div>
-
-            <div className="community-write-photo__list flex items-center gap-3">
-              <div className="community-write-photo__preview h-[192px] w-40 shrink-0 overflow-hidden rounded-xl bg-light-grey">
-                <img
-                  src={communityWritePhoto}
-                  alt=""
-                  className="size-full object-cover"
-                />
-              </div>
-              <button
-                type="button"
-                aria-label="사진 추가"
-                className="community-write-photo__add flex h-[192px] w-40 shrink-0 items-center justify-center rounded-xl bg-light-grey text-[32px] font-light leading-none text-subtext"
-              >
-                +
-              </button>
-            </div>
-          </section>
+          <CommunityPhotoPicker images={images} onChange={setImages} />
 
           <section className="community-write-title flex w-full flex-col gap-4">
             <h2 className="text-body-semibold-16 text-offblack">제목</h2>
             <div className="flex w-full flex-col items-end">
               <input
                 type="text"
+                required
+                maxLength={40}
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
                 placeholder="제목을 입력해주세요"
                 className="h-[52px] w-full rounded-lg border border-light-grey bg-offwhite p-4 text-body-regular-14 text-offblack outline-none placeholder:text-grey"
               />
-              <span className="text-caption-regular-12 text-grey">23/40</span>
+              <span className="text-caption-regular-12 text-grey">{title.length}/40</span>
             </div>
           </section>
 
@@ -230,13 +243,17 @@ export default function CommunityWritePage({
             <div className="flex w-full flex-col items-end gap-1.5">
               <textarea
                 rows={2}
+                required
+                maxLength={200}
+                value={text}
+                onChange={(event) => setText(event.target.value)}
                 placeholder={
                   "예) 은은하게 시작해서 잔향이 오래 남아요.\n기분좋은 하루를 만들어준 향이에요."
                 }
                 className="h-[72px] w-full resize-none overflow-hidden rounded-lg border border-light-grey bg-offwhite p-4 text-body-regular-14 text-offblack outline-none placeholder:text-grey"
               />
               <span className="text-caption-regular-12 text-grey">
-                103/200
+                {text.length}/200
               </span>
             </div>
           </section>
@@ -245,17 +262,46 @@ export default function CommunityWritePage({
             <h2 className="text-body-semibold-16 text-offblack">해시태그</h2>
             <input
               type="text"
+              value={hashtagInput}
+              onChange={(event) => setHashtagInput(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key !== "Enter") return;
+                event.preventDefault();
+                const tag = hashtagInput.replace(/^#+/, "").trim();
+                if (tag && !hashtags.includes(tag)) {
+                  setHashtags((current) => [...current, tag]);
+                }
+                setHashtagInput("");
+              }}
               placeholder="# 태그입력"
               className="h-[52px] w-full rounded-lg border border-light-grey bg-offwhite p-4 text-body-regular-14 text-offblack outline-none placeholder:text-grey"
             />
-            <HashTag className="mt-4 self-start">메종 마르지엘라</HashTag>
+            {hashtags.length > 0 && (
+              <div className="mt-2 flex flex-wrap gap-2">
+                {hashtags.map((tag) => (
+                  <HashTag
+                    key={tag}
+                    onRemove={() =>
+                      setHashtags((current) => current.filter((item) => item !== tag))
+                    }
+                  >
+                    {tag}
+                  </HashTag>
+                ))}
+              </div>
+            )}
           </section>
 
           <section className="community-write-mood flex w-full flex-col gap-4">
             <h2 className="text-body-semibold-16 text-offblack">오늘의 무드</h2>
             <div className="community-write-mood__tags flex flex-wrap gap-x-1.5 gap-y-2">
               {moodTags.map((tag) => (
-                <Tab key={tag} active={tag === "깔끔한"}>
+                <Tab
+                  key={tag}
+                  active={tag === selectedMood}
+                  aria-pressed={tag === selectedMood}
+                  onClick={() => setSelectedMood(tag)}
+                >
                   {tag}
                 </Tab>
               ))}
@@ -266,7 +312,12 @@ export default function CommunityWritePage({
             <h2 className="text-body-semibold-16 text-offblack">사용 상황</h2>
             <div className="community-write-situation__tags flex flex-wrap gap-x-1.5 gap-y-2">
               {situationTags.map((tag) => (
-                <Tab key={tag} active={tag === "데일리"}>
+                <Tab
+                  key={tag}
+                  active={tag === selectedSituation}
+                  aria-pressed={tag === selectedSituation}
+                  onClick={() => setSelectedSituation(tag)}
+                >
                   {tag}
                 </Tab>
               ))}
@@ -383,7 +434,13 @@ export default function CommunityWritePage({
             <CommunityToggle label="프로필 비공개" checked />
           </section>
 
-          <BtnBig className="community-write-submit">글 올리기</BtnBig>
+          <BtnBig
+            type="submit"
+            disabled={!title.trim() || !text.trim() || images.length === 0}
+            className="community-write-submit"
+          >
+            글 올리기
+          </BtnBig>
         </form>
       </div>
     </main>
