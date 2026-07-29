@@ -155,7 +155,7 @@ export default function ResultTypePage({
           </div>
           <div
             ref={sliderRef}
-            className={`-mr-5 mt-5 flex select-none gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
+            className={`scroll-rail-page-gutter -mx-5 mt-5 flex w-[calc(100%+40px)] select-none gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
               isDragging ? 'cursor-grabbing' : 'cursor-grab'
             }`}
             onPointerDown={handlePointerDown}
@@ -177,7 +177,6 @@ export default function ResultTypePage({
                 }}
               />
             ))}
-            <span aria-hidden="true" className="w-3 shrink-0" />
           </div>
         </section>
 

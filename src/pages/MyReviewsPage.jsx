@@ -218,7 +218,10 @@ export default function MyReviewsPage() {
       />
 
       <div className="flex flex-col pt-6">
-        <div className="no-scrollbar flex gap-4 overflow-x-auto px-5 pb-0.5" {...scrollerDrag}>
+        <div
+          className="scroll-rail-page-gutter no-scrollbar flex gap-4 overflow-x-auto pb-0.5"
+          {...scrollerDrag}
+        >
           {pendingReviews.map((review) => (
             <PendingReviewCard key={review.title} review={review} />
           ))}

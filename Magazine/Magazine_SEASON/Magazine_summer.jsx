@@ -369,7 +369,7 @@ export default function MagazineSummer({ onBack, initialSeason = 1 }) {
                 </div>
               </div>
 
-              <div className="no-scrollbar flex h-[99px] w-full items-center overflow-x-auto px-5">
+              <div className="scroll-rail-page-gutter no-scrollbar flex h-[99px] w-full items-center overflow-x-auto">
                 <div className="flex h-[101px] items-center gap-3">
                   {activeSeason.perfumes.map((perfume) => (
                     <Img
