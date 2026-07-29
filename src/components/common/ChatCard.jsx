@@ -83,7 +83,9 @@ export default function ChatCard({
               <img src={src} alt="" className="size-full object-cover" />
             </div>
           ))}
-          {address && (
+          {/* 넣어둔 지도 이미지가 있으면 카카오맵 박스는 띄우지 않는다
+              (API 키가 없으면 "불러오지 못했어요" 안내만 보임) */}
+          {address && images.length === 0 && (
             <div className="h-[190px] w-[250px] shrink-0 overflow-hidden rounded-lg bg-2light-grey">
               <KakaoPlaceView address={address} name={name} />
             </div>

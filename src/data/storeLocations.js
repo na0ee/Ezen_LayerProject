@@ -11,8 +11,16 @@ import leLaboMap from "../assets/images/chatbot/map-le-labo.png";
 import aesopMap from "../assets/images/chatbot/map-aesop.png";
 import diptyqueMap from "../assets/images/chatbot/map-diptyque.png";
 import smNovellaMap from "../assets/images/chatbot/map-santa-maria-novella.png";
-import margielaStore from "../assets/images/chatbot/매종마르지엘라.png";
+import margielaStore from "../assets/images/chatbot/메종마르지엘라.webp";
 import smNovellaStore from "../assets/images/chatbot/산타마리노.jfif";
+import bvlgariStore from "../assets/images/chatbot/불가리.jfif";
+import bulyStore from "../assets/images/chatbot/불리.jfif";
+import joMaloneStore from "../assets/images/chatbot/조말론.jfif";
+import byredoStore from "../assets/images/chatbot/바이레도.jfif";
+import leLaboStore from "../assets/images/chatbot/르라보.jfif";
+import aesopStore from "../assets/images/chatbot/이솝.jfif";
+import diptyqueStore from "../assets/images/chatbot/딥디크.jfif";
+import chanelStore from "../assets/images/chatbot/샤넬.jpg";
 
 export const storeLocations = {
   shiro: {
@@ -37,7 +45,7 @@ export const storeLocations = {
     hours: "월–목 10:30–20:00 / 금–일 10:30–20:30",
     phone: "02-772-3059",
     url: "https://www.bulgari.com/ko-kr/fragrances.html",
-    images: [bvlgariMap],
+    images: [bvlgariStore, bvlgariMap],
   },
   buly: {
     name: "오피신 유니버셀 불리 신세계백화점 강남점",
@@ -45,7 +53,7 @@ export const storeLocations = {
     hours: "평일 10:30–20:00 / 주말 10:30–20:30",
     phone: "02-3479-6045",
     url: "https://buly1803.com/",
-    images: [gangnamMap],
+    images: [bulyStore, gangnamMap],
   },
   "jo-malone": {
     name: "조 말론 런던 신세계백화점 강남점",
@@ -53,7 +61,7 @@ export const storeLocations = {
     hours: "월–목 10:30–20:00 / 금–일 10:30–20:30",
     phone: "02-3479-1555",
     url: "https://www.jomalone.co.kr/",
-    images: [gangnamMap],
+    images: [joMaloneStore, gangnamMap],
   },
   byredo: {
     name: "BYREDO 신세계백화점 강남점",
@@ -61,7 +69,7 @@ export const storeLocations = {
     hours: "월–목 10:30–20:00 / 금–일 10:30–20:30",
     phone: "02-3479-1704",
     url: "https://www.byredo.com/ko_kr/",
-    images: [gangnamMap],
+    images: [byredoStore, gangnamMap],
   },
   "le-labo": {
     name: "르 라보 가로수길 부티크",
@@ -69,7 +77,7 @@ export const storeLocations = {
     hours: "매일 11:00–21:00",
     phone: "02-541-7945",
     url: "https://www.lelabofragrances.co.kr/",
-    images: [leLaboMap],
+    images: [leLaboStore, leLaboMap],
   },
   aesop: {
     name: "이솝 가로수길",
@@ -77,7 +85,7 @@ export const storeLocations = {
     hours: "매일 11:00–21:00",
     phone: "02-512-1987",
     url: "https://kr.aesop.com/",
-    images: [aesopMap],
+    images: [aesopStore, aesopMap],
   },
   diptyque: {
     name: "딥티크 가로수길 부티크",
@@ -85,7 +93,7 @@ export const storeLocations = {
     hours: "매일 11:00–21:00",
     phone: "0507-1391-7494",
     url: "https://www.diptyqueparis.com/",
-    images: [diptyqueMap],
+    images: [diptyqueStore, diptyqueMap],
   },
   chanel: {
     name: "샤넬 프레그런스 앤 뷰티 신세계백화점 강남점",
@@ -93,7 +101,7 @@ export const storeLocations = {
     hours: "월–목 10:30–20:00 / 금–일 10:30–20:30",
     phone: "02-3479-1704",
     url: "https://www.chanel.com/kr/fragrance/",
-    images: [gangnamMap],
+    images: [chanelStore, gangnamMap],
   },
   "santa-maria-novella": {
     name: "산타 마리아 노벨라",
