@@ -179,13 +179,13 @@ export default function MyPerfumePage() {
             </button>
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
             {weekDays.map((item) => {
               const isRecorded = item.recorded !== false;
               return (
                 <div
                   key={item.day}
-                  className={`flex h-17 w-12.5 flex-col items-center justify-center gap-2.5 rounded-full ${
+                  className={`flex h-17 max-w-12.5 flex-1 flex-col items-center justify-center gap-2.5 rounded-full ${
                     isRecorded ? "bg-offblack" : "border border-light-grey bg-offwhite"
                   }`}
                 >

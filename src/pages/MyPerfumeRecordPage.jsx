@@ -1,14 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BtnBig, CardInfo, CardSmall, CommunityEnter, Header } from "../components/common";
+import { brands } from "../data/brands";
+import { allPerfumes } from "../data/perfumeUtils";
 import { getCalendarWeeks } from "../utils/calendar";
+import { matchesQuery } from "../utils/koreanSearch";
 import chevronDown from "../assets/icons/chevron-down.svg";
+import diptyque from "../assets/images/mypage/diptyque.png";
 import loewe from "../assets/images/mypage/loewe.png";
 import matiere from "../assets/images/mypage/matiere.png";
 import santamaria from "../assets/images/mypage/santamaria.png";
-import bottleDiptyque from "../assets/images/mypage/bottles/bottle-diptyque.svg";
-import bottleNormal from "../assets/images/mypage/bottles/bottle-normal-black.svg";
-import bottleTomford from "../assets/images/mypage/bottles/bottle-tomford.svg";
+
+// perfumeData.js에는 마티에 프리미에르 데이터가 없어 로컬 데이터로 유지하고 실데이터에 병합한다
+const matiereBrand = { id: "matiere-premiere", name: "마티에 프리미에르", nameEn: "Matiere Premiere" };
+const matierePerfume = {
+  id: "local-matiere",
+  img: matiere,
+  brand: "MATIERE PREMIERE",
+  name: "마티에 프리미에르 메탈 라벤더 오 드 퍼퓸 50ml",
+  keywords: ["#메탈릭", "#플로럴", "#머스크"],
+  perfume: { brandId: "matiere-premiere" },
+};
+
+const brandOptions = [...brands, matiereBrand];
+const perfumeCatalog = [...allPerfumes, matierePerfume];
 
 // 참고 파일(MyPerfumeRecordPage.tsx)의 레이아웃/기능을 이 프로젝트 컴포넌트·토큰으로 이식
 const initialYear = 2026;
@@ -19,19 +34,13 @@ const weekDayLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 // 이번 주 기록된 5일(6, 7, 8, 9, 11일)만 캘린더에 표시 — "이번 주 5일 기록했어요"와 동일
 const recordedInfoByMonth = {
   "2026-7": {
-    6: { brand: "TOM FORD", name: "토바코 바닐 EDP", icon: bottleTomford },
-    7: { brand: "SANTA MARIA NOVELLA", name: "엔젤 디 피렌체 오드코롱", icon: bottleNormal },
-    8: { brand: "SANTA MARIA NOVELLA", name: "엔젤 디 피렌체 오드코롱", icon: bottleNormal },
-    9: { brand: "DIPTYQUE", name: "오 데 썽 오 드 뚜왈렛", icon: bottleDiptyque },
-    11: { brand: "SANTA MARIA NOVELLA", name: "엔젤 디 피렌체 오드코롱", icon: bottleNormal },
+    6: { brand: "MATIERE PREMIERE", name: "마티에 프리미에르 메탈 라벤더 오 드 퍼퓸", icon: matiere },
+    7: { brand: "LOEWE PERFUMES", name: "로에베 아이레 수틸레사 오 드 뚜왈렛", icon: loewe },
+    8: { brand: "SANTA MARIA NOVELLA", name: "엔젤 디 피렌체 오드코롱", icon: santamaria },
+    9: { brand: "DIPTYQUE", name: "오 데 썽 오 드 뚜왈렛", icon: diptyque },
+    11: { brand: "SANTA MARIA NOVELLA", name: "엔젤 디 피렌체 오드코롱", icon: santamaria },
   },
 };
-
-const brandOptions = [
-  { name: "로에베", nameEn: "LOEWE PERFUMES" },
-  { name: "마티에 프리미에르", nameEn: "MATIERE PREMIERE" },
-  { name: "산타 마리아 노벨라", nameEn: "SANTA MARIA NOVELLA" },
-];
 
 const perfumeRecords = [
   {
@@ -83,6 +92,7 @@ const defaultSelectedDate = { year: initialYear, month: initialMonth, day: today
 export default function MyPerfumeRecordPage() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ brand: "", name: "" });
+  const [selectedBrandId, setSelectedBrandId] = useState("");
   const [selectedDate, setSelectedDate] = useState(defaultSelectedDate);
   const [viewYear, setViewYear] = useState(initialYear);
   const [viewMonth, setViewMonth] = useState(initialMonth);
@@ -99,6 +109,21 @@ export default function MyPerfumeRecordPage() {
   const recordedInfo = recordedInfoByMonth[`${viewYear}-${viewMonth}`] ?? {};
   const isCurrentViewMonth = viewYear === initialYear && viewMonth === initialMonth;
   const today = new Date(initialYear, initialMonth - 1, todayDate);
+
+  // 이미 선택되어 입력값이 옵션과 정확히 일치하면(재클릭 시) 필터링하지 않고 전체 목록을 보여준다
+  const isBrandExactMatch = brandOptions.some((brand) => brand.name === formData.brand);
+  const brandDropdownOptions = brandOptions.filter(
+    (brand) =>
+      isBrandExactMatch || matchesQuery(brand.name, formData.brand) || matchesQuery(brand.nameEn, formData.brand),
+  );
+
+  const brandPerfumes = selectedBrandId
+    ? perfumeCatalog.filter((item) => item.perfume.brandId === selectedBrandId)
+    : perfumeCatalog;
+  const isNameExactMatch = brandPerfumes.some((item) => item.name === formData.name);
+  const nameDropdownOptions = brandPerfumes.filter(
+    (item) => isNameExactMatch || matchesQuery(item.name, formData.name),
+  );
 
   const handleDateSelect = (day) => {
     const clickedDate = new Date(viewYear, viewMonth - 1, day);
@@ -132,6 +157,7 @@ export default function MyPerfumeRecordPage() {
 
   const handleBrandSelect = (brand) => {
     setFormData({ ...formData, brand: brand.name, name: "" });
+    setSelectedBrandId(brand.id);
     setOpenDropdown(null);
     setErrors((current) => ({ ...current, brand: undefined }));
   };
@@ -142,8 +168,20 @@ export default function MyPerfumeRecordPage() {
     setIsDraftSavedOpen(true);
   };
 
+  // "내 향수" 카드 클릭 시(perfumeRecords 항목: brandKo 포함)
   const handleSelectPerfume = (perfume) => {
+    const brandInfo = brandOptions.find((brand) => brand.nameEn.toUpperCase() === perfume.brand);
     setFormData({ brand: perfume.brandKo, name: perfume.name });
+    setSelectedBrandId(brandInfo?.id ?? "");
+    setOpenDropdown(null);
+    setErrors((current) => ({ ...current, brand: undefined, name: undefined }));
+  };
+
+  // 향수명 드롭다운 검색 결과 선택 시(perfumeCatalog 항목: perfume.brandId 포함)
+  const handleNameSelect = (item) => {
+    const brandInfo = brandOptions.find((brand) => brand.id === item.perfume.brandId);
+    setFormData({ brand: brandInfo?.name ?? formData.brand, name: item.name });
+    setSelectedBrandId(item.perfume.brandId);
     setOpenDropdown(null);
     setErrors((current) => ({ ...current, brand: undefined, name: undefined }));
   };
@@ -273,25 +311,38 @@ export default function MyPerfumeRecordPage() {
           <div className="relative" ref={brandDropdownRef}>
             <CommunityEnter
               variant="brand"
+              editable
               value={formData.brand}
+              onChange={(event) => {
+                const brandName = event.target.value;
+                const matched = brandOptions.find((brand) => brand.name === brandName);
+                setFormData({ ...formData, brand: brandName });
+                setSelectedBrandId(matched ? matched.id : "");
+                setErrors((current) => ({ ...current, brand: undefined }));
+                setOpenDropdown("brand");
+              }}
               onClick={() => setOpenDropdown(openDropdown === "brand" ? null : "brand")}
             />
             {openDropdown === "brand" && (
               <div className="absolute top-full right-0 left-0 z-10 mt-1 max-h-50 overflow-y-auto rounded-lg border border-light-grey bg-offwhite shadow-lg">
-                {brandOptions.map((brand) => (
-                  <button
-                    key={brand.nameEn}
-                    type="button"
-                    className="flex w-full flex-col gap-1.5 px-4 py-2.5 text-left hover:bg-2light-grey"
-                    onMouseDown={(event) => {
-                      event.stopPropagation();
-                      handleBrandSelect(brand);
-                    }}
-                  >
-                    <span className="text-body-regular-14 text-offblack">{brand.name}</span>
-                    <span className="text-caption-medium-12 text-grey uppercase">{brand.nameEn}</span>
-                  </button>
-                ))}
+                {brandDropdownOptions.length > 0 ? (
+                  brandDropdownOptions.map((brand) => (
+                    <button
+                      key={brand.id}
+                      type="button"
+                      className="flex w-full flex-col gap-1.5 px-4 py-2.5 text-left hover:bg-2light-grey"
+                      onMouseDown={(event) => {
+                        event.stopPropagation();
+                        handleBrandSelect(brand);
+                      }}
+                    >
+                      <span className="text-body-regular-14 text-offblack">{brand.name}</span>
+                      <span className="text-caption-medium-12 text-grey uppercase">{brand.nameEn}</span>
+                    </button>
+                  ))
+                ) : (
+                  <div className="px-4 py-2.5 text-body-regular-14 text-grey">검색 결과가 없어요</div>
+                )}
               </div>
             )}
             {errors.brand && <p className="mt-1.5 text-caption-medium-12 text-point-orange">{errors.brand}</p>}
@@ -300,26 +351,36 @@ export default function MyPerfumeRecordPage() {
           <div className="relative" ref={nameDropdownRef}>
             <CommunityEnter
               variant="brand"
+              editable
               label="향수명"
               placeholder="향수명을 입력해주세요"
               value={formData.name}
+              onChange={(event) => {
+                setFormData({ ...formData, name: event.target.value });
+                setErrors((current) => ({ ...current, name: undefined }));
+                setOpenDropdown("name");
+              }}
               onClick={() => setOpenDropdown(openDropdown === "name" ? null : "name")}
             />
             {openDropdown === "name" && (
               <div className="absolute top-full right-0 left-0 z-10 mt-1 max-h-50 overflow-y-auto rounded-lg border border-light-grey bg-offwhite shadow-lg">
-                {perfumeRecords.map((item) => (
-                  <button
-                    key={item.name}
-                    type="button"
-                    className="w-full px-4 py-2.5 text-left text-body-regular-14 text-offblack hover:bg-2light-grey"
-                    onMouseDown={(event) => {
-                      event.stopPropagation();
-                      handleSelectPerfume(item);
-                    }}
-                  >
-                    {item.name}
-                  </button>
-                ))}
+                {nameDropdownOptions.length > 0 ? (
+                  nameDropdownOptions.map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      className="w-full px-4 py-2.5 text-left text-body-regular-14 text-offblack hover:bg-2light-grey"
+                      onMouseDown={(event) => {
+                        event.stopPropagation();
+                        handleNameSelect(item);
+                      }}
+                    >
+                      {item.name}
+                    </button>
+                  ))
+                ) : (
+                  <div className="px-4 py-2.5 text-body-regular-14 text-grey">검색 결과가 없어요</div>
+                )}
               </div>
             )}
             {errors.name && <p className="mt-1.5 text-caption-medium-12 text-point-orange">{errors.name}</p>}

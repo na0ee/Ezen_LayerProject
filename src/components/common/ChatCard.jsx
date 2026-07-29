@@ -3,7 +3,6 @@ import globeIcon from "../../assets/icons/globe.svg";
 import mapPinIcon from "../../assets/icons/map-pin.svg";
 import phoneIcon from "../../assets/icons/phone.svg";
 import BtnSmall from "./BtnSmall";
-import KakaoPlaceView from "./KakaoPlaceView";
 import KeywordList from "./KeywordList";
 
 // 피그마: card (3135:18607, 속성 1=shop | chatbot) — 챗봇 답변용 카드.
@@ -64,17 +63,8 @@ export default function ChatCard({
     <div
       className={`flex w-79.5 flex-col items-end gap-4 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-4 ${className}`}
     >
-      {(images.length > 0 || address) && (
+      {images.length > 0 && (
         <div className="no-scrollbar flex w-full gap-4 overflow-x-auto">
-          {images.length === 0 && address && (
-            <div className="h-[190px] w-[250px] shrink-0 overflow-hidden rounded-lg bg-2light-grey">
-              <KakaoPlaceView
-                address={address}
-                name={name}
-                variant="roadview"
-              />
-            </div>
-          )}
           {images.map((src, i) => (
             <div
               key={i}
@@ -83,13 +73,6 @@ export default function ChatCard({
               <img src={src} alt="" className="size-full object-cover" />
             </div>
           ))}
-          {/* 넣어둔 지도 이미지가 있으면 카카오맵 박스는 띄우지 않는다
-              (API 키가 없으면 "불러오지 못했어요" 안내만 보임) */}
-          {address && images.length === 0 && (
-            <div className="h-[190px] w-[250px] shrink-0 overflow-hidden rounded-lg bg-2light-grey">
-              <KakaoPlaceView address={address} name={name} />
-            </div>
-          )}
         </div>
       )}
       <div className="flex w-full flex-col gap-3">

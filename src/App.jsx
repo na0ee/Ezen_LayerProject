@@ -16,6 +16,7 @@ import MagazineJomalone from "../Magazine/Magazine_JOMALONE";
 import MagazineMain from "../Magazine/Magazine_main";
 import MagazineNiche from "../Magazine/Magazine_NICHE";
 import MagazineSummer from "../Magazine/Magazine_SEASON/Magazine_summer";
+import MagazineSummerPerfume from "../Magazine/Magazine_Summerperfume";
 import MagazineTip from "../Magazine/Magazine_TIP";
 import { findPerfume } from "./data/perfumeUtils";
 import Category from "./pages/Category";
@@ -65,6 +66,7 @@ export default function App() {
     onDiptyque: () => navigate("/magazine/diptyque"),
     onFragranceCollection: () => navigate("/magazine/collection"),
     onSeason: () => navigate("/magazine/season"),
+    onSummerPerfume: () => navigate("/magazine/summer-perfume"),
     onSantalTip: () => navigate("/magazine/tip"),
   };
 

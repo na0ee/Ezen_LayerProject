@@ -43,7 +43,7 @@ export default function CardInfo({
       }}
       role={onClick ? "button" : undefined}
       tabIndex={onClick ? 0 : undefined}
-      className={`flex w-97.5 justify-end gap-5 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${
+      className={`flex w-full justify-end gap-5 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${
         alignStart ? "items-start" : "items-end"
       } ${onClick ? "cursor-pointer" : ""} ${className}`}
     >
