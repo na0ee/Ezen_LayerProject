@@ -1,14 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   BtnBig,
   BtnGo,
   CommunityEnter,
   FeatureGuideCard,
 } from "../components/common";
-import { useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { BtnBig, BtnGo, CommunityEnter } from "../components/common";
 import addPhoto from "../assets/icons/add-photo.svg";
 import characterLay from "../assets/images/character-lay.png";
 import {
