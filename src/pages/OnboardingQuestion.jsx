@@ -163,6 +163,7 @@ export default function OnboardingQuestion() {
   const location = useLocation();
   const navigate = useNavigate();
   const [answers, setAnswers] = useState(() => location.state?.answers ?? {});
+  const returnTo = location.state?.returnTo;
 
   const step = Number(stepParam);
   const question = QUESTIONS[step - 1];
@@ -195,7 +196,9 @@ export default function OnboardingQuestion() {
 
   const goNext = () => {
     if (step < QUESTIONS.length) {
-      navigate(`/onboarding/${step + 1}`, { state: { answers } });
+      navigate(`/onboarding/${step + 1}`, {
+        state: { answers, returnTo },
+      });
       return;
     }
 
@@ -212,11 +215,13 @@ export default function OnboardingQuestion() {
 
   const goBack = () => {
     if (step === 1) {
-      navigate("/profile");
+      navigate(returnTo ?? "/profile");
       return;
     }
 
-    navigate(`/onboarding/${step - 1}`, { state: { answers } });
+    navigate(`/onboarding/${step - 1}`, {
+      state: { answers, returnTo },
+    });
   };
 
   return (

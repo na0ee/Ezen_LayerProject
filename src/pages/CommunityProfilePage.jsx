@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   BottomNav,
   BtnBig,
@@ -20,24 +20,86 @@ import reviewCell4 from "../assets/images/mypage/review-tab/review-cell-4.png";
 
 const tabs = ["향 추천", "리뷰"];
 const recommendationPosts = [
-  { img: feedCell1, hashtags: ["#밤산책", "#개굳"] },
-  { img: feedCell2, hashtags: ["#밤산책", "#개굳"] },
-  { img: feedCell3, hashtags: ["#밤산책", "#개굳"] },
-  { img: feedCell4, hashtags: ["#밤산책", "#개굳"] },
+  {
+    id: "night-walk",
+    img: feedCell1,
+    hashtags: ["#밤산책", "#우디"],
+    title: "밤 산책에 어울리는 향을 찾고 있어요",
+    text: "선선한 밤공기와 잘 어울리는 차분한 우디 향을 추천해주세요.",
+  },
+  {
+    id: "warm-sunlight",
+    img: feedCell2,
+    hashtags: ["#햇살", "#포근함"],
+    title: "따뜻한 햇살 같은 향이 궁금해요",
+    text: "부드럽고 포근하게 오래 남는 향수를 찾고 있어요.",
+  },
+  {
+    id: "daily-mood",
+    img: feedCell3,
+    hashtags: ["#데일리", "#머스크"],
+    title: "매일 편하게 뿌릴 향을 추천해주세요",
+    text: "부담 없이 사용할 수 있는 깨끗한 머스크 향이면 좋겠어요.",
+  },
+  {
+    id: "weekend-outing",
+    img: feedCell4,
+    hashtags: ["#주말", "#산뜻함"],
+    title: "주말 나들이에 어울리는 향 찾아요",
+    text: "가볍고 산뜻해서 기분 전환이 되는 향수를 추천받고 싶어요.",
+  },
 ];
 const reviewPosts = [
-  { img: reviewCell1, hashtags: ["#밤산책", "#개굳"] },
-  { img: reviewCell2, hashtags: ["#밤산책", "#개굳"] },
-  { img: reviewCell3, hashtags: ["#밤산책", "#개굳"] },
-  { img: reviewCell4, hashtags: ["#밤산책", "#개굳"] },
+  {
+    id: "cozy-musk-review",
+    img: reviewCell1,
+    hashtags: ["#머스크", "#포근함"],
+    title: "포근한 머스크 향을 써봤어요",
+    text: "첫 향은 깨끗하고 산뜻하지만 잔향이 부드러운 머스크로 남아서 데일리로 사용하기 좋았어요.",
+    likes: 42,
+    comments: 8,
+    perfumeIds: [36, 21, 16],
+  },
+  {
+    id: "woody-daily-review",
+    img: reviewCell2,
+    hashtags: ["#우디", "#데일리"],
+    title: "매일 손이 가는 차분한 우디 향",
+    text: "무겁지 않은 우디 노트라 출근할 때도 부담 없이 사용하기 좋았습니다.",
+    likes: 35,
+    comments: 6,
+    perfumeIds: [27, 32],
+  },
+  {
+    id: "fresh-citrus-review",
+    img: reviewCell3,
+    hashtags: ["#시트러스", "#산뜻함"],
+    title: "기분 전환에 좋은 시트러스 향",
+    text: "상큼한 첫 향이 자연스럽게 잔잔해져서 더운 날 특히 잘 어울렸어요.",
+    likes: 28,
+    comments: 4,
+    perfumeIds: [4, 28],
+  },
+  {
+    id: "floral-review",
+    img: reviewCell4,
+    hashtags: ["#플로럴", "#은은함"],
+    title: "은은하게 오래 남는 플로럴",
+    text: "꽃향이 과하지 않고 피부에 부드럽게 남아서 편안하게 사용하고 있어요.",
+    likes: 31,
+    comments: 5,
+    perfumeIds: [37, 7],
+  },
 ];
 
-function PostGrid({ items }) {
+function PostGrid({ items, onItemClick }) {
   return (
     <div className="grid grid-cols-2">
       {items.map((item, index) => (
-        <div
+        <button
+          type="button"
           key={`${item.img}-${index}`}
+          onClick={() => onItemClick?.(item)}
           className="relative flex h-61 items-end overflow-hidden p-4"
         >
           <img
@@ -55,13 +117,14 @@ function PostGrid({ items }) {
               </span>
             ))}
           </div>
-        </div>
+        </button>
       ))}
     </div>
   );
 }
 
 export default function CommunityProfilePage() {
+  const navigate = useNavigate();
   const location = useLocation();
   const profile = location.state?.profile ?? {};
   const [activeTab, setActiveTab] = useState("향 추천");
@@ -130,6 +193,32 @@ export default function CommunityProfilePage() {
 
         <PostGrid
           items={activeTab === "향 추천" ? recommendationPosts : reviewPosts}
+          onItemClick={
+            (post) =>
+              navigate(`/community/post/profile-${post.id}`, {
+                state: {
+                  post: {
+                    type:
+                      activeTab === "향 추천" ? "recommendation" : "review",
+                    profileName: profile.name ?? "북극곰",
+                    profileImage: profile.image ?? defaultProfile,
+                    time: "5분 전",
+                    image: post.img,
+                    mood:
+                      activeTab === "향 추천" ? "Mood Shifter" : undefined,
+                    title: post.title,
+                    text: post.text,
+                    likes: post.likes,
+                    comments: post.comments,
+                    badge: "good",
+                    perfumeIds: post.perfumeIds,
+                    keywords: post.hashtags.map((tag) =>
+                      tag.replace(/^#/, ""),
+                    ),
+                  },
+                },
+              })
+          }
         />
       </div>
 

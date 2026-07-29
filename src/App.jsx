@@ -23,6 +23,7 @@ import Category from "./pages/Category";
 import Chatbot from "./pages/Chatbot";
 import ComponentsPreview from "./pages/ComponentsPreview";
 import CommunityWriteEntryPage from "./pages/Community/CommunityWriteEntryPage";
+import CommunityRecommendationDetailPage from "./pages/Community/CommunityRecommendationDetailPage";
 import CommunityProfilePage from "./pages/CommunityProfilePage";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -101,7 +102,9 @@ export default function App() {
           element={
             <Home
               onRaffle={() => navigate("/raffle")}
-              onStartOnboarding={() => navigate("/onboarding/1")}
+              onStartOnboarding={() =>
+                navigate("/onboarding/1", { state: { returnTo: "/home" } })
+              }
               onNavigate={navigateByTab}
             />
           }
@@ -160,6 +163,10 @@ export default function App() {
         <Route path="/search" element={<SearchResultRoute />} />
         <Route path="/perfume/:id" element={<PerfumeDetailRoute />} />
         <Route path="/community" element={<CommunityWriteEntryPage />} />
+        <Route
+          path="/community/post/:postId"
+          element={<CommunityRecommendationDetailPage />}
+        />
         <Route
           path="/community/profile/:profileId"
           element={<CommunityProfilePage />}

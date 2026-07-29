@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import CommunityChallengePage from "./CommunityChallengePage";
 import CommunityFeedPage from "./CommunityFeedPage";
 import CommunityFreeWritePage from "./CommunityFreeWritePage";
@@ -23,9 +24,13 @@ const categoryLabels: Record<WritePageId, string> = {
 };
 
 export default function CommunityWriteEntryPage() {
+  const location = useLocation();
+  const initialCommunityTab =
+    (location.state as { communityTab?: CommunityTab } | null)
+      ?.communityTab ?? "리뷰";
   const [activePage, setActivePage] = useState<WritePageId>("review");
   const [activeCommunityTab, setActiveCommunityTab] =
-    useState<CommunityTab>("리뷰");
+    useState<CommunityTab>(initialCommunityTab);
   const [isWriting, setIsWriting] = useState(false);
   const [isPerfumeSelecting, setIsPerfumeSelecting] = useState(false);
   const [selectedPerfumeIds, setSelectedPerfumeIds] = useState<string[]>([]);

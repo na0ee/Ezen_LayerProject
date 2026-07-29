@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Badge from "./Badge";
 import Icon from "./Icon";
 import KeywordList from "./KeywordList";
@@ -16,9 +17,12 @@ export default function Con2({
   likes = 0,
   comments = 0,
   imageOverlay,
+  toggleImageOverlay = false,
   onProfileClick,
   className = "",
 }) {
+  const [isImageOverlayVisible, setIsImageOverlayVisible] = useState(true);
+
   return (
     <div
       className={`flex w-full flex-col items-center gap-6 overflow-hidden rounded-b-2xl bg-offwhite p-5 ${className}`}
@@ -45,16 +49,36 @@ export default function Con2({
             imgs.map((src, i) => (
               <div
                 key={src}
-                className="relative h-[430px] w-full shrink-0 snap-center overflow-hidden rounded-lg"
+                role={toggleImageOverlay ? "button" : undefined}
+                tabIndex={toggleImageOverlay ? 0 : undefined}
+                onClick={
+                  toggleImageOverlay
+                    ? () => setIsImageOverlayVisible((visible) => !visible)
+                    : undefined
+                }
+                onKeyDown={
+                  toggleImageOverlay
+                    ? (event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          setIsImageOverlayVisible((visible) => !visible);
+                        }
+                      }
+                    : undefined
+                }
+                className={`relative h-[430px] w-full shrink-0 snap-center overflow-hidden rounded-lg ${
+                  toggleImageOverlay ? "cursor-pointer" : ""
+                }`}
               >
                 <img
                   src={src}
                   alt=""
                   className="size-full object-cover"
                 />
-                {typeof imageOverlay === "function"
-                  ? imageOverlay(i)
-                  : imageOverlay}
+                {isImageOverlayVisible &&
+                  (typeof imageOverlay === "function"
+                    ? imageOverlay(i)
+                    : imageOverlay)}
               </div>
             ))
           ) : (
