@@ -5,65 +5,54 @@ import FilterSheet from "../components/common/FilterSheet";
 import chevronDown from "../assets/icons/chevron-down.svg";
 import chevronRightGrey from "../assets/icons/chevron-right-grey.svg";
 import chevronRightWhite from "../assets/icons/chevron-right-white.svg";
-import loewe from "../assets/images/mypage/loewe.png";
-import matiere from "../assets/images/mypage/matiere.png";
-import santamaria from "../assets/images/mypage/santamaria.png";
+import { allPerfumes } from "../data/perfumeUtils";
+import { brands } from "../data/brands";
+import {
+  loadPerfumeRecords,
+  toDateKey,
+} from "../data/perfumeRecords";
 
 // 참고 파일(MyPerfumePage.tsx)의 레이아웃/기능을 이 프로젝트 컴포넌트·토큰으로 이식
-const filterTabs = ["브랜드", "향 계열/향기", "용량"];
+const filterTabs = ["브랜드", "향 계열/향기"];
 const categoryTabs = ["전체", ...filterTabs];
 
-const brandOptions = [
-  { name: "불리", nameEn: "BULY" },
-  { name: "불가리", nameEn: "BVLGARI PERFUME" },
-  { name: "로에베", nameEn: "LOEWE PERFUMES" },
-  { name: "메종 마르지엘라", nameEn: "MAISON MARGIELA FRAGRANCES" },
-  { name: "마티에 프리미에르", nameEn: "MATIERE PREMIERE" },
-  { name: "산타 마리아 노벨라", nameEn: "Santa Maria Novella" },
+const managedPerfumeIds = [27, 46, 32];
+const managedPerfumeCards = managedPerfumeIds
+  .map((id) => allPerfumes.find((perfume) => perfume.id === id))
+  .filter(Boolean);
+
+const managedBrandIds = new Set(
+  managedPerfumeCards.map((perfume) => perfume.perfume.brandId),
+);
+const brandOptions = brands
+  .filter((brand) => managedBrandIds.has(brand.id))
+  .map((brand) => ({ name: brand.name, nameEn: brand.nameEn.toUpperCase() }));
+const fragranceOptions = [
+  ...new Set(managedPerfumeCards.flatMap((perfume) => perfume.keywords)),
 ];
-const fragranceOptions = ["알데하이드", "피오니", "머스크", "시트러스", "플로럴"];
-const volumeOptions = ["30ml 미만", "30ml ~ 50ml 미만", "50ml ~ 100ml 미만", "100ml ~ 200ml 미만"];
 
 const filterOptions = {
   브랜드: brandOptions,
   "향 계열/향기": fragranceOptions,
-  용량: volumeOptions,
 };
 
-// 참고: 이번 주 기록되지 않은 요일(Fri, Sun)만 흰색 배경으로 표시 — 피그마(3446:30223) 데모와 동일
-const weekDays = [
-  { day: "Mon", date: "6" },
-  { day: "Tue", date: "7" },
-  { day: "Wed", date: "8" },
-  { day: "Thu", date: "9" },
-  { day: "Fri", date: "10", recorded: false },
-  { day: "Sat", date: "11" },
-  { day: "Sun", date: "12", recorded: false },
-];
+const weekDayLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-const perfumes = [
-  {
-    brand: "Santa Maria Novella",
-    name: "엔젤 디 피렌체 오드코롱 100ml",
-    status: "2일 전 사용",
-    image: santamaria,
-    savedMemo: "비싼값하는듯 굿",
-  },
-  {
-    brand: "LOEWE PERFUMES",
-    name: "로에베 아이레 수틸레사 오 드 뚜왈렛 50ml",
-    status: "3일 전 사용",
-    image: loewe,
-    savedMemo: "",
-  },
-  {
-    brand: "MATIERE PREMIERE",
-    name: "마티에 프리미에르 메탈 라벤더 오 드 퍼퓸 50ml",
-    status: "3일 전 사용",
-    image: matiere,
-    savedMemo: "",
-  },
-];
+const perfumeMeta = {
+  27: { status: "2일 전 사용", savedMemo: "비싼값하는듯 굿" },
+  46: { status: "3일 전 사용", savedMemo: "" },
+  32: { status: "3일 전 사용", savedMemo: "" },
+};
+
+const perfumes = managedPerfumeCards.map((perfume) => ({
+  id: perfume.id,
+  brand: perfume.brand,
+  brandId: perfume.perfume.brandId,
+  name: perfume.name,
+  familyLabels: perfume.keywords,
+  image: perfume.img,
+  ...perfumeMeta[perfume.id],
+}));
 
 function PerfumeRecordCard({ perfume }) {
   const [savedMemo, setSavedMemo] = useState(perfume.savedMemo);
@@ -132,6 +121,29 @@ export default function MyPerfumePage() {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const recordedDateKeys = new Set(
+    loadPerfumeRecords().map((record) => record.date),
+  );
+  const now = new Date();
+  const monday = new Date(now);
+  monday.setHours(0, 0, 0, 0);
+  monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+  const weekDays = weekDayLabels.map((day, index) => {
+    const date = new Date(monday);
+    date.setDate(monday.getDate() + index);
+    return {
+      day,
+      date: String(date.getDate()),
+      recorded: recordedDateKeys.has(
+        toDateKey({
+          year: date.getFullYear(),
+          month: date.getMonth() + 1,
+          day: date.getDate(),
+        }),
+      ),
+    };
+  });
+  const recordedDaysThisWeek = weekDays.filter((day) => day.recorded).length;
 
   const toggleFilter = (option) => {
     setSelectedFilters((current) =>
@@ -141,10 +153,18 @@ export default function MyPerfumePage() {
 
   const brandNamesEn = brandOptions.map((brand) => brand.nameEn);
   const selectedBrandFilters = selectedFilters.filter((filter) => brandNamesEn.includes(filter));
-  const filteredPerfumes =
-    selectedBrandFilters.length === 0
-      ? perfumes
-      : perfumes.filter((perfume) => selectedBrandFilters.includes(perfume.brand));
+  const selectedFamilyFilters = selectedFilters.filter((filter) =>
+    fragranceOptions.includes(filter),
+  );
+  const filteredPerfumes = perfumes.filter(
+    (perfume) =>
+      (selectedBrandFilters.length === 0 ||
+        selectedBrandFilters.includes(perfume.brand)) &&
+      (selectedFamilyFilters.length === 0 ||
+        selectedFamilyFilters.some((family) =>
+          perfume.familyLabels.includes(family),
+        )),
+  );
 
   return (
     <div className="mx-auto min-h-screen w-full max-w-107.5 bg-background pb-26">
@@ -167,7 +187,7 @@ export default function MyPerfumePage() {
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <p className="text-body-regular-14 text-grey">
-              이번 주 <span className="text-offblack">5일</span> 기록했어요
+              이번 주 <span className="text-offblack">{recordedDaysThisWeek}일</span> 기록했어요
             </p>
             <button
               type="button"
@@ -179,13 +199,13 @@ export default function MyPerfumePage() {
             </button>
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
             {weekDays.map((item) => {
-              const isRecorded = item.recorded !== false;
+              const isRecorded = item.recorded;
               return (
                 <div
                   key={item.day}
-                  className={`flex h-17 w-12.5 flex-col items-center justify-center gap-2.5 rounded-full ${
+                  className={`flex h-17 max-w-12.5 flex-1 flex-col items-center justify-center gap-2.5 rounded-full ${
                     isRecorded ? "bg-offblack" : "border border-light-grey bg-offwhite"
                   }`}
                 >

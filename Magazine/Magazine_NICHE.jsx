@@ -38,11 +38,6 @@ export default function MagazineNiche({ onBack }) {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
       <div className="relative mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-background">
-        <div
-          className="h-[max(16px,env(safe-area-inset-top))] w-full bg-offwhite"
-          aria-hidden="true"
-        />
-
         <Header
           variant="detail-back"
           title="매거진"
@@ -51,12 +46,12 @@ export default function MagazineNiche({ onBack }) {
         />
 
         <main className="flex w-full flex-col gap-10 pb-[120px]">
-          <section className="relative flex h-[536px] shrink-0 flex-col items-start justify-end py-[30px]">
-            <div className="absolute left-0 top-0 h-[535px] w-full overflow-hidden bg-offwhite">
+          <section className="relative flex aspect-[430/536] w-full shrink-0 flex-col items-start justify-end py-[30px]">
+            <div className="absolute inset-0 overflow-hidden bg-offwhite">
               <img
                 src={heroNiche}
                 alt="어두운 배경의 르 라보 상탈 33 향수"
-                className="absolute left-[-2px] top-0 h-full w-[434px] max-w-none object-cover"
+                className="size-full scale-[1.01] object-cover"
               />
             </div>
 
@@ -66,7 +61,7 @@ export default function MagazineNiche({ onBack }) {
                 tag="향수 상식"
                 title="니치향수 트렌드"
                 sub={'"향으로 나를 표현하는 시대"'}
-                className="!w-[386px] [&>div>div>p:last-child]:!text-title-semibold-18"
+                className="!w-full [&>div>div>p:last-child]:!text-title-semibold-18"
               />
             </div>
           </section>
@@ -87,17 +82,13 @@ export default function MagazineNiche({ onBack }) {
               </p>
             </div>
 
-            {SECTIONS.map((section, index) => (
+            {SECTIONS.map((section) => (
               <Fragment key={section.img}>
-                <div
-                  className={`flex w-full shrink-0 items-start justify-center ${
-                    index === 0 ? "h-[467px]" : "h-[469px]"
-                  }`}
-                >
+                <div className="aspect-[430/469] w-full shrink-0 overflow-hidden">
                   <img
                     src={section.img}
                     alt={section.alt}
-                    className="h-[469px] w-[430px] max-w-none object-cover"
+                    className="size-full object-cover"
                   />
                 </div>
                 <div className="flex w-full flex-col gap-2 px-5 text-offblack">
@@ -111,7 +102,7 @@ export default function MagazineNiche({ onBack }) {
 
         <BottomNav
           active="magazine"
-          className="fixed bottom-5 left-1/2 z-50 !w-[390px] -translate-x-1/2"
+          className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2"
         />
       </div>
     </div>

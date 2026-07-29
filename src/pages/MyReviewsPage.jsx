@@ -93,8 +93,8 @@ function ReviewableCard({ item }) {
     <article className="rounded-2xl border border-light-grey bg-offwhite p-4">
       <div className="flex flex-col gap-4">
         <div className="flex items-start gap-3">
-          <div className="flex h-7.5 w-7.5 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-light-grey">
-            <img alt="" className="size-full object-contain" src={item.image} />
+          <div className="flex h-12.5 w-12.5 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-2light-grey">
+            <img alt="" className="h-7.5 w-7.5 object-contain" src={item.image} />
           </div>
           <div className="flex min-w-0 flex-col gap-1.5">
             <p className="truncate text-caption-regular-12 text-grey uppercase">{item.brand}</p>
@@ -124,7 +124,7 @@ function PendingReviewCard({ review }) {
             </p>
           </div>
         </div>
-        <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-light-grey">
+        <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-2light-grey">
           <img alt="" className="h-13.5 w-auto object-contain" src={review.image} />
         </div>
       </div>
@@ -177,7 +177,7 @@ function WrittenReviewCard({ review }) {
             {review.images.map((image, index) => (
               <div
                 key={index}
-                className="flex h-12.5 w-12.5 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-light-grey"
+                className="flex h-12.5 w-12.5 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-2light-grey"
               >
                 <img alt="" className="h-7.5 w-7.5 object-contain" src={image} />
               </div>

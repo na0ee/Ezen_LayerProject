@@ -5,17 +5,30 @@ export default function CardMag({
   title,
   desc,
   imgClassName = "absolute inset-0 size-full object-cover",
+  onClick,
   className = "",
 }) {
+  const handleKeyDown = (event) => {
+    if (!onClick || (event.key !== "Enter" && event.key !== " ")) return;
+    event.preventDefault();
+    onClick(event);
+  };
+
   return (
     <div
-      className={`relative flex h-113 w-80 flex-col justify-end overflow-hidden rounded-3xl bg-light-grey p-3 ${className}`}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      className={`relative flex h-113 w-80 flex-col justify-end overflow-hidden rounded-3xl bg-light-grey p-3 ${
+        onClick ? "cursor-pointer" : ""
+      } ${className}`}
     >
       {img && (
         <img src={img} alt="" className={imgClassName} />
       )}
       {/* 피그마: inner 높이 124px 고정, 텍스트는 상단 정렬 */}
-80aaf6c (온보딩_홈_컴포넌트_매거진_수정)
+      <div className="glass-surface-dark glass-rim-light glass-depth relative flex h-31 w-full flex-col gap-1.5 overflow-hidden rounded-[20px] p-4">
         <p className="truncate text-title-semibold-18 text-offwhite">{title}</p>
         <p className="whitespace-pre-line text-caption-medium-12 leading-[1.4] text-offwhite">
           {desc}

@@ -82,7 +82,7 @@ export default function ResultTypePage({
   }
 
   return (
-    <main className="mx-auto min-h-screen max-w-[430px] overflow-hidden bg-background">
+    <main className="mx-auto min-h-[var(--app-height,100dvh)] max-w-[430px] overflow-hidden bg-background pb-[env(safe-area-inset-bottom)]">
       <Header variant="result" />
 
       <div className="px-5 pb-[60px] pt-3">

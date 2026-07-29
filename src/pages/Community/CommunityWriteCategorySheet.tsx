@@ -53,9 +53,8 @@ export default function CommunityWriteCategorySheet({
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
     };
-    const preventDocumentScroll = (event: Event) => {
-      event.preventDefault();
-    };
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
     const syncViewportBounds = () => {
       const pageWrap = document.querySelector<HTMLElement>(
         ".community-write-page__wrap, .community-review-page__wrap, .community-question-page__wrap, .community-challenge-page__wrap, .community-feed-page__wrap",
@@ -75,27 +74,23 @@ export default function CommunityWriteCategorySheet({
     };
 
     syncViewportBounds();
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("resize", syncViewportBounds);
-    window.addEventListener("wheel", preventDocumentScroll, {
-      passive: false,
-    });
-    window.addEventListener("touchmove", preventDocumentScroll, {
-      passive: false,
-    });
 
     return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("resize", syncViewportBounds);
-      window.removeEventListener("wheel", preventDocumentScroll);
-      window.removeEventListener("touchmove", preventDocumentScroll);
     };
   }, [onClose, open]);
 
   if (!open || !viewportBounds) return null;
 
   return createPortal(
-    <div className="community-write-category-sheet fixed inset-0 z-50">
+    <div className="community-write-category-sheet fixed inset-0 z-[110]">
       <div
         className="community-write-category-sheet__viewport absolute inset-y-0"
         style={{
@@ -114,7 +109,7 @@ export default function CommunityWriteCategorySheet({
           role="dialog"
           aria-modal="true"
           aria-label="글 카테고리 선택"
-          className="community-write-category-sheet__panel absolute inset-x-0 bottom-0 h-[550px]"
+          className="community-write-category-sheet__panel absolute inset-x-0 bottom-0 h-[min(550px,calc(100dvh_-_16px))] touch-pan-y overflow-y-auto overscroll-contain"
         >
           <CommunityComment
             items={categoryItems}

@@ -73,6 +73,45 @@ const reviewContents = [
   },
 ];
 
+// 댓글이 최대 10개까지 붙으므로 문구도 넉넉히 둔다.
+// 개수(11)와 아래 간격(3)이 서로소라 10개까지 겹치지 않는다
+const commentTexts = [
+  "저도 이거 쓰는데 완전 공감해요",
+  "시향해보고 싶어지네요",
+  "정보 감사합니다! 위시리스트에 담아둘게요",
+  "오 저랑 취향이 비슷하시네요",
+  "매장 어디서 시향하셨어요?",
+  "잔향 궁금했는데 도움 됐어요",
+  "지속력은 어느 정도인가요?",
+  "선물용으로도 괜찮을까요?",
+  "여름에 뿌려도 안 무거울까요?",
+  "저는 두 번 재구매했어요 강추합니다",
+  "리뷰 덕분에 고민 끝났네요 감사해요",
+];
+
+/** 리뷰 하나에 붙는 댓글 2~3개. 같은 리뷰면 항상 같은 결과가 나온다 */
+export function buildComments(reviewId) {
+  const seed = [...String(reviewId)].reduce(
+    (sum, char) => sum + char.charCodeAt(0),
+    0,
+  );
+  const count = 3 + (seed % 8); // 3~10개
+  // 목록 길이와 서로소인 간격(3, 2)을 써야 index마다 다른 항목이 걸린다.
+  // 예전 식은 index * 8 % 8 = 0이 되어 댓글 문구가 전부 같아졌다
+  return Array.from({ length: count }, (_, index) => {
+    const commentSeed = seed * 3 + index * 7;
+    return {
+      id: `${reviewId}-comment-${index}`,
+      author:
+        reviewNicknames[(seed + index * 3) % reviewNicknames.length],
+      avatar: reviewAvatars[(seed + index * 2) % reviewAvatars.length],
+      message: commentTexts[(seed + index * 3) % commentTexts.length],
+      likes: ((commentSeed * 13) % 40) + 2,
+      replies: (commentSeed * 5) % 15,
+    };
+  });
+}
+
 /** 향수 하나에 붙는 리뷰 3~5개. 같은 향수면 항상 같은 결과가 나온다 */
 export function buildReviews(perfumeId) {
   const count = 3 + (perfumeId % 3);

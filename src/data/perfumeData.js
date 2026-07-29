@@ -402,23 +402,24 @@ export const perfumeData = [
     id: 14,
     perfume: {
       brandId: "buly",
-      name: "다마스크 로즈",
-      description: "싱그러운 장미에 생강과 베티버가 은은하게 더해진 우아한 향",
+      name: "오 트리플 이리 드 말트",
+      description:
+        "파우더리한 아이리스에 시트로넬라와 오렌지 블로섬이 어우러진 산뜻하고 우아한 향",
       detailDescription:
-        "이른 아침 이슬을 머금은 다마스크 장미를 갓 꺾어 온 듯한 생생한 로즈 향이다.\n" +
-        "생강과 베르가못의 알싸하고 산뜻한 시작이 장미 본연의 향을 한층 입체적으로 끌어올린다.\n" +
-        "베티버와 머스크의 잔향이 달지 않게 마무리되어 우아하면서도 개성 있는 로즈를 찾는 이들에게 제격이다.",
-      detailTitle: "생생함",
-      image: "/assets/perfume/buly/damask-rose.png",
-      familyIds: ["floral", "spicy"],
+        "몰타섬의 햇살과 바닷바람에서 영감을 받은 맑고 파우더리한 아이리스 향이다.\n" +
+        "시트로넬라와 오렌지 블로섬의 산뜻한 시작 위로 아이리스의 부드럽고 우아한 꽃향이 피어난다.\n" +
+        "패출리와 인센스의 차분한 잔향이 깊이를 더해 깨끗하면서도 신비로운 분위기를 남긴다.",
+      detailTitle: "우아함",
+      image: "/assets/perfume/buly/iris-de-malte-transparent.png",
+      familyIds: ["floral", "powdery"],
       notes: {
-        top: ["생강", "베르가못"],
-        middle: ["다마스크 로즈"],
-        base: ["베티버", "머스크"],
+        top: ["시트로넬라", "오렌지 블로섬"],
+        middle: ["아이리스"],
+        base: ["패출리", "인센스"],
       },
-      noteColors: { top: "#D08159", middle: "#E27396", base: "#52946B" },
+      noteColors: { top: "#D9D88F", middle: "#C8B7D9", base: "#9B8068" },
       aiReview:
-        "달지 않고 생생한 '진짜 장미' 같다는 평. 생강의 스파이시함이 더해져 우아하면서 개성 있다는 반응.",
+        "파우더리한 아이리스에 산뜻한 시트로넬라와 오렌지 블로섬이 어우러져 우아하고 깨끗하다는 평이 많다.",
     },
     likeCount: 0,
     isLiked: false,
@@ -1632,6 +1633,60 @@ export const perfumeData = [
       noteColors: { top: "#F5C542", middle: "#F5E6E0", base: "#7A4E31" },
       aiReview:
         "깨끗한 시트러스 플로럴과 따뜻한 우드의 균형이 좋다는 평이 많으며, 단정하고 활용도 높은 향으로 호평받는다.",
+    },
+    likeCount: 0,
+    isLiked: false,
+    isBookmarked: false,
+  },
+  {
+    id: 54,
+    perfume: {
+      brandId: "maison-margiela",
+      name: "체이싱 선셋",
+      description:
+        "노을빛 하늘을 닮은 따뜻한 시트러스와 부드러운 플로럴이 어우러진 향",
+      detailDescription:
+        "해 질 무렵 황금빛으로 물든 풍경과 따뜻한 공기를 담아낸 향수다.\n" +
+        "밝은 시트러스의 첫인상이 부드러운 화이트 플로럴로 이어지며 편안한 분위기를 만든다.\n" +
+        "머스크와 우드의 포근한 잔향이 피부에 은은하게 남아 일상의 여유를 떠올리게 한다.",
+      detailTitle: "노을",
+      image: "/assets/perfume/maison-margiela/chasing-sunset.png",
+      familyIds: ["citrus", "floral"],
+      notes: {
+        top: ["베르가못", "만다린"],
+        middle: ["화이트 플로럴"],
+        base: ["머스크", "우드"],
+      },
+      noteColors: { top: "#F0A35E", middle: "#F3D3C4", base: "#A9795B" },
+      aiReview:
+        "따뜻한 시트러스와 포근한 머스크가 어우러져 편안하고 감성적이라는 평이 많다.",
+    },
+    likeCount: 0,
+    isLiked: false,
+    isBookmarked: false,
+  },
+  {
+    id: 55,
+    perfume: {
+      brandId: "bvlgari",
+      name: "옴니아 아메시스트",
+      description:
+        "그린 노트와 아이리스, 불가리안 로즈가 어우러진 맑고 파우더리한 향",
+      detailDescription:
+        "보랏빛 자수정의 투명한 빛과 우아함을 향으로 표현한 플로럴 향수다.\n" +
+        "그린 샙과 핑크 자몽의 산뜻한 시작 뒤로 아이리스와 불가리안 로즈가 부드럽게 피어난다.\n" +
+        "헬리오트로프와 우드의 포근한 잔향이 깨끗하고 여성스러운 분위기를 완성한다.",
+      detailTitle: "자수정",
+      image: "/assets/perfume/bvlgari/omnia-amethyste.png",
+      familyIds: ["floral", "powdery"],
+      notes: {
+        top: ["그린 샙", "핑크 자몽"],
+        middle: ["아이리스", "불가리안 로즈"],
+        base: ["헬리오트로프", "우드"],
+      },
+      noteColors: { top: "#A7C796", middle: "#B79ED1", base: "#D9C4DF" },
+      aiReview:
+        "은은한 아이리스와 파우더리 플로럴이 깨끗하고 우아해 데일리 향수로 좋다는 평이 많다.",
     },
     likeCount: 0,
     isLiked: false,
