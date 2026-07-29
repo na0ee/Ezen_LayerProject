@@ -21,10 +21,13 @@ const COMMENTS = [
   },
 ];
 
+// comments를 넘기면 그 목록을 쓰고, 없으면 기존 예시 댓글을 보여준다
 export default function CommunityReviewCommentSheet({
   open = false,
   onClose,
+  comments,
 }) {
+  const commentList = comments?.length ? comments : COMMENTS;
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -96,13 +99,13 @@ export default function CommunityReviewCommentSheet({
 
         <div className="community-review-comments__body flex min-h-0 flex-1 flex-col">
           <div className="community-review-comments__list flex min-h-0 flex-1 flex-col gap-7 overflow-y-auto px-5 pt-[30px]">
-            {COMMENTS.map((comment) => (
+            {commentList.map((comment) => (
               <article
                 key={comment.id}
                 className="community-review-comments__item flex items-start gap-[14px]"
               >
                 <img
-                  src={profileYeeunTv}
+                  src={comment.avatar ?? profileYeeunTv}
                   alt=""
                   className="size-[26px] shrink-0 rounded-full object-cover"
                 />

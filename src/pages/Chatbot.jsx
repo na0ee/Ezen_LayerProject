@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Bubble, ChatCard, Input, QuickCategory } from "../components/common";
+import { Bubble, ChatCard, Header, Input, QuickCategory } from "../components/common";
 import { brands } from "../data/brands";
 import { fragranceFamilies } from "../data/fragranceFamilies";
 import { perfumeData } from "../data/perfumeData";
 import { storeLocations } from "../data/storeLocations";
-import caretLeft from "../assets/icons/caret-left.svg";
 import characterLayAnimation from "../assets/images/chatbot/Lay-transparent.webp";
 import characterLay from "../assets/images/character-lay.png";
 
@@ -13,6 +12,7 @@ const TYPING_DELAY_MS = 800;
 
 const MAIN_MENUS = [
   "오늘의 향수 추천받기",
+  "1:1 문의",
   "피드백하기",
   "가까운 매장 찾기",
   "향수 레이어링 추천",
@@ -33,6 +33,69 @@ const WEATHER_OPTIONS = [
   { label: "더움", familyId: "aquatic" },
   { label: "추움", familyId: "woody" },
   { label: "비옴", familyId: "green" },
+];
+
+// 가지고 있는 향수 계열 → 겹쳐 뿌리기 좋은 계열
+const LAYERING_OPTIONS = [
+  { label: "머스크 계열", partner: "시트러스", familyId: "citrus" },
+  { label: "시트러스 계열", partner: "머스크", familyId: "musk" },
+  { label: "우디 계열", partner: "플로럴", familyId: "floral" },
+  { label: "플로럴 계열", partner: "우디", familyId: "woody" },
+  { label: "오리엔탈 계열", partner: "머스크", familyId: "musk" },
+];
+
+// 향수를 쓸 상황 → 어울리는 향 계열
+// ("선물" 항목은 상단 메뉴의 '딱 맞는 향수 선물 고르기'와 겹쳐서 넣지 않았다)
+const PURPOSE_OPTIONS = [
+  {
+    label: "데일리로 쓸 향수",
+    reply: "매일 편하게 쓰기 좋은 향수로 골라봤어요.",
+    familyId: "musk",
+  },
+  {
+    label: "출근할 때",
+    reply: "출근길에 어울리는 향수로 골라봤어요.",
+    familyId: "woody",
+  },
+  {
+    label: "특별한 날",
+    reply: "특별한 날에 어울리는 향수로 골라봤어요.",
+    familyId: "oriental",
+  },
+  {
+    label: "운동할 때",
+    reply: "운동할 때 어울리는 향수로 골라봤어요.",
+    familyId: "citrus",
+  },
+];
+
+// 선물 받는 사람 → 어울리는 향 계열
+const GIFT_OPTIONS = [
+  {
+    label: "연인에게",
+    reply: "연인에게 선물하기 좋은 향수로 골라봤어요.",
+    familyId: "floral",
+  },
+  {
+    label: "친구에게",
+    reply: "친구에게 부담 없이 건네기 좋은 향수예요.",
+    familyId: "citrus",
+  },
+  {
+    label: "부모님께",
+    reply: "부모님께 드리기 좋은 차분한 향수예요.",
+    familyId: "woody",
+  },
+  {
+    label: "직장 동료에게",
+    reply: "직장 동료에게 무난하게 잘 맞는 향수예요.",
+    familyId: "musk",
+  },
+  {
+    label: "나에게 선물",
+    reply: "나를 위한 선물로 이 향수는 어떠세요?",
+    familyId: "oriental",
+  },
 ];
 
 const SEASON_OPTIONS = ["봄", "여름", "가을", "겨울", "사계절"];
@@ -251,7 +314,6 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
   const [quizStage, setQuizStage] = useState(null);
   const [quizFamilyId, setQuizFamilyId] = useState(null);
   const [quizSeason, setQuizSeason] = useState(null);
-  const [lastPickFlow, setLastPickFlow] = useState(null);
 
   useEffect(() => {
     latestReplyRef.current?.scrollIntoView({
@@ -316,18 +378,20 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
     appendBot({
       texts: [
         "오늘의 향수를 고민하고 계시군요!",
-        "제가 가지고 있는 정보인 날씨 기반으로 추천해드릴까요?",
+        "어떤 방식으로 골라드릴까요?",
       ],
+      // 첫 번째 칩이 검정으로 강조되므로, 시안 의도대로 날씨 기반 추천을 맨 앞에 둔다
       menus: [
-        "코디 등록하기",
         "날씨 기반 추천받기",
+        "코디 등록하기",
+        "고르는 목적 입력하기",
         "더 정확한 추천을 위한 문답 진행하기",
       ],
     });
 
   const respondToWeatherAsk = () =>
     appendBot({
-      texts: ["오늘의 날씨를 선택해주세요."],
+      texts: ["오늘 날씨는 어떤가요?\n날씨에 맞춰 향수를 골라드릴게요."],
       menus: WEATHER_OPTIONS.map((item) => item.label),
     });
 
@@ -335,6 +399,20 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
     appendBot({
       texts: [`${weather.label} 날씨에 어울리는 향수로 골라봤어요.`],
       perfume: perfumeCardData(pickRandomPerfume([weather.familyId])),
+    });
+
+  const respondToPurposeAsk = () =>
+    appendBot({
+      texts: [
+        "어떤 상황에서 쓰실 향수인가요?\n목적을 알려주시면 그에 맞는 향수를 골라드릴게요.",
+      ],
+      menus: PURPOSE_OPTIONS.map((item) => item.label),
+    });
+
+  const respondToPurpose = (option) =>
+    appendBot({
+      texts: [option.reply],
+      perfume: perfumeCardData(pickRandomPerfume([option.familyId])),
     });
 
   const respondToStoreSearch = () =>
@@ -357,11 +435,20 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
         ? {
             ...store,
             brand: brand.nameEn,
-            images: store.image ? [store.image] : [],
+            // 매장 사진(있으면) + 지도. storeLocations.js에서 연결한다
+            images: store.images ?? (store.image ? [store.image] : []),
           }
         : undefined,
     });
   };
+
+  const respondToInquiry = () =>
+    appendBot({
+      texts: [
+        "1:1 문의를 도와드릴게요.",
+        "궁금하신 점이나 불편했던 점을 자유롭게 남겨주시면 담당자가 확인 후 답변드릴게요.",
+      ],
+    });
 
   const respondToFeedbackAsk = () => {
     setAwaiting("feedback");
@@ -383,59 +470,37 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
     });
 
   const respondToLayeringAsk = () => {
-    setAwaiting("layering");
-    inputRef.current?.focus();
     return appendBot({
       texts: [
-        "함께 사용하고 싶은 향수가 있나요?",
-        "향수 이름을 알려주시면 잘 어울리는 조합을 찾아드릴게요.",
+        "지금 가지고 계신 향수는 어떤 계열인가요?\n겹쳐 뿌리기 좋은 향수를 찾아드릴게요.",
       ],
+      menus: LAYERING_OPTIONS.map((item) => item.label),
     });
   };
 
-  const respondToLayeringResult = () => {
-    setLastPickFlow("layering");
-    return appendBotMessages([
-      {
-        texts: [
-          "좋아요! 입력해 주신 향수의 향조와 분위기를 바탕으로 잘 어울리는 조합을 찾아볼게요.",
-          "서로의 매력을 해치지 않으면서 새로운 분위기를 만들어주는 조합으로 골라봤어요.",
-        ],
-        perfume: perfumeCardData(pickRandomPerfume()),
-      },
-      {
-        texts: ["더 궁금한 조합이 있다면 아래 버튼을 눌러주세요!"],
-        menus: ["다른 향수로 다시 찾기"],
-      },
-    ]);
+  const respondToLayering = (option) => {
+    return appendBot({
+      texts: [
+        `${option.label} 향수에는 ${option.partner} 계열을 겹쳐 뿌리면 잘 어울려요.\n이 향수를 추천드려요.`,
+      ],
+      perfume: perfumeCardData(pickRandomPerfume([option.familyId])),
+    });
   };
 
   const respondToGiftAsk = () => {
-    setAwaiting("gift");
-    inputRef.current?.focus();
     return appendBot({
       texts: [
-        "선물할 사람의 분위기와 취향을 알려주세요!",
-        "상대에게 어울릴 만한 향수를 레이가 대신 골라드릴게요.",
+        "누구에게 선물하실 건가요?\n받는 분을 알려주시면 잘 맞는 향수를 골라드릴게요.",
       ],
+      menus: GIFT_OPTIONS.map((item) => item.label),
     });
   };
 
-  const respondToGiftResult = () => {
-    setLastPickFlow("gift");
-    return appendBotMessages([
-      {
-        texts: [
-          "좋아요! 알려주신 분위기와 취향을 바탕으로 선물하기 좋은 향수를 찾아볼게요.",
-          "상대방의 이미지와 잘 어울리면서 선물로도 부담스럽지 않은 향수로 골라봤어요.",
-        ],
-        perfume: perfumeCardData(pickRandomPerfume()),
-      },
-      {
-        texts: ["다른 향수도 보고 싶다면 아래 버튼을 눌러주세요!"],
-        menus: ["다른 향수로 다시 찾기"],
-      },
-    ]);
+  const respondToGift = (option) => {
+    return appendBot({
+      texts: [option.reply],
+      perfume: perfumeCardData(pickRandomPerfume([option.familyId])),
+    });
   };
 
   const respondToOutfitAsk = () =>
@@ -563,7 +628,9 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
     const directActions = [
       ["날씨 기반 추천받기", respondToWeatherAsk],
       ["오늘의 향수 추천받기", respondToRecommend],
+      ["고르는 목적 입력하기", respondToPurposeAsk],
       ["가까운 매장 찾기", respondToStoreSearch],
+      ["1:1 문의", respondToInquiry],
       ["피드백하기", respondToFeedbackAsk],
       ["향수 레이어링 추천", respondToLayeringAsk],
       ["딱 맞는 향수 선물 고르기", respondToGiftAsk],
@@ -588,20 +655,37 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
       return;
     }
 
-    if (textMatches(text, "다른 향수로 다시 찾기")) {
-      resetConversationState();
-      if (lastPickFlow === "layering") respondToLayeringResult();
-      else if (lastPickFlow === "gift") respondToGiftResult();
-      else respondFallback();
-      return;
-    }
-
     const mood = MOOD_OPTIONS.find((item) =>
       textMatches(text, item.label),
     );
     if (mood) {
       resetConversationState();
       respondToMood(mood);
+      return;
+    }
+
+    const purpose = PURPOSE_OPTIONS.find((item) =>
+      textMatches(text, item.label),
+    );
+    if (purpose) {
+      resetConversationState();
+      respondToPurpose(purpose);
+      return;
+    }
+
+    const layering = LAYERING_OPTIONS.find((item) =>
+      textMatches(text, item.label),
+    );
+    if (layering) {
+      resetConversationState();
+      respondToLayering(layering);
+      return;
+    }
+
+    const gift = GIFT_OPTIONS.find((item) => textMatches(text, item.label));
+    if (gift) {
+      resetConversationState();
+      respondToGift(gift);
       return;
     }
 
@@ -630,17 +714,6 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
       respondToFeedbackThanks();
       return;
     }
-    if (awaiting === "layering") {
-      setAwaiting(null);
-      respondToLayeringResult();
-      return;
-    }
-    if (awaiting === "gift") {
-      setAwaiting(null);
-      respondToGiftResult();
-      return;
-    }
-
     respondFallback();
   };
 
@@ -660,21 +733,13 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
 
   return (
     <div className="min-h-screen bg-background">
-      <main className="mx-auto flex w-full max-w-[430px] flex-col gap-6 bg-background px-5 pb-[150px]">
-        <header className="sticky top-0 z-10 -mx-5 flex items-start justify-between bg-offwhite px-5 pb-3 pt-[18px]">
-          <button
-            type="button"
-            aria-label="뒤로가기"
-            onClick={onBack}
-            className="size-6 shrink-0"
-          >
-            <img src={caretLeft} alt="" className="size-6" />
-          </button>
-          <h1 className="w-[232px] text-title-medium-20 text-offblack">
-            챗봇레이
-          </h1>
-        </header>
+      {/* 다른 화면과 같은 공통 헤더 (검색 → /category, 알림 → /alarm은 Header 기본값).
+          본문의 px-5 밖에 둬야 헤더 배경이 좌우 끝까지 닿는다 */}
+      <div className="sticky top-0 z-10 mx-auto w-full max-w-[430px]">
+        <Header variant="detail-back" title="챗봇레이" onBack={onBack} />
+      </div>
 
+      <main className="mx-auto flex w-full max-w-[430px] flex-col gap-6 bg-background px-5 pb-[150px] pt-6">
         <div className="flex w-full flex-col gap-10">
           {messages.map((message, index) => {
             const isLatestReply =

@@ -13,6 +13,7 @@ export default function Icon({
   liked = false,
   onLike,
   onCommentsClick,
+  commentItems,
   className = "",
 }) {
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
@@ -63,6 +64,7 @@ export default function Icon({
       <CommunityReviewCommentSheet
         open={isCommentsOpen}
         onClose={() => setIsCommentsOpen(false)}
+        comments={commentItems}
       />
     </>
   );
