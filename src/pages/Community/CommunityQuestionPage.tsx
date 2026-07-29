@@ -37,12 +37,14 @@ interface CommunityQuestionPageProps {
   onTabChange?: (tab: (typeof communityTabs)[number]) => void;
   onWrite?: () => void;
   userPosts?: CommunityUserPost[];
+  onDeletePost?: (postId: string) => void;
 }
 
 export default function CommunityQuestionPage({
   onTabChange,
   onWrite,
   userPosts = [],
+  onDeletePost,
 }: CommunityQuestionPageProps) {
   const navigate = useNavigate();
   const userProfile = getUserProfile();
@@ -107,6 +109,7 @@ export default function CommunityQuestionPage({
                     text={post.text}
                     likes={0}
                     comments={0}
+                    onDelete={() => onDeletePost?.(post.id)}
                   />
                 </article>
               );
@@ -132,6 +135,7 @@ export default function CommunityQuestionPage({
                   onSelect={(_, index) =>
                     setPollSelections((current) => ({ ...current, [post.id]: index }))
                   }
+                  onDelete={() => onDeletePost?.(post.id)}
                 />
               </article>
             );

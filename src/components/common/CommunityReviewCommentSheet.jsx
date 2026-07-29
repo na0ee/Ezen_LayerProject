@@ -70,7 +70,7 @@ export default function CommunityReviewCommentSheet({
         role="dialog"
         aria-modal="true"
         aria-labelledby="community-review-comments-title"
-        className="community-review-comments__sheet absolute inset-x-0 bottom-0 flex h-[440px] max-h-[calc(100dvh-64px)] flex-col overflow-hidden rounded-t-2xl bg-offwhite"
+        className="community-review-comments__sheet absolute inset-x-0 bottom-0 flex h-[min(440px,calc(100dvh_-_64px))] flex-col overflow-hidden rounded-t-2xl bg-offwhite"
       >
         <span
           aria-hidden="true"
@@ -136,7 +136,7 @@ export default function CommunityReviewCommentSheet({
             ))}
           </div>
 
-          <div className="community-review-comments__input shrink-0 px-5 pb-[39px] pt-4">
+          <div className="community-review-comments__input shrink-0 px-5 pb-[max(20px,env(safe-area-inset-bottom))] pt-4">
             <Input
               value={message}
               onChange={(event) => setMessage(event.target.value)}

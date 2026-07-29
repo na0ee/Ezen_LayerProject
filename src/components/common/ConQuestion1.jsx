@@ -46,6 +46,7 @@ export default function ConQuestion1({
   title,
   options = [],
   onSelect,
+  onDelete,
   className = "",
 }) {
   const initialSelectedIndex = options.findIndex((option) => option.selected);
@@ -87,6 +88,18 @@ export default function ConQuestion1({
           name={profileName}
           time={profileTime}
           img={profileImg}
+          trailing={
+            onDelete ? (
+              <button
+                type="button"
+                aria-label="게시물 삭제"
+                onClick={onDelete}
+                className="flex size-8 shrink-0 items-center justify-center text-[26px] font-light leading-none text-grey"
+              >
+                ×
+              </button>
+            ) : undefined
+          }
         />
         <div className="flex w-full flex-col gap-1">
           <p className="text-body-regular-14 text-subtext">{sub}</p>

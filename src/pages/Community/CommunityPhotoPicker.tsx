@@ -41,7 +41,7 @@ export default function CommunityPhotoPicker({
         {images.map((image, index) => (
           <div
             key={`${image.slice(0, 32)}-${index}`}
-            className="relative h-[192px] w-40 shrink-0 overflow-hidden rounded-xl bg-light-grey"
+            className="relative aspect-[5/6] w-40 shrink-0 overflow-hidden rounded-xl bg-light-grey"
           >
             <img src={image} alt={`첨부 사진 ${index + 1}`} className="size-full object-cover" />
             <button
@@ -60,7 +60,7 @@ export default function CommunityPhotoPicker({
             <button
               type="button"
               onClick={() => galleryRef.current?.click()}
-              className="flex h-[192px] w-40 shrink-0 flex-col items-center justify-center gap-2 rounded-xl bg-light-grey text-body-medium-14 text-subtext"
+              className="flex aspect-[5/6] w-40 shrink-0 flex-col items-center justify-center gap-2 rounded-xl bg-light-grey text-body-medium-14 text-subtext"
             >
               <span className="text-[30px] leading-none">＋</span>
               갤러리
@@ -68,7 +68,7 @@ export default function CommunityPhotoPicker({
             <button
               type="button"
               onClick={() => cameraRef.current?.click()}
-              className="flex h-[192px] w-40 shrink-0 flex-col items-center justify-center gap-2 rounded-xl bg-light-grey text-body-medium-14 text-subtext"
+              className="flex aspect-[5/6] w-40 shrink-0 flex-col items-center justify-center gap-2 rounded-xl bg-light-grey text-body-medium-14 text-subtext"
             >
               <span className="text-[26px] leading-none">◉</span>
               카메라

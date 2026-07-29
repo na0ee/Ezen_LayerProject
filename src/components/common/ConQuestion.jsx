@@ -12,6 +12,7 @@ export default function ConQuestion({
   likes = 0,
   comments = 0,
   onProfileClick,
+  onDelete,
   className = "",
 }) {
   return (
@@ -24,6 +25,18 @@ export default function ConQuestion({
         time={profileTime}
         img={profileImg}
         onClick={anonymous ? undefined : onProfileClick}
+        trailing={
+          onDelete ? (
+            <button
+              type="button"
+              aria-label="게시물 삭제"
+              onClick={onDelete}
+              className="flex size-8 shrink-0 items-center justify-center text-[26px] font-light leading-none text-grey"
+            >
+              ×
+            </button>
+          ) : undefined
+        }
       />
       <div className="flex w-full flex-col gap-1.5">
         <p className="text-body-semibold-16 text-offblack">{title}</p>

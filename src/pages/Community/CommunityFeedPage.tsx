@@ -53,12 +53,14 @@ interface CommunityFeedPageProps {
   onTabChange?: (tab: (typeof communityTabs)[number]) => void;
   onWrite?: () => void;
   userPosts?: CommunityUserPost[];
+  onDeletePost?: (postId: string) => void;
 }
 
 export default function CommunityFeedPage({
   onTabChange,
   onWrite,
   userPosts = [],
+  onDeletePost,
 }: CommunityFeedPageProps) {
   const navigate = useNavigate();
   const userProfile = getUserProfile();
@@ -122,8 +124,18 @@ export default function CommunityFeedPage({
                   name={userProfile.nickname}
                   time="방금 전"
                   img={userProfile.image}
+                  trailing={
+                    <button
+                      type="button"
+                      aria-label="게시물 삭제"
+                      onClick={() => onDeletePost?.(post.id)}
+                      className="flex size-8 shrink-0 items-center justify-center text-[26px] font-light leading-none text-grey"
+                    >
+                      ×
+                    </button>
+                  }
                 />
-                <div className="flex h-[430px] w-full snap-x snap-mandatory gap-3 overflow-x-auto rounded-lg">
+                <div className="flex aspect-square w-full snap-x snap-mandatory gap-3 overflow-x-auto rounded-lg">
                   {post.images.map((image, imageIndex) => (
                     <img
                       key={`${post.id}-${imageIndex}`}
@@ -173,7 +185,7 @@ export default function CommunityFeedPage({
                   }
                 />
 
-                <div className="community-feed-card__image relative h-[430px] w-full overflow-hidden rounded-lg bg-light-grey">
+                <div className="community-feed-card__image relative aspect-square w-full overflow-hidden rounded-lg bg-light-grey">
                   <img
                     src={post.image}
                     alt=""

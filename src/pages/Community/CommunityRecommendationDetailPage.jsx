@@ -182,7 +182,7 @@ export default function CommunityRecommendationDetailPage() {
                   }
                 : undefined
             }
-            className={`relative h-[430px] w-full overflow-hidden rounded-lg bg-light-grey ${
+            className={`relative aspect-square w-full overflow-hidden rounded-lg bg-light-grey ${
               isReview ? "cursor-pointer" : ""
             }`}
           >

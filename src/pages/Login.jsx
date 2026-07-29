@@ -27,7 +27,7 @@ export default function Login() {
   return (
     <div className="mx-auto min-h-dvh w-full max-w-[430px] bg-background">
       {/* 피그마 wrap: 높이 647, 내용은 세로 중앙에서 17.5px 위로 → pb-[35px] */}
-      <div className="flex min-h-dvh flex-col items-center justify-center gap-[60px] px-5 py-[35px]">
+      <div className="flex min-h-dvh flex-col items-center justify-center gap-[clamp(32px,8vh,60px)] px-5 pb-[max(24px,env(safe-area-inset-bottom))] pt-[max(24px,env(safe-area-inset-top))]">
         <div className="flex flex-col items-center justify-center gap-4">
           <p className="font-en text-en-logo-48 text-offblack">LAYER</p>
           <p className="w-[154px] text-center text-subtitle-regular-16 leading-none text-offblack">
@@ -59,7 +59,13 @@ export default function Login() {
           <div className="flex w-full flex-col items-center gap-8">
             <div className="flex items-center justify-center gap-5">
               {SOCIAL.map(({ key, label, icon }) => (
-                <button key={key} type="button" aria-label={label} className="size-11 shrink-0">
+                <button
+                  key={key}
+                  type="button"
+                  aria-label={label}
+                  onClick={() => navigate("/profile")}
+                  className="size-11 shrink-0"
+                >
                   <img src={icon} alt="" className="size-11" />
                 </button>
               ))}

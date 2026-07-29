@@ -1,5 +1,5 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import CommunityChallengePage from "./CommunityChallengePage";
 import CommunityFeedPage from "./CommunityFeedPage";
 import CommunityFreeWritePage from "./CommunityFreeWritePage";
@@ -30,6 +30,7 @@ const categoryLabels: Record<WritePageId, string> = {
 
 export default function CommunityWriteEntryPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const initialCommunityTab =
     (location.state as { communityTab?: CommunityTab } | null)
       ?.communityTab ?? "리뷰";
@@ -57,9 +58,20 @@ export default function CommunityWriteEntryPage() {
     pendingScrollPosition.current = null;
   }, [activePage, isPerfumeSelecting, isWriting]);
 
+  useEffect(() => {
+    const requestedTab =
+      (location.state as { communityTab?: CommunityTab } | null)
+        ?.communityTab;
+    if (requestedTab) setActiveCommunityTab(requestedTab);
+  }, [location.key, location.state]);
+
   const openCategorySheet = () => setIsCategorySheetOpen(true);
   const changeCommunityTab = (tab: CommunityTab) => {
     setActiveCommunityTab(tab);
+    navigate("/community", {
+      replace: true,
+      state: { communityTab: tab },
+    });
     window.scrollTo({ top: 0 });
   };
   const closeWritePage = () => {
@@ -92,6 +104,11 @@ export default function CommunityWriteEntryPage() {
     closeWritePage();
     window.scrollTo({ top: 0 });
   };
+  const deletePost = (postId: string) => {
+    const nextPosts = userPosts.filter((post) => post.id !== postId);
+    setUserPosts(nextPosts);
+    saveCommunityUserPosts(nextPosts);
+  };
 
   return (
     <>
@@ -100,6 +117,7 @@ export default function CommunityWriteEntryPage() {
           userPosts={userPosts.filter((post) => post.category === "리뷰")}
           onTabChange={changeCommunityTab}
           onWrite={openCategorySheet}
+          onDeletePost={deletePost}
         />
       )}
       {!isWriting && activeCommunityTab === "질문" && (
@@ -107,6 +125,7 @@ export default function CommunityWriteEntryPage() {
           userPosts={userPosts.filter((post) => post.category === "질문")}
           onTabChange={changeCommunityTab}
           onWrite={openCategorySheet}
+          onDeletePost={deletePost}
         />
       )}
       {!isWriting && activeCommunityTab === "챌린지" && (
@@ -120,6 +139,7 @@ export default function CommunityWriteEntryPage() {
           userPosts={userPosts.filter((post) => post.category === "향 추천")}
           onTabChange={changeCommunityTab}
           onWrite={openCategorySheet}
+          onDeletePost={deletePost}
         />
       )}
 

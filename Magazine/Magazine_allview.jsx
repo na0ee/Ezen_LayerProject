@@ -107,21 +107,23 @@ export default function MagazineAllView({
           className="relative z-20 [&>div:first-child]:!gap-0 [&>div:first-child>button]:!size-[21px] [&>div:first-child>button>img]:!size-[21px]"
         />
 
-        <main className="mx-auto mt-6 flex w-[390px] flex-col items-center gap-[30px] pb-[120px]">
-          <h1 className="w-[390px] text-title-semibold-24 text-offblack">
+        <main className="mx-auto mt-6 flex w-full flex-col items-center gap-[30px] px-5 pb-[120px]">
+          <h1 className="w-full text-title-semibold-24 text-offblack">
             {category}
           </h1>
 
-          <div className="flex w-[388px] flex-col items-start gap-4">
-            <Category
-              variant="tab"
-              items={CATEGORIES}
-              active={category}
-              onChange={setCategory}
-              className="w-max !gap-2.5 [&>button]:!h-[31px] [&>button]:!leading-normal [&>button:not(.bg-offblack)]:!border-[0.8px]"
-            />
+          <div className="flex w-full flex-col items-start gap-4">
+            <div className="no-scrollbar -mx-5 w-[calc(100%+40px)] overflow-x-auto px-5">
+              <Category
+                variant="tab"
+                items={CATEGORIES}
+                active={category}
+                onChange={setCategory}
+                className="w-max [&>button]:!leading-normal [&>button:not(.bg-offblack)]:!border-[0.8px]"
+              />
+            </div>
 
-            <div className="grid w-[389px] grid-cols-2 gap-[9px]">
+            <div className="grid w-full grid-cols-2 gap-[9px]">
               {visibleMagazines.map((magazine) => (
                 <MiddleCard
                   key={`${magazine.title}-${magazine.img}`}
@@ -130,7 +132,7 @@ export default function MagazineAllView({
                   desc={magazine.desc}
                   onClick={magazineActions[magazine.target]}
                   ariaLabel={`${magazine.title} 매거진 보기`}
-                  className={`shrink-0 [&>div:nth-of-type(2)]:!p-3 ${magazine.className ?? ""}`}
+                  className={`!h-auto !w-full aspect-[190/256] shrink-0 [&>div:last-child]:!w-[calc(100%_-_32px)] [&>div:nth-of-type(2)]:!p-3 ${magazine.className ?? ""}`}
                 />
               ))}
             </div>

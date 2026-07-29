@@ -17,12 +17,12 @@ export default function MagazineJomalone({ onBack }) {
         />
 
         <main className="flex w-full flex-col gap-10 pb-[120px]">
-          <section className="relative flex h-[536px] shrink-0 flex-col items-start justify-end py-[30px]">
-            <div className="absolute left-0 top-0 h-[535px] w-full overflow-hidden bg-offwhite">
+          <section className="relative flex aspect-[430/536] w-full shrink-0 flex-col items-start justify-end py-[30px]">
+            <div className="absolute inset-0 overflow-hidden bg-offwhite">
               <img
                 src={heroJomalone}
                 alt="꽃과 과일 사이에 놓인 조 말론 향수"
-                className="absolute left-[-2px] top-0 h-full w-[434px] max-w-none object-cover"
+                className="size-full scale-[1.01] object-cover"
               />
             </div>
 
@@ -42,11 +42,11 @@ export default function MagazineJomalone({ onBack }) {
               </p>
             </div>
 
-            <div className="flex h-[467px] w-full shrink-0 items-start justify-center">
+            <div className="aspect-[430/469] w-full shrink-0 overflow-hidden">
               <img
                 src={layering}
                 alt="꽃병 양옆에 놓인 조 말론 향수"
-                className="h-[469px] w-[430px] max-w-none object-cover"
+                className="size-full object-cover"
               />
             </div>
 
@@ -56,11 +56,11 @@ export default function MagazineJomalone({ onBack }) {
               새로운 경험을 제안했습니다.
             </p>
 
-            <div className="flex h-[469px] w-full shrink-0 items-center justify-center">
+            <div className="aspect-[430/469] w-full shrink-0 overflow-hidden">
               <img
                 src={gift}
                 alt="선물 상자 안에 담긴 조 말론 향수"
-                className="h-[469px] w-[430px] max-w-none object-cover"
+                className="size-full object-cover"
               />
             </div>
 
@@ -70,15 +70,15 @@ export default function MagazineJomalone({ onBack }) {
               잡았습니다.
             </p>
 
-            <div className="flex h-[469px] w-full shrink-0 items-center justify-center">
+            <div className="aspect-[430/469] w-full shrink-0 overflow-hidden">
               <img
                 src={signature}
                 alt="배와 꽃 사이에 진열된 조 말론 향수"
-                className="h-[469px] w-[430px] max-w-none object-cover"
+                className="size-full object-cover"
               />
             </div>
 
-            <p className="w-[386px] text-subtitle-regular-16 text-offblack">
+            <p className="w-full px-5 text-subtitle-regular-16 text-offblack">
               대표 향수인 잉글리시 페어 앤 프리지아, 우드 세이지 앤 씨 솔트,
               피오니 앤 블러쉬 스웨이드는 브랜드의 아이덴티티를 가장 잘
               보여주는 시그니처 향수입니다.
@@ -88,7 +88,7 @@ export default function MagazineJomalone({ onBack }) {
 
         <BottomNav
           active="magazine"
-          className="fixed bottom-5 left-1/2 z-50 !w-[390px] -translate-x-1/2"
+          className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2"
         />
       </div>
     </div>
