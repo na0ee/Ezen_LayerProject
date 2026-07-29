@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Navigate,
   Route,
@@ -71,6 +72,7 @@ export default function App() {
 
   return (
     <>
+      <ScrollToTop />
       <Routes location={backgroundLocation || location}>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
@@ -141,6 +143,7 @@ export default function App() {
           path="/category"
           element={
             <Category
+              onBack={() => navigate(-1)}
               onSearch={(query) => navigate(`/search?q=${encodeURIComponent(query)}`)}
               onSelect={(_, item) =>
                 navigate(`/search?q=${encodeURIComponent(item)}`)
@@ -162,6 +165,25 @@ export default function App() {
       )}
     </>
   );
+}
+
+// 화면이 바뀌면 항상 맨 위에서 시작한다 (뒤로가기로 돌아올 때도 포함)
+function ScrollToTop() {
+  const { pathname, search } = useLocation();
+
+  // 브라우저는 뒤로가기 때 이전 스크롤 위치를 되살리는데(scrollRestoration),
+  // 그게 아래 scrollTo보다 나중에 실행돼 화면 중간에서 열린다. 그래서 꺼둔다
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname, search]);
+
+  return null;
 }
 
 // 검색어를 쿼리스트링(?q=)으로 받는다. 카드를 누르면 그 향수의 상세로 이동한다.

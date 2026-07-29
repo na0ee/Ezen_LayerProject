@@ -117,6 +117,8 @@ export default function PerfumeDetail({
             <ReviewAiSummary icon={sparkles} summary={perfume.aiReview} />
             {reviews.map((review) => {
               const isLiked = likedReviews.includes(review.id);
+              // 바깥에 적히는 개수와 실제 댓글 목록을 같은 값에서 뽑는다
+              const comments = buildComments(review.id);
               return (
                 <ReviewSummary
                   key={review.id}
@@ -127,10 +129,10 @@ export default function PerfumeDetail({
                   text={review.text}
                   // 내가 누른 좋아요는 원래 수에 더해서 보여준다
                   likes={review.likes + (isLiked ? 1 : 0)}
-                  comments={review.comments}
+                  comments={comments.length}
                   liked={isLiked}
                   onLike={() => toggleReviewLike(review.id)}
-                  commentItems={buildComments(review.id)}
+                  commentItems={comments}
                 />
               );
             })}
@@ -149,7 +151,7 @@ export default function PerfumeDetail({
                 </div>
               </div>
 
-              <div className="flex w-full items-center justify-center gap-6 rounded-2xl border border-light-grey bg-offwhite py-[30px]">
+              <div className="flex w-full items-center justify-between rounded-2xl border border-light-grey bg-offwhite px-8 py-[30px]">
                 {/* 제품 이미지(배경 제거 PNG)를 마스크로 써서 실제 향수 실루엣 안에
                     탑·미들·베이스 노트 색을 위에서부터 채운다.
                     높이는 피그마 기준 160px, 가로는 향수 비율대로 늘어나되
@@ -179,10 +181,10 @@ export default function PerfumeDetail({
                     }}
                   />
                 </div>
-                {/* 폭 고정 — 유동으로 두면 향수마다 글 위치가 달라진다.
-                    실루엣 100 + 간격 24 + 글 160 = 284를 카드(350) 가운데 놓는다.
-                    간격을 벌리면 둘 사이가 비어서 병만 왼쪽에 떨어져 보인다 */}
-                <div className="flex w-[160px] shrink-0 flex-col gap-6">
+                {/* justify-between으로 실루엣은 왼쪽, 글 상자는 오른쪽 끝에 붙인다.
+                    상자 폭을 고정하면 글자 뒤 빈 공간 때문에 오른쪽까지 안 닿으므로
+                    내용에 맞춰(w-fit) 줄이되 190px을 넘지 않게 한다 */}
+                <div className="flex w-fit max-w-[190px] shrink-0 flex-col gap-6">
                   {NOTE_STEPS.map(([label, key]) => (
                     <div key={key} className="flex w-full flex-col gap-1">
                       <p className="text-body-regular-14 text-offblack">
