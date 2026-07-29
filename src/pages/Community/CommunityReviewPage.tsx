@@ -17,6 +17,8 @@ import {
   Header,
   Search,
 } from "../../components/common";
+import type { CommunityUserPost } from "./communityUserPosts";
+import { getUserProfile } from "../../data/userProfile";
 
 type ProductTagProps = {
   brandName: string;
@@ -36,6 +38,7 @@ function DraggableProductTag({
   top,
 }: ProductTagProps) {
   const navigate = useNavigate();
+  const userProfile = getUserProfile();
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const drag = useRef({
     active: false,
@@ -237,11 +240,13 @@ const communityTabs = ["리뷰", "질문", "챌린지", "향 추천"] as const;
 interface CommunityReviewPageProps {
   onTabChange?: (tab: (typeof communityTabs)[number]) => void;
   onWrite?: () => void;
+  userPosts?: CommunityUserPost[];
 }
 
 export default function CommunityReviewPage({
   onTabChange,
   onWrite,
+  userPosts = [],
 }: CommunityReviewPageProps) {
   const navigate = useNavigate();
 
@@ -287,6 +292,25 @@ export default function CommunityReviewPage({
           aria-label="커뮤니티 리뷰 피드"
           className="community-review-feed flex flex-col gap-[12px]"
         >
+          {userPosts.map((post) => (
+            <article
+              key={post.id}
+              className="community-review-card rounded-t-2xl"
+            >
+              <Con2
+                profileName={userProfile.nickname}
+                profileTime="방금 전"
+                profileImg={userProfile.image}
+                imgs={post.images}
+                title={post.title}
+                text={post.text}
+                keywords={post.keywords}
+                likes={0}
+                comments={0}
+                className="rounded-t-2xl"
+              />
+            </article>
+          ))}
           {reviewPosts.map((post) => (
             <article
               key={post.id}

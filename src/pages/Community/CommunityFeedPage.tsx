@@ -14,6 +14,8 @@ import {
   Search,
 } from "../../components/common";
 import CommunityRecommendationSelectSheet from "./CommunityRecommendationSelectSheet";
+import type { CommunityUserPost } from "./communityUserPosts";
+import { getUserProfile } from "../../data/userProfile";
 
 const communityTabs = ["리뷰", "질문", "챌린지", "향 추천"] as const;
 
@@ -50,13 +52,16 @@ const feedPosts = [
 interface CommunityFeedPageProps {
   onTabChange?: (tab: (typeof communityTabs)[number]) => void;
   onWrite?: () => void;
+  userPosts?: CommunityUserPost[];
 }
 
 export default function CommunityFeedPage({
   onTabChange,
   onWrite,
+  userPosts = [],
 }: CommunityFeedPageProps) {
   const navigate = useNavigate();
+  const userProfile = getUserProfile();
   const [recommendationRecipient, setRecommendationRecipient] = useState<
     string | null
   >(null);
@@ -106,6 +111,45 @@ export default function CommunityFeedPage({
             aria-label="커뮤니티 향 추천 피드"
             className="community-feed-list flex flex-col gap-[12px]"
           >
+            {userPosts.map((post, index) => (
+              <article
+                key={post.id}
+                className={`community-feed-card flex w-full flex-col gap-6 bg-offwhite p-5 ${
+                  index === 0 ? "rounded-b-2xl" : "rounded-2xl"
+                }`}
+              >
+                <Profile
+                  name={userProfile.nickname}
+                  time="방금 전"
+                  img={userProfile.image}
+                />
+                <div className="flex h-[430px] w-full snap-x snap-mandatory gap-3 overflow-x-auto rounded-lg">
+                  {post.images.map((image, imageIndex) => (
+                    <img
+                      key={`${post.id}-${imageIndex}`}
+                      src={image}
+                      alt={`게시물 사진 ${imageIndex + 1}`}
+                      className="size-full shrink-0 snap-center object-cover"
+                    />
+                  ))}
+                </div>
+                <div className="flex w-full flex-col gap-[6px]">
+                  <h2 className="text-body-semibold-16 text-offblack">{post.title}</h2>
+                  <p className="text-body-regular-14 text-subtext">{post.text}</p>
+                  {post.keywords.length > 0 && (
+                    <p className="mt-[6px] text-caption-regular-12 text-subtext">
+                      {post.keywords.map((keyword) => `#${keyword}`).join("　")}
+                    </p>
+                  )}
+                </div>
+                <BtnSmall
+                  className="self-end"
+                  onClick={() => setRecommendationRecipient(userProfile.nickname)}
+                >
+                  추천하기
+                </BtnSmall>
+              </article>
+            ))}
             {feedPosts.map((post, index) => (
               <article
                 key={post.id}

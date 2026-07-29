@@ -12,6 +12,11 @@ import CommunityWriteCategorySheet, {
   type CommunityWriteCategoryItem,
 } from "./CommunityWriteCategorySheet";
 import CommunityWritePage from "./CommunityWritePage";
+import {
+  loadCommunityUserPosts,
+  saveCommunityUserPosts,
+  type CommunityUserPost,
+} from "./communityUserPosts";
 
 type WritePageId = CommunityWriteCategoryItem["id"];
 type CommunityTab = "리뷰" | "질문" | "챌린지" | "향 추천";
@@ -35,6 +40,9 @@ export default function CommunityWriteEntryPage() {
   const [isPerfumeSelecting, setIsPerfumeSelecting] = useState(false);
   const [selectedPerfumeIds, setSelectedPerfumeIds] = useState<string[]>([]);
   const [isCategorySheetOpen, setIsCategorySheetOpen] = useState(false);
+  const [userPosts, setUserPosts] = useState<CommunityUserPost[]>(
+    loadCommunityUserPosts,
+  );
   const communityScrollPosition = useRef(0);
   const writeScrollPosition = useRef(0);
   const pendingScrollPosition = useRef<number | null>(null);
@@ -65,17 +73,38 @@ export default function CommunityWriteEntryPage() {
     onCategoryClick: openCategorySheet,
     onClose: closeWritePage,
   };
+  const publishPost = (
+    post: Omit<CommunityUserPost, "id" | "createdAt">,
+  ) => {
+    const nextPost: CommunityUserPost = {
+      ...post,
+      id: `user-${Date.now()}`,
+      createdAt: Date.now(),
+    };
+    const nextPosts = [nextPost, ...userPosts];
+    setUserPosts(nextPosts);
+    try {
+      saveCommunityUserPosts(nextPosts);
+    } catch {
+      // 저장 공간이 부족해도 현재 세션의 게시물 등록은 유지한다.
+    }
+    setActiveCommunityTab(post.category);
+    closeWritePage();
+    window.scrollTo({ top: 0 });
+  };
 
   return (
     <>
       {!isWriting && activeCommunityTab === "리뷰" && (
         <CommunityReviewPage
+          userPosts={userPosts.filter((post) => post.category === "리뷰")}
           onTabChange={changeCommunityTab}
           onWrite={openCategorySheet}
         />
       )}
       {!isWriting && activeCommunityTab === "질문" && (
         <CommunityQuestionPage
+          userPosts={userPosts.filter((post) => post.category === "질문")}
           onTabChange={changeCommunityTab}
           onWrite={openCategorySheet}
         />
@@ -88,6 +117,7 @@ export default function CommunityWriteEntryPage() {
       )}
       {!isWriting && activeCommunityTab === "향 추천" && (
         <CommunityFeedPage
+          userPosts={userPosts.filter((post) => post.category === "향 추천")}
           onTabChange={changeCommunityTab}
           onWrite={openCategorySheet}
         />
@@ -118,16 +148,20 @@ export default function CommunityWriteEntryPage() {
             pendingScrollPosition.current = 0;
             setIsPerfumeSelecting(true);
           }}
+          onSubmit={publishPost}
         />
       )}
       {isWriting && !isPerfumeSelecting && activePage === "free" && (
-        <CommunityFreeWritePage {...commonPageProps} />
+        <CommunityFreeWritePage {...commonPageProps} onSubmit={publishPost} />
       )}
       {isWriting && !isPerfumeSelecting && activePage === "poll" && (
-        <CommunityPollWritePage {...commonPageProps} />
+        <CommunityPollWritePage {...commonPageProps} onSubmit={publishPost} />
       )}
       {isWriting && !isPerfumeSelecting && activePage === "recommendation" && (
-        <CommunityRecommendationWritePage {...commonPageProps} />
+        <CommunityRecommendationWritePage
+          {...commonPageProps}
+          onSubmit={publishPost}
+        />
       )}
 
       <CommunityWriteCategorySheet

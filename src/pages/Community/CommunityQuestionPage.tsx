@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import profileFruityLover from "../../assets/Community/Profile/profile-fruity-lover.png";
 import profileOfficeScent from "../../assets/Community/Profile/profile-office-scent.png";
@@ -8,6 +9,8 @@ import {
   Header,
   Search,
 } from "../../components/common";
+import type { CommunityUserPost } from "./communityUserPosts";
+import { getUserProfile } from "../../data/userProfile";
 
 const communityTabs = ["리뷰", "질문", "챌린지", "향 추천"] as const;
 
@@ -33,13 +36,17 @@ const pollOptions = [
 interface CommunityQuestionPageProps {
   onTabChange?: (tab: (typeof communityTabs)[number]) => void;
   onWrite?: () => void;
+  userPosts?: CommunityUserPost[];
 }
 
 export default function CommunityQuestionPage({
   onTabChange,
   onWrite,
+  userPosts = [],
 }: CommunityQuestionPageProps) {
   const navigate = useNavigate();
+  const userProfile = getUserProfile();
+  const [pollSelections, setPollSelections] = useState<Record<string, number>>({});
 
   return (
     <main className="community-question-page min-h-[100dvh] bg-subtext">
@@ -85,6 +92,50 @@ export default function CommunityQuestionPage({
           aria-label="커뮤니티 질문 피드"
           className="community-question-feed flex flex-col gap-4 px-5 pt-3"
         >
+          {userPosts.map((post) => {
+            if (post.kind !== "poll") {
+              return (
+                <article
+                  key={post.id}
+                  className="community-question-card community-question-card--user-post"
+                >
+                  <ConQuestion
+                    profileName={userProfile.nickname}
+                    profileTime="방금 전"
+                    profileImg={userProfile.image}
+                    title={post.title}
+                    text={post.text}
+                    likes={0}
+                    comments={0}
+                  />
+                </article>
+              );
+            }
+
+            const selectedIndex = pollSelections[post.id];
+            const options = post.pollOptions ?? [];
+
+            return (
+              <article key={post.id} className="community-question-card community-question-card--user-poll">
+                <ConQuestion1
+                  profileName={userProfile.nickname}
+                  profileTime="방금 전"
+                  profileImg={userProfile.image}
+                  sub={post.text}
+                  title={post.title}
+                  options={options.map((label, index) => ({
+                    label,
+                    percent:
+                      selectedIndex === undefined ? 0 : selectedIndex === index ? 100 : 0,
+                    selected: selectedIndex === index,
+                  }))}
+                  onSelect={(_, index) =>
+                    setPollSelections((current) => ({ ...current, [post.id]: index }))
+                  }
+                />
+              </article>
+            );
+          })}
           <article className="community-question-card community-question-card--recommendation">
             <ConQuestion
               profileName="과일향러버"
