@@ -388,7 +388,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
           <section className="px-5">
             <MainBannerText
               img={raffleImg}
-              imgClassName="absolute inset-0 size-full object-contain"
+              imgClassName="absolute inset-0 size-full object-cover"
               label="Raffle of the week"
               title={"갖고 싶던 그 향,\n운에 맡겨보세요"}
               actionLabel="응모하기"

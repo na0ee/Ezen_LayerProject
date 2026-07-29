@@ -15,6 +15,7 @@ export default function RaffleDetail({ raffle, onBack, onApplied }) {
   const [showGradient, setShowGradient] = useState(false);
   const [popup, setPopup] = useState(null);
   const perfume = raffle.perfumeItem?.perfume;
+  const isBlanche = raffle.perfumeId === 21;
   const heroImage = perfume?.image ?? raffle.img;
   const detailImages =
     perfume?.detailImages?.length > 0 ? perfume.detailImages : [raffle.img];
@@ -43,11 +44,15 @@ export default function RaffleDetail({ raffle, onBack, onApplied }) {
 
       <main className="px-5 pt-6 pb-28">
         <section className="flex flex-col gap-3">
-          <div className="h-84.5 w-full overflow-hidden">
+          <div className="flex h-84.5 w-full items-center justify-center overflow-hidden">
             <img
               src={heroImage}
               alt={raffle.name}
-              className="size-full object-contain"
+              className={
+                isBlanche
+                  ? "h-auto w-auto max-h-[230px] max-w-[260px] object-contain"
+                  : "size-full object-contain"
+              }
             />
           </div>
 

@@ -74,11 +74,13 @@ export default function PerfumeDetail({
         />
 
         <div className="flex flex-col gap-3 bg-offwhite px-5">
-          <img
-            src={perfume.image}
-            alt={perfume.name}
-            className="h-[260px] w-[390px] object-contain"
-          />
+          <div className="flex h-[260px] w-[390px] items-center justify-center">
+            <img
+              src={perfume.image}
+              alt={perfume.name}
+              className="h-auto w-auto max-h-[180px] max-w-[240px] object-contain"
+            />
+          </div>
 
           <div className="flex w-[390px] flex-col gap-4">
             <div className="flex items-start justify-between">
