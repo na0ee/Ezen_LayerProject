@@ -43,7 +43,7 @@ export default function Header({
 
   return (
     <header
-      className={`flex h-13.5 w-full items-center justify-between px-5 ${
+      className={`flex h-[calc(54px+env(safe-area-inset-top))] w-full items-center justify-between px-5 pt-[env(safe-area-inset-top)] ${
         hasBg ? 'bg-offwhite' : ''
       } ${className}`}
     >

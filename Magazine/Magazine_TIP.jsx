@@ -38,11 +38,6 @@ export default function MagazineTip({ onBack }) {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
       <div className="relative mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-background">
-        <div
-          className="h-[max(16px,env(safe-area-inset-top))] w-full bg-offwhite"
-          aria-hidden="true"
-        />
-
         <Header
           variant="detail-back"
           title="매거진"

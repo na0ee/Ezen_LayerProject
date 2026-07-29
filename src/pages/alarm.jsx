@@ -114,11 +114,6 @@ export default function Alarm() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-offwhite">
       <div className="mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-offwhite">
-        <div
-          aria-hidden="true"
-          className="h-[max(16px,env(safe-area-inset-top))] w-full"
-        />
-
         <Header
           variant="detail-back"
           title="알림"

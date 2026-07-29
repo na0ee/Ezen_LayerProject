@@ -34,7 +34,7 @@ import reviewCell2 from "../assets/images/mypage/review-tab/review-cell-2.png";
 import reviewCell3 from "../assets/images/mypage/review-tab/review-cell-3.png";
 import reviewCell4 from "../assets/images/mypage/review-tab/review-cell-4.png";
 
-const pageTabs = ["마이페이지", "피드", "리뷰"];
+const pageTabs = ["마이페이지", "향수추천", "리뷰"];
 
 const perfumeById = (id) => allPerfumes.find((item) => item.id === id);
 
@@ -89,10 +89,10 @@ const recommendsGiven = [
 // 피그마 list/profile: 2열 그리드, 칸당 244px, 해시태그는 사진 위 좌하단 오버레이
 // 피드/리뷰 탭이 같은 틀(그리드)을 쓰고 내용만 다름
 const feedPosts = [
-  { img: feedCell1, hashtags: ["#밤산책", "#개굳"] },
-  { img: feedCell2, hashtags: ["#밤산책", "#개굳"] },
-  { img: feedCell3, hashtags: ["#밤산책", "#개굳"] },
-  { img: feedCell4, hashtags: ["#밤산책", "#개굳"] },
+  { img: feedCell1, hashtags: ["#밤산책", "#우디향수"] },
+  { img: feedCell2, hashtags: ["#햇살무드", "#포근한향"] },
+  { img: feedCell3, hashtags: ["#데일리향수", "#클린머스크"] },
+  { img: feedCell4, hashtags: ["#주말나들이", "#시트러스"] },
 ];
 
 const reviewPosts = [
@@ -329,7 +329,7 @@ export default function Mypage() {
         {/* content */}
         {activeTab !== "마이페이지" ? (
           <PostGrid
-            items={activeTab === "피드" ? feedPosts : reviewPosts}
+            items={activeTab === "향수추천" ? feedPosts : reviewPosts}
             onItemClick={
               activeTab === "리뷰"
                 ? (post) =>
