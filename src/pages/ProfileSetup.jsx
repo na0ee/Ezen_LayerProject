@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { BtnBig, BtnGo, CommunityEnter } from "../components/common";
 import addPhoto from "../assets/icons/add-photo.svg";
 import characterLay from "../assets/images/character-lay.png";
 import {
   DEFAULT_USER_PROFILE,
+  getUserProfile,
   saveUserProfile,
 } from "../data/userProfile";
 import CameraCaptureModal from "../components/common/CameraCaptureModal";
@@ -47,16 +48,27 @@ function resizeProfileImage(file) {
 // 피그마: 프로필 만들기 (3312:14955)
 export default function ProfileSetup() {
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState("");
-  const [profileImage, setProfileImage] = useState("");
+  const location = useLocation();
+  const isEditing = location.state?.mode === "edit";
+  const returnTo = location.state?.returnTo || "/my";
+  const [initialProfile] = useState(() =>
+    isEditing ? getUserProfile() : { nickname: "", image: "" },
+  );
+  const [nickname, setNickname] = useState(initialProfile.nickname);
+  const [profileImage, setProfileImage] = useState(initialProfile.image);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const photoInputRef = useRef(null);
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-107.5 flex-col bg-background px-5 pb-[max(24px,env(safe-area-inset-bottom))] pt-[calc(12px+env(safe-area-inset-top))]">
       <div className="flex justify-end">
-        <BtnGo variant="more" onClick={() => navigate("/onboarding/skip")}>
-          건너뛰기
+        <BtnGo
+          variant="more"
+          onClick={() =>
+            isEditing ? navigate(returnTo) : navigate("/onboarding/skip")
+          }
+        >
+          {isEditing ? "닫기" : "건너뛰기"}
         </BtnGo>
       </div>
 
@@ -139,11 +151,15 @@ export default function ProfileSetup() {
             nickname: nickname || DEFAULT_USER_PROFILE.nickname,
             image: profileImage || DEFAULT_USER_PROFILE.image,
           });
+          if (isEditing) {
+            navigate(returnTo, { replace: true });
+            return;
+          }
           sessionStorage.removeItem("layer-onboarding-result-path");
           navigate("/onboarding");
         }}
       >
-        내 향수유형 알아보기
+        {isEditing ? "프로필 저장하기" : "내 향수유형 알아보기"}
       </BtnBig>
     </div>
   );

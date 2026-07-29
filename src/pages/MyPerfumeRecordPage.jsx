@@ -27,7 +27,11 @@ const matierePerfume = {
   perfume: { brandId: "matiere-premiere" },
 };
 
-const brandOptions = [...brands, matiereBrand];
+const brandOptions = [
+  ...brands.filter((brand) => brand.id !== "shiro"),
+  matiereBrand,
+  ...brands.filter((brand) => brand.id === "shiro"),
+];
 const perfumeCatalog = [...allPerfumes, matierePerfume];
 
 // 참고 파일(MyPerfumeRecordPage.tsx)의 레이아웃/기능을 이 프로젝트 컴포넌트·토큰으로 이식

@@ -300,6 +300,7 @@ export default function Mypage() {
   const { ids: wishlistIds, isWishlisted, toggleWishlist } =
     usePerfumeWishlist();
   const wishlist = wishlistIds.map(perfumeById).filter(Boolean);
+  const wishlistPreview = wishlist.slice(0, 3);
   const [activeTab, setActiveTab] = useState(
     location.state?.activeTab ?? "마이페이지",
   );
@@ -348,7 +349,14 @@ export default function Mypage() {
               </div>
             </div>
           </div>
-          <BtnSmall variant="white" onClick={() => setIsPreparingOpen(true)}>
+          <BtnSmall
+            variant="white"
+            onClick={() =>
+              navigate("/profile", {
+                state: { mode: "edit", returnTo: "/my" },
+              })
+            }
+          >
             프로필 편집
           </BtnSmall>
         </div>
@@ -494,7 +502,7 @@ export default function Mypage() {
                 <MoreLink onClick={() => navigate("/mypage/wishlist")} />
               </div>
               <div className="flex w-full flex-col gap-4">
-                {wishlist.map((item) => (
+                {wishlistPreview.map((item) => (
                   <CardSmall
                     key={item.name}
                     variant="medium-b"
