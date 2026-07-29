@@ -71,7 +71,7 @@ export default function MagazineSummerPerfume({ onBack }) {
             </div>
           </section>
 
-          <article className="flex w-full flex-col items-center gap-16">
+          <article className="flex w-full flex-col items-center gap-10">
             <div className="flex w-full flex-col gap-2 px-5 text-offblack">
               <h1 className="text-title-semibold-18">
                 열대야의 공기와 어울리는 향수를 소개합니다

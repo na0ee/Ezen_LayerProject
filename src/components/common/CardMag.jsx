@@ -15,7 +15,7 @@ export default function CardMag({
         <img src={img} alt="" className={imgClassName} />
       )}
       {/* 피그마: inner 높이 124px 고정, 텍스트는 상단 정렬 */}
-      <div className="relative flex h-31 w-full flex-col gap-1.5 rounded-[20px] bg-offblack/50 p-4">
+80aaf6c (온보딩_홈_컴포넌트_매거진_수정)
         <p className="truncate text-title-semibold-18 text-offwhite">{title}</p>
         <p className="whitespace-pre-line text-caption-medium-12 leading-[1.4] text-offwhite">
           {desc}

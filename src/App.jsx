@@ -4,6 +4,7 @@ import {
   Routes,
   useLocation,
   useNavigate,
+  useParams,
   useSearchParams,
 } from "react-router-dom";
 import MagazineAllView from "../Magazine/Magazine_allview";
@@ -33,10 +34,12 @@ import OnboardingQuestion from "./pages/OnboardingQuestion";
 import OnboardingResult from "./pages/OnboardingResult";
 import OnboardingSkip from "./pages/OnboardingSkip";
 import OnboardingLoading from "./pages/OnboardingLoading";
+import PerfumeDetail from "./pages/PerfumeDetail";
 import ProfileSetup from "./pages/ProfileSetup";
 import Raffle from "./pages/raffle";
 import SearchResult from "./pages/SearchResult";
 import Alarm from "./pages/alarm";
+import { findPerfume } from "./data/perfumeUtils";
 
 const TAB_ROUTES = {
   home: "/home",
@@ -190,6 +193,7 @@ export default function App() {
         }
       />
       <Route path="/search" element={<SearchResultRoute />} />
+      <Route path="/perfume/:perfumeId" element={<PerfumeDetailRoute />} />
       <Route path="/community" element={<CommunityWriteEntryPage />} />
       <Route path="/components" element={<ComponentsPreview />} />
       <Route path="*" element={<Navigate to="/home" replace />} />
@@ -203,6 +207,28 @@ function SearchResultRoute() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   return (
-    <SearchResult query={params.get("q") ?? ""} onBack={() => navigate(-1)} />
+    <SearchResult
+      query={params.get("q") ?? ""}
+      onBack={() => navigate(-1)}
+      onSelect={(item) => navigate(`/perfume/${item.id}`)}
+    />
+  );
+}
+
+function PerfumeDetailRoute() {
+  const navigate = useNavigate();
+  const { perfumeId } = useParams();
+  const item = findPerfume(Number(perfumeId));
+
+  return (
+    <PerfumeDetail
+      key={item.id}
+      item={item}
+      onBack={() => navigate(-1)}
+      onSearch={() => navigate("/category")}
+      onBell={() => navigate("/alarm")}
+      onMore={() => navigate("/search")}
+      onSelectRelated={(related) => navigate(`/perfume/${related.id}`)}
+    />
   );
 }

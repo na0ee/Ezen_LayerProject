@@ -62,7 +62,7 @@ export default function CardInfo({
           )}
           {isRaffle && (type === "a" || overlayLabel) && (
             <>
-              <div className="absolute inset-0 bg-offblack/50" />
+              <div className="absolute inset-0 bg-offblack/40" />
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5">
                 {overlayLabel ? (
                   <p className="text-body-semibold-16 text-offwhite">

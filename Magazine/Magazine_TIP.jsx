@@ -70,7 +70,7 @@ export default function MagazineTip({ onBack }) {
             </div>
           </section>
 
-          <article className="flex h-[2892px] w-full flex-col items-center gap-16">
+          <article className="flex h-[2892px] w-full flex-col items-center gap-10">
             <div className="flex w-full flex-col items-center justify-center gap-2 px-5 text-offblack">
               <h2 className="w-full text-title-semibold-18">
                 오래 기억되는 향을 위한 작은 습관

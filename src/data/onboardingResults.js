@@ -30,9 +30,14 @@ import layerOrpheon from "../assets/images/result/layer-maximalist/orpheon.png";
 import layerMyslf from "../assets/images/result/layer-maximalist/myslf.png";
 
 const perfumes = (blackberryBay, orpheon, myslf) => [
-  { name: "Blackberry & Bay Cologne", brand: "Jo Malone", image: blackberryBay },
-  { name: "Orpheon", brand: "Diptyque", image: orpheon },
-  { name: "Myslf", brand: "Yves Saint Laurent", image: myslf },
+  {
+    id: 51,
+    name: "Blackberry & Bay Cologne",
+    brand: "Jo Malone",
+    image: blackberryBay,
+  },
+  { id: 52, name: "Orpheon", brand: "Diptyque", image: orpheon },
+  { id: 53, name: "Myslf", brand: "Yves Saint Laurent", image: myslf },
 ];
 
 export const ONBOARDING_RESULTS = {

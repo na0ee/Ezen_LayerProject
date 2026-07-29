@@ -111,7 +111,11 @@
 /* 반투명 다크 표면용 CSS Liquid Glass fallback.
    색상은 프로젝트 토큰을 사용하고 광학 효과만 공통화한다. */
 @utility glass-surface-dark {
-  background-color: var(--color-offblack70);
+  background-color: color-mix(
+    in srgb,
+    var(--color-offblack) 60%,
+    transparent
+  );
   -webkit-backdrop-filter: blur(8px) saturate(120%);
   backdrop-filter: blur(8px) saturate(120%);
   border: 1px solid

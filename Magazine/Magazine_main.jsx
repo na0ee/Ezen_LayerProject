@@ -22,6 +22,75 @@ import exploreSummer from "./assets/summer-perfume-detail/hero.png";
 
 const CATEGORIES = ["전체", "향수 상식", "추천", "트렌드", "선물", "브랜드"];
 
+const EXPLORE_POSTS = [
+  {
+    img: exploreCollection,
+    label: "Scent Match",
+    title: "New Fragrance Collection 2026",
+    desc: "올해 가장 주목해야 할 새로운 향수들",
+    categories: ["추천", "트렌드"],
+    target: "fragranceCollection",
+  },
+  {
+    img: exploreSeasons,
+    label: "Scent Match",
+    title: "계절별 향수 선택 가이드",
+    desc: "봄부터 겨울까지, 계절에 어울리는 노트 찾기",
+    categories: ["향수 상식", "추천"],
+    target: "season",
+  },
+  {
+    img: exploreSummer,
+    imgClassName: "absolute inset-0 size-full object-cover object-bottom",
+    label: "Scent Match",
+    title: "계절별 향수 선택 가이드",
+    desc: "봄부터 겨울까지, 계절에 어울리는 노트 찾기",
+    categories: ["향수 상식", "추천"],
+    target: "summerPerfume",
+  },
+  {
+    img: popularTip,
+    label: "Scent Match",
+    title: "향수 지속력 높이는 꿀팁",
+    desc: "같은 향도 오래 남기는 사용법",
+    categories: ["향수 상식"],
+    target: "santalTip",
+  },
+  {
+    img: heroSantal,
+    imgClassName: "absolute inset-0 size-full object-cover object-[center_66.36%]",
+    label: "Scent Match",
+    title: "니치 향수 트렌드",
+    desc: "향으로 나를 표현하는 시대",
+    categories: ["트렌드"],
+    target: "niche",
+  },
+  {
+    img: popularJomalone,
+    label: "Scent Match",
+    title: "JO MALONE LONDON",
+    desc: "나만의 향을 완성해가는 레이어링의 시작",
+    categories: ["선물", "브랜드"],
+    target: "jomalone",
+  },
+  {
+    img: popularDiptyque,
+    label: "Scent Match",
+    title: "DIPTYQUE",
+    desc: "예술과 여행이 향으로 만나다",
+    categories: ["선물", "브랜드"],
+    target: "diptyque",
+  },
+  {
+    img: brandByredo,
+    label: "Scent Match",
+    title: "BYREDO",
+    desc: "기억과 감정을 향으로 담아내는 브랜드",
+    categories: ["브랜드"],
+    target: "byredo",
+  },
+];
+
 export default function MagazineMain({
   onAllView,
   onByredo,
@@ -35,6 +104,20 @@ export default function MagazineMain({
   onNavigate,
 }) {
   const [category, setCategory] = useState("전체");
+  const exploreActions = {
+    fragranceCollection: onFragranceCollection,
+    season: onSeason,
+    summerPerfume: onSummerPerfume,
+    santalTip: onSantalTip,
+    niche: onNiche,
+    jomalone: onJomalone,
+    diptyque: onDiptyque,
+    byredo: onByredo,
+  };
+  const visibleExplorePosts =
+    category === "전체"
+      ? EXPLORE_POSTS
+      : EXPLORE_POSTS.filter((post) => post.categories.includes(category));
 
   const handleRailPointerDown = (event) => {
     const rail = event.currentTarget;
@@ -102,7 +185,7 @@ export default function MagazineMain({
 
         <main className="mt-6 flex w-full flex-col gap-[60px] pb-[120px]">
           <section
-            className="flex h-[236px] flex-col gap-[30px] px-5"
+            className="flex h-[273px] flex-col gap-[30px] px-5"
             aria-labelledby="trend-heading"
           >
             <TitleSection
@@ -110,7 +193,7 @@ export default function MagazineMain({
               className="h-[29px] leading-[29px]"
             />
             <div
-              className="relative h-[177px] w-full cursor-pointer"
+              className="relative h-[214px] w-full cursor-pointer"
               onClick={onNiche}
               onKeyDown={(event) => {
                 if (event.key === "Enter" || event.key === " ") onNiche?.();
@@ -121,18 +204,22 @@ export default function MagazineMain({
             >
               <MainBanner
                 img={heroSantal}
-                imgClassName="size-full object-cover object-[center_66.36%]"
-                className="!h-[177px] !rounded-lg"
+                imgClassName="absolute left-[-0.07%] top-[-151.83%] h-[324.65%] w-full max-w-none"
               />
-              <div className="absolute bottom-3 left-3 flex flex-col items-start gap-2.5 text-offwhite">
-                <h3 className="text-title-semibold-18">니치 향수 트렌드</h3>
+              <p className="absolute left-5 top-5 font-en text-en-semibold-16 tracking-[-0.02em] text-offwhite">
+                Perfume Trend
+              </p>
+              <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
+                <h3 className="text-title-semibold-18 text-offwhite">
+                  니치 향수 트랜드
+                </h3>
                 <BtnGo
-                  variant="more2"
+                  variant="raffle"
                   onClick={(event) => {
                     event.stopPropagation();
                     onNiche?.();
                   }}
-                  className="[&_img]:brightness-0 [&_img]:invert [&>span>span]:!text-caption-medium-12 [&>span>span]:!text-offwhite"
+                  className="!border-0 !bg-offblack/20 !shadow-none !backdrop-blur-none [&>span]:!text-body-regular-14"
                 >
                   지금 읽어보기
                 </BtnGo>
@@ -301,49 +388,24 @@ export default function MagazineMain({
                 {...dragRailProps}
               >
                 <div className="flex w-max gap-4 px-5">
-                  <button
-                    type="button"
-                    onClick={onFragranceCollection}
-                    className="block shrink-0 text-left"
-                    aria-label="New Fragrance Collection 2026 보기"
-                  >
-                    <MagListCard
-                      img={exploreCollection}
-                      label="Scent Match"
-                      title="New Fragrance Collection 2026"
-                      desc="올해 가장 주목해야 할 새로운 향수들"
-                      className="shrink-0"
-                    />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={onSeason}
-                    className="block shrink-0 text-left"
-                    aria-label="계절별 향수 선택 가이드 보기"
-                  >
-                    <MagListCard
-                      img={exploreSeasons}
-                      label="Scent Match"
-                      title="계절별 향수 선택 가이드"
-                      desc="봄부터 겨울까지, 계절에 어울리는 노트 찾기"
-                      className="shrink-0"
-                    />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={onSummerPerfume}
-                    className="block shrink-0 text-left"
-                    aria-label="여름 밤에 어울리는 향 보기"
-                  >
-                    <MagListCard
-                      img={exploreSummer}
-                      imgClassName="absolute inset-0 size-full object-cover object-bottom"
-                      label="Scent Match"
-                      title="계절별 향수 선택 가이드"
-                      desc="봄부터 겨울까지, 계절에 어울리는 노트 찾기"
-                      className="shrink-0"
-                    />
-                  </button>
+                  {visibleExplorePosts.map((post) => (
+                    <button
+                      key={post.target}
+                      type="button"
+                      onClick={exploreActions[post.target]}
+                      className="block shrink-0 text-left"
+                      aria-label={`${post.title} 보기`}
+                    >
+                      <MagListCard
+                        img={post.img}
+                        imgClassName={post.imgClassName}
+                        label={post.label}
+                        title={post.title}
+                        desc={post.desc}
+                        className="shrink-0"
+                      />
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>

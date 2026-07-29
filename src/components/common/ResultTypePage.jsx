@@ -40,6 +40,7 @@ export default function ResultTypePage({
   const navigate = useNavigate()
   const sliderRef = useRef(null)
   const dragStartRef = useRef({ x: 0, scrollLeft: 0 })
+  const didDragRef = useRef(false)
   const [isDragging, setIsDragging] = useState(false)
 
   const handlePointerDown = (event) => {
@@ -52,6 +53,7 @@ export default function ResultTypePage({
       x: event.clientX,
       scrollLeft: slider.scrollLeft,
     }
+    didDragRef.current = false
     setIsDragging(true)
     slider.setPointerCapture(event.pointerId)
   }
@@ -62,6 +64,9 @@ export default function ResultTypePage({
     const slider = sliderRef.current
     if (!slider) return
 
+    if (Math.abs(event.clientX - dragStartRef.current.x) > 6) {
+      didDragRef.current = true
+    }
     slider.scrollLeft =
       dragStartRef.current.scrollLeft - (event.clientX - dragStartRef.current.x)
   }
@@ -132,7 +137,17 @@ export default function ResultTypePage({
             onDragStart={(event) => event.preventDefault()}
           >
             {perfumes.map((perfume) => (
-              <ResultPerfumeCard key={perfume.name} {...perfume} />
+              <ResultPerfumeCard
+                key={perfume.id}
+                {...perfume}
+                onClick={() => {
+                  if (didDragRef.current) {
+                    didDragRef.current = false
+                    return
+                  }
+                  navigate(`/perfume/${perfume.id}`)
+                }}
+              />
             ))}
             <span aria-hidden="true" className="w-3 shrink-0" />
           </div>

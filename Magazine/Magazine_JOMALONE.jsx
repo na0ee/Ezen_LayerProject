@@ -36,7 +36,7 @@ export default function MagazineJomalone({ onBack }) {
             </div>
           </section>
 
-          <article className="flex w-full flex-col items-center gap-16">
+          <article className="flex w-full flex-col items-center gap-10">
             <div className="flex w-full flex-col gap-2 px-5 text-offblack">
               <h1 className="text-title-semibold-18">
                 나만의 향을 완성하는 레이어링의 시작
