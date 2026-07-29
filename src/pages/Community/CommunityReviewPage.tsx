@@ -11,6 +11,7 @@ import profileWoodyCollector from "../../assets/Community/Profile/profile-woody-
 import beigeLookImage from "../../assets/Community/review-beige-look.png";
 import lazySundayMorningImage from "../../assets/Community/review-lazy-sunday-morning.png";
 import santal33Image from "../../assets/Community/review-santal-33.png";
+import loeweProduct from "../../assets/images/mypage/loewe.png";
 import {
   BottomNav,
   Con2,
@@ -19,6 +20,7 @@ import {
 } from "../../components/common";
 import type { CommunityUserPost } from "./communityUserPosts";
 import { getUserProfile } from "../../data/userProfile";
+import { getCommunityGeneratedProfile } from "../../data/communityGeneratedProfiles";
 
 type ProductTagProps = {
   brandName: string;
@@ -196,6 +198,58 @@ const thirdReviewTags = [
     },
 ] as const;
 
+const blancheReviewTags = [firstReviewTags[1]] as const;
+const joMaloneReviewTags = [firstReviewTags[2]] as const;
+const diptyqueRoseReviewTags = [firstReviewTags[0]] as const;
+const loeweReviewTags = [
+  {
+    brandName: "Loewe",
+    left: "43%",
+    top: 78,
+    perfumeId: 7,
+    productName: "로에베 001 우먼",
+    productImage: loeweProduct,
+  },
+] as const;
+
+const generatedReviewMedia = (
+  profileId: string,
+  profileName: string,
+  postIndex = 0,
+) => {
+  const media = getCommunityGeneratedProfile(`${profileId}-${profileName}`);
+  return {
+    profileImage: media?.profile,
+    image: media?.posts[postIndex] ?? media?.posts[0],
+  };
+};
+
+const fadedScentMedia = generatedReviewMedia(
+  "sunset-commute",
+  "fadedscent",
+  0,
+);
+const passingPerfumerMedia = generatedReviewMedia(
+  "cloudy-seaside",
+  "지나가던조향사",
+  1,
+);
+const rainyScentMedia = generatedReviewMedia(
+  "rainy-evening-walk",
+  "비오는날의향",
+  2,
+);
+const fruityLoverMedia = generatedReviewMedia(
+  "fruity-lover",
+  "과일향러버",
+  1,
+);
+const officeScentMedia = generatedReviewMedia(
+  "office-scent",
+  "출근향찾는중",
+  2,
+);
+
 const reviewPosts = [
   {
     id: "beige-look",
@@ -234,6 +288,71 @@ const reviewPosts = [
     text: "레이지 선데이 모닝은 자기 전에 뿌리는 향수예요. 갓 세탁한 이불에 파묻히는 느낌. 수면향 찾으시는 분들께 강추.",
     keywords: ["머스크", "잠들기전", "포근함", "지속력좋아요"],
     likes: 28,
+    comments: 4,
+  },
+  {
+    id: "sunset-commute",
+    profileName: "fadedscent",
+    profileTime: "4시간 전",
+    profileImage: fadedScentMedia.profileImage ?? profileCottonScent,
+    image: fadedScentMedia.image ?? beigeLookImage,
+    productTags: blancheReviewTags,
+    title: "아이와 보내는 포근한 아침, 블랑쉬",
+    text: "깨끗한 이불 냄새처럼 은은해서 주말 아침에 자주 뿌려요. 아이와 가까이 있어도 부담스럽지 않을 만큼 부드럽게 남는 비누 향이 마음에 들었습니다.",
+    keywords: ["블랑쉬", "비누향", "포근한아침"],
+    likes: 24,
+    comments: 5,
+  },
+  {
+    id: "cloudy-seaside",
+    profileName: "지나가던조향사",
+    profileTime: "어제",
+    profileImage: passingPerfumerMedia.profileImage ?? profileWoodyCollector,
+    image: passingPerfumerMedia.image ?? santal33Image,
+    productTags: joMaloneReviewTags,
+    title: "웨딩드레스 피팅 날 고른 향",
+    text: "새하얀 드레스와 잘 어울리는 맑고 화사한 향을 찾다가 잉글리쉬 페어 앤 프리지아를 골랐어요. 배의 산뜻함과 은은한 꽃향이 설레는 분위기를 더해줬습니다.",
+    keywords: ["웨딩향수", "잉글리쉬페어", "화사한향"],
+    likes: 37,
+    comments: 7,
+  },
+  {
+    id: "rainy-evening-walk",
+    profileName: "비오는날의향",
+    profileTime: "어제",
+    profileImage: rainyScentMedia.profileImage ?? profileHaesu,
+    image: rainyScentMedia.image ?? lazySundayMorningImage,
+    productTags: loeweReviewTags,
+    title: "커피 한 잔과 잘 어울리는 로에베 001",
+    text: "부드러운 우디와 머스크가 따뜻한 커피 향처럼 편안하게 느껴져요. 책을 읽거나 혼자 쉬는 오후에 뿌리면 차분한 분위기가 오래 이어집니다.",
+    keywords: ["로에베001", "커피타임", "우디머스크"],
+    likes: 31,
+    comments: 6,
+  },
+  {
+    id: "fruity-lover",
+    profileName: "과일향러버",
+    profileTime: "2일 전",
+    profileImage: fruityLoverMedia.profileImage ?? profileCottonScent,
+    image: fruityLoverMedia.image ?? beigeLookImage,
+    productTags: diptyqueRoseReviewTags,
+    title: "빈티지 보틀에 담아본 장미 향",
+    text: "오 로즈를 빈티지 아토마이저에 옮겨 담으니 화장대 분위기까지 달라졌어요. 촉촉한 장미와 리치 향이 우아하지만 무겁지 않게 퍼져 기분 전환에 좋았습니다.",
+    keywords: ["오로즈", "빈티지무드", "장미향"],
+    likes: 46,
+    comments: 9,
+  },
+  {
+    id: "office-scent",
+    profileName: "출근향찾는중",
+    profileTime: "3일 전",
+    profileImage: officeScentMedia.profileImage ?? profileWoodyCollector,
+    image: officeScentMedia.image ?? santal33Image,
+    productTags: secondReviewTags,
+    title: "도시 노을을 보며 뿌린 상탈 33",
+    text: "하루를 마치고 옥상에서 노을을 볼 때 상탈 33을 한 번 뿌렸어요. 드라이한 나무 향과 따뜻한 가죽 느낌이 저녁 공기와 잘 어울려 마음이 차분해졌습니다.",
+    keywords: ["상탈33", "도시노을", "저녁향수"],
+    likes: 29,
     comments: 4,
   },
 ] as const;
@@ -327,10 +446,18 @@ export default function CommunityReviewPage({
               <Con2
                 profileName={post.profileName}
                 profileTime={post.profileTime}
-                profileImg={post.profileImage}
+                profileImg={
+                  getCommunityGeneratedProfile(
+                    `${post.id}-${post.profileName}`,
+                  )?.profile ?? post.profileImage
+                }
                 imgs={[post.image]}
-                imageOverlay={<ProductOverlay tags={post.productTags} />}
-                toggleImageOverlay
+                imageOverlay={
+                  post.productTags.length > 0 ? (
+                    <ProductOverlay tags={post.productTags} />
+                  ) : undefined
+                }
+                toggleImageOverlay={post.productTags.length > 0}
                 title={post.title}
                 text={post.text}
                 keywords={[...post.keywords]}
@@ -342,7 +469,10 @@ export default function CommunityReviewPage({
                     state: {
                       profile: {
                         name: post.profileName,
-                        image: post.profileImage,
+                        image:
+                          getCommunityGeneratedProfile(
+                            `${post.id}-${post.profileName}`,
+                          )?.profile ?? post.profileImage,
                       },
                     },
                   })
