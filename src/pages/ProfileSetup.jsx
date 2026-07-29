@@ -1,6 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { BtnBig, BtnGo, CommunityEnter } from "../components/common";
+import {
+  BtnBig,
+  BtnGo,
+  CommunityEnter,
+  FeatureGuideCard,
+} from "../components/common";
 import addPhoto from "../assets/icons/add-photo.svg";
 import characterLay from "../assets/images/character-lay.png";
 import {
@@ -57,10 +62,69 @@ export default function ProfileSetup() {
   const [nickname, setNickname] = useState(initialProfile.nickname);
   const [profileImage, setProfileImage] = useState(initialProfile.image);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const [isGuideOpen, setIsGuideOpen] = useState(true);
+  const [guideTop, setGuideTop] = useState(null);
   const photoInputRef = useRef(null);
+  const pageRef = useRef(null);
+  const nicknameRef = useRef(null);
+  const guideRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  useEffect(() => {
+    const handleGuideChange = (event) => {
+      setIsGuideOpen(Boolean(event.detail));
+    };
+
+    window.addEventListener("layer:guide-change", handleGuideChange);
+    return () =>
+      window.removeEventListener("layer:guide-change", handleGuideChange);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!isGuideOpen) return undefined;
+
+    const updateGuidePosition = () => {
+      const page = pageRef.current;
+      const nicknameField = nicknameRef.current;
+      const guide = guideRef.current;
+      const button = buttonRef.current;
+
+      if (!page || !nicknameField || !guide || !button) return;
+
+      const pageRect = page.getBoundingClientRect();
+      const nicknameRect = nicknameField.getBoundingClientRect();
+      const guideRect = guide.getBoundingClientRect();
+      const buttonRect = button.getBoundingClientRect();
+      const center =
+        (nicknameRect.bottom + buttonRect.top) / 2 - pageRect.top;
+
+      setGuideTop(center - guideRect.height / 2);
+    };
+
+    updateGuidePosition();
+    const observer = new ResizeObserver(updateGuidePosition);
+    [pageRef.current, nicknameRef.current, guideRef.current, buttonRef.current]
+      .filter(Boolean)
+      .forEach((element) => observer.observe(element));
+    window.addEventListener("resize", updateGuidePosition);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateGuidePosition);
+    };
+  }, [isGuideOpen]);
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-107.5 flex-col bg-background px-5 pb-[max(24px,env(safe-area-inset-bottom))] pt-[calc(12px+env(safe-area-inset-top))]">
+    <>
+      {isGuideOpen && (
+        <div className="feature-guide-overlay pointer-events-none fixed inset-0 z-[150] bg-black/55" />
+      )}
+
+      <div
+        ref={pageRef}
+        onPointerDown={() => setIsGuideOpen(false)}
+        className="relative mx-auto flex min-h-dvh w-full max-w-107.5 flex-col bg-background px-5 pb-[max(24px,env(safe-area-inset-bottom))] pt-[calc(12px+env(safe-area-inset-top))]"
+      >
       <div className="flex justify-end">
         <BtnGo
           variant="more"
@@ -133,6 +197,7 @@ export default function ProfileSetup() {
           onChooseFile={() => photoInputRef.current?.click()}
         />
 
+        <div ref={nicknameRef} className="relative z-[160] mt-5 w-full">
         <CommunityEnter
           variant="title"
           label="닉네임"
@@ -141,10 +206,29 @@ export default function ProfileSetup() {
           placeholder="사용할 닉네임을 입력해주세요"
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
-          className="mt-5"
         />
+        </div>
       </div>
 
+      {isGuideOpen && (
+        <div
+          ref={guideRef}
+          className="absolute left-1/2 z-[160] -translate-x-1/2"
+          style={{
+            top: guideTop == null ? "70%" : `${guideTop}px`,
+          }}
+        >
+          <FeatureGuideCard characterPosition="left" size="compact">
+            반가워요! 먼저 프로필을 설정해 주세요.
+            <br />
+            설정을 마치면 나만의 향 취향을 찾는 테스트가 시작돼요.
+            <br />
+            테스트는 홈과 MY에서 언제든 다시 할 수 있어요.
+          </FeatureGuideCard>
+        </div>
+      )}
+
+      <div ref={buttonRef} className="relative z-[160]">
       <BtnBig
         onClick={() => {
           saveUserProfile({
@@ -161,6 +245,8 @@ export default function ProfileSetup() {
       >
         {isEditing ? "프로필 저장하기" : "내 향수유형 알아보기"}
       </BtnBig>
-    </div>
+      </div>
+      </div>
+    </>
   );
 }

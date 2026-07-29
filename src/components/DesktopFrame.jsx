@@ -14,6 +14,13 @@ export default function DesktopFrame({ children }) {
     );
   }, [appWidth]);
 
+  useEffect(() => {
+    document.documentElement.dataset.guideEnabled = String(guideVisible);
+    window.dispatchEvent(
+      new CustomEvent("layer:guide-change", { detail: guideVisible }),
+    );
+  }, [guideVisible]);
+
   return (
     <div
       className="desktop-shell"

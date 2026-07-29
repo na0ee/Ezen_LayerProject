@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BottomNav,
   BtnGo,
   CardMag,
   Category,
+  FeatureGuideCard,
   Header,
   MagListCard,
   PopularTextCard,
@@ -104,6 +105,7 @@ export default function MagazineMain({
   onNavigate,
 }) {
   const [category, setCategory] = useState("전체");
+  const [isGuideOpen, setIsGuideOpen] = useState(true);
   const articleActions = {
     fragranceCollection: onFragranceCollection,
     season: onSeason,
@@ -120,6 +122,37 @@ export default function MagazineMain({
       : EXPLORE_ARTICLES.filter((article) =>
           article.categories.includes(category)
         );
+
+  useEffect(() => {
+    const handleGuideChange = (event) => {
+      setIsGuideOpen(Boolean(event.detail));
+    };
+
+    window.addEventListener("layer:guide-change", handleGuideChange);
+    return () =>
+      window.removeEventListener("layer:guide-change", handleGuideChange);
+  }, []);
+
+  useEffect(() => {
+    if (!isGuideOpen) return undefined;
+
+    const dismissGuide = (event) => {
+      const target = event.target;
+      if (
+        !(target instanceof Element) ||
+        !target.closest(".desktop-app, [data-bottom-nav]")
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      setIsGuideOpen(false);
+    };
+
+    document.addEventListener("click", dismissGuide, true);
+    return () => document.removeEventListener("click", dismissGuide, true);
+  }, [isGuideOpen]);
 
   const handleRailPointerDown = (event) => {
     const rail = event.currentTarget;
@@ -173,6 +206,18 @@ export default function MagazineMain({
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-2light-grey">
+      {isGuideOpen && (
+        <>
+          <div className="feature-guide-overlay pointer-events-none fixed inset-0 z-[150] bg-black/55" />
+          <div className="pointer-events-none fixed left-1/2 top-1/2 z-[170] -translate-x-1/2 -translate-y-1/2">
+            <FeatureGuideCard size="compact" characterPosition="left">
+              향수 트렌드부터 브랜드 이야기,
+              <br />
+              취향에 맞는 추천 콘텐츠까지 만나보세요!
+            </FeatureGuideCard>
+          </div>
+        </>
+      )}
       <div className="relative mx-auto min-h-screen w-full max-w-[430px] overflow-x-hidden bg-2light-grey">
         <Header
           variant="detail"

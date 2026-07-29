@@ -67,6 +67,7 @@ export default function BottomNav({
         </div>
         <button
           type="button"
+          data-guide-chatbot
           aria-label="챗봇 레이 열기"
           onClick={onCharacter ?? (() => navigate("/chatbot"))}
           className="glass-surface-dark glass-rim-light glass-depth bottom-nav-glass-tone flex size-16 shrink-0 items-center justify-center rounded-full"
