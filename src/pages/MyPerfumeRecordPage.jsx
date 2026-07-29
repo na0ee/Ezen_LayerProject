@@ -5,6 +5,11 @@ import { brands } from "../data/brands";
 import { allPerfumes } from "../data/perfumeUtils";
 import { getCalendarWeeks } from "../utils/calendar";
 import { matchesQuery } from "../utils/koreanSearch";
+import {
+  addPerfumeRecord,
+  loadPerfumeRecords,
+  toDateKey,
+} from "../data/perfumeRecords";
 import chevronDown from "../assets/icons/chevron-down.svg";
 import diptyque from "../assets/images/mypage/diptyque.png";
 import loewe from "../assets/images/mypage/loewe.png";
@@ -26,9 +31,10 @@ const brandOptions = [...brands, matiereBrand];
 const perfumeCatalog = [...allPerfumes, matierePerfume];
 
 // 참고 파일(MyPerfumeRecordPage.tsx)의 레이아웃/기능을 이 프로젝트 컴포넌트·토큰으로 이식
-const initialYear = 2026;
-const initialMonth = 7;
-const todayDate = 12;
+const currentDate = new Date();
+const initialYear = currentDate.getFullYear();
+const initialMonth = currentDate.getMonth() + 1;
+const todayDate = currentDate.getDate();
 const weekDayLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 // 이번 주 기록된 5일(6, 7, 8, 9, 11일)만 캘린더에 표시 — "이번 주 5일 기록했어요"와 동일
@@ -101,12 +107,29 @@ export default function MyPerfumeRecordPage() {
   const [isCompleteOpen, setIsCompleteOpen] = useState(false);
   const [isDraftSavedOpen, setIsDraftSavedOpen] = useState(false);
   const [selectedInfoDay, setSelectedInfoDay] = useState(null);
+  const [savedRecords, setSavedRecords] = useState(loadPerfumeRecords);
   const brandDropdownRef = useRef(null);
   const nameDropdownRef = useRef(null);
 
   const monthLabel = `${viewYear}년 ${viewMonth}월`;
   const calendarWeeks = getCalendarWeeks(viewYear, viewMonth);
-  const recordedInfo = recordedInfoByMonth[`${viewYear}-${viewMonth}`] ?? {};
+  const demoRecordedInfo =
+    recordedInfoByMonth[`${viewYear}-${viewMonth}`] ?? {};
+  const recordedInfo = Object.entries(demoRecordedInfo).reduce(
+    (result, [day, info]) => ({ ...result, [day]: [info] }),
+    {},
+  );
+  savedRecords
+    .filter(
+      (record) =>
+        record.date.startsWith(
+          `${viewYear}-${String(viewMonth).padStart(2, "0")}-`,
+        ),
+    )
+    .forEach((record) => {
+      const day = Number(record.date.slice(-2));
+      recordedInfo[day] = [...(recordedInfo[day] ?? []), record];
+    });
   const isCurrentViewMonth = viewYear === initialYear && viewMonth === initialMonth;
   const today = new Date(initialYear, initialMonth - 1, todayDate);
 
@@ -196,6 +219,19 @@ export default function MyPerfumeRecordPage() {
       return;
     }
     setErrors({});
+    const catalogItem = perfumeCatalog.find(
+      (item) => item.name === formData.name,
+    );
+    const myPerfumeItem = perfumeRecords.find(
+      (item) => item.name === formData.name,
+    );
+    const nextRecords = addPerfumeRecord({
+      date: toDateKey(selectedDate),
+      brand: catalogItem?.brand ?? myPerfumeItem?.brand ?? formData.brand,
+      name: formData.name,
+      icon: catalogItem?.img ?? myPerfumeItem?.image ?? "",
+    });
+    setSavedRecords(nextRecords);
     setIsCompleteOpen(true);
   };
 
@@ -261,12 +297,6 @@ export default function MyPerfumeRecordPage() {
                     className="flex flex-col items-center"
                     key={dayIndex}
                     onClick={() => {
-                      if (isToday) {
-                        setErrors((current) => ({ ...current, date: undefined }));
-                        setSelectedInfoDay(null);
-                        setSelectedDate({ year: viewYear, month: viewMonth, day });
-                        return;
-                      }
                       if (info) handleBottleDayClick(day);
                       else handleDateSelect(day);
                     }}
@@ -297,13 +327,17 @@ export default function MyPerfumeRecordPage() {
           {errors.date && <p className="mt-3 text-caption-medium-12 text-point-orange">{errors.date}</p>}
 
           {selectedInfoDay && recordedInfo[selectedInfoDay] && (
-            <CardSmall
-              variant="medium-b"
-              className="mt-4"
-              img={recordedInfo[selectedInfoDay].icon}
-              brand={recordedInfo[selectedInfoDay].brand}
-              name={recordedInfo[selectedInfoDay].name}
-            />
+            <div className="mt-4 flex flex-col gap-2">
+              {recordedInfo[selectedInfoDay].map((record, index) => (
+                <CardSmall
+                  key={record.id ?? `${selectedInfoDay}-${index}`}
+                  variant="medium-b"
+                  img={record.icon}
+                  brand={record.brand}
+                  name={record.name}
+                />
+              ))}
+            </div>
           )}
         </section>
 

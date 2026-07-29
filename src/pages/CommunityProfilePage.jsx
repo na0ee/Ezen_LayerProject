@@ -18,33 +18,33 @@ import reviewCell2 from "../assets/images/mypage/review-tab/review-cell-2.png";
 import reviewCell3 from "../assets/images/mypage/review-tab/review-cell-3.png";
 import reviewCell4 from "../assets/images/mypage/review-tab/review-cell-4.png";
 
-const tabs = ["향 추천", "리뷰"];
+const tabs = ["향수추천", "리뷰"];
 const recommendationPosts = [
   {
     id: "night-walk",
     img: feedCell1,
-    hashtags: ["#밤산책", "#우디"],
+    hashtags: ["#밤산책", "#차분한우디"],
     title: "밤 산책에 어울리는 향을 찾고 있어요",
     text: "선선한 밤공기와 잘 어울리는 차분한 우디 향을 추천해주세요.",
   },
   {
     id: "warm-sunlight",
     img: feedCell2,
-    hashtags: ["#햇살", "#포근함"],
+    hashtags: ["#햇살무드", "#포근한향"],
     title: "따뜻한 햇살 같은 향이 궁금해요",
     text: "부드럽고 포근하게 오래 남는 향수를 찾고 있어요.",
   },
   {
     id: "daily-mood",
     img: feedCell3,
-    hashtags: ["#데일리", "#머스크"],
+    hashtags: ["#데일리향수", "#클린머스크"],
     title: "매일 편하게 뿌릴 향을 추천해주세요",
     text: "부담 없이 사용할 수 있는 깨끗한 머스크 향이면 좋겠어요.",
   },
   {
     id: "weekend-outing",
     img: feedCell4,
-    hashtags: ["#주말", "#산뜻함"],
+    hashtags: ["#주말나들이", "#산뜻한향"],
     title: "주말 나들이에 어울리는 향 찾아요",
     text: "가볍고 산뜻해서 기분 전환이 되는 향수를 추천받고 싶어요.",
   },
@@ -127,7 +127,7 @@ export default function CommunityProfilePage() {
   const navigate = useNavigate();
   const location = useLocation();
   const profile = location.state?.profile ?? {};
-  const [activeTab, setActiveTab] = useState("향 추천");
+  const [activeTab, setActiveTab] = useState("향수추천");
   const [isFollowing, setIsFollowing] = useState(false);
 
   return (
@@ -192,20 +192,20 @@ export default function CommunityProfilePage() {
         />
 
         <PostGrid
-          items={activeTab === "향 추천" ? recommendationPosts : reviewPosts}
+          items={activeTab === "향수추천" ? recommendationPosts : reviewPosts}
           onItemClick={
             (post) =>
               navigate(`/community/post/profile-${post.id}`, {
                 state: {
                   post: {
                     type:
-                      activeTab === "향 추천" ? "recommendation" : "review",
+                      activeTab === "향수추천" ? "recommendation" : "review",
                     profileName: profile.name ?? "북극곰",
                     profileImage: profile.image ?? defaultProfile,
                     time: "5분 전",
                     image: post.img,
                     mood:
-                      activeTab === "향 추천" ? "Mood Shifter" : undefined,
+                      activeTab === "향수추천" ? "Mood Shifter" : undefined,
                     title: post.title,
                     text: post.text,
                     likes: post.likes,
