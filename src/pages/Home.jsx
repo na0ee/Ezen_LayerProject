@@ -314,11 +314,11 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
               }
               onMore={() => {}}
             />
-            <div className="flex h-[72px] items-center justify-between">
+            <div className="flex h-18 items-center gap-1.5">
               {days.map(({ day, date, recorded }) => (
                 <div
                   key={day}
-                  className={`flex h-[68px] w-[50px] flex-col items-center justify-center gap-2.5 rounded-[50px] border text-caption-medium-12 ${
+                  className={`flex h-17 max-w-12.5 flex-1 flex-col items-center justify-center gap-2.5 rounded-[50px] border text-caption-medium-12 ${
                     recorded
                       ? "border-offblack bg-offblack text-offwhite"
                       : "border-light-grey bg-offwhite text-offblack"
