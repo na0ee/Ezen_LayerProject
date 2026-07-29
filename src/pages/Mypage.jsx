@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   Badge,
   BottomNav,
-  BtnBig,
   BtnSmall,
   CardSmall,
   Category,
@@ -67,7 +66,7 @@ const reviews = [
 
 // TabSub "b"(추천받은) / "a"(내가 추천한) 탭에 따라 보여줄 목록을 분리
 const recommendsReceived = [
-  { img: tomford, name: "북극곰", perfume: "쏠레이 네쥐", comment: "눈 오는 날이랑 잘 어울리는 향이라 잘 어울릴 것 같아요!!" },
+  { img: tomford, name: "북극곰", perfume: "쏠레이 네쥐", comment: "눈 오는 날이랑 잘 어울리는 향이라 생각났어요" },
   { img: jomalone, name: "북극곰", perfume: "우드 세이지 앤 씨솔트 코롱", comment: "뭔가 라벤더향 좋아하실듯?" },
 ];
 const recommendsGiven = [
@@ -200,10 +199,10 @@ export default function Mypage() {
       {/* 배경 이미지 위 흰 카드: 프로필 + 카테고리 탭만 흰 배경(offwhite), 그 아래 콘텐츠 영역은 페이지 배경색(background) */}
       <div className="relative -mt-23.75 overflow-hidden rounded-t-3xl">
         {/* sec/profile */}
-        <div className="flex flex-col gap-6 bg-offwhite p-5">
+        <div className="flex items-center justify-between gap-4.5 bg-offwhite p-5">
           <div className="flex items-center gap-4.5">
             <img src={profile} alt="" className="size-20 shrink-0 rounded-full object-cover" />
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2">
                 <p className="text-title-semibold-18 text-offblack">북극곰</p>
                 <span className="flex items-center gap-0.5">
@@ -211,7 +210,7 @@ export default function Mypage() {
                   <span className="text-body-medium-14 text-subtext">NEWBIE</span>
                 </span>
               </div>
-              <div className="flex items-center gap-3 text-caption-medium-12">
+              <div className="flex items-center gap-3 text-body-medium-14">
                 <p className="text-subtext">
                   팔로워 <span className="text-offblack">12</span>
                 </p>
@@ -221,7 +220,7 @@ export default function Mypage() {
               </div>
             </div>
           </div>
-          <BtnBig>프로필 편집</BtnBig>
+          <BtnSmall variant="white">프로필 편집</BtnSmall>
         </div>
 
         {/* category tabs */}

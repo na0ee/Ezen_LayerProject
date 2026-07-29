@@ -155,49 +155,12 @@ export default function App() {
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
 
-      <Route
-        path="/magazine"
-        element={<MagazineMain {...magazineRoutes} onNavigate={navigateByTab} />}
-      />
-      <Route
-        path="/magazine/all"
-        element={<MagazineAllView {...magazineRoutes} onBack={goBackToMagazine} />}
-      />
-      <Route path="/magazine/byredo" element={<MagazineByredo onBack={goBackToMagazine} />} />
-      <Route path="/magazine/niche" element={<MagazineNiche onBack={goBackToMagazine} />} />
-      <Route path="/magazine/jomalone" element={<MagazineJomalone onBack={goBackToMagazine} />} />
-      <Route path="/magazine/diptyque" element={<MagazineDiptyque onBack={goBackToMagazine} />} />
-      <Route
-        path="/magazine/collection"
-        element={<MagazineFragranceCollection onBack={goBackToMagazine} />}
-      />
-      <Route path="/magazine/season" element={<MagazineSummer onBack={goBackToMagazine} />} />
-      <Route
-        path="/magazine/summer-perfume"
-        element={<MagazineSummerPerfume onBack={goBackToMagazine} />}
-      />
-      <Route path="/magazine/tip" element={<MagazineTip onBack={goBackToMagazine} />} />
-      <Route path="/my" element={<Mypage />} />
-      <Route path="/mypage" element={<Navigate to="/my" replace />} />
-      <Route path="/mypage/perfumes" element={<MyPerfumePage />} />
-      <Route path="/mypage/wishlist" element={<MyWishlistPage />} />
-      <Route path="/mypage/reviews" element={<MyReviewsPage />} />
-      <Route
-        path="/category"
-        element={
-          <Category
-            onSearch={(query) => navigate(`/search?q=${encodeURIComponent(query)}`)}
-            onSelect={(_, item) =>
-              navigate(`/search?q=${encodeURIComponent(item)}`)
-            }
-          />
-        }
-      />
-      <Route path="/search" element={<SearchResultRoute />} />
-      <Route path="/community" element={<CommunityWriteEntryPage />} />
-      <Route path="/components" element={<ComponentsPreview />} />
-      <Route path="*" element={<Navigate to="/home" replace />} />
-    </Routes>
+      {backgroundLocation && (
+        <Routes>
+          <Route path="/mypage/membership" element={<MyMembershipPage />} />
+        </Routes>
+      )}
+    </>
   );
 }
 
