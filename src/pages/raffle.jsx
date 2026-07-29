@@ -126,7 +126,7 @@ export default function Raffle({ onBack }) {
       />
 
       <main className="flex flex-col gap-4 pt-6 pb-10">
-        <div className="no-scrollbar flex gap-1.5 overflow-x-auto px-5">
+        <div className="scroll-rail-page-gutter no-scrollbar flex gap-1.5 overflow-x-auto">
           {filters.map((filter) => (
             <Tab
               key={filter}

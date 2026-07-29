@@ -183,9 +183,9 @@ export default function CommunityChallengePage({
 
             <div
               ref={mainChallengeRailRef}
-              className="community-challenge-main__carousel no-scrollbar -mr-5 w-[calc(100%_+_20px)] cursor-grab touch-pan-x overflow-x-auto overflow-y-hidden overscroll-x-contain active:cursor-grabbing"
+              className="community-challenge-main__carousel scroll-rail-page-gutter no-scrollbar -mx-5 w-[calc(100%_+_40px)] cursor-grab touch-pan-x overflow-x-auto overflow-y-hidden overscroll-x-contain active:cursor-grabbing"
             >
-              <div className="flex w-max gap-3 pr-5">
+              <div className="flex w-max gap-3">
                 {mainChallenges.map((challenge) => (
                   <CardChallengeSmall
                     key={challenge.id}

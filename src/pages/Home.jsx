@@ -617,31 +617,33 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             </div>
             <div
               {...scentDrag}
-              className="flex cursor-grab touch-auto select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
+              className="cursor-grab touch-auto select-none overflow-x-scroll overscroll-x-contain pb-1 active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
-              {scentCards.map((card, index) => (
-                <CardMainReview
-                  key={card.name}
-                  {...card}
-                  onClick={() =>
-                    navigate(`/community/post/home-scent-${index + 1}`, {
-                      state: {
-                        post: {
-                          profileName: card.name,
-                          profileImage: card.profileImage,
-                          time: "5분 전",
-                          image: card.img,
-                          mood: card.label,
-                          title: card.title,
-                          text: card.text,
-                          keywords: card.keywords,
+              <div className="flex w-max gap-3 px-5">
+                {scentCards.map((card, index) => (
+                  <CardMainReview
+                    key={card.name}
+                    {...card}
+                    onClick={() =>
+                      navigate(`/community/post/home-scent-${index + 1}`, {
+                        state: {
+                          post: {
+                            profileName: card.name,
+                            profileImage: card.profileImage,
+                            time: "5분 전",
+                            image: card.img,
+                            mood: card.label,
+                            title: card.title,
+                            text: card.text,
+                            keywords: card.keywords,
+                          },
                         },
-                      },
-                    })
-                  }
-                  className="shrink-0"
-                />
-              ))}
+                      })
+                    }
+                    className="shrink-0"
+                  />
+                ))}
+              </div>
             </div>
           </section>
 
@@ -664,50 +666,52 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             </div>
             <div
               {...challengeDrag}
-              className="flex cursor-grab touch-auto select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
+              className="cursor-grab touch-auto select-none overflow-x-scroll overscroll-x-contain pb-1 active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
-              {challengeCards.map((card, index) => (
-                <CardChallengeSmall
-                  key={card.title}
-                  img={card.img}
-                  imgClassName={
-                    index === 2
-                      ? "absolute left-[-9.71%] top-[-28.31%] h-[139.07%] w-[119.43%] max-w-none"
-                      : "size-full object-cover"
-                  }
-                  title={card.title}
-                  desc={card.desc}
-                  onAction={() => {
-                    const challengeReward = {
-                      challengeId: card.id,
-                      points: CHALLENGE_REWARDS[card.id],
-                    };
-                    if (index === 0) {
-                      navigate("/community", {
-                        state: {
-                          communityTab: "리뷰",
-                          challengeReward,
-                        },
-                      });
+              <div className="flex w-max gap-3 px-5">
+                {challengeCards.map((card, index) => (
+                  <CardChallengeSmall
+                    key={card.title}
+                    img={card.img}
+                    imgClassName={
+                      index === 2
+                        ? "absolute left-[-9.71%] top-[-28.31%] h-[139.07%] w-[119.43%] max-w-none"
+                        : "size-full object-cover"
                     }
-                    if (index === 1) {
-                      navigate("/mypage/perfumes/new", {
-                        state: { challengeReward },
-                      });
-                    }
-                    if (index === 2) {
-                      navigate("/community", {
-                        state: {
-                          communityTab: "향 추천",
-                          challengeReward,
-                        },
-                      });
-                    }
-                  }}
-                  className="shrink-0"
-                  aria-label={`챌린지 ${index + 1}`}
-                />
-              ))}
+                    title={card.title}
+                    desc={card.desc}
+                    onAction={() => {
+                      const challengeReward = {
+                        challengeId: card.id,
+                        points: CHALLENGE_REWARDS[card.id],
+                      };
+                      if (index === 0) {
+                        navigate("/community", {
+                          state: {
+                            communityTab: "리뷰",
+                            challengeReward,
+                          },
+                        });
+                      }
+                      if (index === 1) {
+                        navigate("/mypage/perfumes/new", {
+                          state: { challengeReward },
+                        });
+                      }
+                      if (index === 2) {
+                        navigate("/community", {
+                          state: {
+                            communityTab: "향 추천",
+                            challengeReward,
+                          },
+                        });
+                      }
+                    }}
+                    className="shrink-0"
+                    aria-label={`챌린지 ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </section>
 
@@ -726,30 +730,32 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             </div>
             <div
               {...magazineDrag}
-              className="flex cursor-grab touch-auto select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
+              className="cursor-grab touch-auto select-none overflow-x-scroll overscroll-x-contain pb-1 active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
-              <CardMag
-                img={magazine1}
-                title="향수 지속력 높이는 꿀팁"
-                desc={"보습된 피부에 뿌려야 향이 오래 머물러요"}
-                onClick={() => navigate("/magazine/tip")}
-                className="shrink-0"
-              />
-              <CardMag
-                img={magazine2}
-                title="BYREDO"
-                desc="기억과 감정을 향으로 담아내는 브랜드"
-                onClick={() => navigate("/magazine/byredo")}
-                className="shrink-0"
-              />
-              <CardMag
-                img={magazine3}
-                imgClassName="absolute inset-0 size-full object-cover object-bottom"
-                title="여름 밤에 어울리는 향"
-                desc={"해가 진 뒤에 피어나는 관능적인 노트들\n열대야의 공기와 어울리는 향수를 소개합니다"}
-                onClick={() => navigate("/magazine/summer-perfume")}
-                className="shrink-0"
-              />
+              <div className="flex w-max gap-3 px-5">
+                <CardMag
+                  img={magazine1}
+                  title="향수 지속력 높이는 꿀팁"
+                  desc={"보습된 피부에 뿌려야 향이 오래 머물러요"}
+                  onClick={() => navigate("/magazine/tip")}
+                  className="shrink-0"
+                />
+                <CardMag
+                  img={magazine2}
+                  title="BYREDO"
+                  desc="기억과 감정을 향으로 담아내는 브랜드"
+                  onClick={() => navigate("/magazine/byredo")}
+                  className="shrink-0"
+                />
+                <CardMag
+                  img={magazine3}
+                  imgClassName="absolute inset-0 size-full object-cover object-bottom"
+                  title="여름 밤에 어울리는 향"
+                  desc={"해가 진 뒤에 피어나는 관능적인 노트들\n열대야의 공기와 어울리는 향수를 소개합니다"}
+                  onClick={() => navigate("/magazine/summer-perfume")}
+                  className="shrink-0"
+                />
+              </div>
             </div>
           </section>
 
@@ -770,27 +776,29 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
                 items={["전체", "선물", "여성", "20대", "30대", "남성"]}
                 active={giftCategory}
                 onChange={setGiftCategory}
-                className="mt-5 overflow-x-auto [scrollbar-width:none]"
+                className="scroll-rail-page-gutter -mx-5 mt-5 w-[calc(100%+40px)] overflow-x-auto [scrollbar-width:none]"
               />
             </div>
             <div
               {...rankDrag}
-              className="flex cursor-grab touch-auto select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
+              className="cursor-grab touch-auto select-none overflow-x-scroll overscroll-x-contain pb-1 active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
-              {rankCards.map((card, index) => (
-                <CardRank
-                  key={`${giftCategory}-${card.id}`}
-                  rank={`${index + 1}위`}
-                  img={card.img}
-                  name={card.name}
-                  brand={card.brand}
-                  imageFrameClassName="w-20"
-                  imageClassName="size-full object-contain"
-                  liked={isWishlisted(card.id)}
-                  onLike={() => toggleWishlist(card.id)}
-                  className="shrink-0"
-                />
-              ))}
+              <div className="flex w-max gap-3 px-5">
+                {rankCards.map((card, index) => (
+                  <CardRank
+                    key={`${giftCategory}-${card.id}`}
+                    rank={`${index + 1}위`}
+                    img={card.img}
+                    name={card.name}
+                    brand={card.brand}
+                    imageFrameClassName="w-20"
+                    imageClassName="size-full object-contain"
+                    liked={isWishlisted(card.id)}
+                    onLike={() => toggleWishlist(card.id)}
+                    className="shrink-0"
+                  />
+                ))}
+              </div>
             </div>
           </section>
 

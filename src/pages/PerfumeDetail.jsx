@@ -224,7 +224,7 @@ export default function PerfumeDetail({
                 </div>
                 <div
                   ref={relatedRef}
-                  className="no-scrollbar flex cursor-grab gap-4 overflow-x-auto px-5 select-none active:cursor-grabbing"
+                  className="scroll-rail-page-gutter no-scrollbar flex cursor-grab gap-4 overflow-x-auto select-none active:cursor-grabbing"
                 >
                   {related.map((other) => (
                     <button
