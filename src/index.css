@@ -274,11 +274,206 @@ body {
 }
 
 /* 모바일 기본 화면(430px) 밖의 데스크톱 여백은 검은 배경으로 유지한다. */
-#root > * {
+.desktop-shell {
   width: 100%;
   max-width: 430px;
   min-height: var(--app-height, 100dvh);
   margin-inline: auto;
+}
+
+.desktop-brand {
+  display: none;
+}
+
+.desktop-app {
+  width: 100%;
+  min-height: var(--app-height, 100dvh);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --desktop-app-width: 430px;
+    --desktop-right-gap: clamp(40px, 23.45vw, 450.25px);
+  }
+
+  html,
+  body,
+  #root {
+    background: var(--color-offblack);
+  }
+
+  .desktop-shell {
+    --desktop-app-width: 430px;
+    --desktop-right-gap: clamp(40px, 23.45vw, 450.25px);
+    display: grid;
+    grid-template-columns:
+      minmax(0, 1fr) var(--desktop-app-width)
+      var(--desktop-right-gap);
+    width: 100%;
+    max-width: none;
+    min-height: 100dvh;
+    margin: 0;
+    background: var(--color-offblack);
+    transition: grid-template-columns 240ms ease;
+  }
+
+  .desktop-brand {
+    position: sticky;
+    top: 0;
+    display: flex;
+    height: 100dvh;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .desktop-brand-content {
+    display: flex;
+    width: 353.099px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transform: translateX(15.17%);
+  }
+
+  .desktop-lockup {
+    width: 353.099px;
+    color: var(--color-offwhite);
+    text-align: center;
+  }
+
+  .desktop-layer-logo {
+    display: block;
+    width: 353.099px;
+    height: 145.696px;
+  }
+
+  .desktop-lockup p {
+    margin: 4px 0 0;
+    font-family: var(--font-en);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.02em;
+  }
+
+  .desktop-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .desktop-size-controls {
+    display: flex;
+    gap: 10px;
+  }
+
+  .desktop-size-controls button {
+    min-height: 32px;
+    padding: 5px 10px;
+    border: 1px solid rgb(255 255 255 / 10%);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-point-orange) 76%, transparent);
+    color: var(--color-offwhite);
+    font-family: var(--font-sans);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.02em;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    transition:
+      background-color 160ms ease,
+      box-shadow 160ms ease,
+      opacity 160ms ease;
+  }
+
+  .desktop-size-controls button:not(.is-active) {
+    background: #000000;
+    color: var(--color-light-grey);
+  }
+
+  .desktop-size-controls button.is-active {
+    background: var(--color-point-orange);
+    box-shadow: 0 4px 16px rgb(255 72 0 / 22%);
+  }
+
+  .desktop-guide-toggle {
+    min-height: 30px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    color: var(--color-offwhite);
+    font-family: var(--font-en);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    transition:
+      background-color 220ms ease,
+      border-color 220ms ease,
+      color 220ms ease,
+      box-shadow 220ms ease,
+      -webkit-backdrop-filter 220ms ease,
+      backdrop-filter 220ms ease;
+  }
+
+  .desktop-guide-toggle::after {
+    transition: opacity 220ms ease;
+  }
+
+  .desktop-guide-toggle.is-inactive {
+    background: #000000;
+    border-color: transparent;
+    color: var(--color-light-grey);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  .desktop-guide-toggle.is-inactive::after {
+    opacity: 0;
+  }
+
+  .desktop-app {
+    position: relative;
+    width: var(--desktop-app-width);
+    min-width: var(--desktop-app-width);
+    min-height: 100dvh;
+    justify-self: end;
+    background: var(--color-background);
+    transition:
+      width 240ms ease,
+      min-width 240ms ease,
+      box-shadow 160ms ease;
+  }
+
+  .desktop-app-guide {
+    box-shadow: -1px 0 0 rgb(255 255 255 / 13%);
+  }
+
+  .fixed.left-1\/2 {
+    left: calc(
+      100% - var(--desktop-right-gap) - (var(--desktop-app-width) / 2)
+    );
+  }
+
+  .fixed.inset-0 {
+    right: var(--desktop-right-gap);
+    left: calc(
+      100% - var(--desktop-right-gap) - var(--desktop-app-width)
+    );
+    width: var(--desktop-app-width);
+  }
+
+  .fixed.inset-x-0,
+  .fixed.left-0.right-0 {
+    right: auto;
+    left: calc(
+      100% - var(--desktop-right-gap) - var(--desktop-app-width)
+    );
+    width: var(--desktop-app-width);
+  }
 }
 
 .result-chart-grid {

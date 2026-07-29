@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
+import DesktopFrame from './components/DesktopFrame.jsx'
 
 const syncAppViewportHeight = () => {
   const isStandalone =
@@ -28,7 +29,9 @@ window.visualViewport?.addEventListener('resize', syncAppViewportHeight)
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <DesktopFrame>
+        <App />
+      </DesktopFrame>
     </BrowserRouter>
   </StrictMode>,
 )
