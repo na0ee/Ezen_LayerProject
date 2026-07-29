@@ -10,7 +10,25 @@ export default function SearchResult({ query = "", onBack, onSelect }) {
   const [tab, setTab] = useState("전체");
   const [likedIds, setLikedIds] = useState([]);
 
-  const results = useMemo(() => searchPerfumes(query), [query]);
+  // 탭에 따라 정렬한다. "전체"는 데이터에 적힌 순서 그대로
+  const results = useMemo(() => {
+    const found = searchPerfumes(query);
+    const byName = (a, b) => a.name.localeCompare(b.name, "ko");
+
+    if (tab === "브랜드") {
+      return [...found].sort(
+        (a, b) => a.brand.localeCompare(b.brand, "ko") || byName(a, b),
+      );
+    }
+    if (tab === "향 계열") {
+      return [...found].sort(
+        (a, b) =>
+          (a.keywords[0] ?? "").localeCompare(b.keywords[0] ?? "", "ko") ||
+          byName(a, b),
+      );
+    }
+    return found;
+  }, [query, tab]);
 
   const toggleLike = (id) =>
     setLikedIds((prev) =>

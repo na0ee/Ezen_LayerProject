@@ -2,14 +2,34 @@
 //
 // 브랜드별 오프라인 매장 정보. brands.js의 id를 키로 사용.
 // 매장이 없는 브랜드는 이 객체에 항목을 추가하지 않음 (LocCard 미표시 처리).
+import shiroSeongsuImage from "../assets/images/chatbot/shiro-seongsu-figma.png";
+import shiroMap from "../assets/images/chatbot/shiro-seongsu-map.png";
+import gangnamMap from "../assets/images/chatbot/shinsegae-gangnam-map.png";
+import margielaMap from "../assets/images/chatbot/map-maison-margiela.png";
+import bvlgariMap from "../assets/images/chatbot/map-bvlgari.png";
+import leLaboMap from "../assets/images/chatbot/map-le-labo.png";
+import aesopMap from "../assets/images/chatbot/map-aesop.png";
+import diptyqueMap from "../assets/images/chatbot/map-diptyque.png";
+import smNovellaMap from "../assets/images/chatbot/map-santa-maria-novella.png";
+import margielaStore from "../assets/images/chatbot/매종마르지엘라.png";
+import smNovellaStore from "../assets/images/chatbot/산타마리노.jfif";
 
 export const storeLocations = {
+  shiro: {
+    name: "시로 성수",
+    address: "서울 성동구 연무장길 57 1~2층",
+    hours: "영업 중  10:00 ~ 21:00",
+    phone: "070-8657-2176",
+    url: "https://shiro-shiro.kr/",
+    images: [shiroSeongsuImage, shiroMap],
+  },
   "maison-margiela": {
     name: "Maison Margiela The Hyundai Seoul",
     address: "서울특별시 영등포구 여의대로 108, 더현대 서울 2층",
     hours: "월–목 10:30–20:00 / 금–일 10:30–20:30",
     phone: "02-3277-0297",
     url: "https://www.maisonmargiela.com/ko-kr/",
+    images: [margielaStore, margielaMap],
   },
   bvlgari: {
     name: "BVLGARI PARFUMS 롯데백화점 본점",
@@ -17,6 +37,7 @@ export const storeLocations = {
     hours: "월–목 10:30–20:00 / 금–일 10:30–20:30",
     phone: "02-772-3059",
     url: "https://www.bulgari.com/ko-kr/fragrances.html",
+    images: [bvlgariMap],
   },
   buly: {
     name: "오피신 유니버셀 불리 신세계백화점 강남점",
@@ -24,6 +45,7 @@ export const storeLocations = {
     hours: "평일 10:30–20:00 / 주말 10:30–20:30",
     phone: "02-3479-6045",
     url: "https://buly1803.com/",
+    images: [gangnamMap],
   },
   "jo-malone": {
     name: "조 말론 런던 신세계백화점 강남점",
@@ -31,6 +53,7 @@ export const storeLocations = {
     hours: "월–목 10:30–20:00 / 금–일 10:30–20:30",
     phone: "02-3479-1555",
     url: "https://www.jomalone.co.kr/",
+    images: [gangnamMap],
   },
   byredo: {
     name: "BYREDO 신세계백화점 강남점",
@@ -38,6 +61,7 @@ export const storeLocations = {
     hours: "월–목 10:30–20:00 / 금–일 10:30–20:30",
     phone: "02-3479-1704",
     url: "https://www.byredo.com/ko_kr/",
+    images: [gangnamMap],
   },
   "le-labo": {
     name: "르 라보 가로수길 부티크",
@@ -45,6 +69,7 @@ export const storeLocations = {
     hours: "매일 11:00–21:00",
     phone: "02-541-7945",
     url: "https://www.lelabofragrances.co.kr/",
+    images: [leLaboMap],
   },
   aesop: {
     name: "이솝 가로수길",
@@ -52,6 +77,7 @@ export const storeLocations = {
     hours: "매일 11:00–21:00",
     phone: "02-512-1987",
     url: "https://kr.aesop.com/",
+    images: [aesopMap],
   },
   diptyque: {
     name: "딥티크 가로수길 부티크",
@@ -59,6 +85,7 @@ export const storeLocations = {
     hours: "매일 11:00–21:00",
     phone: "0507-1391-7494",
     url: "https://www.diptyqueparis.com/",
+    images: [diptyqueMap],
   },
   chanel: {
     name: "샤넬 프레그런스 앤 뷰티 신세계백화점 강남점",
@@ -66,6 +93,7 @@ export const storeLocations = {
     hours: "월–목 10:30–20:00 / 금–일 10:30–20:30",
     phone: "02-3479-1704",
     url: "https://www.chanel.com/kr/fragrance/",
+    images: [gangnamMap],
   },
   "santa-maria-novella": {
     name: "산타 마리아 노벨라",
@@ -73,5 +101,6 @@ export const storeLocations = {
     hours: "10:30–22:00",
     phone: "02-6002-3133",
     url: "https://eu.smnovella.com/",
+    images: [smNovellaStore, smNovellaMap],
   },
 };

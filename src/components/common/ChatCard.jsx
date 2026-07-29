@@ -36,8 +36,14 @@ export default function ChatCard({
       <div
         className={`flex w-79.5 items-center gap-3 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${className}`}
       >
-        <div className="size-25 shrink-0 overflow-hidden rounded-lg bg-2light-grey">
-          {img && <img src={img} alt={name} className="size-full object-cover" />}
+        <div className="size-[100px] shrink-0 overflow-hidden rounded-lg bg-2light-grey">
+          {img && (
+            <img
+              src={img}
+              alt={name}
+              className="size-full object-contain p-2"
+            />
+          )}
         </div>
         <div className="flex min-w-0 flex-1 flex-col items-end gap-2 self-stretch">
           <div className="flex w-full flex-col gap-1.5">
