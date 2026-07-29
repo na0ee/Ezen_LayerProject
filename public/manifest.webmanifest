@@ -4,7 +4,7 @@
   "short_name": "LAYER",
   "description": "나만의 향을 찾는 퍼퓸 라이프스타일 앱",
   "lang": "ko",
-  "start_url": "/home",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],

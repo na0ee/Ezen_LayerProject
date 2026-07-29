@@ -142,6 +142,10 @@ export default function CommunityWritePage({
   const [text, setText] = useState("");
   const [hashtagInput, setHashtagInput] = useState("");
   const [hashtags, setHashtags] = useState<string[]>([]);
+  const [selectedMood, setSelectedMood] =
+    useState<(typeof moodTags)[number]>("깔끔한");
+  const [selectedSituation, setSelectedSituation] =
+    useState<(typeof situationTags)[number]>("데일리");
   const visiblePerfumes = perfumeTags.filter((perfume) =>
     selectedPerfumeIds.includes(perfume.id),
   );
@@ -198,6 +202,8 @@ export default function CommunityWritePage({
               keywords: [
                 ...hashtags,
                 ...hashtagInput.split(/[\s,#]+/).filter(Boolean),
+                selectedMood,
+                selectedSituation,
               ],
               images,
             });
@@ -290,7 +296,12 @@ export default function CommunityWritePage({
             <h2 className="text-body-semibold-16 text-offblack">오늘의 무드</h2>
             <div className="community-write-mood__tags flex flex-wrap gap-x-1.5 gap-y-2">
               {moodTags.map((tag) => (
-                <Tab key={tag} active={tag === "깔끔한"}>
+                <Tab
+                  key={tag}
+                  active={tag === selectedMood}
+                  aria-pressed={tag === selectedMood}
+                  onClick={() => setSelectedMood(tag)}
+                >
                   {tag}
                 </Tab>
               ))}
@@ -301,7 +312,12 @@ export default function CommunityWritePage({
             <h2 className="text-body-semibold-16 text-offblack">사용 상황</h2>
             <div className="community-write-situation__tags flex flex-wrap gap-x-1.5 gap-y-2">
               {situationTags.map((tag) => (
-                <Tab key={tag} active={tag === "데일리"}>
+                <Tab
+                  key={tag}
+                  active={tag === selectedSituation}
+                  aria-pressed={tag === selectedSituation}
+                  onClick={() => setSelectedSituation(tag)}
+                >
                   {tag}
                 </Tab>
               ))}

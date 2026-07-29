@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Bubble, ChatCard, Header, Input, QuickCategory } from "../components/common";
+import {
+  Bubble,
+  ChatCard,
+  Header,
+  Input,
+  QuickCategory,
+} from "../components/common";
 import { brands } from "../data/brands";
 import { fragranceFamilies } from "../data/fragranceFamilies";
 import { perfumeData } from "../data/perfumeData";
@@ -109,7 +115,10 @@ const INTENT_LABELS = {
 const GREETING = {
   id: "greeting",
   role: "bot",
-  texts: ["안녕하세요. 저는 챗봇 레이예요.", "아래 메뉴를 선택하거나\n자유롭게 질문해 주세요"],
+  texts: [
+    "안녕하세요. 저는 챗봇 레이예요.",
+    "아래 메뉴를 선택하거나\n자유롭게 질문해 주세요",
+  ],
   menus: MAIN_MENUS,
 };
 
@@ -166,8 +175,7 @@ function perfumeCardData(entry) {
     name: entry.perfume.name,
     keywords: entry.perfume.familyIds
       .map(
-        (id) =>
-          fragranceFamilies.find((family) => family.id === id)?.keyword,
+        (id) => fragranceFamilies.find((family) => family.id === id)?.keyword,
       )
       .filter(Boolean),
   };
@@ -211,12 +219,7 @@ function Character({ animated = false }) {
   );
 }
 
-function BotMessage({
-  message,
-  chosen,
-  onSelectMenu,
-  onSelectPerfume,
-}) {
+function BotMessage({ message, chosen, onSelectMenu, onSelectPerfume }) {
   const isGreeting = message.id === "greeting";
 
   return (
@@ -270,9 +273,7 @@ function BotMessage({
                 brand={message.perfume.brand}
                 name={message.perfume.name}
                 keywords={message.perfume.keywords}
-                onAction={() =>
-                  onSelectPerfume?.(message.perfume.entry)
-                }
+                onAction={() => onSelectPerfume?.(message.perfume.entry)}
               />
             )}
 
@@ -603,9 +604,7 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
     }
 
     if (quizStage === "season") {
-      const season = SEASON_OPTIONS.find((item) =>
-        textMatches(text, item),
-      );
+      const season = SEASON_OPTIONS.find((item) => textMatches(text, item));
       if (season) {
         setQuizSeason(season);
         setQuizStage("intensity");
@@ -655,9 +654,7 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
       return;
     }
 
-    const mood = MOOD_OPTIONS.find((item) =>
-      textMatches(text, item.label),
-    );
+    const mood = MOOD_OPTIONS.find((item) => textMatches(text, item.label));
     if (mood) {
       resetConversationState();
       respondToMood(mood);
@@ -699,9 +696,7 @@ export default function Chatbot({ onBack, onSelectPerfume }) {
     }
 
     const brand = brands.find(
-      (item) =>
-        textMatches(text, item.name) ||
-        textMatches(text, item.nameEn),
+      (item) => textMatches(text, item.name) || textMatches(text, item.nameEn),
     );
     if (brand) {
       resetConversationState();
