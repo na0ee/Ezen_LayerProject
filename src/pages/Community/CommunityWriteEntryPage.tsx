@@ -1,5 +1,13 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { FeatureGuideCard } from "../../components/common";
+import { scrollAppTo } from "../../utils/appScroll";
 import CommunityChallengePage from "./CommunityChallengePage";
 import CommunityFeedPage from "./CommunityFeedPage";
 import CommunityFreeWritePage from "./CommunityFreeWritePage";
@@ -32,16 +40,16 @@ const categoryLabels: Record<WritePageId, string> = {
 export default function CommunityWriteEntryPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const initialCommunityTab =
-    (location.state as { communityTab?: CommunityTab } | null)
-      ?.communityTab ?? "리뷰";
   const [activePage, setActivePage] = useState<WritePageId>("review");
   const [activeCommunityTab, setActiveCommunityTab] =
-    useState<CommunityTab>(initialCommunityTab);
+    useState<CommunityTab>("리뷰");
   const [isWriting, setIsWriting] = useState(false);
   const [isPerfumeSelecting, setIsPerfumeSelecting] = useState(false);
   const [selectedPerfumeIds, setSelectedPerfumeIds] = useState<string[]>([]);
   const [isCategorySheetOpen, setIsCategorySheetOpen] = useState(false);
+  const [guideStep, setGuideStep] = useState<number | null>(() =>
+    document.documentElement.dataset.guideEnabled === "false" ? null : 1,
+  );
   const [userPosts, setUserPosts] = useState<CommunityUserPost[]>(
     loadCommunityUserPosts,
   );
@@ -63,8 +71,10 @@ export default function CommunityWriteEntryPage() {
     const requestedTab =
       (location.state as { communityTab?: CommunityTab } | null)
         ?.communityTab;
-    if (requestedTab) setActiveCommunityTab(requestedTab);
-  }, [location.key, location.state]);
+    if (requestedTab && guideStep == null) {
+      setActiveCommunityTab(requestedTab);
+    }
+  }, [guideStep, location.key, location.state]);
 
   useEffect(() => {
     const syncSavedPosts = (event: StorageEvent) => {
@@ -76,6 +86,77 @@ export default function CommunityWriteEntryPage() {
     window.addEventListener("storage", syncSavedPosts);
     return () => window.removeEventListener("storage", syncSavedPosts);
   }, []);
+
+  useEffect(() => {
+    const handleGuideChange = (event: Event) => {
+      const isEnabled = Boolean((event as CustomEvent<boolean>).detail);
+      setGuideStep(isEnabled ? 1 : null);
+      if (isEnabled) {
+        setActiveCommunityTab("리뷰");
+        setIsWriting(false);
+        setIsPerfumeSelecting(false);
+        setIsCategorySheetOpen(false);
+      }
+    };
+
+    window.addEventListener("layer:guide-change", handleGuideChange);
+    return () =>
+      window.removeEventListener("layer:guide-change", handleGuideChange);
+  }, []);
+
+  useEffect(() => {
+    if (guideStep == null || isWriting) {
+      delete document.documentElement.dataset.communityGuideStep;
+      return undefined;
+    }
+
+    document.documentElement.dataset.communityGuideStep = String(guideStep);
+    scrollAppTo({ top: 0, behavior: "smooth" });
+
+    return () => {
+      delete document.documentElement.dataset.communityGuideStep;
+    };
+  }, [guideStep, isWriting]);
+
+  const advanceCommunityGuide = useCallback((event: Event) => {
+    if (guideStep == null) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (guideStep < 5) {
+      const nextStep = guideStep + 1;
+      setGuideStep(nextStep);
+      return;
+    }
+
+    setGuideStep(null);
+    setActiveCommunityTab("리뷰");
+    navigate("/community", {
+      replace: true,
+      state: { communityTab: "리뷰" },
+    });
+    scrollAppTo({ top: 0, behavior: "smooth" });
+  }, [guideStep, navigate]);
+
+  useEffect(() => {
+    if (guideStep == null || isWriting) return undefined;
+
+    const handleGuideClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (
+        !(target instanceof Element) ||
+        !target.closest(".desktop-app, [data-bottom-nav]")
+      ) {
+        return;
+      }
+
+      advanceCommunityGuide(event);
+    };
+
+    document.addEventListener("click", handleGuideClick, true);
+    return () => document.removeEventListener("click", handleGuideClick, true);
+  }, [advanceCommunityGuide, guideStep, isWriting]);
 
   const openCategorySheet = () => setIsCategorySheetOpen(true);
   const changeCommunityTab = (tab: CommunityTab) => {
@@ -135,6 +216,55 @@ export default function CommunityWriteEntryPage() {
 
   return (
     <>
+      {guideStep != null && !isWriting && (
+        <>
+          <div className="feature-guide-overlay pointer-events-none fixed inset-0 z-[150] bg-black/55" />
+          <div className="pointer-events-none fixed left-1/2 top-[48%] z-[170] -translate-x-1/2 -translate-y-1/2">
+            <FeatureGuideCard
+              characterPosition={guideStep % 2 === 0 ? "right" : "left"}
+              size="compact"
+              progress={`${guideStep} / 5`}
+              className="!gap-1"
+            >
+              {guideStep === 1 && (
+                <>
+                  사용한 향수의 후기를 확인하고
+                  <br />
+                  나의 경험도 공유해 보세요.
+                </>
+              )}
+              {guideStep === 2 && (
+                <>
+                  향수에 대해 궁금한 점을 묻고
+                  <br />
+                  유저들의 답변을 받아보세요.
+                </>
+              )}
+              {guideStep === 3 && (
+                <>
+                  다양한 챌린지에 참여하여
+                  <br />
+                  포인트를 받을 수 있어요.
+                </>
+              )}
+              {guideStep === 4 && (
+                <>
+                  사진과 사연을 보고 어울리는 향수를
+                  <br />
+                  유저에게 추천해 보세요.
+                </>
+              )}
+              {guideStep === 5 && (
+                <>
+                  글쓰기 버튼을 눌러 리뷰와 질문 등
+                  <br />
+                  다양한 향수 이야기를 나눠보세요!
+                </>
+              )}
+            </FeatureGuideCard>
+          </div>
+        </>
+      )}
       {!isWriting && activeCommunityTab === "리뷰" && (
         <CommunityReviewPage
           userPosts={userPosts.filter((post) => post.category === "리뷰")}

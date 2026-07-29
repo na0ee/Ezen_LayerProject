@@ -1,18 +1,34 @@
 import { useEffect, useState } from "react";
 import layerLogo from "../assets/icons/logo-layer-white.svg";
 
-const APP_WIDTHS = [430, 390];
+const VIEW_MODES = [
+  { id: "mockup", label: "MOCKUP", width: 430 },
+  { id: "430", label: "430PX", width: 430 },
+  { id: "390", label: "390PX", width: 390 },
+];
 
 export default function DesktopFrame({ children }) {
-  const [appWidth, setAppWidth] = useState(430);
+  const [viewMode, setViewMode] = useState("430");
   const [guideVisible, setGuideVisible] = useState(true);
+  const activeMode =
+    VIEW_MODES.find((mode) => mode.id === viewMode) ?? VIEW_MODES[1];
+  const appWidth = activeMode.width;
+  const isMockup = viewMode === "mockup";
 
   useEffect(() => {
     document.documentElement.style.setProperty(
       "--desktop-app-width",
       `${appWidth}px`,
     );
-  }, [appWidth]);
+    document.documentElement.dataset.desktopView = viewMode;
+    window.dispatchEvent(
+      new CustomEvent("layer:view-change", { detail: viewMode }),
+    );
+
+    return () => {
+      delete document.documentElement.dataset.desktopView;
+    };
+  }, [appWidth, viewMode]);
 
   useEffect(() => {
     document.documentElement.dataset.guideEnabled = String(guideVisible);
@@ -35,15 +51,15 @@ export default function DesktopFrame({ children }) {
 
           <div className="desktop-controls">
             <div className="desktop-size-controls" aria-label="웹앱 너비 선택">
-              {APP_WIDTHS.map((width) => (
+              {VIEW_MODES.map((mode) => (
                 <button
-                  key={width}
+                  key={mode.id}
                   type="button"
-                  aria-pressed={appWidth === width}
-                  onClick={() => setAppWidth(width)}
-                  className={appWidth === width ? "is-active" : ""}
+                  aria-pressed={viewMode === mode.id}
+                  onClick={() => setViewMode(mode.id)}
+                  className={viewMode === mode.id ? "is-active" : ""}
                 >
-                  {width}px
+                  {mode.label}
                 </button>
               ))}
             </div>
@@ -62,9 +78,21 @@ export default function DesktopFrame({ children }) {
       </aside>
 
       <main
-        className={`desktop-app${guideVisible ? " desktop-app-guide" : ""}`}
+        className={`desktop-app${guideVisible ? " desktop-app-guide" : ""}${
+          isMockup ? " desktop-app-mockup" : ""
+        }`}
       >
-        {children}
+        {isMockup ? (
+          <>
+            <div className="desktop-mockup-hardware" aria-hidden="true">
+              <div className="desktop-mockup-statusbar" />
+              <span className="desktop-mockup-island" />
+            </div>
+            <div className="desktop-mockup-viewport">{children}</div>
+          </>
+        ) : (
+          children
+        )}
       </main>
     </div>
   );

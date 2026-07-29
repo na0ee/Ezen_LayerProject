@@ -298,18 +298,59 @@ html[data-guide-enabled='false'] .feature-guide-overlay {
   display: none;
 }
 
-html[data-home-guide-step='5'] [data-bottom-nav] {
+html[data-home-guide-step='8'] [data-bottom-nav] {
   z-index: 160;
 }
 
-html[data-home-guide-step='5'] [data-bottom-nav] > div > div:first-child {
+html[data-home-guide-step='8'] [data-bottom-nav] > div > div:first-child {
   filter: brightness(0.45);
+}
+
+html[data-community-guide-step='1'] .community-review-tabs,
+html[data-community-guide-step='2'] .community-review-tabs,
+html[data-community-guide-step='3'] .community-review-tabs,
+html[data-community-guide-step='4'] .community-review-tabs {
+  position: relative;
+  z-index: 160;
+  background: var(--color-offwhite);
+}
+
+html[data-community-guide-step='1'] .community-review-tabs__item,
+html[data-community-guide-step='2'] .community-review-tabs__item,
+html[data-community-guide-step='3'] .community-review-tabs__item,
+html[data-community-guide-step='4'] .community-review-tabs__item {
+  border-bottom-color: transparent;
+  color: var(--color-grey);
+}
+
+html[data-community-guide-step='1']
+  .community-review-tabs__item:nth-child(1),
+html[data-community-guide-step='2']
+  .community-review-tabs__item:nth-child(2),
+html[data-community-guide-step='3']
+  .community-review-tabs__item:nth-child(3),
+html[data-community-guide-step='4']
+  .community-review-tabs__item:nth-child(4) {
+  border-bottom-color: var(--color-point-orange);
+  color: var(--color-offblack);
+}
+
+html[data-community-guide-step='5'] [data-guide-community-write] {
+  position: relative;
+  z-index: 160;
+  border-radius: 999px;
+  background: var(--color-offwhite);
+  box-shadow: 0 0 0 6px var(--color-offwhite);
 }
 
 @media (min-width: 1024px) {
   :root {
     --desktop-app-width: 430px;
     --desktop-right-gap: clamp(40px, 23.45vw, 450.25px);
+  }
+
+  html[data-desktop-view='mockup'] {
+    --app-height: calc(100dvh - 48px) !important;
   }
 
   html,
@@ -418,6 +459,14 @@ html[data-home-guide-step='5'] [data-bottom-nav] > div > div:first-child {
     box-shadow: 0 4px 16px rgb(255 72 0 / 22%);
   }
 
+  [data-bottom-nav] {
+    width: min(390px, calc(var(--desktop-app-width) - 40px));
+  }
+
+  [data-challenge-small] {
+    width: min(380px, calc(var(--desktop-app-width) - 40px));
+  }
+
   .desktop-guide-toggle {
     min-height: 30px;
     padding: 5px 10px;
@@ -472,10 +521,102 @@ html[data-home-guide-step='5'] [data-bottom-nav] > div > div:first-child {
     box-shadow: -1px 0 0 rgb(255 255 255 / 13%);
   }
 
+  .desktop-app-mockup {
+    position: relative;
+    height: calc(100dvh - 48px);
+    min-height: 0;
+    margin-block: 24px;
+    overflow: hidden;
+    border-radius: 58px;
+    outline: 3px solid #858585;
+    box-shadow:
+      0 0 0 13px #0b0b0c,
+      0 0 0 15px #29292b,
+      0 24px 60px rgb(0 0 0 / 55%);
+    overscroll-behavior: contain;
+  }
+
+  .desktop-mockup-viewport {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+  }
+
+  .desktop-mockup-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .desktop-mockup-hardware {
+    pointer-events: none;
+  }
+
+  .desktop-mockup-statusbar {
+    position: absolute;
+    z-index: 240;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 32px;
+  }
+
+  .desktop-mockup-island {
+    position: absolute;
+    z-index: 250;
+    top: 12px;
+    left: 50%;
+    width: 118px;
+    height: 34px;
+    border-radius: 999px;
+    background: #050505;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 7%);
+    transform: translateX(-50%);
+  }
+
+  .desktop-mockup-island::after {
+    position: absolute;
+    top: 13px;
+    right: 14px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #101826;
+    box-shadow: inset 0 0 2px rgb(63 102 150 / 70%);
+    content: "";
+  }
+
+  .desktop-app-mockup [data-app-header] {
+    height: 86px;
+    padding-top: 32px;
+  }
+
+  .desktop-app-mockup
+    [data-app-header]:not([data-header-variant='main']) {
+    background-color: var(--color-offwhite);
+  }
+
+  .desktop-app-mockup [data-app-header].fixed.top-0 {
+    position: fixed;
+    top: 24px;
+    margin-bottom: 0;
+    border-radius: 55px 55px 0 0;
+    overflow: hidden;
+  }
+
+  .desktop-app-mockup [data-app-header].sticky.top-0 {
+    top: 0;
+  }
+
   .fixed.left-1\/2 {
     left: calc(
       100% - var(--desktop-right-gap) - (var(--desktop-app-width) / 2)
     );
+  }
+
+  .fixed.left-1\/2.w-full {
+    width: var(--desktop-app-width);
   }
 
   .fixed.inset-0 {
@@ -486,6 +627,15 @@ html[data-home-guide-step='5'] [data-bottom-nav] > div > div:first-child {
     width: var(--desktop-app-width);
   }
 
+  /* 이 두 시트는 portal 내부에서 앱의 실제 left/width를 직접 계산한다.
+     공통 fixed 보정을 다시 적용하면 left 값이 두 번 더해져 화면 밖으로 밀린다. */
+  .community-write-category-sheet.fixed.inset-0,
+  .community-recommendation-select-sheet.fixed.inset-0 {
+    right: 0;
+    left: 0;
+    width: 100%;
+  }
+
   .fixed.inset-x-0,
   .fixed.left-0.right-0 {
     right: auto;
@@ -493,6 +643,53 @@ html[data-home-guide-step='5'] [data-bottom-nav] > div > div:first-child {
       100% - var(--desktop-right-gap) - var(--desktop-app-width)
     );
     width: var(--desktop-app-width);
+  }
+
+  html[data-desktop-view='mockup'] [data-bottom-nav] {
+    bottom: 40px;
+  }
+
+  html[data-desktop-view='mockup'] .fixed.bottom-8.left-1\/2.w-full {
+    bottom: 44px;
+  }
+
+  html[data-desktop-view='mockup'] .fixed.bottom-0.left-1\/2.w-full {
+    bottom: 24px;
+  }
+
+  html[data-desktop-view='mockup'] .fixed.inset-x-0.bottom-0 {
+    bottom: 24px;
+    overflow: hidden;
+    border-radius: 0 0 55px 55px;
+    clip-path: inset(0 round 0 0 55px 55px);
+  }
+
+  html[data-desktop-view='mockup'] .fixed.inset-0,
+  html[data-desktop-view='mockup'] .fixed.inset-y-0 {
+    top: 24px;
+    right: auto;
+    bottom: 24px;
+    left: calc(
+      100% - var(--desktop-right-gap) - var(--desktop-app-width)
+    );
+    width: var(--desktop-app-width);
+    height: auto;
+    overflow: hidden;
+    border-radius: 55px;
+    clip-path: inset(0 round 55px);
+  }
+
+  html[data-desktop-view='mockup'] [data-mockup-fullscreen] {
+    top: 24px;
+    height: calc(100dvh - 48px);
+    border-radius: 55px;
+    clip-path: inset(0 round 55px);
+  }
+
+  html[data-desktop-view='mockup'] .fixed.bottom-0.left-1\/2.w-full {
+    overflow: hidden;
+    border-radius: 0 0 55px 55px;
+    clip-path: inset(0 round 0 0 55px 55px);
   }
 }
 

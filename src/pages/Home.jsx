@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  scrollAppTargetIntoGuidePosition,
+  scrollAppTo,
+} from "../utils/appScroll";
+import {
   BottomNav,
   BtnHero,
   CardChallengeSmall,
@@ -197,7 +201,9 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
   const [isPastHero, setIsPastHero] = useState(false);
   const [activeHero, setActiveHero] = useState(0);
   const [heroTimerKey, setHeroTimerKey] = useState(0);
-  const [guideStep, setGuideStep] = useState(1);
+  const [guideStep, setGuideStep] = useState(() =>
+    document.documentElement.dataset.guideEnabled === "false" ? null : 1,
+  );
   const { isWishlisted, toggleWishlist } = usePerfumeWishlist();
   const heroDrag = useRef({
     active: false,
@@ -208,7 +214,10 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
   const recordGuideRef = useRef(null);
   const raffleGuideRef = useRef(null);
   const scentGuideRef = useRef(null);
+  const challengeGuideRef = useRef(null);
   const magazineGuideRef = useRef(null);
+  const rankGuideRef = useRef(null);
+  const giftGuideRef = useRef(null);
   const scentDrag = useDragScroll();
   const challengeDrag = useDragScroll();
   const magazineDrag = useDragScroll();
@@ -281,12 +290,34 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
   };
 
   useEffect(() => {
-    const handleScroll = () => setIsPastHero(window.scrollY >= 536);
+    let mockupViewport = null;
+    const handleScroll = () =>
+      setIsPastHero((mockupViewport?.scrollTop ?? window.scrollY) >= 536);
+    const connectScrollTarget = () => {
+      mockupViewport?.removeEventListener("scroll", handleScroll);
+      mockupViewport = document.querySelector(".desktop-mockup-viewport");
+      mockupViewport?.addEventListener("scroll", handleScroll, {
+        passive: true,
+      });
+      handleScroll();
+    };
 
-    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("layer:view-change", connectScrollTarget);
+    connectScrollTarget();
+    return () => {
+      mockupViewport?.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("layer:view-change", connectScrollTarget);
+    };
   }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.homePastHero = String(isPastHero);
+    return () => {
+      delete document.documentElement.dataset.homePastHero;
+    };
+  }, [isPastHero]);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -321,23 +352,17 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
           : guideStep === 3
             ? scentGuideRef.current
             : guideStep === 4
-              ? magazineGuideRef.current
-              : null;
-
-    if (guideStep === 5) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return undefined;
-    }
+              ? challengeGuideRef.current
+              : guideStep === 5
+                ? magazineGuideRef.current
+                : guideStep === 6
+                  ? rankGuideRef.current
+                  : guideStep === 7
+                    ? giftGuideRef.current
+                    : null;
 
     if (target) {
-      const targetTop =
-        target.getBoundingClientRect().top + window.scrollY;
-      const guideTargetTop = window.innerHeight * 0.43;
-
-      window.scrollTo({
-        top: Math.max(0, targetTop - guideTargetTop),
-        behavior: "smooth",
-      });
+      scrollAppTargetIntoGuidePosition(target);
     }
 
     return () => {
@@ -351,13 +376,13 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
     event.preventDefault();
     event.stopPropagation();
 
-    if (guideStep < 5) {
+    if (guideStep < 8) {
       setGuideStep((current) => current + 1);
       return;
     }
 
     setGuideStep(null);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollAppTo({ top: 0, behavior: "smooth" });
   }, [guideStep]);
 
   useEffect(() => {
@@ -385,15 +410,17 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
           <div className="feature-guide-overlay pointer-events-none fixed inset-0 z-[150] bg-black/55" />
           <div
             className={`pointer-events-none fixed left-1/2 z-[170] -translate-x-1/2 ${
-              guideStep === 5
+              guideStep === 8
                 ? "bottom-[104px]"
+                : guideStep === 7
+                ? "top-[calc(43dvh-54px)]"
                 : "top-[calc(43dvh-124px)]"
             }`}
           >
             <FeatureGuideCard
               characterPosition={guideStep % 2 === 0 ? "right" : "left"}
               size="compact"
-              progress={`${guideStep} / 5`}
+              progress={`${guideStep} / 8`}
               className="!gap-1"
             >
               {guideStep === 1 && (
@@ -419,12 +446,33 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
               )}
               {guideStep === 4 && (
                 <>
+                  다양한 챌린지에 참여하여
+                  <br />
+                  포인트를 받을 수 있어요.
+                </>
+              )}
+              {guideStep === 5 && (
+                <>
                   향수 트렌드와 취향에 도움이 되는
                   <br />
                   다양한 이야기를 만나보세요.
                 </>
               )}
-              {guideStep === 5 && (
+              {guideStep === 6 && (
+                <>
+                  지금 인기 있는 향수를
+                  <br />
+                  카테고리별로 확인해 보세요.
+                </>
+              )}
+              {guideStep === 7 && (
+                <>
+                  선물할 상대와 어울리는 향수를
+                  <br />
+                  AI가 추천해줘요!
+                </>
+              )}
+              {guideStep === 8 && (
                 <>
                   선물 추천, 매장 찾기 등
                   <br />
@@ -597,7 +645,12 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             </div>
           </section>
 
-          <section className="flex flex-col gap-[30px]">
+          <section
+            ref={challengeGuideRef}
+            className={`flex flex-col gap-[30px] ${
+              guideStep === 4 ? "relative z-[160]" : ""
+            }`}
+          >
             <div className="px-5">
               <TitleMain
                 title="Challenge"
@@ -661,7 +714,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
           <section
             ref={magazineGuideRef}
             className={`flex flex-col gap-[30px] ${
-              guideStep === 4 ? "relative z-[160]" : ""
+              guideStep === 5 ? "relative z-[160]" : ""
             }`}
           >
             <div className="px-5">
@@ -700,7 +753,12 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             </div>
           </section>
 
-          <section className="flex flex-col gap-[30px]">
+          <section
+            ref={rankGuideRef}
+            className={`flex flex-col gap-[30px] ${
+              guideStep === 6 ? "relative z-[160]" : ""
+            }`}
+          >
             <div className="px-5">
               <TitleMain
                 variant="title3"
@@ -736,7 +794,12 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             </div>
           </section>
 
-          <section className="flex flex-col gap-[30px] px-5">
+          <section
+            ref={giftGuideRef}
+            className={`flex flex-col gap-[30px] px-5 ${
+              guideStep === 7 ? "relative z-[160]" : ""
+            }`}
+          >
             <TitleMain
               title="Gift"
               actionVariant="ai"

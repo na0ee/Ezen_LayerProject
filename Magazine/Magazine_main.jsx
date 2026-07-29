@@ -105,7 +105,9 @@ export default function MagazineMain({
   onNavigate,
 }) {
   const [category, setCategory] = useState("전체");
-  const [isGuideOpen, setIsGuideOpen] = useState(true);
+  const [isGuideOpen, setIsGuideOpen] = useState(
+    () => document.documentElement.dataset.guideEnabled !== "false",
+  );
   const articleActions = {
     fragranceCollection: onFragranceCollection,
     season: onSeason,

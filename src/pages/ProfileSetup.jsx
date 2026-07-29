@@ -62,7 +62,9 @@ export default function ProfileSetup() {
   const [nickname, setNickname] = useState(initialProfile.nickname);
   const [profileImage, setProfileImage] = useState(initialProfile.image);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
-  const [isGuideOpen, setIsGuideOpen] = useState(true);
+  const [isGuideOpen, setIsGuideOpen] = useState(
+    () => document.documentElement.dataset.guideEnabled !== "false",
+  );
   const [guideTop, setGuideTop] = useState(null);
   const photoInputRef = useRef(null);
   const pageRef = useRef(null);

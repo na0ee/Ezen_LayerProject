@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
+  scrollAppTargetIntoGuidePosition,
+  scrollAppTo,
+} from "../utils/appScroll";
+import {
   Badge,
   BottomNav,
   BtnSmall,
@@ -308,7 +312,8 @@ export default function Mypage() {
   const [activeRecommendTab, setActiveRecommendTab] = useState("b");
   const [isPreparingOpen, setIsPreparingOpen] = useState(false);
   const [guideStep, setGuideStep] = useState(
-    location.state?.activeTab && location.state.activeTab !== "마이페이지"
+    document.documentElement.dataset.guideEnabled === "false" ||
+      (location.state?.activeTab && location.state.activeTab !== "마이페이지")
       ? null
       : 1,
   );
@@ -351,15 +356,11 @@ export default function Mypage() {
     if (!target) return;
 
     if (guideStep === 1) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      scrollAppTo({ top: 0, behavior: "smooth" });
       return;
     }
 
-    const targetTop = target.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({
-      top: Math.max(0, targetTop - window.innerHeight * 0.43),
-      behavior: "smooth",
-    });
+    scrollAppTargetIntoGuidePosition(target);
   }, [activeTab, guideStep]);
 
   const advanceMyGuide = useCallback((event) => {
@@ -374,7 +375,7 @@ export default function Mypage() {
     }
 
     setGuideStep(null);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollAppTo({ top: 0, behavior: "smooth" });
   }, [guideStep]);
 
   useEffect(() => {

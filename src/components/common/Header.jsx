@@ -15,7 +15,13 @@ import BtnSmall from './BtnSmall'
 // main: 흰 로고+흰 아이콘(배너 위), main2: 검정 로고+검정 아이콘
 function IconButton({ src, label, onClick }) {
   return (
-    <button type="button" aria-label={label} onClick={onClick} className="size-7 shrink-0">
+    <button
+      type="button"
+      aria-label={label}
+      data-guide-community-write={label === '글쓰기' ? '' : undefined}
+      onClick={onClick}
+      className="size-7 shrink-0"
+    >
       <img src={src} alt="" className="size-7" />
     </button>
   )
@@ -43,6 +49,8 @@ export default function Header({
 
   return (
     <header
+      data-app-header
+      data-header-variant={variant}
       className={`flex h-[calc(54px+env(safe-area-inset-top))] w-full items-center justify-between px-5 pt-[env(safe-area-inset-top)] ${
         hasBg ? 'bg-offwhite' : ''
       } ${className}`}

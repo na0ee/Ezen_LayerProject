@@ -172,7 +172,7 @@ export default function OnboardingQuestion() {
 
   const { multi, cols, width, height, gapX, gapY, noWrapLabel } = question;
   const answer = answers[step];
-  const responsiveOptionSize = `min(${width}px, calc((100vw - 40px - ${(cols - 1) * gapX}px) / ${cols}))`;
+  const responsiveOptionSize = `min(${width}px, calc((min(100vw, var(--desktop-app-width, 100vw)) - 40px - ${(cols - 1) * gapX}px) / ${cols}))`;
 
   const isPicked = (value) =>
     multi ? (answer ?? []).includes(value) : answer === value;
