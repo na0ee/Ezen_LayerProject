@@ -308,7 +308,7 @@ export default function MagazineSummer({ onBack, initialSeason = 1 }) {
               <div className="relative h-[440px] w-full overflow-hidden">
                 <div
                   ref={railRef}
-                  className="flex size-full cursor-grab snap-x snap-mandatory select-none overflow-x-auto overflow-y-hidden overscroll-x-contain [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  className="flex size-full cursor-grab touch-auto snap-x snap-mandatory select-none overflow-x-auto overflow-y-hidden overscroll-x-contain [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                   onScroll={handleScroll}
                   onScrollEnd={handleScrollEnd}
                   onPointerDown={handlePointerDown}

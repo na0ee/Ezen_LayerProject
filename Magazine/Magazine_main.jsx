@@ -22,6 +22,74 @@ import exploreSummer from "./assets/summer-perfume-detail/hero.png";
 
 const CATEGORIES = ["전체", "향수 상식", "추천", "트렌드", "선물", "브랜드"];
 
+const EXPLORE_ARTICLES = [
+  {
+    categories: ["트렌드"],
+    img: exploreCollection,
+    label: "Scent Trend",
+    title: "New Fragrance Collection 2026",
+    desc: "올해 가장 주목해야 할 새로운 향수들",
+    target: "fragranceCollection",
+  },
+  {
+    categories: ["추천", "선물"],
+    img: exploreSeasons,
+    label: "Scent Match",
+    title: "계절별 향수 선택 가이드",
+    desc: "봄부터 겨울까지, 계절에 어울리는 노트 찾기",
+    target: "season",
+  },
+  {
+    categories: ["향수 상식"],
+    img: popularTip,
+    label: "Scent Guide",
+    title: "향수 지속력 높이는 꿀팁",
+    desc: "같은 향도 더 오래 남기는 올바른 사용법",
+    target: "santalTip",
+  },
+  {
+    categories: ["트렌드"],
+    img: heroSantal,
+    label: "Scent Trend",
+    title: "니치 향수 트렌드",
+    desc: "향으로 나를 표현하는 시대",
+    target: "niche",
+  },
+  {
+    categories: ["브랜드"],
+    img: brandByredo,
+    label: "Brand Story",
+    title: "BYREDO",
+    desc: "기억과 감정을 향으로 담아내는 브랜드",
+    target: "byredo",
+  },
+  {
+    categories: ["브랜드", "선물"],
+    img: popularJomalone,
+    label: "Brand Story",
+    title: "JO MALONE LONDON",
+    desc: "나만의 향을 완성해가는 레이어링의 시작",
+    target: "jomalone",
+  },
+  {
+    categories: ["브랜드"],
+    img: popularDiptyque,
+    label: "Brand Story",
+    title: "DIPTYQUE",
+    desc: "예술과 여행이 향으로 만나다",
+    target: "diptyque",
+  },
+  {
+    categories: ["추천", "선물"],
+    img: exploreSummer,
+    imgClassName: "absolute inset-0 size-full object-cover object-bottom",
+    label: "Scent Match",
+    title: "여름 밤에 어울리는 향",
+    desc: "열대야의 공기와 어울리는 관능적인 노트",
+    target: "summerPerfume",
+  },
+];
+
 export default function MagazineMain({
   onAllView,
   onByredo,
@@ -35,6 +103,22 @@ export default function MagazineMain({
   onNavigate,
 }) {
   const [category, setCategory] = useState("전체");
+  const articleActions = {
+    fragranceCollection: onFragranceCollection,
+    season: onSeason,
+    santalTip: onSantalTip,
+    niche: onNiche,
+    byredo: onByredo,
+    jomalone: onJomalone,
+    diptyque: onDiptyque,
+    summerPerfume: onSummerPerfume,
+  };
+  const visibleArticles =
+    category === "전체"
+      ? EXPLORE_ARTICLES
+      : EXPLORE_ARTICLES.filter((article) =>
+          article.categories.includes(category)
+        );
 
   const handleRailPointerDown = (event) => {
     const rail = event.currentTarget;
@@ -146,7 +230,7 @@ export default function MagazineMain({
               className="ml-5 h-[29px] leading-[29px]"
             />
             <div
-              className="mt-[30px] w-full cursor-grab select-none overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
+              className="mt-[30px] w-full cursor-grab touch-auto select-none overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
               {...dragRailProps}
             >
               <div className="flex w-max gap-2.5 px-5">
@@ -202,7 +286,7 @@ export default function MagazineMain({
               className="ml-5 h-[29px] leading-[29px]"
             />
             <div
-              className="mt-[30px] w-full cursor-grab select-none overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
+              className="mt-[30px] w-full cursor-grab touch-auto select-none overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
               {...dragRailProps}
             >
               <div className="flex w-max gap-4 px-5">
@@ -248,20 +332,6 @@ export default function MagazineMain({
                     className="shrink-0 [&>div]:!rounded-2xl"
                   />
                 </button>
-                <button
-                  type="button"
-                  onClick={onSummerPerfume}
-                  className="block shrink-0 text-left"
-                  aria-label="여름 밤에 어울리는 향 보기"
-                >
-                  <CardMag
-                    img={exploreSummer}
-                    title="여름 밤에 어울리는 향"
-                    desc={"해가 진 뒤에 피어나는 관능적인 노트들\n열대야의 공기와 어울리는 향수를 소개합니다"}
-                    imgClassName="absolute inset-0 size-full max-w-none object-bottom rounded-3xl"
-                    className="shrink-0 [&>div]:!rounded-2xl"
-                  />
-                </button>
               </div>
             </div>
           </section>
@@ -285,7 +355,7 @@ export default function MagazineMain({
 
             <div className="mt-[30px]">
               <div
-                className="cursor-grab select-none overflow-x-auto overflow-y-hidden px-5 [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                className="cursor-grab touch-auto select-none overflow-x-auto overflow-y-hidden px-5 [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 {...dragRailProps}
               >
                 <Category
@@ -297,53 +367,28 @@ export default function MagazineMain({
                 />
               </div>
               <div
-                className="mt-4 w-full cursor-grab select-none overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
+                className="mt-4 w-full cursor-grab touch-auto select-none overflow-x-auto overflow-y-hidden [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
                 {...dragRailProps}
               >
                 <div className="flex w-max gap-4 px-5">
-                  <button
-                    type="button"
-                    onClick={onFragranceCollection}
-                    className="block shrink-0 text-left"
-                    aria-label="New Fragrance Collection 2026 보기"
-                  >
-                    <MagListCard
-                      img={exploreCollection}
-                      label="Scent Match"
-                      title="New Fragrance Collection 2026"
-                      desc="올해 가장 주목해야 할 새로운 향수들"
-                      className="shrink-0"
-                    />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={onSeason}
-                    className="block shrink-0 text-left"
-                    aria-label="계절별 향수 선택 가이드 보기"
-                  >
-                    <MagListCard
-                      img={exploreSeasons}
-                      label="Scent Match"
-                      title="계절별 향수 선택 가이드"
-                      desc="봄부터 겨울까지, 계절에 어울리는 노트 찾기"
-                      className="shrink-0"
-                    />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={onSummerPerfume}
-                    className="block shrink-0 text-left"
-                    aria-label="여름 밤에 어울리는 향 보기"
-                  >
-                    <MagListCard
-                      img={exploreSummer}
-                      imgClassName="absolute inset-0 size-full object-cover object-bottom"
-                      label="Scent Match"
-                      title="계절별 향수 선택 가이드"
-                      desc="봄부터 겨울까지, 계절에 어울리는 노트 찾기"
-                      className="shrink-0"
-                    />
-                  </button>
+                  {visibleArticles.map((article) => (
+                    <button
+                      key={article.target}
+                      type="button"
+                      onClick={articleActions[article.target]}
+                      className="block shrink-0 text-left"
+                      aria-label={`${article.title} 보기`}
+                    >
+                      <MagListCard
+                        img={article.img}
+                        imgClassName={article.imgClassName}
+                        label={article.label}
+                        title={article.title}
+                        desc={article.desc}
+                        className="shrink-0"
+                      />
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
