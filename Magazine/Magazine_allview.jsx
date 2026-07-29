@@ -129,7 +129,7 @@ export default function MagazineAllView({
           </h1>
 
           <div className="flex w-full flex-col items-start gap-4">
-            <div className="no-scrollbar -mx-5 w-[calc(100%+40px)] overflow-x-auto px-5">
+            <div className="scroll-rail-page-gutter no-scrollbar -mx-5 w-[calc(100%+40px)] overflow-x-auto">
               <Category
                 variant="tab"
                 items={CATEGORIES}

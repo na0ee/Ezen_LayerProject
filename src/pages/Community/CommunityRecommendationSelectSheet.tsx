@@ -110,7 +110,7 @@ export default function CommunityRecommendationSelectSheet({
   };
 
   return createPortal(
-    <div className="community-recommendation-select-sheet fixed inset-0 z-[110]">
+    <div className="community-recommendation-select-sheet fixed inset-0 z-[200]">
       <div
         className="community-recommendation-select-sheet__viewport absolute inset-y-0"
         style={{

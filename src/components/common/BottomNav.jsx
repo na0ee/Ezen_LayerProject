@@ -37,7 +37,7 @@ export default function BottomNav({
     <nav
       aria-label="주요 메뉴"
       data-bottom-nav
-      className={`pointer-events-auto z-[100] flex w-[calc(100vw-40px)] max-w-[390px] items-center ${
+      className={`pointer-events-auto !z-[100] flex w-[calc(100vw-40px)] max-w-[390px] items-center ${
         fixed ? "fixed bottom-5 left-1/2 -translate-x-1/2" : ""
       } ${className}`}
     >

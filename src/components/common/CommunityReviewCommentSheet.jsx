@@ -43,12 +43,10 @@ export default function CommunityReviewCommentSheet({
     };
 
     document.body.style.overflow = "hidden";
-    document.body.classList.add("comment-sheet-open");
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.body.style.overflow = previousOverflow;
-      document.body.classList.remove("comment-sheet-open");
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [onClose, open]);
@@ -72,7 +70,7 @@ export default function CommunityReviewCommentSheet({
 
   return (
     <div
-      className="community-review-comments fixed inset-y-0 left-1/2 z-50 w-full max-w-[430px] -translate-x-1/2"
+      className="community-review-comments fixed inset-y-0 left-1/2 z-[200] w-full max-w-[430px] -translate-x-1/2"
       role="presentation"
     >
       <button
