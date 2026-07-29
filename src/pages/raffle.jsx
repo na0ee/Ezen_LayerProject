@@ -109,7 +109,7 @@ export default function Raffle({ onBack }) {
   }
 
   return (
-    <div className="mx-auto min-h-screen w-full max-w-[430px] bg-background">
+    <div className="mx-auto min-h-screen w-full max-w-107.5 bg-background">
       <Header
         variant="detail-back"
         title="래플응모하기"

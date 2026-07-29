@@ -413,7 +413,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
               <CardMag
                 img={magazine3}
                 title="여름 밤에 어울리는 향"
-                desc={"기억과 감정을 향으로 담아내는 브랜드\n매거진 내용 두줄정도 요약해서 나오면 좋을듯"}
+                desc={"해가 진 뒤에 피어나는 관능적인 노트들\n열대야의 공기와 어울리는 향수를 소개합니다"}
                 className="shrink-0"
               />
             </div>

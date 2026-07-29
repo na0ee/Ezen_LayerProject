@@ -46,7 +46,7 @@ export default function CommunityEnter({
           >
             {value || finalPlaceholder}
           </span>
-          <img src={chevronDown} alt="" className="size-[18px]" />
+          <img src={chevronDown} alt="" className="size-4.5" />
         </button>
       ) : (
         <div className="flex w-full flex-col items-end gap-1.5">

@@ -3,6 +3,7 @@ import globeIcon from "../../assets/icons/globe.svg";
 import mapPinIcon from "../../assets/icons/map-pin.svg";
 import phoneIcon from "../../assets/icons/phone.svg";
 import BtnSmall from "./BtnSmall";
+import KakaoPlaceView from "./KakaoPlaceView";
 import KeywordList from "./KeywordList";
 
 // 피그마: card (3135:18607, 속성 1=shop | chatbot) — 챗봇 답변용 카드.
@@ -34,10 +35,16 @@ export default function ChatCard({
   if (variant === "chatbot") {
     return (
       <div
-        className={`flex w-[318px] items-center gap-3 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${className}`}
+        className={`flex w-79.5 items-center gap-3 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${className}`}
       >
         <div className="size-[100px] shrink-0 overflow-hidden rounded-lg bg-2light-grey">
-          {img && <img src={img} alt={name} className="size-full object-cover" />}
+          {img && (
+            <img
+              src={img}
+              alt={name}
+              className="size-full object-contain p-2"
+            />
+          )}
         </div>
         <div className="flex min-w-0 flex-1 flex-col items-end gap-2 self-stretch">
           <div className="flex w-full flex-col gap-1.5">
@@ -55,18 +62,32 @@ export default function ChatCard({
 
   return (
     <div
-      className={`flex w-[318px] flex-col items-end gap-4 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-4 ${className}`}
+      className={`flex w-79.5 flex-col items-end gap-4 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-4 ${className}`}
     >
-      {images.length > 0 && (
+      {(images.length > 0 || address) && (
         <div className="no-scrollbar flex w-full gap-4 overflow-x-auto">
+          {images.length === 0 && address && (
+            <div className="h-[190px] w-[250px] shrink-0 overflow-hidden rounded-lg bg-2light-grey">
+              <KakaoPlaceView
+                address={address}
+                name={name}
+                variant="roadview"
+              />
+            </div>
+          )}
           {images.map((src, i) => (
             <div
               key={i}
-              className="h-[190px] w-[250px] shrink-0 overflow-hidden rounded-lg bg-2light-grey"
+              className="h-47.5 w-62.5 shrink-0 overflow-hidden rounded-lg bg-2light-grey"
             >
               <img src={src} alt="" className="size-full object-cover" />
             </div>
           ))}
+          {address && (
+            <div className="h-[190px] w-[250px] shrink-0 overflow-hidden rounded-lg bg-2light-grey">
+              <KakaoPlaceView address={address} name={name} />
+            </div>
+          )}
         </div>
       )}
       <div className="flex w-full flex-col gap-3">

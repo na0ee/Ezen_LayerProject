@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Badge,
   BottomNav,
@@ -24,6 +25,7 @@ import feedCell3 from "../assets/images/mypage/feed/feed-cell-3.png";
 import feedCell4 from "../assets/images/mypage/feed/feed-cell-4.png";
 import iconHelp from "../assets/images/mypage/icon-help.svg";
 import iconInfo from "../assets/images/mypage/icon-info.svg";
+import jomalone from "../assets/images/mypage/jomalone.png";
 import loewe from "../assets/images/mypage/loewe.png";
 import magazine1 from "../assets/images/mypage/magazine-1.png";
 import magazine2 from "../assets/images/mypage/magazine-2.png";
@@ -31,11 +33,13 @@ import masion from "../assets/images/mypage/masion.png";
 import matiere from "../assets/images/mypage/matiere.png";
 import profile from "../assets/images/mypage/profile.png";
 import recommend from "../assets/images/mypage/recommend.png";
+import recommend2 from "../assets/images/mypage/recommend2.png";
 import reviewCell1 from "../assets/images/mypage/review-tab/review-cell-1.png";
 import reviewCell2 from "../assets/images/mypage/review-tab/review-cell-2.png";
 import reviewCell3 from "../assets/images/mypage/review-tab/review-cell-3.png";
 import reviewCell4 from "../assets/images/mypage/review-tab/review-cell-4.png";
 import santamaria from "../assets/images/mypage/santamaria.png";
+import tomford from "../assets/images/mypage/tomford.png";
 
 const pageTabs = ["마이페이지", "피드", "리뷰"];
 
@@ -61,9 +65,20 @@ const reviews = [
   { img: matiere, title: "깔끔한 라벤더 향" },
 ];
 
-const recommends = [
-  { img: recommend, name: "Juhoon", perfume: "Jass Club", comment: "잘생기셔서 이 향이 참 잘 어울리는 거 같아요" },
-  { img: recommend, name: "Juhoon", perfume: "Jass Club", comment: "잘생기셔서 이 향이 참 잘 어울리는 거 같아요" },
+// TabSub "b"(추천받은) / "a"(내가 추천한) 탭에 따라 보여줄 목록을 분리
+const recommendsReceived = [
+  { img: tomford, name: "북극곰", perfume: "쏠레이 네쥐", comment: "눈 오는 날이랑 잘 어울리는 향이라 잘 어울릴 것 같아요!!" },
+  { img: jomalone, name: "북극곰", perfume: "우드 세이지 앤 씨솔트 코롱", comment: "뭔가 라벤더향 좋아하실듯?" },
+];
+const recommendsGiven = [
+  { img: recommend, name: "Juhoon", perfume: "재즈클럽", comment: "잘생기셔서 이 향이 참 잘 어울리는 거 같아요" },
+  {
+    img: recommend2,
+    name: "거노노",
+    perfume: "세일링데이",
+    comment: "뭔가 이거 잘 어울릴 것 같아요",
+    imgAlign: "top",
+  },
 ];
 
 // 피그마 list/profile: 2열 그리드, 칸당 244px, 해시태그는 사진 위 좌하단 오버레이
@@ -122,17 +137,11 @@ function useDragScroll() {
   };
 }
 
-function MoreLink({ label = "전체보기", href }) {
+function MoreLink({ label = "전체보기", onClick, className = "" }) {
   return (
-    <button
-      type="button"
-      onClick={() => {
-        if (href) window.location.href = href;
-      }}
-      className="flex items-center gap-1.5"
-    >
+    <button type="button" onClick={onClick} className={`flex items-center gap-1.5 ${className}`}>
       <span className="text-body-regular-14 text-grey">{label}</span>
-      <img src={chevronRightGrey} alt="" className="size-[18px]" />
+      <img src={chevronRightGrey} alt="" className="size-4.5" />
     </button>
   );
 }
@@ -142,7 +151,7 @@ function PostGrid({ items }) {
   return (
     <div className="grid grid-cols-2">
       {items.map((item, i) => (
-        <div key={i} className="relative flex h-[244px] items-end overflow-hidden p-4">
+        <div key={i} className="relative flex h-61 items-end overflow-hidden p-4">
           <img src={item.img} alt="" className="absolute inset-0 size-full object-cover" />
           <div className="relative flex items-center gap-2">
             {item.hashtags.map((tag) => (
@@ -163,7 +172,7 @@ function FaqCard({ icon, label }) {
       type="button"
       className="flex w-full cursor-default items-center gap-3 rounded-2xl border-[0.8px] border-light-grey bg-offwhite p-3"
     >
-      <span className="flex size-[30px] items-center justify-center rounded-full bg-offblack">
+      <span className="flex size-7.5 items-center justify-center rounded-full bg-offblack">
         <img src={icon} alt="" className="size-4" />
       </span>
       <span className="text-body-medium-14 text-offblack">{label}</span>
@@ -172,23 +181,27 @@ function FaqCard({ icon, label }) {
 }
 
 export default function Mypage() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("마이페이지");
+  const [activeRecommendTab, setActiveRecommendTab] = useState("b");
+  const recommends = activeRecommendTab === "b" ? recommendsReceived : recommendsGiven;
   const perfumeDrag = useDragScroll();
   const magazineDrag = useDragScroll();
 
   return (
-    <div className="mx-auto min-h-screen w-full max-w-[430px] bg-background pb-[104px]">
+    <div className="mx-auto min-h-screen w-full max-w-107.5 bg-background pb-26">
       {/* background + profile — 배경(305px) 중 프로필 카드에 가려지지 않고 보이는 높이가 210px */}
-      <div className="relative h-[305px] w-full overflow-hidden">
+      <div className="relative h-76.25 w-full overflow-hidden">
         <img src={background} alt="" className="absolute inset-0 size-full object-cover" />
         <LayerBadge className="absolute top-5 right-5" />
       </div>
 
       {/* 배경 이미지 위 흰 카드: 프로필 + 카테고리 탭만 흰 배경(offwhite), 그 아래 콘텐츠 영역은 페이지 배경색(background) */}
-      <div className="relative -mt-[95px] overflow-hidden rounded-t-3xl">
+      <div className="relative -mt-23.75 overflow-hidden rounded-t-3xl">
         {/* sec/profile */}
         <div className="flex flex-col gap-6 bg-offwhite p-5">
-          <div className="flex items-center gap-[18px]">
+          <div className="flex items-center gap-4.5">
             <img src={profile} alt="" className="size-20 shrink-0 rounded-full object-cover" />
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
@@ -218,13 +231,13 @@ export default function Mypage() {
         {activeTab !== "마이페이지" ? (
           <PostGrid items={activeTab === "피드" ? feedPosts : reviewPosts} />
         ) : (
-        <div className="flex flex-col gap-[60px] bg-background px-5 py-6">
+        <div className="flex flex-col gap-15 bg-background px-5 py-6">
           {/* sec/grade + test */}
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-6 rounded-2xl border border-light-grey bg-offwhite p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <img src={badgeNewbie} alt="" className="h-[59px] w-[60px] object-contain" />
+                  <img src={badgeNewbie} alt="" className="h-14.75 w-15 object-contain" />
                   <div className="flex flex-col">
                     <p className="text-title-medium-20 text-offblack">NEWBIE</p>
                     <p className="flex items-center gap-1 text-body-regular-14 text-grey">
@@ -232,7 +245,12 @@ export default function Mypage() {
                     </p>
                   </div>
                 </div>
-                <BtnSmall variant="white">멤버십 등급 보기</BtnSmall>
+                <BtnSmall
+                  variant="white"
+                  onClick={() => navigate("/mypage/membership", { state: { backgroundLocation: location } })}
+                >
+                  멤버십 등급 보기
+                </BtnSmall>
               </div>
               <p className="pl-1.5 text-body-regular-14 text-grey">
                 <span className="text-body-semibold-16 text-offblack">800P</span> 더 쌓으면 다음
@@ -241,28 +259,24 @@ export default function Mypage() {
             </div>
             <button
               type="button"
-              onClick={() => {
-                window.location.href = "/onboarding";
-              }}
-              className="flex h-[43px] items-center justify-between rounded-lg bg-offblack px-3"
+              onClick={() => navigate("/onboarding")}
+              className="flex h-10.75 items-center justify-between rounded-lg bg-offblack px-3"
             >
               <span className="text-body-medium-14 text-offwhite">
                 <span className="font-en">My LAYER</span> 다시하기
               </span>
-              <img src={chevronRightWhite} alt="" className="size-[18px]" />
+              <img src={chevronRightWhite} alt="" className="size-4.5" />
             </button>
           </div>
 
           {/* 내 향수 관리하기 ~ FAQ: 60px 간격 묶음 */}
-          <div className="flex flex-col gap-[60px]">
+          <div className="flex flex-col gap-15">
             {/* sec/perfumes */}
-            <div className="flex flex-col gap-[30px]">
+            <div className="flex flex-col gap-7.5">
               <TitleSection
                 variant="button"
                 title="내 향수 관리하기"
-                onMore={() => {
-                  window.location.href = "/mypage/perfumes";
-                }}
+                onMore={() => navigate("/mypage/perfumes")}
               />
               <div
                 className="no-scrollbar -mx-5 flex touch-pan-x select-none gap-4 overflow-x-auto px-5 [&_img]:pointer-events-none [&_img]:select-none"
@@ -271,12 +285,12 @@ export default function Mypage() {
                 {myPerfumes.map((item) => (
                   <div
                     key={item.name}
-                    className="flex shrink-0 flex-col items-center gap-[30px] rounded-2xl border border-light-grey bg-offwhite px-5 pt-5 pb-[30px]"
+                    className="flex shrink-0 flex-col items-center gap-7.5 rounded-2xl border border-light-grey bg-offwhite px-5 pt-5 pb-7.5"
                   >
-                    <div className="flex size-[120px] items-center justify-center overflow-hidden rounded-lg">
-                      <img src={item.img} alt="" className="h-[100px] w-auto object-contain" />
+                    <div className="flex size-30 items-center justify-center overflow-hidden rounded-lg">
+                      <img src={item.img} alt="" className="h-25 w-auto object-contain" />
                     </div>
-                    <div className="flex w-[170px] flex-col items-center gap-1">
+                    <div className="flex w-42.5 flex-col items-center gap-1">
                       <p className="truncate text-body-semibold-16 text-offblack">{item.brand}</p>
                       <p className="w-full truncate text-center text-caption-medium-12 text-grey">
                         {item.name}
@@ -288,7 +302,7 @@ export default function Mypage() {
             </div>
 
             {/* sec/magazine */}
-            <div className="flex flex-col items-center gap-[30px]">
+            <div className="flex flex-col items-center gap-7.5">
               <h3 className="w-full text-title-semibold-24 text-offblack">최근 본 매거진</h3>
               <div
                 className="no-scrollbar -mx-5 flex touch-pan-x select-none self-stretch gap-4 overflow-x-auto px-5 [&_img]:pointer-events-none [&_img]:select-none"
@@ -301,10 +315,10 @@ export default function Mypage() {
             </div>
 
             {/* sec/wishlist */}
-            <div className="flex flex-col items-center gap-[30px]">
+            <div className="flex flex-col items-center gap-7.5">
               <div className="flex w-full items-center justify-between">
                 <h3 className="text-title-semibold-24 text-offblack">위시리스트</h3>
-                <MoreLink href="/mypage/wishlist" />
+                <MoreLink onClick={() => navigate("/mypage/wishlist")} />
               </div>
               <div className="flex w-full flex-col gap-4">
                 {wishlist.map((item) => (
@@ -314,10 +328,10 @@ export default function Mypage() {
             </div>
 
             {/* sec/review */}
-            <div className="flex flex-col items-center gap-[30px]">
+            <div className="flex flex-col items-center gap-7.5">
               <div className="flex w-full items-center justify-between">
                 <h3 className="text-title-semibold-24 text-offblack">내 리뷰 관리하기</h3>
-                <MoreLink href="/mypage/reviews" />
+                <MoreLink onClick={() => navigate("/mypage/reviews")} />
               </div>
               <div className="flex w-full flex-col gap-4">
                 {reviews.map((item) => (
@@ -325,8 +339,8 @@ export default function Mypage() {
                     key={item.title}
                     className="flex w-full items-start gap-3 rounded-2xl border-[0.8px] border-light-grey bg-offwhite p-3"
                   >
-                    <div className="flex size-[60px] shrink-0 items-center justify-center overflow-hidden rounded-lg bg-2light-grey">
-                      <img src={item.img} alt="" className="h-[40px] w-auto object-contain" />
+                    <div className="flex size-15 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-2light-grey">
+                      <img src={item.img} alt="" className="h-10 w-auto object-contain" />
                     </div>
                     <div className="flex flex-col justify-center gap-1.5">
                       <Badge variant="good" />
@@ -339,16 +353,36 @@ export default function Mypage() {
 
             {/* sec/perfumerecommend */}
             <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-[30px]">
-                <h3 className="text-title-semibold-24 text-offblack">추천향수</h3>
+              <div className="flex flex-col gap-7.5">
+                <div className="flex w-full items-center justify-between">
+                  <h3 className="text-title-semibold-24 text-offblack">추천향수</h3>
+                  <MoreLink className="cursor-default" />
+                </div>
                 <div className="flex items-center gap-2">
-                  <TabSub variant="b" />
-                  <TabSub variant="a" />
+                  <TabSub
+                    variant={activeRecommendTab === "b" ? "b" : "a"}
+                    icon="b"
+                    onClick={() => setActiveRecommendTab("b")}
+                  >
+                    추천받은
+                  </TabSub>
+                  <TabSub
+                    variant={activeRecommendTab === "a" ? "b" : "a"}
+                    icon="a"
+                    onClick={() => setActiveRecommendTab("a")}
+                  >
+                    내가 추천한
+                  </TabSub>
                 </div>
               </div>
               <div className="flex flex-col gap-3">
                 {recommends.map((item, i) => (
-                  <CardSmall key={i} variant="medium-recommend" {...item} />
+                  <CardSmall
+                    key={i}
+                    variant="medium-recommend"
+                    imgFit={activeRecommendTab === "a" ? "cover" : "contain"}
+                    {...item}
+                  />
                 ))}
               </div>
             </div>
@@ -363,7 +397,7 @@ export default function Mypage() {
         )}
       </div>
 
-      <div className="fixed bottom-0 left-1/2 w-full max-w-[430px] -translate-x-1/2 px-5 pb-5">
+      <div className="fixed bottom-0 left-1/2 w-full max-w-107.5 -translate-x-1/2 px-5 pb-5">
         <BottomNav active="my" />
       </div>
     </div>

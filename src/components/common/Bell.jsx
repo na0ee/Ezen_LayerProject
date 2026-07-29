@@ -13,7 +13,7 @@ export default function Bell({ variant = 'ring', className = '', ...rest }) {
       <img
         src={variant === 'ring' ? bellRing : bellNone}
         alt=""
-        className="h-[20px] w-auto"
+        className="h-5 w-auto"
       />
     </button>
   )

@@ -12,9 +12,9 @@ export default function CardChallengeSmall({
 }) {
   return (
     <div
-      className={`flex h-[120px] w-[380px] items-center overflow-hidden rounded-2xl border border-light-grey bg-offwhite ${className}`}
+      className={`flex h-30 w-95 items-center overflow-hidden rounded-2xl border border-light-grey bg-offwhite ${className}`}
     >
-      <div className="relative size-[120px] shrink-0 overflow-hidden bg-2light-grey">
+      <div className="relative size-30 shrink-0 overflow-hidden bg-2light-grey">
         {img && <img src={img} alt="" className={imgClassName} />}
       </div>
       <div className="flex h-full min-w-0 flex-1 flex-col justify-center gap-3 py-3 pl-5 pr-3">

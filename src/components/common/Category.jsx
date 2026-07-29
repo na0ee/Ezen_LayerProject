@@ -10,10 +10,11 @@ export default function Category({
   className = "",
 }) {
   if (variant === "tab") {
+    const isActive = (item) => (Array.isArray(active) ? active.includes(item) : item === active);
     return (
       <div className={`flex items-center gap-1.5 ${className}`}>
         {items.map((item) => (
-          <Tab key={item} active={item === active} onClick={() => onChange?.(item)}>
+          <Tab key={item} active={isActive(item)} onClick={() => onChange?.(item)}>
             {item}
           </Tab>
         ))}

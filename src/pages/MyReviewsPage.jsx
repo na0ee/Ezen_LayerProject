@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Badge, BottomNav, Header, Icon } from "../components/common";
+import { useNavigate } from "react-router-dom";
+import { Badge, BottomNav, BtnSmall, Header, Icon } from "../components/common";
 import moreDots from "../assets/icons/more-dots.svg";
 import diptyque from "../assets/images/mypage/diptyque.png";
 import loewe from "../assets/images/mypage/loewe.png";
@@ -92,7 +93,7 @@ function ReviewableCard({ item }) {
     <article className="rounded-2xl border border-light-grey bg-offwhite p-4">
       <div className="flex flex-col gap-4">
         <div className="flex items-start gap-3">
-          <div className="flex size-[50px] shrink-0 items-center justify-center overflow-hidden rounded-lg border border-light-grey">
+          <div className="flex h-7.5 w-7.5 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-light-grey">
             <img alt="" className="size-full object-contain" src={item.image} />
           </div>
           <div className="flex min-w-0 flex-col gap-1.5">
@@ -100,12 +101,9 @@ function ReviewableCard({ item }) {
             <h3 className="truncate text-body-regular-14 text-offblack">{item.name}</h3>
           </div>
         </div>
-        <button
-          type="button"
-          className="h-8 w-fit self-end rounded-full border border-light-grey bg-offwhite px-3.5 text-caption-medium-12 text-grey"
-        >
+        <BtnSmall variant="white" className="self-end">
           리뷰 작성하기
-        </button>
+        </BtnSmall>
       </div>
     </article>
   );
@@ -113,21 +111,21 @@ function ReviewableCard({ item }) {
 
 function PendingReviewCard({ review }) {
   return (
-    <article className="flex h-32 w-[300px] shrink-0 flex-col gap-5 rounded-2xl border border-light-grey bg-offwhite p-4">
-      <div className="flex h-[93px] items-start justify-between gap-4">
-        <div className="flex h-[93px] w-full flex-col gap-3">
+    <article className="flex h-32 w-75 shrink-0 flex-col gap-5 rounded-2xl border border-light-grey bg-offwhite p-4">
+      <div className="flex h-23.25 items-start justify-between gap-4">
+        <div className="flex h-23.25 w-full flex-col gap-3">
           <Badge variant="good" />
-          <div className="flex h-[61px] w-full flex-col gap-1.5">
-            <h3 className="line-clamp-2 w-full text-body-semibold-16 leading-[19px] text-offblack">
+          <div className="flex h-15.25 w-full flex-col gap-1.5">
+            <h3 className="line-clamp-2 w-full text-body-semibold-16 leading-4.75 text-offblack">
               {review.title}
             </h3>
-            <p className="line-clamp-2 w-full text-body-regular-14 leading-[17px] text-subtext">
+            <p className="line-clamp-2 w-full text-body-regular-14 leading-4.25 text-subtext">
               {review.description}
             </p>
           </div>
         </div>
-        <div className="flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-light-grey">
-          <img alt="" className="size-full object-contain" src={review.image} />
+        <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-light-grey">
+          <img alt="" className="h-13.5 w-auto object-contain" src={review.image} />
         </div>
       </div>
     </article>
@@ -179,9 +177,9 @@ function WrittenReviewCard({ review }) {
             {review.images.map((image, index) => (
               <div
                 key={index}
-                className="flex size-[50px] shrink-0 items-center justify-center overflow-hidden rounded-lg border border-light-grey"
+                className="flex h-12.5 w-12.5 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-light-grey"
               >
-                <img alt="" className="size-full object-contain" src={image} />
+                <img alt="" className="h-7.5 w-7.5 object-contain" src={image} />
               </div>
             ))}
           </div>
@@ -207,17 +205,16 @@ function WrittenReviewCard({ review }) {
 }
 
 export default function MyReviewsPage() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("reviewable");
   const scrollerDrag = useDragScroll();
 
   return (
-    <div className="mx-auto min-h-screen w-full max-w-[430px] bg-background pb-[104px]">
+    <div className="mx-auto min-h-screen w-full max-w-107.5 bg-background pb-26">
       <Header
         variant="detail-back"
         title="내 리뷰 관리하기"
-        onBack={() => {
-          window.location.href = "/mypage";
-        }}
+        onBack={() => navigate("/mypage")}
       />
 
       <div className="flex flex-col pt-6">
@@ -254,14 +251,14 @@ export default function MyReviewsPage() {
           </div>
         </div>
 
-        <section className="mt-[30px] flex flex-col gap-4 px-5">
+        <section className="mt-7.5 flex flex-col gap-4 px-5">
           {activeTab === "reviewable"
             ? reviewableItems.map((item) => <ReviewableCard key={item.name} item={item} />)
             : writtenReviews.map((review) => <WrittenReviewCard key={review.name} review={review} />)}
         </section>
       </div>
 
-      <div className="fixed bottom-0 left-1/2 w-full max-w-[430px] -translate-x-1/2 px-5 pb-5">
+      <div className="fixed bottom-0 left-1/2 w-full max-w-107.5 -translate-x-1/2 px-5 pb-5">
         <BottomNav active="my" />
       </div>
     </div>
