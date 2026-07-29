@@ -133,7 +133,7 @@ export default function MagazineFragranceCollection({ onBack }) {
           </section>
 
           <div
-            className="mt-10 w-full cursor-grab select-none overflow-x-auto overflow-y-hidden px-5 [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
+            className="mt-10 w-full cursor-grab touch-auto select-none overflow-x-auto overflow-y-hidden px-5 [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
             onPointerDown={handleRailPointerDown}
             onPointerMove={handleRailPointerMove}
             onPointerUp={handleRailPointerEnd}

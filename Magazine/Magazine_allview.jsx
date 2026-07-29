@@ -22,42 +22,49 @@ const MAGAZINES = [
     title: "계절별 향수 선택 가이드",
     desc: "봄부터 겨울까지,\n계절에 어울리는 노트 찾기",
     target: "season",
+    categories: ["추천", "선물"],
   },
   {
     img: santalTip,
     title: "향수 지속력을 높이는 꿀팁",
     desc: "오래 기억되는\n향을 위한 작은 습관",
     target: "santalTip",
+    categories: ["향수 상식"],
   },
   {
     img: collection,
     title: "New Fragrance Collection 2026",
     desc: "올해 가장 주목해야 할\n새로운 향수들",
     target: "fragranceCollection",
+    categories: ["트렌드"],
   },
   {
     img: diptyque,
     title: "DIPTYQUE",
     desc: "예술과 여행이\n향으로 만나다",
     target: "diptyque",
+    categories: ["브랜드"],
   },
   {
     img: jomalone,
     title: "JO MALONE LONDON",
     desc: "나만의 향을 완성하는\n레이어링의 시작",
     target: "jomalone",
+    categories: ["브랜드", "선물"],
   },
   {
     img: byredo,
     title: "BYREDO",
     desc: "기억과 감정을 향으로\n담아내는 브랜드",
     target: "byredo",
+    categories: ["브랜드"],
   },
   {
     img: nicheTrend,
     title: "니치향수 트렌드",
     desc: "향으로\n나를 표현하는 시대",
     target: "niche",
+    categories: ["트렌드"],
     className:
       "[&>img]:!left-[-0.16%] [&>img]:!top-[-12.44%] [&>img]:!h-[125.25%] [&>img]:!w-full [&>img]:!max-w-none [&>img]:!object-fill",
   },
@@ -83,6 +90,12 @@ export default function MagazineAllView({
     byredo: onByredo,
     niche: onNiche,
   };
+  const visibleMagazines =
+    category === "전체"
+      ? MAGAZINES
+      : MAGAZINES.filter((magazine) =>
+          magazine.categories.includes(category)
+        );
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
@@ -101,7 +114,7 @@ export default function MagazineAllView({
 
         <main className="mx-auto mt-6 flex w-[390px] flex-col items-center gap-[30px] pb-[120px]">
           <h1 className="w-[390px] text-title-semibold-24 text-offblack">
-            전체
+            {category}
           </h1>
 
           <div className="flex w-[388px] flex-col items-start gap-4">
@@ -114,7 +127,7 @@ export default function MagazineAllView({
             />
 
             <div className="grid w-[389px] grid-cols-2 gap-[9px]">
-              {MAGAZINES.map((magazine) => (
+              {visibleMagazines.map((magazine) => (
                 <MiddleCard
                   key={`${magazine.title}-${magazine.img}`}
                   img={magazine.img}

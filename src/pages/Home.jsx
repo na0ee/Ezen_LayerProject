@@ -22,7 +22,6 @@ import heroImg from "../assets/images/home/hero.png";
 import heroRecordImg from "../assets/images/home/hero-record.png";
 import magazine1 from "../assets/images/home/magazine-1.png";
 import magazine2 from "../assets/images/home/magazine-2.png";
-import magazine3 from "../assets/images/home/magazine-3.png";
 import raffleImg from "../assets/images/home/raffle.png";
 import scent1 from "../assets/images/home/scent-1.png";
 import scent2 from "../assets/images/home/scent-2.png";
@@ -403,7 +402,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             </div>
             <div
               {...scentDrag}
-              className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
+              className="flex cursor-grab touch-auto select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
               {scentCards.map((card, index) => (
                 <CardMainReview
@@ -445,7 +444,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             </div>
             <div
               {...challengeDrag}
-              className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
+              className="flex cursor-grab touch-auto select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
               {challengeCards.map((card, index) => (
                 <CardChallengeSmall
@@ -484,7 +483,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             </div>
             <div
               {...magazineDrag}
-              className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
+              className="flex cursor-grab touch-auto select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
               <CardMag
                 img={magazine1}
@@ -498,13 +497,6 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
                 title="BYREDO"
                 desc="기억과 감정을 향으로 담아내는 브랜드"
                 onClick={() => navigate("/magazine/byredo")}
-                className="shrink-0"
-              />
-              <CardMag
-                img={magazine3}
-                title="여름 밤에 어울리는 향"
-                desc={"해가 진 뒤에 피어나는 관능적인 노트들\n열대야의 공기와 어울리는 향수를 소개합니다"}
-                onClick={() => navigate("/magazine/summer-perfume")}
                 className="shrink-0"
               />
             </div>
@@ -527,7 +519,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             </div>
             <div
               {...rankDrag}
-              className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
+              className="flex cursor-grab touch-auto select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
               {rankCards.map((card, index) => (
                 <CardRank

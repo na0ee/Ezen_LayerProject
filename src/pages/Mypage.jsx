@@ -399,7 +399,7 @@ export default function Mypage() {
                 onMore={() => navigate("/mypage/perfumes")}
               />
               <div
-                className="no-scrollbar -mx-5 flex touch-pan-x select-none gap-4 overflow-x-auto px-5 [&_img]:pointer-events-none [&_img]:select-none"
+                className="no-scrollbar -mx-5 flex touch-auto select-none gap-4 overflow-x-auto px-5 [&_img]:pointer-events-none [&_img]:select-none"
                 {...perfumeDrag}
               >
                 {myPerfumes.map((item) => (
@@ -427,7 +427,7 @@ export default function Mypage() {
             <div className="flex flex-col items-center gap-7.5">
               <h3 className="w-full text-title-semibold-24 text-offblack">최근 본 매거진</h3>
               <div
-                className="no-scrollbar -mx-5 flex touch-pan-x select-none self-stretch gap-4 overflow-x-auto px-5 [&_img]:pointer-events-none [&_img]:select-none"
+                className="no-scrollbar -mx-5 flex touch-auto select-none self-stretch gap-4 overflow-x-auto px-5 [&_img]:pointer-events-none [&_img]:select-none"
                 {...magazineDrag}
               >
                 {magazines.map((item) => (

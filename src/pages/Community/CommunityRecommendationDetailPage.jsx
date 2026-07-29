@@ -99,7 +99,7 @@ function DraggablePerfumeTag({ perfume, position, onOpen }) {
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
-      className="absolute flex touch-none select-none flex-col items-center gap-[2px] text-left"
+      className="absolute flex touch-pan-y select-none flex-col items-center gap-[2px] text-left"
       style={{
         left: position.left,
         top: position.top,
