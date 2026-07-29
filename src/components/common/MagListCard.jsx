@@ -7,11 +7,24 @@ export default function MagListCard({
   title,
   desc,
   imgClassName = "absolute inset-0 size-full object-cover",
+  onClick,
   className = "",
 }) {
+  const handleKeyDown = (event) => {
+    if (!onClick || (event.key !== "Enter" && event.key !== " ")) return;
+    event.preventDefault();
+    onClick(event);
+  };
+
   return (
     <div
-      className={`relative h-72.25 w-65.5 overflow-hidden rounded-lg border-[0.8px] border-light-grey bg-light-grey ${className}`}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      className={`relative h-72.25 w-65.5 overflow-hidden rounded-lg border-[0.8px] border-light-grey bg-light-grey ${
+        onClick ? "cursor-pointer" : ""
+      } ${className}`}
     >
       {img && (
         <img src={img} alt="" className={imgClassName} />

@@ -353,7 +353,7 @@ export default function MagazineMain({
         <BottomNav
           active="magazine"
           onChange={onNavigate}
-          className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 [&>div]:!w-[390px] [&>div]:!gap-[5px] [&>div>button]:!size-[72px] [&>div>div]:!h-[72px] [&>div>div]:!w-[313px] [&>div>div]:!flex-none [&>div>div>span]:!h-14 [&>div>div>span]:!w-[79px]"
+          className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2"
         />
       </div>
     </div>

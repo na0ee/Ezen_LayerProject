@@ -8,11 +8,24 @@ export default function CardMainReview({
   brand,
   name,
   keywords = [],
+  onClick,
   className = "",
 }) {
+  const handleKeyDown = (event) => {
+    if (!onClick || (event.key !== "Enter" && event.key !== " ")) return;
+    event.preventDefault();
+    onClick(event);
+  };
+
   return (
     <div
-      className={`relative flex h-[380px] w-[320px] flex-col justify-end overflow-hidden rounded-3xl bg-light-grey p-3 ${className}`}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      className={`relative flex h-[380px] w-[320px] flex-col justify-end overflow-hidden rounded-3xl bg-light-grey p-3 ${
+        onClick ? "cursor-pointer" : ""
+      } ${className}`}
     >
       {img && (
         <img src={img} alt="" className="absolute inset-0 size-full object-cover" />

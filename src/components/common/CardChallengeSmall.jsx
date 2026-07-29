@@ -10,9 +10,26 @@ export default function CardChallengeSmall({
   onAction,
   className = "",
 }) {
+  const handleKeyDown = (event) => {
+    if (!onAction || (event.key !== "Enter" && event.key !== " ")) return;
+    event.preventDefault();
+    onAction(event);
+  };
+
+  const handleActionClick = (event) => {
+    event.stopPropagation();
+    onAction?.(event);
+  };
+
   return (
     <div
-      className={`flex h-30 w-95 items-center overflow-hidden rounded-2xl border border-light-grey bg-offwhite ${className}`}
+      role={onAction ? "button" : undefined}
+      tabIndex={onAction ? 0 : undefined}
+      onClick={onAction}
+      onKeyDown={handleKeyDown}
+      className={`flex h-30 w-95 items-center overflow-hidden rounded-2xl border border-light-grey bg-offwhite ${
+        onAction ? "cursor-pointer" : ""
+      } ${className}`}
     >
       <div className="relative size-30 shrink-0 overflow-hidden bg-2light-grey">
         {img && <img src={img} alt="" className={imgClassName} />}
@@ -22,7 +39,7 @@ export default function CardChallengeSmall({
           <p className="text-body-semibold-16 text-offblack">{title}</p>
           <p className="text-caption-regular-12 text-offblack">{desc}</p>
         </div>
-        <BtnGo variant="go" onClick={onAction}>
+        <BtnGo variant="go" onClick={handleActionClick}>
           {actionLabel}
         </BtnGo>
       </div>

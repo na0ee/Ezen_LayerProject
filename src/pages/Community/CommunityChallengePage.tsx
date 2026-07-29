@@ -13,6 +13,7 @@ import {
   Search,
   TitleSection,
 } from "../../components/common";
+import { useNavigate } from "react-router-dom";
 
 const communityTabs = ["리뷰", "질문", "챌린지", "향 추천"] as const;
 
@@ -66,6 +67,26 @@ export default function CommunityChallengePage({
   onTabChange,
   onWrite,
 }: CommunityChallengePageProps) {
+  const navigate = useNavigate();
+
+  const handleChallenge = (challengeId: string) => {
+    if (challengeId.startsWith("community")) {
+      onTabChange?.("리뷰");
+      return;
+    }
+    if (challengeId === "register-perfume") {
+      navigate("/mypage/perfumes/new");
+      return;
+    }
+    if (challengeId === "recommend-perfume") {
+      onTabChange?.("향 추천");
+      return;
+    }
+    if (challengeId === "gift-with-ai") {
+      navigate("/chatbot?intent=gift");
+    }
+  };
+
   return (
     <main className="community-challenge-page min-h-[100dvh] bg-subtext">
       <div className="community-challenge-page__wrap mx-auto min-h-[100dvh] w-full max-w-[430px] bg-background pb-28">
@@ -124,6 +145,7 @@ export default function CommunityChallengePage({
                     imgClassName="h-[107%] w-full max-w-none object-cover object-top"
                     title={challenge.title}
                     desc={challenge.description}
+                    onAction={() => handleChallenge(challenge.id)}
                     className="[&>div:last-child]:justify-center"
                   />
                 ))}
@@ -149,6 +171,11 @@ export default function CommunityChallengePage({
                     img={challenge.image}
                     title={challenge.title}
                     desc={challenge.description}
+                    onAction={
+                      challenge.completed
+                        ? undefined
+                        : () => handleChallenge(challenge.id)
+                    }
                   />
 
                   {challenge.completed && (

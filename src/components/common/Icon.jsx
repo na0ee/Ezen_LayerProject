@@ -10,22 +10,37 @@ import CommunityReviewCommentSheet from "./CommunityReviewCommentSheet";
 export default function Icon({
   likes = 0,
   comments = 0,
-  liked = false,
+  liked: controlledLiked = false,
   onLike,
   onCommentsClick,
   commentItems,
   className = "",
 }) {
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+  const [internalLiked, setInternalLiked] = useState(controlledLiked);
+  const isControlled = typeof onLike === "function";
+  const isLiked = isControlled ? controlledLiked : internalLiked;
+  const likeCount = isControlled
+    ? likes
+    : likes + Number(internalLiked) - Number(controlledLiked);
 
   const handleCommentsClick = () => {
     onCommentsClick?.();
     setIsCommentsOpen(true);
   };
 
+  const handleLike = (event) => {
+    if (isControlled) {
+      onLike(event);
+      return;
+    }
+
+    setInternalLiked((current) => !current);
+  };
+
   const heartImg = (
     <img
-      src={liked ? heartAbled : countHeart}
+      src={isLiked ? heartAbled : countHeart}
       alt="좋아요"
       className="size-[18px] object-contain"
     />
@@ -35,20 +50,16 @@ export default function Icon({
     <>
       <div className={`flex items-center gap-[12px] ${className}`}>
         <div className="flex items-center gap-1">
-          {onLike ? (
-            <button
-              type="button"
-              aria-label="좋아요"
-              aria-pressed={liked}
-              onClick={onLike}
-              className="flex size-[18px] shrink-0 items-center justify-center"
-            >
-              {heartImg}
-            </button>
-          ) : (
-            heartImg
-          )}
-          <span className="text-body-regular-14 text-grey">{likes}</span>
+          <button
+            type="button"
+            aria-label="좋아요"
+            aria-pressed={isLiked}
+            onClick={handleLike}
+            className="flex size-[18px] shrink-0 items-center justify-center"
+          >
+            {heartImg}
+          </button>
+          <span className="text-body-regular-14 text-grey">{likeCount}</span>
         </div>
         <button
           type="button"

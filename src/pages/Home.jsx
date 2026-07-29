@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   BottomNav,
   BtnHero,
@@ -22,13 +23,14 @@ import heroRecordImg from "../assets/images/home/hero-record.png";
 import magazine1 from "../assets/images/home/magazine-1.png";
 import magazine2 from "../assets/images/home/magazine-2.png";
 import magazine3 from "../assets/images/home/magazine-3.png";
-import rank1 from "../assets/images/home/rank-1.png";
-import rank2 from "../assets/images/home/rank-2.png";
-import rank3 from "../assets/images/home/rank-3.png";
 import raffleImg from "../assets/images/home/raffle.png";
 import scent1 from "../assets/images/home/scent-1.png";
 import scent2 from "../assets/images/home/scent-2.png";
 import scent3 from "../assets/images/home/scent-3-new.png";
+import { allPerfumes } from "../data/perfumeUtils";
+import profileFadedscent from "../assets/Community/Profile/profile-fadedscent.png";
+import profilePassingPerfumer from "../assets/Community/Profile/profile-passing-perfumer.png";
+import profileRainyScent from "../assets/Community/Profile/profile-rainy-scent.png";
 
 const days = [
   { day: "Mon", date: "6", recorded: true },
@@ -69,18 +71,27 @@ const scentCards = [
     label: "Mood Shifter",
     name: "oat.latte",
     keywords: ["포근한", "머스크"],
+    profileImage: profileFadedscent,
+    title: "포근한 하루에 어울리는 향을 찾고 있어요",
+    text: "부드럽고 편안한 분위기에 자연스럽게 스며드는 머스크 향을 추천해주세요.",
   },
   {
     img: scent2,
     label: "Daily Basic",
     name: "mellow_bin",
     keywords: ["달콤한", "바닐라"],
+    profileImage: profilePassingPerfumer,
+    title: "달콤한 분위기에 어울리는 향이 궁금해요",
+    text: "따뜻한 바닐라처럼 기분 좋은 달콤함이 오래 남는 향수를 찾고 있어요.",
   },
   {
     img: scent3,
     label: "Bold Signature",
     name: "dansu_o",
     keywords: ["우디", "빈티지"],
+    profileImage: profileRainyScent,
+    title: "빈티지한 무드에 어울리는 우디 향 찾아요",
+    text: "차분하면서도 개성이 느껴지는 깊은 우디 향수를 추천받고 싶어요.",
   },
 ];
 
@@ -102,8 +113,23 @@ const challengeCards = [
   },
 ];
 
+const rankIdsByCategory = {
+  전체: [16, 37, 44],
+  선물: [19, 21, 41],
+  여성: [7, 22, 43],
+  "20대": [1, 17, 25],
+  "30대": [20, 27, 42],
+  남성: [9, 10, 28],
+};
+
 function useDragScroll() {
-  const drag = useRef({ active: false, startX: 0, scrollLeft: 0 });
+  const drag = useRef({
+    active: false,
+    dragged: false,
+    pointerId: null,
+    startX: 0,
+    scrollLeft: 0,
+  });
 
   const onPointerDown = (event) => {
     if (event.pointerType !== "mouse" || event.button !== 0) return;
@@ -111,16 +137,25 @@ function useDragScroll() {
     const element = event.currentTarget;
     drag.current = {
       active: true,
+      dragged: false,
+      pointerId: event.pointerId,
       startX: event.clientX,
       scrollLeft: element.scrollLeft,
     };
-    element.setPointerCapture(event.pointerId);
   };
 
   const onPointerMove = (event) => {
     if (!drag.current.active) return;
+
+    const distance = event.clientX - drag.current.startX;
+    if (!drag.current.dragged && Math.abs(distance) > 8) {
+      drag.current.dragged = true;
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
+
+    if (!drag.current.dragged) return;
     event.currentTarget.scrollLeft =
-      drag.current.scrollLeft - (event.clientX - drag.current.startX);
+      drag.current.scrollLeft - distance;
   };
 
   const stopDragging = (event) => {
@@ -132,8 +167,16 @@ function useDragScroll() {
     }
   };
 
+  const onClickCapture = (event) => {
+    if (!drag.current.dragged) return;
+    event.preventDefault();
+    event.stopPropagation();
+    drag.current.dragged = false;
+  };
+
   return {
     onDragStart: (event) => event.preventDefault(),
+    onClickCapture,
     onPointerDown,
     onPointerMove,
     onPointerUp: stopDragging,
@@ -142,6 +185,7 @@ function useDragScroll() {
 }
 
 export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
+  const navigate = useNavigate();
   const [activeNav, setActiveNav] = useState("home");
   const [giftCategory, setGiftCategory] = useState("전체");
   const [isPastHero, setIsPastHero] = useState(false);
@@ -157,6 +201,9 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
   const challengeDrag = useDragScroll();
   const magazineDrag = useDragScroll();
   const rankDrag = useDragScroll();
+  const rankCards = rankIdsByCategory[giftCategory].map((id) =>
+    allPerfumes.find((item) => item.id === id),
+  ).filter(Boolean);
 
   const changeHero = (direction) => {
     setActiveHero(
@@ -278,6 +325,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             <BtnHero
               onClick={() => {
                 if (activeHero === 0) onStartOnboarding?.();
+                if (activeHero === 1) navigate("/mypage/perfumes/record");
                 if (activeHero === 2) onNavigate?.("community");
               }}
             >
@@ -312,7 +360,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
                   이번주 <span className="text-point-orange">5일</span> 기록했어요
                 </>
               }
-              onMore={() => {}}
+              onMore={() => navigate("/mypage/perfumes/record")}
             />
             <div className="flex h-18 items-center gap-1.5">
               {days.map(({ day, date, recorded }) => (
@@ -346,14 +394,39 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
               <TitleMain
                 title="Scent Pick"
                 sub="사진 속 분위기에 어울리는 향수를 추천해보세요"
+                onMore={() =>
+                  navigate("/community", {
+                    state: { communityTab: "향 추천" },
+                  })
+                }
               />
             </div>
             <div
               {...scentDrag}
               className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
-              {scentCards.map((card) => (
-                <CardMainReview key={card.name} {...card} className="shrink-0" />
+              {scentCards.map((card, index) => (
+                <CardMainReview
+                  key={card.name}
+                  {...card}
+                  onClick={() =>
+                    navigate(`/community/post/home-scent-${index + 1}`, {
+                      state: {
+                        post: {
+                          profileName: card.name,
+                          profileImage: card.profileImage,
+                          time: "5분 전",
+                          image: card.img,
+                          mood: card.label,
+                          title: card.title,
+                          text: card.text,
+                          keywords: card.keywords,
+                        },
+                      },
+                    })
+                  }
+                  className="shrink-0"
+                />
               ))}
             </div>
           </section>
@@ -363,6 +436,11 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
               <TitleMain
                 title="Challenge"
                 sub="함께하는 챌린지로 꾸준함을 만들어요"
+                onMore={() =>
+                  navigate("/community", {
+                    state: { communityTab: "챌린지" },
+                  })
+                }
               />
             </div>
             <div
@@ -380,6 +458,15 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
                   }
                   title={card.title}
                   desc={card.desc}
+                  onAction={() => {
+                    if (index === 0) navigate("/community");
+                    if (index === 1) navigate("/mypage/perfumes/new");
+                    if (index === 2) {
+                      navigate("/community", {
+                        state: { communityTab: "향 추천" },
+                      });
+                    }
+                  }}
                   className="shrink-0"
                   aria-label={`챌린지 ${index + 1}`}
                 />
@@ -392,6 +479,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
               <TitleMain
                 title="Magazine"
                 sub="당신의 향을 이야기해요"
+                onMore={() => navigate("/magazine")}
               />
             </div>
             <div
@@ -402,18 +490,21 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
                 img={magazine1}
                 title="향수 지속력 높이는 꿀팁"
                 desc={"보습된 피부에 뿌려야 향이 오래 머물러요"}
+                onClick={() => navigate("/magazine/tip")}
                 className="shrink-0"
               />
               <CardMag
                 img={magazine2}
                 title="BYREDO"
                 desc="기억과 감정을 향으로 담아내는 브랜드"
+                onClick={() => navigate("/magazine/byredo")}
                 className="shrink-0"
               />
               <CardMag
                 img={magazine3}
                 title="여름 밤에 어울리는 향"
                 desc={"해가 진 뒤에 피어나는 관능적인 노트들\n열대야의 공기와 어울리는 향수를 소개합니다"}
+                onClick={() => navigate("/magazine/summer-perfume")}
                 className="shrink-0"
               />
             </div>
@@ -438,33 +529,18 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
               {...rankDrag}
               className="flex cursor-grab touch-pan-x select-none gap-3 overflow-x-scroll overscroll-x-contain px-5 pb-1 [clip-path:inset(0_0_0_20px)] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&_img]:select-none [&::-webkit-scrollbar]:hidden"
             >
-              <CardRank
-                rank="1위"
-                img={rank1}
-                name="블랙베리 앤 베이"
-                brand="JO MALONE LONDON"
-                imageFrameClassName="w-[44px]"
-                imageClassName="absolute h-[154.55px] w-[155.83px] left-[-55.92px] top-[-27.27px] max-w-none"
-                className="shrink-0"
-              />
-              <CardRank
-                rank="2위"
-                img={rank2}
-                name="플레르 드 뽀 오 드 퍼퓸"
-                brand="DIPTYQUE"
-                imageFrameClassName="w-[57px]"
-                imageClassName="absolute h-[106.25px] w-[105.32px] left-[-24.16px] top-0 max-w-none"
-                className="shrink-0"
-              />
-              <CardRank
-                rank="3위"
-                img={rank3}
-                name="넘버5 오 드 빠르펭"
-                brand="CHANEL"
-                imageFrameClassName="w-[61px]"
-                imageClassName="absolute h-[142.86px] w-[142.06px] left-[-40.11px] top-[-21.85px] max-w-none"
-                className="shrink-0"
-              />
+              {rankCards.map((card, index) => (
+                <CardRank
+                  key={`${giftCategory}-${card.id}`}
+                  rank={`${index + 1}위`}
+                  img={card.img}
+                  name={card.name}
+                  brand={card.brand}
+                  imageFrameClassName="w-20"
+                  imageClassName="size-full object-contain"
+                  className="shrink-0"
+                />
+              ))}
             </div>
           </section>
 
@@ -473,11 +549,13 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
               title="Gift"
               actionVariant="ai"
               sub="AI 챗봇과 함께 그 사람에게 꼭 맞는 향수를 찾아요"
+              onMore={() => navigate("/chatbot?intent=gift")}
             />
             <MainBanner
               img={giftImg}
               alt="향수 선물 추천"
               imgClassName="absolute left-[-3.94%] top-[-7.78%] h-[123.92%] w-[108.12%] max-w-none"
+              onClick={() => navigate("/chatbot?intent=gift")}
             />
           </section>
         </div>

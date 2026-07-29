@@ -34,26 +34,15 @@ export default function CommunityReviewCommentSheet({
     if (!open) return undefined;
 
     const previousOverflow = document.body.style.overflow;
-    const previousPaddingRight = document.body.style.paddingRight;
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
     const handleKeyDown = (event) => {
       if (event.key === "Escape") onClose?.();
     };
 
-    if (scrollbarWidth > 0) {
-      const currentPaddingRight =
-        Number.parseFloat(window.getComputedStyle(document.body).paddingRight) ||
-        0;
-
-      document.body.style.paddingRight = `${currentPaddingRight + scrollbarWidth}px`;
-    }
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.body.style.overflow = previousOverflow;
-      document.body.style.paddingRight = previousPaddingRight;
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [onClose, open]);
@@ -152,7 +141,7 @@ export default function CommunityReviewCommentSheet({
               value={message}
               onChange={(event) => setMessage(event.target.value)}
               onSend={handleSend}
-              placeholder="추천메시지를 입력하세요"
+              placeholder="댓글을 입력하세요"
             />
           </div>
         </div>

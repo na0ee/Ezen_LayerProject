@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import byredoBlancheProduct from "../../assets/Community/product-byredo-blanche.png";
 import diptyqueEauRoseProduct from "../../assets/Community/product-diptyque-eau-rose.png";
@@ -20,28 +20,98 @@ import {
 
 type ProductTagProps = {
   brandName: string;
-  className: string;
-  markerClassName: string;
+  left: string;
+  perfumeId: number;
   productName: string;
   productImage: string;
+  top: number;
 };
 
-function renderProductTag({
+function DraggableProductTag({
   brandName,
-  className,
-  markerClassName,
+  left,
+  perfumeId,
   productName,
   productImage,
-}: ProductTagProps): ReactNode {
+  top,
+}: ProductTagProps) {
+  const navigate = useNavigate();
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const drag = useRef({
+    active: false,
+    dragged: false,
+    pointerId: 0,
+    startX: 0,
+    startY: 0,
+    offsetX: 0,
+    offsetY: 0,
+  });
+
+  const handlePointerDown = (event: React.PointerEvent<HTMLButtonElement>) => {
+    if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) return;
+    drag.current = {
+      active: true,
+      dragged: false,
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      offsetX: offset.x,
+      offsetY: offset.y,
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLButtonElement>) => {
+    if (!drag.current.active || drag.current.pointerId !== event.pointerId) return;
+    const deltaX = event.clientX - drag.current.startX;
+    const deltaY = event.clientY - drag.current.startY;
+    if (Math.hypot(deltaX, deltaY) > 4) drag.current.dragged = true;
+    if (!drag.current.dragged) return;
+    setOffset({
+      x: drag.current.offsetX + deltaX,
+      y: drag.current.offsetY + deltaY,
+    });
+  };
+
+  const handlePointerUp = (event: React.PointerEvent<HTMLButtonElement>) => {
+    if (!drag.current.active || drag.current.pointerId !== event.pointerId) return;
+    drag.current.active = false;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    if (drag.current.dragged) {
+      event.preventDefault();
+      drag.current.dragged = false;
+      return;
+    }
+    navigate(`/perfume/${perfumeId}`);
+  };
+
   return (
-    <div className={`absolute ${className}`}>
-      <div
-        className="community-review-product-tag flex w-[155px] items-center gap-2 rounded-lg bg-offblack70 p-2"
-      >
+    <button
+      type="button"
+      onClick={handleClick}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+      className="absolute flex touch-none select-none flex-col items-center gap-[2px]"
+      style={{
+        left,
+        top,
+        transform: `translate(calc(-50% + ${offset.x}px), ${offset.y}px)`,
+      }}
+    >
+      <span className="community-review-product-tag flex w-[155px] items-center gap-2 rounded-lg bg-offblack70 p-2">
         <span className="relative flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-md bg-2light-grey">
           <img
             src={productImage}
             alt=""
+            draggable="false"
             className="size-full object-contain"
           />
         </span>
@@ -53,66 +123,72 @@ function renderProductTag({
             {productName}
           </span>
         </span>
-      </div>
-      <span
-        aria-hidden="true"
-        className={`community-review-product-marker absolute top-[calc(100%+6px)] flex size-3 items-center justify-center rounded-full bg-point-orange text-caption-semibold-10 leading-none text-offwhite ${markerClassName}`}
-      >
+      </span>
+      <span className="community-review-product-marker flex size-3 items-center justify-center rounded-full bg-point-orange text-caption-semibold-10 leading-none text-offwhite">
         +
       </span>
+    </button>
+  );
+}
+
+function ProductOverlay({ tags }: { tags: readonly ProductTagProps[] }) {
+  return (
+    <div className="community-review-card__product-overlays absolute inset-0">
+      {tags.map((tag) => (
+        <DraggableProductTag key={tag.perfumeId} {...tag} />
+      ))}
     </div>
   );
 }
 
-const firstReviewOverlay = (
-  <div className="community-review-card__product-overlays absolute inset-0">
-    {renderProductTag({
+const firstReviewTags = [
+    {
       brandName: "Diptyque",
-      className: "left-[51px] top-[29px]",
-      markerClassName: "left-[69px]",
+      left: "30%",
+      top: 29,
+      perfumeId: 36,
       productName: "오 로즈 오 드 퍼퓸",
       productImage: diptyqueEauRoseProduct,
-    })}
-    {renderProductTag({
+    },
+    {
       brandName: "Byredo",
-      className: "left-[206px] top-[91px]",
-      markerClassName: "left-[73px]",
+      left: "70%",
+      top: 91,
+      perfumeId: 21,
       productName: "블랑쉬 오 드 퍼퓸",
       productImage: byredoBlancheProduct,
-    })}
-    {renderProductTag({
+    },
+    {
       brandName: "Jo Malone London",
-      className: "left-[146px] top-[181px]",
-      markerClassName: "left-[72px]",
+      left: "52%",
+      top: 181,
+      perfumeId: 16,
       productName: "블랙베리 앤 베이 코롱",
       productImage: joMaloneEnglishPearProduct,
-    })}
-  </div>
-);
+    },
+] as const;
 
-const secondReviewOverlay = (
-  <div className="community-review-card__product-overlays absolute inset-0">
-    {renderProductTag({
+const secondReviewTags = [
+    {
       brandName: "Le Labo",
-      className: "left-10 top-20",
-      markerClassName: "left-[158px]",
+      left: "38%",
+      top: 80,
+      perfumeId: 27,
       productName: "상탈 33",
       productImage: leLaboSantal33Product,
-    })}
-  </div>
-);
+    },
+] as const;
 
-const thirdReviewOverlay = (
-  <div className="community-review-card__product-overlays absolute inset-0">
-    {renderProductTag({
+const thirdReviewTags = [
+    {
       brandName: "Maison Margiela",
-      className: "right-2 top-16",
-      markerClassName: "-left-[69px]",
-      productName: "REPLICA",
+      left: "67%",
+      top: 64,
+      perfumeId: 1,
+      productName: "레이지 선데이 모닝",
       productImage: lazySundayMorningProduct,
-    })}
-  </div>
-);
+    },
+] as const;
 
 const reviewPosts = [
   {
@@ -121,7 +197,7 @@ const reviewPosts = [
     profileTime: "30분 전",
     profileImage: profileHaesu,
     image: beigeLookImage,
-    imageOverlay: firstReviewOverlay,
+    productTags: firstReviewTags,
     title: "햇살 좋은 날의 베이지 룩",
     text: "따뜻한 햇살엔 부드럽고 깨끗한 향이 잘 어울리는 것 같아요. 블랑쉬로 포근하게 시작해서 오 로즈로 기분 전환해주고 마지막엔 잉글리쉬 페어로 잔향을 남겨줘요. 하루 종일 기분이 좋아지는 조합이에요.",
     keywords: ["데일리향수", "베이지룩", "플로럴머스크", "지속력좋아요"],
@@ -134,7 +210,7 @@ const reviewPosts = [
     profileTime: "1시간 전",
     profileImage: profileWoodyCollector,
     image: santal33Image,
-    imageOverlay: secondReviewOverlay,
+    productTags: secondReviewTags,
     title: "퇴근하고 나한테 주는 상",
     text: "상탈33은 아껴 쓰게 되는 향이에요. 하루 끝나고 손목에 한 번 뿌리면 이상하게 마음이 가라앉아요. 우디 입문으로도 추천.",
     keywords: ["우디", "가을", "퇴근후"],
@@ -147,7 +223,7 @@ const reviewPosts = [
     profileTime: "3시간 전",
     profileImage: profileCottonScent,
     image: lazySundayMorningImage,
-    imageOverlay: thirdReviewOverlay,
+    productTags: thirdReviewTags,
     title: "이불 냄새를 향수로 만든다면",
     text: "레이지 선데이 모닝은 자기 전에 뿌리는 향수예요. 갓 세탁한 이불에 파묻히는 느낌. 수면향 찾으시는 분들께 강추.",
     keywords: ["머스크", "잠들기전", "포근함", "지속력좋아요"],
@@ -221,7 +297,8 @@ export default function CommunityReviewPage({
                 profileTime={post.profileTime}
                 profileImg={post.profileImage}
                 imgs={[post.image]}
-                imageOverlay={post.imageOverlay}
+                imageOverlay={<ProductOverlay tags={post.productTags} />}
+                toggleImageOverlay
                 title={post.title}
                 text={post.text}
                 keywords={[...post.keywords]}
