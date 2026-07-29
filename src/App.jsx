@@ -81,6 +81,38 @@ export default function App() {
 
   return (
     <>
+      <svg aria-hidden="true" className="pointer-events-none absolute size-0">
+        <defs>
+          <filter
+            id="glass-refraction"
+            x="-20%"
+            y="-30%"
+            width="140%"
+            height="160%"
+            colorInterpolationFilters="sRGB"
+          >
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.012 0.065"
+              numOctaves="1"
+              seed="8"
+              result="refractionNoise"
+            />
+            <feGaussianBlur
+              in="SourceGraphic"
+              stdDeviation="0.8"
+              result="softBackdrop"
+            />
+            <feDisplacementMap
+              in="softBackdrop"
+              in2="refractionNoise"
+              scale="18"
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
+        </defs>
+      </svg>
       <ScrollToTop />
       <Routes location={backgroundLocation || location}>
         <Route path="/" element={<Splash />} />

@@ -30,7 +30,7 @@ export default function CardMainReview({
       {img && (
         <img src={img} alt="" className="absolute inset-0 size-full object-cover" />
       )}
-      <div className="glass-surface-dark relative flex h-[105px] w-full flex-col gap-2 rounded-2xl p-4">
+      <div className="glass-surface-dark glass-rim-light glass-depth relative flex h-[105px] w-full flex-col gap-2 rounded-2xl p-4">
         <div className="flex flex-col gap-0.5">
           {(label || brand) && (
             <LayerBadge size="small" className="h-[23px] py-0">

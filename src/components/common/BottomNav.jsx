@@ -36,12 +36,12 @@ export default function BottomNav({
       aria-label="주요 메뉴"
       className={`pointer-events-auto z-[100] flex w-[calc(100vw-40px)] max-w-[390px] items-center ${className}`}
     >
-      <div className="flex w-full min-w-0 items-center justify-center gap-1.5">
-        <div className="bottom-nav-glass relative h-16 min-w-0 flex-1 overflow-hidden rounded-[50px]">
+      <div className="flex w-[391px] shrink-0 items-center justify-center gap-1.5">
+        <div className="glass-surface-dark glass-rim-light glass-depth relative h-16 min-w-0 flex-1 overflow-hidden rounded-[50px]">
           <span
             key={resolvedActive}
             aria-hidden="true"
-            className="bottom-nav-indicator-settle absolute left-2 top-1/2 z-[2] h-[52px] w-[calc((100%_-_16px)/4)] rounded-[50px] bg-grey/70 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+            className="absolute left-2 top-1/2 h-[52px] w-[82px] rounded-[50px] border border-offwhite/10 bg-offwhite/[0.07] shadow-[inset_0_1px_0_rgb(255_255_255_/_14%)] backdrop-blur-md transition-transform duration-200"
             style={{
               transform: `translate3d(${activeIndex * 100}%, -50%, 0)`,
             }}
@@ -63,7 +63,7 @@ export default function BottomNav({
           type="button"
           aria-label="챗봇 레이 열기"
           onClick={onCharacter ?? (() => navigate("/chatbot"))}
-          className="bottom-nav-glass flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-full"
+          className="glass-surface-dark glass-rim-light glass-depth flex size-16 shrink-0 items-center justify-center rounded-full"
         >
           <span className="relative z-[3] flex size-10 items-center justify-center overflow-hidden">
             <span className="relative h-10 w-7 overflow-hidden">
