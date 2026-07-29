@@ -184,6 +184,26 @@
     inset 0 -1px 0 rgb(0 0 0 / 16%) !important;
 }
 
+/* 페이지 배경색이 달라도 BottomNav의 검정 유리 농도는 일정하게 유지한다. */
+.bottom-nav-glass-tone {
+  background:
+    radial-gradient(
+      circle at 15% 0%,
+      rgb(255 255 255 / 11%) 0%,
+      transparent 38%
+    ),
+    linear-gradient(
+      105deg,
+      transparent 8%,
+      rgb(255 255 255 / 5%) 22%,
+      transparent 38%,
+      transparent 68%,
+      rgb(255 255 255 / 4%) 82%,
+      transparent 94%
+    ),
+    rgb(12 12 12 / 78%);
+}
+
 /* 지원 브라우저에서는 컴포넌트 뒤의 픽셀을 변위시켜 실제 굴절을 만든다. */
 @supports (backdrop-filter: url('#glass-refraction')) {
   .glass-depth {
@@ -191,6 +211,13 @@
       saturate(145%);
     backdrop-filter: url('#glass-refraction') blur(3px) saturate(145%);
   }
+}
+
+/* 댓글 시트가 열린 동안 포털로 렌더링된 BottomNav를 모달 아래로 숨긴다. */
+body.comment-sheet-open [data-bottom-nav] {
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
 }
 
 html {
