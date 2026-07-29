@@ -100,9 +100,16 @@ export default function CommunityWriteEntryPage() {
     } catch {
       // 저장 공간이 부족해도 현재 세션의 게시물 등록은 유지한다.
     }
+    pendingScrollPosition.current = 0;
     setActiveCommunityTab(post.category);
-    closeWritePage();
-    window.scrollTo({ top: 0 });
+    setIsCategorySheetOpen(false);
+    setIsPerfumeSelecting(false);
+    setIsWriting(false);
+    setSelectedPerfumeIds([]);
+    navigate("/community", {
+      replace: true,
+      state: { communityTab: post.category },
+    });
   };
   const deletePost = (postId: string) => {
     const nextPosts = userPosts.filter((post) => post.id !== postId);
@@ -158,18 +165,20 @@ export default function CommunityWriteEntryPage() {
         />
       )}
 
-      {isWriting && !isPerfumeSelecting && activePage === "review" && (
-        <CommunityWritePage
-          {...commonPageProps}
-          category={categoryLabels.review}
-          selectedPerfumeIds={selectedPerfumeIds}
-          onPerfumeAdd={() => {
-            writeScrollPosition.current = window.scrollY;
-            pendingScrollPosition.current = 0;
-            setIsPerfumeSelecting(true);
-          }}
-          onSubmit={publishPost}
-        />
+      {isWriting && activePage === "review" && (
+        <div className={isPerfumeSelecting ? "hidden" : undefined}>
+          <CommunityWritePage
+            {...commonPageProps}
+            category={categoryLabels.review}
+            selectedPerfumeIds={selectedPerfumeIds}
+            onPerfumeAdd={() => {
+              writeScrollPosition.current = window.scrollY;
+              pendingScrollPosition.current = 0;
+              setIsPerfumeSelecting(true);
+            }}
+            onSubmit={publishPost}
+          />
+        </div>
       )}
       {isWriting && !isPerfumeSelecting && activePage === "free" && (
         <CommunityFreeWritePage {...commonPageProps} onSubmit={publishPost} />

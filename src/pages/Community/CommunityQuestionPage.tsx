@@ -109,6 +109,7 @@ export default function CommunityQuestionPage({
                     text={post.text}
                     likes={0}
                     comments={0}
+                    commentKey={post.id}
                     onDelete={() => onDeletePost?.(post.id)}
                   />
                 </article>
@@ -149,6 +150,7 @@ export default function CommunityQuestionPage({
               text={fruitQuestionText}
               likes={42}
               comments={8}
+              commentKey="fruity-lover-question"
               onProfileClick={() =>
                 navigate("/community/profile/fruity-lover", {
                   state: {
@@ -171,6 +173,7 @@ export default function CommunityQuestionPage({
               text={cleanQuestionText}
               likes={19}
               comments={5}
+              commentKey="office-scent-question"
               onProfileClick={() =>
                 navigate("/community/profile/office-scent", {
                   state: {

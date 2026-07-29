@@ -16,6 +16,7 @@ export default function Con2({
   keywords = [],
   likes = 0,
   comments = 0,
+  commentKey,
   imageOverlay,
   toggleImageOverlay = false,
   onProfileClick,
@@ -119,7 +120,7 @@ export default function Con2({
           )}
         </div>
         <div className="flex h-6 w-full items-start justify-between">
-          <Icon likes={likes} comments={comments} />
+          <Icon likes={likes} comments={comments} commentKey={commentKey} />
           {badge && <Badge variant={badge} />}
         </div>
       </div>

@@ -13,6 +13,7 @@ import useDragScroll from "../hooks/useDragScroll";
 import { allPerfumes, relatedPerfumes } from "../data/perfumeUtils";
 import { buildComments, buildReviews } from "../data/perfumeReviews";
 import sparkles from "../assets/icons/sparkles.svg";
+import usePerfumeWishlist from "../hooks/usePerfumeWishlist";
 
 // 피그마: 카테고리_향수보기 (3062:75401) + 리뷰 탭 (3062:75467)
 const tabs = ["상세페이지", "리뷰"];
@@ -33,8 +34,8 @@ export default function PerfumeDetail({
   onSelectRelated,
 }) {
   const [tab, setTab] = useState(tabs[0]);
-  const [liked, setLiked] = useState(false);
   const [likedReviews, setLikedReviews] = useState([]);
+  const { isWishlisted, toggleWishlist } = usePerfumeWishlist();
   const relatedRef = useDragScroll();
 
   const { perfume } = item;
@@ -93,8 +94,8 @@ export default function PerfumeDetail({
                 <KeywordList variant="grey" keywords={item.keywords} />
               </div>
               <Heart
-                variant={liked ? "abled" : "grey1"}
-                onClick={() => setLiked((prev) => !prev)}
+                variant={isWishlisted(item.id) ? "abled" : "grey1"}
+                onClick={() => toggleWishlist(item.id)}
                 className="shrink-0"
               />
             </div>

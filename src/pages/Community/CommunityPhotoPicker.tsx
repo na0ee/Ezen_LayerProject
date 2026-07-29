@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import CameraCaptureModal from "../../components/common/CameraCaptureModal";
 
 interface CommunityPhotoPickerProps {
   images: string[];
@@ -18,7 +19,7 @@ export default function CommunityPhotoPicker({
   onChange,
 }: CommunityPhotoPickerProps) {
   const galleryRef = useRef<HTMLInputElement>(null);
-  const cameraRef = useRef<HTMLInputElement>(null);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
 
   const addFiles = async (files: FileList | null) => {
     if (!files) return;
@@ -67,7 +68,7 @@ export default function CommunityPhotoPicker({
             </button>
             <button
               type="button"
-              onClick={() => cameraRef.current?.click()}
+              onClick={() => setIsCameraOpen(true)}
               className="flex aspect-[5/6] w-40 shrink-0 flex-col items-center justify-center gap-2 rounded-xl bg-light-grey text-body-medium-14 text-subtext"
             >
               <span className="text-[26px] leading-none">◉</span>
@@ -88,16 +89,11 @@ export default function CommunityPhotoPicker({
           event.target.value = "";
         }}
       />
-      <input
-        ref={cameraRef}
-        type="file"
-        accept="image/*"
-        capture="environment"
-        className="hidden"
-        onChange={(event) => {
-          void addFiles(event.target.files);
-          event.target.value = "";
-        }}
+      <CameraCaptureModal
+        open={isCameraOpen}
+        onClose={() => setIsCameraOpen(false)}
+        onCapture={(image) => onChange([...images, image].slice(0, 5))}
+        onChooseFile={() => galleryRef.current?.click()}
       />
     </section>
   );

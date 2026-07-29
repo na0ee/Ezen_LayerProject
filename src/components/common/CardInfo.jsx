@@ -43,11 +43,11 @@ export default function CardInfo({
       }}
       role={onClick ? "button" : undefined}
       tabIndex={onClick ? 0 : undefined}
-      className={`flex w-full justify-end gap-5 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 ${
+      className={`flex w-full justify-end gap-3 overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-3 sm:gap-5 ${
         alignStart ? "items-start" : "items-end"
       } ${onClick ? "cursor-pointer" : ""} ${className}`}
     >
-      <div className="flex min-w-0 flex-1 items-start gap-5">
+      <div className="flex min-w-0 flex-1 items-start gap-3 sm:gap-5">
         <div
           className={`relative size-25 shrink-0 overflow-hidden rounded-lg bg-2light-grey ${
             isRaffle ? "" : "flex items-center justify-center"
@@ -102,7 +102,11 @@ export default function CardInfo({
                 <p className="truncate text-caption-regular-12 text-grey">{brand}</p>
                 <p className="truncate text-body-semibold-16 text-offblack">{name}</p>
               </div>
-              <KeywordList variant="grey" keywords={keywords} />
+              <KeywordList
+                variant="grey"
+                keywords={keywords}
+                className="min-w-0 overflow-hidden whitespace-nowrap [&>span]:shrink-0"
+              />
             </>
           )}
         </div>

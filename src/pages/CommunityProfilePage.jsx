@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useMemo, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   BottomNav,
   BtnBig,
@@ -19,6 +19,37 @@ import reviewCell3 from "../assets/images/mypage/review-tab/review-cell-3.png";
 import reviewCell4 from "../assets/images/mypage/review-tab/review-cell-4.png";
 
 const tabs = ["향수추천", "리뷰"];
+const profileBackgrounds = [
+  background,
+  feedCell1,
+  feedCell2,
+  feedCell3,
+  feedCell4,
+  reviewCell1,
+  reviewCell2,
+  reviewCell3,
+  reviewCell4,
+];
+
+const hashProfileId = (value) =>
+  [...value].reduce(
+    (hash, character) => (hash * 31 + character.charCodeAt(0)) >>> 0,
+    0,
+  );
+
+const shuffleForProfile = (items, seed) => {
+  const next = [...items];
+  let state = seed || 1;
+
+  for (let index = next.length - 1; index > 0; index -= 1) {
+    state = (state * 1664525 + 1013904223) >>> 0;
+    const targetIndex = state % (index + 1);
+    [next[index], next[targetIndex]] = [next[targetIndex], next[index]];
+  }
+
+  return next;
+};
+
 const recommendationPosts = [
   {
     id: "night-walk",
@@ -126,15 +157,29 @@ function PostGrid({ items, onItemClick }) {
 export default function CommunityProfilePage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { profileId = "community-user" } = useParams();
   const profile = location.state?.profile ?? {};
   const [activeTab, setActiveTab] = useState("향수추천");
   const [isFollowing, setIsFollowing] = useState(false);
+  const profileSeed = hashProfileId(
+    `${profileId}-${profile.name ?? "community-user"}`,
+  );
+  const profileBackground =
+    profileBackgrounds[profileSeed % profileBackgrounds.length];
+  const visibleRecommendationPosts = useMemo(
+    () => shuffleForProfile(recommendationPosts, profileSeed).slice(0, 3),
+    [profileSeed],
+  );
+  const visibleReviewPosts = useMemo(
+    () => shuffleForProfile(reviewPosts, profileSeed + 97).slice(0, 3),
+    [profileSeed],
+  );
 
   return (
     <main className="mx-auto min-h-[100dvh] w-full max-w-[430px] bg-background pb-28">
       <div className="relative h-76.25 overflow-hidden">
         <img
-          src={profile.background ?? background}
+          src={profile.background ?? profileBackground}
           alt=""
           className="absolute inset-0 size-full object-cover"
         />
@@ -192,7 +237,11 @@ export default function CommunityProfilePage() {
         />
 
         <PostGrid
-          items={activeTab === "향수추천" ? recommendationPosts : reviewPosts}
+          items={
+            activeTab === "향수추천"
+              ? visibleRecommendationPosts
+              : visibleReviewPosts
+          }
           onItemClick={
             (post) =>
               navigate(`/community/post/profile-${post.id}`, {
@@ -223,7 +272,7 @@ export default function CommunityProfilePage() {
       </div>
 
       <div className="fixed bottom-0 left-1/2 z-30 w-full max-w-[430px] -translate-x-1/2 px-5 pb-5">
-        <BottomNav active="my" />
+        <BottomNav active="community" />
       </div>
     </main>
   );

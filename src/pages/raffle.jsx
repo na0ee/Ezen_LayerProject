@@ -6,12 +6,14 @@ import creedImg from "../assets/images/raffle/creed.png";
 import hermesImg from "../assets/images/raffle/hermes.png";
 import kilianImg from "../assets/images/raffle/kilian.png";
 import maisonMargielaImg from "../assets/images/raffle/maison-margiela.png";
+import { allPerfumes } from "../data/perfumeUtils";
 
 const filters = ["전체", "진행중", "오픈 전", "참여완료"];
 
 const raffles = [
   {
     id: 1,
+    perfumeId: 1,
     status: "오픈 전",
     type: "a",
     img: maisonMargielaImg,
@@ -36,6 +38,7 @@ const raffles = [
   },
   {
     id: 3,
+    perfumeId: 21,
     status: "진행중",
     type: "b",
     img: byredoImg,
@@ -95,9 +98,13 @@ export default function Raffle({ onBack }) {
         : raffles.filter((raffle) => raffle.status === activeFilter);
 
   if (selectedRaffle) {
+    const perfumeItem = allPerfumes.find(
+      (item) => item.id === selectedRaffle.perfumeId,
+    );
+
     return (
       <RaffleDetail
-        raffle={selectedRaffle}
+        raffle={{ ...selectedRaffle, perfumeItem }}
         onBack={() => setSelectedRaffle(null)}
         onApplied={(raffleId) =>
           setAppliedRaffles((current) =>
@@ -119,12 +126,13 @@ export default function Raffle({ onBack }) {
       />
 
       <main className="flex flex-col gap-4 pt-6 pb-10">
-        <div className="flex gap-1.5 px-5">
+        <div className="no-scrollbar flex gap-1.5 overflow-x-auto px-5">
           {filters.map((filter) => (
             <Tab
               key={filter}
               active={activeFilter === filter}
               onClick={() => setActiveFilter(filter)}
+              className="shrink-0 whitespace-nowrap"
             >
               {filter}
             </Tab>
