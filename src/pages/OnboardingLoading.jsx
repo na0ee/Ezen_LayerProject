@@ -28,7 +28,7 @@ export default function OnboardingLoading() {
   }, [navigate, resultPath]);
 
   return (
-    <main className="relative mx-auto flex min-h-dvh w-full max-w-[430px] items-center justify-center overflow-hidden bg-white px-5 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]">
+    <main className="relative mx-auto flex min-h-[var(--app-height,100dvh)] w-full max-w-[430px] items-center justify-center overflow-hidden bg-white px-5 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]">
       <section className="text-center">
         <div className="relative mx-auto h-[61px] w-[168px]">
           {images.map((image, index) => (
