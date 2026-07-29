@@ -231,6 +231,14 @@ body,
   background: var(--color-background);
 }
 
+@media (min-width: 431px) {
+  html,
+  body,
+  #root {
+    background: #000000;
+  }
+}
+
 /* Chrome/Edge가 type="search"에 붙이는 기본 지우기 버튼 제거 —
    Search 컴포넌트가 x-black 아이콘으로 직접 그린다 (X가 두 개 보이는 것 방지) */
 input[type='search']::-webkit-search-cancel-button {
