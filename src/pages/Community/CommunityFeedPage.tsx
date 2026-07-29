@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import feedBeachImage from "../../assets/Community/Feed/feed-beach.png";
 import feedRainyWalkImage from "../../assets/Community/Feed/feed-rainy-walk.png";
 import feedSunsetImage from "../../assets/Community/Feed/feed-sunset.png";
@@ -55,8 +56,10 @@ export default function CommunityFeedPage({
   onTabChange,
   onWrite,
 }: CommunityFeedPageProps) {
-  const [isRecommendationSheetOpen, setIsRecommendationSheetOpen] =
-    useState(false);
+  const navigate = useNavigate();
+  const [recommendationRecipient, setRecommendationRecipient] = useState<
+    string | null
+  >(null);
 
   return (
     <>
@@ -114,6 +117,16 @@ export default function CommunityFeedPage({
                   name={post.profileName}
                   time="5분 전"
                   img={post.profileImage}
+                  onClick={() =>
+                    navigate(`/community/profile/${post.id}`, {
+                      state: {
+                        profile: {
+                          name: post.profileName,
+                          image: post.profileImage,
+                        },
+                      },
+                    })
+                  }
                 />
 
                 <div className="community-feed-card__image relative h-[430px] w-full overflow-hidden rounded-lg bg-light-grey">
@@ -139,7 +152,7 @@ export default function CommunityFeedPage({
 
                 <BtnSmall
                   className="community-feed-card__recommend self-end"
-                  onClick={() => setIsRecommendationSheetOpen(true)}
+                  onClick={() => setRecommendationRecipient(post.profileName)}
                 >
                   추천하기
                 </BtnSmall>
@@ -154,8 +167,9 @@ export default function CommunityFeedPage({
       </main>
 
       <CommunityRecommendationSelectSheet
-        open={isRecommendationSheetOpen}
-        onClose={() => setIsRecommendationSheetOpen(false)}
+        open={recommendationRecipient !== null}
+        recipientName={recommendationRecipient ?? undefined}
+        onClose={() => setRecommendationRecipient(null)}
       />
     </>
   );

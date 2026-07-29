@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 import byredoBlancheProduct from "../../assets/Community/product-byredo-blanche.png";
 import diptyqueEauRoseProduct from "../../assets/Community/product-diptyque-eau-rose.png";
 import joMaloneEnglishPearProduct from "../../assets/Community/product-jo-malone-english-pear.png";
@@ -166,6 +167,8 @@ export default function CommunityReviewPage({
   onTabChange,
   onWrite,
 }: CommunityReviewPageProps) {
+  const navigate = useNavigate();
+
   return (
     <main className="community-review-page min-h-[100dvh] bg-subtext">
       <div className="community-review-page__wrap mx-auto min-h-[100dvh] w-full max-w-[430px] bg-background pb-28">
@@ -224,6 +227,16 @@ export default function CommunityReviewPage({
                 keywords={[...post.keywords]}
                 likes={post.likes}
                 comments={post.comments}
+                onProfileClick={() =>
+                  navigate(`/community/profile/${post.id}`, {
+                    state: {
+                      profile: {
+                        name: post.profileName,
+                        image: post.profileImage,
+                      },
+                    },
+                  })
+                }
                 className={
                   post.id === "beige-look" ? "" : "rounded-t-2xl"
                 }

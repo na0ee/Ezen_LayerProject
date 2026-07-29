@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import profileFruityLover from "../../assets/Community/Profile/profile-fruity-lover.png";
 import profileOfficeScent from "../../assets/Community/Profile/profile-office-scent.png";
 import {
@@ -38,6 +39,8 @@ export default function CommunityQuestionPage({
   onTabChange,
   onWrite,
 }: CommunityQuestionPageProps) {
+  const navigate = useNavigate();
+
   return (
     <main className="community-question-page min-h-[100dvh] bg-subtext">
       <div className="community-question-page__wrap mx-auto min-h-[100dvh] w-full max-w-[430px] bg-background pb-28">
@@ -91,6 +94,16 @@ export default function CommunityQuestionPage({
               text={fruitQuestionText}
               likes={42}
               comments={8}
+              onProfileClick={() =>
+                navigate("/community/profile/fruity-lover", {
+                  state: {
+                    profile: {
+                      name: "과일향러버",
+                      image: profileFruityLover,
+                    },
+                  },
+                })
+              }
             />
           </article>
 
@@ -103,6 +116,16 @@ export default function CommunityQuestionPage({
               text={cleanQuestionText}
               likes={19}
               comments={5}
+              onProfileClick={() =>
+                navigate("/community/profile/office-scent", {
+                  state: {
+                    profile: {
+                      name: "출근향찾는중",
+                      image: profileOfficeScent,
+                    },
+                  },
+                })
+              }
             />
           </article>
 

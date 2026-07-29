@@ -7,10 +7,26 @@ export default function Profile({
   time,
   img,
   className = "",
+  onClick,
 }) {
   const isNone = variant === "none";
+
+  const handleKeyDown = (event) => {
+    if (!onClick || (event.key !== "Enter" && event.key !== " ")) return;
+    event.preventDefault();
+    onClick();
+  };
+
   return (
-    <div className={`flex items-center gap-[12px] ${className}`}>
+    <div
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      className={`flex items-center gap-[12px] ${
+        onClick ? "cursor-pointer" : ""
+      } ${className}`}
+    >
       {isNone || !img ? (
         <div className="flex size-10 items-center justify-center rounded-full bg-2light-grey">
           <img src={iconUser} alt="" className="size-6" />

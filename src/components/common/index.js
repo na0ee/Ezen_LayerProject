@@ -1,4 +1,5 @@
 export { default as Badge } from './Badge'
+export { default as AlertCard } from './AlertCard'
 export { default as Bell } from './Bell'
 export { default as BottomNav } from './BottomNav'
 export { default as BtnBig } from './BtnBig'
