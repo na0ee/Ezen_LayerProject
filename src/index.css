@@ -290,6 +290,18 @@ body {
   min-height: var(--app-height, 100dvh);
 }
 
+html[data-guide-enabled='false'] .feature-guide-overlay {
+  display: none;
+}
+
+html[data-home-guide-step='5'] [data-bottom-nav] {
+  z-index: 160;
+}
+
+html[data-home-guide-step='5'] [data-bottom-nav] > div > div:first-child {
+  filter: brightness(0.45);
+}
+
 @media (min-width: 1024px) {
   :root {
     --desktop-app-width: 430px;
@@ -305,6 +317,8 @@ body {
   .desktop-shell {
     --desktop-app-width: 430px;
     --desktop-right-gap: clamp(40px, 23.45vw, 450.25px);
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns:
       minmax(0, 1fr) var(--desktop-app-width)
@@ -319,6 +333,7 @@ body {
 
   .desktop-brand {
     position: sticky;
+    z-index: 1;
     top: 0;
     display: flex;
     height: 100dvh;
@@ -437,6 +452,7 @@ body {
 
   .desktop-app {
     position: relative;
+    z-index: 1;
     width: var(--desktop-app-width);
     min-width: var(--desktop-app-width);
     min-height: 100dvh;

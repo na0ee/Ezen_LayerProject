@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Badge,
@@ -6,6 +6,7 @@ import {
   BtnSmall,
   CardSmall,
   Category,
+  FeatureGuideCard,
   LayerBadge,
   MagListCard,
   TabSub,
@@ -305,6 +306,11 @@ export default function Mypage() {
   );
   const [activeRecommendTab, setActiveRecommendTab] = useState("b");
   const [isPreparingOpen, setIsPreparingOpen] = useState(false);
+  const [guideStep, setGuideStep] = useState(
+    location.state?.activeTab && location.state.activeTab !== "마이페이지"
+      ? null
+      : 1,
+  );
   const [userPoints] = useState(getUserPoints);
   const recommends = activeRecommendTab === "b" ? recommendsReceived : recommendsGiven;
   const perfumeDrag = useDragScroll();
@@ -313,9 +319,132 @@ export default function Mypage() {
   const onboardingResult =
     ONBOARDING_RESULTS[getSavedOnboardingResultType()] ??
     ONBOARDING_RESULTS["mood-shifter"];
+  const tabsGuideRef = useRef(null);
+  const membershipGuideRef = useRef(null);
+  const perfumesGuideRef = useRef(null);
+  const wishlistGuideRef = useRef(null);
+
+  useEffect(() => {
+    const handleGuideChange = (event) => {
+      setGuideStep(event.detail ? 1 : null);
+      if (event.detail) setActiveTab("마이페이지");
+    };
+
+    window.addEventListener("layer:guide-change", handleGuideChange);
+    return () =>
+      window.removeEventListener("layer:guide-change", handleGuideChange);
+  }, []);
+
+  useEffect(() => {
+    if (guideStep == null || activeTab !== "마이페이지") return;
+
+    const target =
+      guideStep === 1
+        ? tabsGuideRef.current
+        : guideStep === 2
+          ? membershipGuideRef.current
+          : guideStep === 3
+            ? perfumesGuideRef.current
+            : wishlistGuideRef.current;
+
+    if (!target) return;
+
+    if (guideStep === 1) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({
+      top: Math.max(0, targetTop - window.innerHeight * 0.43),
+      behavior: "smooth",
+    });
+  }, [activeTab, guideStep]);
+
+  const advanceMyGuide = useCallback((event) => {
+    if (guideStep == null) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (guideStep < 4) {
+      setGuideStep((current) => current + 1);
+      return;
+    }
+
+    setGuideStep(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [guideStep]);
+
+  useEffect(() => {
+    if (guideStep == null) return undefined;
+
+    const handleGuideClick = (event) => {
+      const target = event.target;
+      if (
+        !(target instanceof Element) ||
+        !target.closest(".desktop-app, [data-bottom-nav]")
+      ) {
+        return;
+      }
+
+      advanceMyGuide(event);
+    };
+
+    document.addEventListener("click", handleGuideClick, true);
+    return () => document.removeEventListener("click", handleGuideClick, true);
+  }, [advanceMyGuide, guideStep]);
 
   return (
     <div className="mx-auto min-h-screen w-full max-w-107.5 bg-background pb-26">
+      {guideStep != null && activeTab === "마이페이지" && (
+        <>
+          <div className="feature-guide-overlay pointer-events-none fixed inset-0 z-[150] bg-black/55" />
+          <div
+            className={`pointer-events-none fixed left-1/2 z-[170] -translate-x-1/2 ${
+              guideStep === 1
+                ? "top-[48%]"
+                : "top-[calc(43dvh-124px)]"
+            }`}
+          >
+            <FeatureGuideCard
+              characterPosition={guideStep % 2 === 0 ? "right" : "left"}
+              size="compact"
+              progress={`${guideStep} / 4`}
+              className="!gap-1"
+            >
+              {guideStep === 1 && (
+                <>
+                  향수 추천과 리뷰 탭에서
+                  <br />
+                  내가 작성한 활동을 모아볼 수 있어요.
+                </>
+              )}
+              {guideStep === 2 && (
+                <>
+                  나의 멤버십 등급과
+                  <br />
+                  향수 유형을 확인할 수 있어요.
+                </>
+              )}
+              {guideStep === 3 && (
+                <>
+                  보유한 향수와 사용 기록을
+                  <br />
+                  한곳에서 관리해 보세요.
+                </>
+              )}
+              {guideStep === 4 && (
+                <>
+                  관심 있는 향수를 저장하고
+                  <br />
+                  언제든 다시 확인해 보세요.
+                </>
+              )}
+            </FeatureGuideCard>
+          </div>
+        </>
+      )}
       {/* background + profile — 배경(305px) 중 프로필 카드에 가려지지 않고 보이는 높이가 210px */}
       <div className="relative h-76.25 w-full overflow-hidden">
         <img src={background} alt="" className="absolute inset-0 size-full object-cover" />
@@ -354,7 +483,12 @@ export default function Mypage() {
         </div>
 
         {/* category tabs */}
-        <Category variant="page" items={pageTabs} active={activeTab} onChange={setActiveTab} />
+        <div
+          ref={tabsGuideRef}
+          className={guideStep === 1 ? "relative z-[160]" : ""}
+        >
+          <Category variant="page" items={pageTabs} active={activeTab} onChange={setActiveTab} />
+        </div>
 
         {/* content */}
         {activeTab !== "마이페이지" ? (
@@ -391,7 +525,12 @@ export default function Mypage() {
         ) : (
         <div className="flex flex-col gap-15 bg-background px-5 py-6">
           {/* sec/grade + test */}
-          <div className="flex flex-col gap-5">
+          <div
+            ref={membershipGuideRef}
+            className={`flex flex-col gap-5 ${
+              guideStep === 2 ? "relative z-[160]" : ""
+            }`}
+          >
             <div className="flex flex-col gap-6 rounded-2xl border border-light-grey bg-offwhite p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -438,7 +577,12 @@ export default function Mypage() {
           {/* 내 향수 관리하기 ~ FAQ: 60px 간격 묶음 */}
           <div className="flex flex-col gap-15">
             {/* sec/perfumes */}
-            <div className="flex flex-col gap-7.5">
+            <div
+              ref={perfumesGuideRef}
+              className={`flex flex-col gap-7.5 ${
+                guideStep === 3 ? "relative z-[160]" : ""
+              }`}
+            >
               <TitleSection
                 variant="button"
                 title="내 향수 관리하기"
@@ -488,7 +632,12 @@ export default function Mypage() {
             </div>
 
             {/* sec/wishlist */}
-            <div className="flex flex-col items-center gap-7.5">
+            <div
+              ref={wishlistGuideRef}
+              className={`flex flex-col items-center gap-7.5 ${
+                guideStep === 4 ? "relative z-[160]" : ""
+              }`}
+            >
               <div className="flex w-full items-center justify-between">
                 <h3 className="text-title-semibold-24 text-offblack">위시리스트</h3>
                 <MoreLink onClick={() => navigate("/mypage/wishlist")} />

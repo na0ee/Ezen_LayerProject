@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   BottomNav,
@@ -8,6 +8,7 @@ import {
   CardMainReview,
   CardRank,
   Category,
+  FeatureGuideCard,
   Header,
   MainBanner,
   MainBannerText,
@@ -196,6 +197,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
   const [isPastHero, setIsPastHero] = useState(false);
   const [activeHero, setActiveHero] = useState(0);
   const [heroTimerKey, setHeroTimerKey] = useState(0);
+  const [guideStep, setGuideStep] = useState(1);
   const { isWishlisted, toggleWishlist } = usePerfumeWishlist();
   const heroDrag = useRef({
     active: false,
@@ -203,6 +205,10 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
     pointerId: null,
     startX: 0,
   });
+  const recordGuideRef = useRef(null);
+  const raffleGuideRef = useRef(null);
+  const scentGuideRef = useRef(null);
+  const magazineGuideRef = useRef(null);
   const scentDrag = useDragScroll();
   const challengeDrag = useDragScroll();
   const magazineDrag = useDragScroll();
@@ -290,8 +296,145 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
     return () => window.clearInterval(timer);
   }, [heroTimerKey]);
 
+  useEffect(() => {
+    const handleGuideChange = (event) => {
+      setGuideStep(event.detail ? 1 : null);
+    };
+
+    window.addEventListener("layer:guide-change", handleGuideChange);
+    return () =>
+      window.removeEventListener("layer:guide-change", handleGuideChange);
+  }, []);
+
+  useEffect(() => {
+    if (guideStep == null) {
+      delete document.documentElement.dataset.homeGuideStep;
+      return undefined;
+    }
+
+    document.documentElement.dataset.homeGuideStep = String(guideStep);
+    const target =
+      guideStep === 1
+        ? recordGuideRef.current
+        : guideStep === 2
+          ? raffleGuideRef.current
+          : guideStep === 3
+            ? scentGuideRef.current
+            : guideStep === 4
+              ? magazineGuideRef.current
+              : null;
+
+    if (guideStep === 5) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return undefined;
+    }
+
+    if (target) {
+      const targetTop =
+        target.getBoundingClientRect().top + window.scrollY;
+      const guideTargetTop = window.innerHeight * 0.43;
+
+      window.scrollTo({
+        top: Math.max(0, targetTop - guideTargetTop),
+        behavior: "smooth",
+      });
+    }
+
+    return () => {
+      delete document.documentElement.dataset.homeGuideStep;
+    };
+  }, [guideStep]);
+
+  const advanceHomeGuide = useCallback((event) => {
+    if (guideStep == null) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (guideStep < 5) {
+      setGuideStep((current) => current + 1);
+      return;
+    }
+
+    setGuideStep(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [guideStep]);
+
+  useEffect(() => {
+    if (guideStep == null) return undefined;
+
+    const handleGuideClick = (event) => {
+      const target = event.target;
+      if (
+        !(target instanceof Element) ||
+        !target.closest(".desktop-app, [data-bottom-nav]")
+      ) {
+        return;
+      }
+
+      advanceHomeGuide(event);
+    };
+    document.addEventListener("click", handleGuideClick, true);
+    return () => document.removeEventListener("click", handleGuideClick, true);
+  }, [advanceHomeGuide, guideStep]);
+
   return (
     <div className="min-h-screen bg-background">
+      {guideStep != null && (
+        <>
+          <div className="feature-guide-overlay pointer-events-none fixed inset-0 z-[150] bg-black/55" />
+          <div
+            className={`pointer-events-none fixed left-1/2 z-[170] -translate-x-1/2 ${
+              guideStep === 5
+                ? "bottom-[104px]"
+                : "top-[calc(43dvh-124px)]"
+            }`}
+          >
+            <FeatureGuideCard
+              characterPosition={guideStep % 2 === 0 ? "right" : "left"}
+              size="compact"
+              progress={`${guideStep} / 5`}
+              className="!gap-1"
+            >
+              {guideStep === 1 && (
+                <>
+                  오늘 사용한 향수를 기록해 보세요.
+                  <br />
+                  나의 향수 기록을 한눈에 확인할 수 있어요.
+                </>
+              )}
+              {guideStep === 2 && (
+                <>
+                  매주 새로운 향수 래플이 열려요.
+                  <br />
+                  응모하고 특별한 향수를 만나보세요.
+                </>
+              )}
+              {guideStep === 3 && (
+                <>
+                  사진 속 분위기와 어울리는 향수를
+                  <br />
+                  유저에게 추천해보세요!
+                </>
+              )}
+              {guideStep === 4 && (
+                <>
+                  향수 트렌드와 취향에 도움이 되는
+                  <br />
+                  다양한 이야기를 만나보세요.
+                </>
+              )}
+              {guideStep === 5 && (
+                <>
+                  선물 추천, 매장 찾기 등
+                  <br />
+                  궁금한 것들을 LAY에게 물어보세요!
+                </>
+              )}
+            </FeatureGuideCard>
+          </div>
+        </>
+      )}
       <main className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-background pb-32">
         <section
           className="relative aspect-[430/536] w-full cursor-grab touch-pan-y select-none overflow-hidden bg-offblack active:cursor-grabbing"
@@ -357,7 +500,12 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
         </section>
 
         <div className="flex flex-col gap-[60px] pt-10">
-          <section className="flex flex-col gap-[30px] px-5">
+          <section
+            ref={recordGuideRef}
+            className={`flex flex-col gap-[30px] px-5 ${
+              guideStep === 1 ? "relative z-[160]" : ""
+            }`}
+          >
             <TitleMain
               title="Record"
               actionVariant="record"
@@ -385,7 +533,12 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             </div>
           </section>
 
-          <section className="px-5">
+          <section
+            ref={raffleGuideRef}
+            className={`px-5 ${
+              guideStep === 2 ? "relative z-[160]" : ""
+            }`}
+          >
             <MainBannerText
               img={raffleImg}
               label="Raffle of the week"
@@ -395,7 +548,12 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             />
           </section>
 
-          <section className="flex flex-col gap-[30px]">
+          <section
+            ref={scentGuideRef}
+            className={`flex flex-col gap-[30px] ${
+              guideStep === 3 ? "relative z-[160]" : ""
+            }`}
+          >
             <div className="px-5">
               <TitleMain
                 title="Scent Pick"
@@ -498,7 +656,12 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
             </div>
           </section>
 
-          <section className="flex flex-col gap-[30px]">
+          <section
+            ref={magazineGuideRef}
+            className={`flex flex-col gap-[30px] ${
+              guideStep === 4 ? "relative z-[160]" : ""
+            }`}
+          >
             <div className="px-5">
               <TitleMain
                 title="Magazine"

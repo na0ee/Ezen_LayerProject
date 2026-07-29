@@ -1,8 +1,9 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import chevronRight from '../../assets/icons/chevron-right-grey.svg'
 import graphGrid from '../../assets/images/result/bold-signature/graph-grid.svg'
 import BtnBig from './BtnBig'
+import FeatureGuideCard from './FeatureGuideCard'
 import Header from './Header'
 import ResultPerfumeCard from './ResultPerfumeCard'
 
@@ -41,6 +42,17 @@ export default function ResultTypePage({
   const sliderRef = useRef(null)
   const dragStartRef = useRef({ x: 0, scrollLeft: 0 })
   const [isDragging, setIsDragging] = useState(false)
+  const [isGuideOpen, setIsGuideOpen] = useState(true)
+
+  useEffect(() => {
+    const handleGuideChange = (event) => {
+      setIsGuideOpen(Boolean(event.detail))
+    }
+
+    window.addEventListener('layer:guide-change', handleGuideChange)
+    return () =>
+      window.removeEventListener('layer:guide-change', handleGuideChange)
+  }, [])
 
   const handlePointerDown = (event) => {
     if (event.pointerType !== 'mouse' || event.button !== 0) return
@@ -77,11 +89,27 @@ export default function ResultTypePage({
   }
 
   return (
-    <main className="mx-auto min-h-[var(--app-height,100dvh)] max-w-[430px] overflow-hidden bg-background pb-[env(safe-area-inset-bottom)]">
+    <main
+      onPointerDown={() => setIsGuideOpen(false)}
+      className="mx-auto min-h-[var(--app-height,100dvh)] max-w-[430px] overflow-hidden bg-background pb-[env(safe-area-inset-bottom)]"
+    >
+      {isGuideOpen && (
+        <>
+          <div className="feature-guide-overlay pointer-events-none fixed inset-0 z-[150] bg-black/55" />
+          <div className="pointer-events-none fixed left-1/2 top-1/2 z-[170] -translate-x-1/2 -translate-y-1/2">
+            <FeatureGuideCard characterPosition="right" size="compact">
+              나만의 향수 유형을 찾았어요!
+              <br />
+              결과를 확인했다면 홈으로 이동해 볼까요?
+            </FeatureGuideCard>
+          </div>
+        </>
+      )}
+
       <Header variant="result" />
 
       <div className="px-5 pb-[60px] pt-3">
-        <section className="flex flex-col items-center">
+        <section className="relative z-[160] flex flex-col items-center">
           <img
             src={heroImage}
             alt={heroAlt}
@@ -138,7 +166,7 @@ export default function ResultTypePage({
           </div>
         </section>
 
-        <BtnBig className="mt-[60px]" onClick={() => navigate('/home')}>
+        <BtnBig className="relative z-[160] mt-[60px]" onClick={() => navigate('/home')}>
           <span className="font-en text-xl font-medium">LAYER</span>
           <span className="ml-1 text-base font-normal">에서 나만의 향수 찾기</span>
         </BtnBig>
