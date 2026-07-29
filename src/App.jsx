@@ -130,6 +130,10 @@ export default function App() {
           element={<MagazineFragranceCollection onBack={goBackToMagazine} />}
         />
         <Route path="/magazine/season" element={<MagazineSummer onBack={goBackToMagazine} />} />
+        <Route
+          path="/magazine/summer-perfume"
+          element={<MagazineSummerPerfume onBack={goBackToMagazine} />}
+        />
         <Route path="/magazine/tip" element={<MagazineTip onBack={goBackToMagazine} />} />
 
         <Route path="/my" element={<Mypage />} />

@@ -123,6 +123,89 @@
       color-mix(in srgb, var(--color-offblack) 18%, transparent);
 }
 
+/* BottomNav 전용 실시간 글라스.
+   DOM 캡처 없이 브라우저의 backdrop 합성을 사용해 스크롤을 즉시 반영한다. */
+@utility bottom-nav-glass {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-offblack) 76%, transparent) 0%,
+      color-mix(in srgb, var(--color-offblack) 72%, transparent) 48%,
+      color-mix(in srgb, var(--color-offblack) 68%, transparent) 100%
+    );
+  -webkit-backdrop-filter: blur(22px) saturate(125%) brightness(82%);
+  backdrop-filter: blur(22px) saturate(125%) brightness(82%);
+  border: 1px solid
+    color-mix(in srgb, var(--color-offwhite) 12%, transparent);
+  box-shadow:
+    0 14px 40px
+      color-mix(in srgb, var(--color-offblack) 28%, transparent),
+    inset 0 1px 0
+      color-mix(in srgb, var(--color-offwhite) 18%, transparent),
+    inset 0 -1px 0
+      color-mix(in srgb, var(--color-offwhite) 4%, transparent);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  &::before {
+    z-index: 0;
+    background:
+      radial-gradient(
+        ellipse at 25% 0%,
+        color-mix(in srgb, var(--color-offwhite) 16%, transparent),
+        transparent 42%
+      ),
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-offwhite) 7%, transparent),
+        transparent 30%
+      );
+  }
+
+  &::after {
+    inset: 1px;
+    z-index: 1;
+    background: linear-gradient(
+      115deg,
+      color-mix(in srgb, var(--color-offwhite) 6%, transparent),
+      transparent 35%,
+      color-mix(in srgb, var(--color-grey) 2.5%, transparent),
+      transparent 75%
+    );
+  }
+}
+
+@keyframes bottom-nav-indicator-settle {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  32% {
+    translate: -1px 0;
+  }
+  68% {
+    translate: 1px 0;
+  }
+}
+
+@utility bottom-nav-indicator-settle {
+  animation: bottom-nav-indicator-settle 160ms
+    cubic-bezier(0.22, 1, 0.36, 1);
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
 html {
   scrollbar-gutter: stable;
 }

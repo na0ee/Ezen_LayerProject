@@ -20,7 +20,9 @@ export default function BottomNav({
     magazine: "/magazine",
     my: "/my",
   };
-  const routeTab = location.pathname.split("/")[1];
+  const routeTab = location.pathname.startsWith("/mypage")
+    ? "my"
+    : location.pathname.split("/")[1];
   const resolvedActive =
     active ?? (TABS.includes(routeTab) ? routeTab : "home");
   const activeIndex = Math.max(TABS.indexOf(resolvedActive), 0);
@@ -35,15 +37,16 @@ export default function BottomNav({
       className={`pointer-events-auto z-[100] flex w-[390px] max-w-full items-center ${className}`}
     >
       <div className="flex w-[391px] shrink-0 items-center justify-center gap-1.5">
-        <div className="glass-surface-dark relative h-16 min-w-0 flex-1 overflow-hidden rounded-[50px]">
+        <div className="bottom-nav-glass relative h-16 min-w-0 flex-1 overflow-hidden rounded-[50px]">
           <span
+            key={resolvedActive}
             aria-hidden="true"
-            className="absolute left-2 top-1/2 h-[52px] w-[82px] rounded-[50px] bg-grey/70 transition-transform duration-200"
+            className="bottom-nav-indicator-settle absolute left-2 top-1/2 z-[2] h-[52px] w-[82px] rounded-[50px] bg-grey/70 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
             style={{
-              transform: `translate(${activeIndex * 74.333333}px, -50%)`,
+              transform: `translate3d(${activeIndex * 74.333333}px, -50%, 0)`,
             }}
           />
-          <div className="absolute left-1/2 top-1/2 flex h-14 w-[313px] -translate-x-1/2 -translate-y-1/2 items-center justify-between px-[15px]">
+          <div className="absolute left-1/2 top-1/2 z-[3] flex h-14 w-[313px] -translate-x-1/2 -translate-y-1/2 items-center justify-between px-[15px]">
             {TABS.map((tab) => (
               <TabNav
                 key={tab}
@@ -60,9 +63,9 @@ export default function BottomNav({
           type="button"
           aria-label="챗봇 레이 열기"
           onClick={onCharacter ?? (() => navigate("/chatbot"))}
-          className="glass-surface-dark flex size-16 shrink-0 items-center justify-center rounded-full"
+          className="bottom-nav-glass flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-full"
         >
-          <span className="flex size-10 items-center justify-center overflow-hidden">
+          <span className="relative z-[3] flex size-10 items-center justify-center overflow-hidden">
             <span className="relative h-10 w-7 overflow-hidden">
               <img
                 src={characterLay}
