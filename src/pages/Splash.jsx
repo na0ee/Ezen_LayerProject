@@ -17,7 +17,7 @@ export default function Splash() {
 
   return (
     <main
-      className="fixed inset-y-0 left-1/2 h-[100dvh] w-full max-w-[430px] -translate-x-1/2 cursor-pointer overflow-hidden bg-offblack"
+      className="fixed left-1/2 top-0 h-[var(--app-height,100dvh)] w-full max-w-[430px] -translate-x-1/2 cursor-pointer overflow-hidden bg-offblack"
       onClick={goToLogin}
       role="button"
       tabIndex={0}
