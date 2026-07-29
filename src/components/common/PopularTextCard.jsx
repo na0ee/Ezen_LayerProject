@@ -30,7 +30,7 @@ export default function PopularTextCard({
     }
 
     if (isJomalone) {
-      return "absolute left-[0.03%] top-[-5.21%] h-[148.87%] w-full max-w-none";
+      return "absolute left-[0.12%] top-[-37.81%] h-[137.69%] w-full max-w-none";
     }
 
     return "absolute left-[-0.13%] top-[-27.61%] h-[161.4%] w-full max-w-none";

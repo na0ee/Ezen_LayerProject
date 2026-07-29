@@ -18,6 +18,7 @@ import heroSantal from "./assets/hero-santal.png";
 import popularDiptyque from "./assets/popular-diptyque.png";
 import popularJomalone from "./assets/popular-jomalone.png";
 import popularTip from "./assets/popular-tip.png";
+import exploreSummer from "./assets/summer-perfume-detail/hero.png";
 
 const CATEGORIES = ["전체", "향수 상식", "추천", "트렌드", "선물", "브랜드"];
 
@@ -29,6 +30,7 @@ export default function MagazineMain({
   onDiptyque,
   onFragranceCollection,
   onSeason,
+  onSummerPerfume,
   onSantalTip,
   onNavigate,
 }) {
@@ -176,6 +178,20 @@ export default function MagazineMain({
                     desc="기억과 감정을 향으로 담아내는 브랜드"
                   />
                 </button>
+                <button
+                  type="button"
+                  onClick={onJomalone}
+                  className="block shrink-0 text-left"
+                  aria-label="JO MALONE LONDON 브랜드 스토리 보기"
+                >
+                  <PopularTextCard
+                    variant="jomalone"
+                    img={popularJomalone}
+                    imgAlt="꽃과 과일 사이에 놓인 조 말론 향수"
+                    title="JO MALONE LONDON"
+                    desc="나만의 향을 완성해가는 레이어링의 시작"
+                  />
+                </button>
               </div>
             </div>
           </section>
@@ -198,7 +214,7 @@ export default function MagazineMain({
                 >
                   <CardMag
                     img={popularJomalone}
-                    imgClassName="absolute inset-0 size-full max-w-none"
+                    imgClassName="absolute left-[0.03%] top-[0.01%] h-[100.12%] w-full max-w-none"
                     title="JO MALONE LONDON"
                     desc="나만의 향을 완성해가는 레이어링의 시작"
                     className="shrink-0"
@@ -212,7 +228,7 @@ export default function MagazineMain({
                 >
                   <CardMag
                     img={popularDiptyque}
-                    imgClassName="absolute inset-0 size-full max-w-none"
+                    imgClassName="absolute left-[-0.13%] top-[0.13%] h-[99.79%] w-full max-w-none"
                     title="DIPTYQUE"
                     desc="예술과 여행이 향으로 만나다"
                     className="shrink-0"
@@ -229,6 +245,20 @@ export default function MagazineMain({
                     title="BYREDO"
                     desc={"기억과 감정을 향으로 표현하는 스웨덴 니치 브랜드\n미니멀한 디자인과 스토리텔링으로 니치 시장 대표로 성장"}
                     imgClassName="absolute left-[-16.9%] top-[-19.24%] h-[119.27%] w-[133.88%] max-w-none"
+                    className="shrink-0 [&>div]:!rounded-2xl"
+                  />
+                </button>
+                <button
+                  type="button"
+                  onClick={onSummerPerfume}
+                  className="block shrink-0 text-left"
+                  aria-label="여름 밤에 어울리는 향 보기"
+                >
+                  <CardMag
+                    img={exploreSummer}
+                    title="여름 밤에 어울리는 향"
+                    desc={"해가 진 뒤에 피어나는 관능적인 노트들\n열대야의 공기와 어울리는 향수를 소개합니다"}
+                    imgClassName="absolute inset-0 size-full max-w-none object-bottom rounded-3xl"
                     className="shrink-0 [&>div]:!rounded-2xl"
                   />
                 </button>
@@ -293,6 +323,21 @@ export default function MagazineMain({
                   >
                     <MagListCard
                       img={exploreSeasons}
+                      label="Scent Match"
+                      title="계절별 향수 선택 가이드"
+                      desc="봄부터 겨울까지, 계절에 어울리는 노트 찾기"
+                      className="shrink-0"
+                    />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={onSummerPerfume}
+                    className="block shrink-0 text-left"
+                    aria-label="여름 밤에 어울리는 향 보기"
+                  >
+                    <MagListCard
+                      img={exploreSummer}
+                      imgClassName="absolute inset-0 size-full object-cover object-bottom"
                       label="Scent Match"
                       title="계절별 향수 선택 가이드"
                       desc="봄부터 겨울까지, 계절에 어울리는 노트 찾기"
