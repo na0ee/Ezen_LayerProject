@@ -34,6 +34,7 @@ import q4Minimal from "../assets/images/onboarding/q4-minimal.png";
 import q5Layering from "../assets/images/onboarding/q5-layering.png";
 import q5Signature from "../assets/images/onboarding/q5-signature.png";
 import { getOnboardingResultPath } from "../utils/onboardingScoring";
+import { saveOnboardingResultType } from "../data/onboardingProfile";
 
 // 피그마: 질문 페이지_Q1~Q5 (3312:24480, 3312:15050, 15103, 15167, 15212)
 // 선택지 사진은 각 원/카드 노드를 @2x로 export한 것 (src/assets/images/onboarding/)
@@ -203,6 +204,7 @@ export default function OnboardingQuestion() {
     }
 
     const resultPath = getOnboardingResultPath(answers);
+    saveOnboardingResultType(resultPath.replace("/result/", ""));
     sessionStorage.setItem(RESULT_STORAGE_KEY, resultPath);
 
     navigate("/onboarding/loading", {

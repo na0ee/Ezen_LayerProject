@@ -26,7 +26,9 @@ import iconInfo from "../assets/images/mypage/icon-info.svg";
 import magazine1 from "../assets/images/mypage/magazine-1.png";
 import magazine2 from "../assets/images/mypage/magazine-2.png";
 import matiere from "../assets/images/mypage/matiere.png";
-import profile from "../assets/images/mypage/profile.png";
+import { getUserProfile } from "../data/userProfile";
+import { ONBOARDING_RESULTS } from "../data/onboardingResults";
+import { getSavedOnboardingResultType } from "../data/onboardingProfile";
 import reviewCell1 from "../assets/images/mypage/review-tab/review-cell-1.png";
 import reviewCell2 from "../assets/images/mypage/review-tab/review-cell-2.png";
 import reviewCell3 from "../assets/images/mypage/review-tab/review-cell-3.png";
@@ -277,13 +279,19 @@ export default function Mypage() {
   const recommends = activeRecommendTab === "b" ? recommendsReceived : recommendsGiven;
   const perfumeDrag = useDragScroll();
   const magazineDrag = useDragScroll();
+  const userProfile = getUserProfile();
+  const onboardingResult =
+    ONBOARDING_RESULTS[getSavedOnboardingResultType()] ??
+    ONBOARDING_RESULTS["mood-shifter"];
 
   return (
     <div className="mx-auto min-h-screen w-full max-w-107.5 bg-background pb-26">
       {/* background + profile — 배경(305px) 중 프로필 카드에 가려지지 않고 보이는 높이가 210px */}
       <div className="relative h-76.25 w-full overflow-hidden">
         <img src={background} alt="" className="absolute inset-0 size-full object-cover" />
-        <LayerBadge className="absolute top-5 right-5" />
+        <LayerBadge className="absolute top-5 right-5">
+          {onboardingResult.englishTitle}
+        </LayerBadge>
       </div>
 
       {/* 배경 이미지 위 흰 카드: 프로필 + 카테고리 탭만 흰 배경(offwhite), 그 아래 콘텐츠 영역은 페이지 배경색(background) */}
@@ -291,10 +299,10 @@ export default function Mypage() {
         {/* sec/profile */}
         <div className="flex items-center justify-between gap-4.5 bg-offwhite p-5">
           <div className="flex items-center gap-4.5">
-            <img src={profile} alt="" className="size-20 shrink-0 rounded-full object-cover" />
+            <img src={userProfile.image} alt="" className="size-20 shrink-0 rounded-full object-cover" />
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2">
-                <p className="text-title-semibold-18 text-offblack">북극곰</p>
+                <p className="text-title-semibold-18 text-offblack">{userProfile.nickname}</p>
                 <span className="flex items-center gap-0.5">
                   <img src={badgeNewbie} alt="" className="size-4 object-contain" />
                   <span className="text-body-medium-14 text-subtext">NEWBIE</span>
@@ -329,8 +337,8 @@ export default function Mypage() {
                       state: {
                         post: {
                           type: "review",
-                          profileName: "북극곰",
-                          profileImage: profile,
+                          profileName: userProfile.nickname,
+                          profileImage: userProfile.image,
                           time: "30분 전",
                           image: post.img,
                           title: post.title,
