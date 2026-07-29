@@ -215,6 +215,7 @@ export default function CommunityWritePage({
               label="카테고리"
               required
               placeholder="카테고리를 선택해주세요"
+              placeholderClassName="text-light-grey"
               value={category}
               onClick={onCategoryClick}
             />
@@ -232,7 +233,7 @@ export default function CommunityWritePage({
                 value={title}
                 onChange={(event) => setTitle(event.target.value)}
                 placeholder="제목을 입력해주세요"
-                className="h-[52px] w-full rounded-lg border border-light-grey bg-offwhite p-4 text-body-regular-14 text-offblack outline-none placeholder:text-grey"
+                className="h-[52px] w-full rounded-lg border border-light-grey bg-offwhite p-4 text-body-regular-14 text-offblack outline-none placeholder:text-light-grey"
               />
               <span className="text-caption-regular-12 text-grey">{title.length}/40</span>
             </div>
@@ -250,7 +251,7 @@ export default function CommunityWritePage({
                 placeholder={
                   "예) 은은하게 시작해서 잔향이 오래 남아요.\n기분좋은 하루를 만들어준 향이에요."
                 }
-                className="h-[72px] w-full resize-none overflow-hidden rounded-lg border border-light-grey bg-offwhite p-4 text-body-regular-14 text-offblack outline-none placeholder:text-grey"
+                className="h-[72px] w-full resize-none overflow-hidden rounded-lg border border-light-grey bg-offwhite p-4 text-body-regular-14 text-offblack outline-none placeholder:text-light-grey"
               />
               <span className="text-caption-regular-12 text-grey">
                 {text.length}/200
@@ -274,7 +275,7 @@ export default function CommunityWritePage({
                 setHashtagInput("");
               }}
               placeholder="# 태그입력"
-              className="h-[52px] w-full rounded-lg border border-light-grey bg-offwhite p-4 text-body-regular-14 text-offblack outline-none placeholder:text-grey"
+              className="h-[52px] w-full rounded-lg border border-light-grey bg-offwhite p-4 text-body-regular-14 text-offblack outline-none placeholder:text-light-grey"
             />
             {hashtags.length > 0 && (
               <div className="mt-2 flex flex-wrap gap-2">

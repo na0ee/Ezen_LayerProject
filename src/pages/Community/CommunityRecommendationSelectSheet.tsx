@@ -42,9 +42,7 @@ export default function CommunityRecommendationSelectSheet({
   recipientName = "Juhoon",
 }: CommunityRecommendationSelectSheetProps) {
   const [message, setMessage] = useState("");
-  const [selectedProductId, setSelectedProductId] = useState<string | null>(
-    null,
-  );
+  const [selectedProductIds, setSelectedProductIds] = useState<string[]>([]);
   const [isComplete, setIsComplete] = useState(false);
   const [viewportBounds, setViewportBounds] =
     useState<ViewportBounds | null>(null);
@@ -52,7 +50,7 @@ export default function CommunityRecommendationSelectSheet({
   useEffect(() => {
     if (!open) return;
     setMessage("");
-    setSelectedProductId(null);
+    setSelectedProductIds([]);
     setIsComplete(false);
   }, [open]);
 
@@ -99,8 +97,16 @@ export default function CommunityRecommendationSelectSheet({
   if (!open || !viewportBounds) return null;
 
   const handleSend = () => {
-    if (!selectedProductId) return;
+    if (selectedProductIds.length === 0) return;
     setIsComplete(true);
+  };
+
+  const toggleProduct = (productId: string) => {
+    setSelectedProductIds((current) =>
+      current.includes(productId)
+        ? current.filter((id) => id !== productId)
+        : [...current, productId],
+    );
   };
 
   return createPortal(
@@ -142,14 +148,14 @@ export default function CommunityRecommendationSelectSheet({
                 </div>
 
                 {recommendationProducts.map((product) => {
-                  const isSelected = selectedProductId === product.id;
+                  const isSelected = selectedProductIds.includes(product.id);
 
                   return (
                     <button
                       type="button"
                       key={product.id}
                       aria-pressed={isSelected}
-                      onClick={() => setSelectedProductId(product.id)}
+                      onClick={() => toggleProduct(product.id)}
                       className="w-full text-left"
                     >
                       <CardSmall

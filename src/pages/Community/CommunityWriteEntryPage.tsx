@@ -13,6 +13,7 @@ import CommunityWriteCategorySheet, {
 } from "./CommunityWriteCategorySheet";
 import CommunityWritePage from "./CommunityWritePage";
 import {
+  COMMUNITY_POSTS_STORAGE_KEY,
   loadCommunityUserPosts,
   saveCommunityUserPosts,
   type CommunityUserPost,
@@ -65,6 +66,17 @@ export default function CommunityWriteEntryPage() {
     if (requestedTab) setActiveCommunityTab(requestedTab);
   }, [location.key, location.state]);
 
+  useEffect(() => {
+    const syncSavedPosts = (event: StorageEvent) => {
+      if (event.key === null || event.key === COMMUNITY_POSTS_STORAGE_KEY) {
+        setUserPosts(loadCommunityUserPosts());
+      }
+    };
+
+    window.addEventListener("storage", syncSavedPosts);
+    return () => window.removeEventListener("storage", syncSavedPosts);
+  }, []);
+
   const openCategorySheet = () => setIsCategorySheetOpen(true);
   const changeCommunityTab = (tab: CommunityTab) => {
     setActiveCommunityTab(tab);
@@ -114,7 +126,11 @@ export default function CommunityWriteEntryPage() {
   const deletePost = (postId: string) => {
     const nextPosts = userPosts.filter((post) => post.id !== postId);
     setUserPosts(nextPosts);
-    saveCommunityUserPosts(nextPosts);
+    try {
+      saveCommunityUserPosts(nextPosts);
+    } catch {
+      // 저장소 접근이 제한된 환경에서도 현재 화면에서는 삭제 상태를 유지한다.
+    }
   };
 
   return (
