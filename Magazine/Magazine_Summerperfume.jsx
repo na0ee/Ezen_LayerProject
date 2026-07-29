@@ -46,12 +46,12 @@ export default function MagazineSummerPerfume({ onBack }) {
         />
 
         <main className="flex w-full flex-col gap-10 pb-[120px]">
-          <section className="relative flex h-[536px] shrink-0 flex-col items-start justify-end py-[30px]">
-            <div className="absolute left-0 top-0 h-[535px] w-full overflow-hidden bg-offwhite">
+          <section className="relative flex aspect-[430/536] w-full shrink-0 flex-col items-start justify-end py-[30px]">
+            <div className="absolute inset-0 overflow-hidden bg-offwhite">
               <img
                 src={heroSummerNight}
                 alt="도시의 여름 밤을 배경으로 놓인 딥티크 향수"
-                className="absolute left-0 top-[-98px] h-[634px] w-[431px] max-w-none"
+                className="size-full scale-[1.01] object-cover"
               />
             </div>
 
@@ -61,7 +61,7 @@ export default function MagazineSummerPerfume({ onBack }) {
                 tag="향수 상식"
                 title="여름 밤에 어울리는 향"
                 sub={'“해가 진 뒤에 피어나는 관능적인 노트들”'}
-                className="!w-[386px] [&>div:last-child>div>p:last-child]:!text-title-semibold-18"
+                className="!w-full [&>div:last-child>div>p:last-child]:!text-title-semibold-18"
               />
             </div>
           </section>
@@ -79,17 +79,13 @@ export default function MagazineSummerPerfume({ onBack }) {
               </p>
             </div>
 
-            {PERFUMES.map((perfume, index) => (
+            {PERFUMES.map((perfume) => (
               <Fragment key={perfume.title}>
-                <div
-                  className={`flex w-full shrink-0 items-start justify-center ${
-                    index === 0 ? "h-[467px]" : "h-[469px]"
-                  }`}
-                >
+                <div className="aspect-[430/469] w-full shrink-0 overflow-hidden">
                   <img
                     src={perfume.img}
                     alt={perfume.alt}
-                    className="h-[469px] w-[430px] max-w-none object-cover"
+                    className="size-full object-cover"
                   />
                 </div>
                 <div className="flex w-full flex-col gap-2 px-5 text-offblack">
@@ -103,7 +99,7 @@ export default function MagazineSummerPerfume({ onBack }) {
 
         <BottomNav
           active="magazine"
-          className="fixed bottom-5 left-1/2 z-50 !w-[390px] -translate-x-1/2"
+          className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2"
         />
       </div>
     </div>

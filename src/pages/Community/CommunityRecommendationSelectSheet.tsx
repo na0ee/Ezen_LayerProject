@@ -124,7 +124,7 @@ export default function CommunityRecommendationSelectSheet({
             role="dialog"
             aria-modal="true"
             aria-label="추천할 향수 선택"
-            className="community-recommendation-select-sheet__panel absolute inset-x-0 bottom-0 flex h-[441px] max-h-[100dvh] touch-pan-y flex-col items-center gap-4 overflow-y-auto overscroll-contain rounded-t-[20px] bg-offwhite pb-[40px] pt-4"
+            className="community-recommendation-select-sheet__panel absolute inset-x-0 bottom-0 flex h-[min(441px,calc(100dvh_-_16px))] touch-pan-y flex-col items-center gap-4 overflow-y-auto overscroll-contain rounded-t-[20px] bg-offwhite pb-[max(24px,env(safe-area-inset-bottom))] pt-4"
           >
             <div className="community-recommendation-select-sheet__handle h-1 w-8 shrink-0 rounded-[24px] bg-2light-grey" />
 

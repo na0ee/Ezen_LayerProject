@@ -16,6 +16,7 @@ import {
 import challenge1 from "../assets/images/home/challenge-1.png";
 import challenge2 from "../assets/images/home/challenge-2.png";
 import challenge3 from "../assets/images/home/challenge-3.png";
+import { CHALLENGE_REWARDS } from "../data/challengeRewards";
 import giftImg from "../assets/images/home/gift.png";
 import heroCommunityImg from "../assets/images/home/hero-community.png";
 import heroImg from "../assets/images/home/hero.png";
@@ -96,16 +97,19 @@ const scentCards = [
 
 const challengeCards = [
   {
+    id: "home-community",
     img: challenge1,
     title: "커뮤니티 이용하기",
     desc: "질문·답변·리뷰 남기고 최대 75p까지",
   },
   {
+    id: "home-register-perfume",
     img: challenge2,
     title: "내 향수 등록하기",
     desc: "내 보유향수 첫 등록 시 30p, 등록할 때 마다 5p씩!",
   },
   {
+    id: "home-recommend-perfume",
     img: challenge3,
     title: "향수 추천하기",
     desc: "유저에게 어울리는 향을 찾아주고, 포인트 받자!",
@@ -287,7 +291,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
     <div className="min-h-screen bg-background">
       <main className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-background pb-32">
         <section
-          className="relative h-[536px] cursor-grab touch-pan-y select-none overflow-hidden bg-offblack active:cursor-grabbing"
+          className="relative aspect-[430/536] w-full cursor-grab touch-pan-y select-none overflow-hidden bg-offblack active:cursor-grabbing"
           onClickCapture={handleHeroClickCapture}
           onPointerCancel={finishHeroDrag}
           onPointerDown={handleHeroPointerDown}
@@ -458,11 +462,29 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
                   title={card.title}
                   desc={card.desc}
                   onAction={() => {
-                    if (index === 0) navigate("/community");
-                    if (index === 1) navigate("/mypage/perfumes/new");
+                    const challengeReward = {
+                      challengeId: card.id,
+                      points: CHALLENGE_REWARDS[card.id],
+                    };
+                    if (index === 0) {
+                      navigate("/community", {
+                        state: {
+                          communityTab: "리뷰",
+                          challengeReward,
+                        },
+                      });
+                    }
+                    if (index === 1) {
+                      navigate("/mypage/perfumes/new", {
+                        state: { challengeReward },
+                      });
+                    }
                     if (index === 2) {
                       navigate("/community", {
-                        state: { communityTab: "향 추천" },
+                        state: {
+                          communityTab: "향 추천",
+                          challengeReward,
+                        },
                       });
                     }
                   }}

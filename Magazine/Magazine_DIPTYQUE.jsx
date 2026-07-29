@@ -17,12 +17,12 @@ export default function MagazineDiptyque({ onBack }) {
         />
 
         <main className="flex w-full flex-col gap-10 pb-[120px]">
-          <section className="relative flex h-[536px] shrink-0 flex-col items-start justify-end py-[30px]">
-            <div className="absolute left-0 top-0 h-[535px] w-full overflow-hidden bg-offwhite">
+          <section className="relative flex aspect-[430/536] w-full shrink-0 flex-col items-start justify-end py-[30px]">
+            <div className="absolute inset-0 overflow-hidden bg-offwhite">
               <img
                 src={heroDiptyque}
                 alt="책과 드라이플라워 옆에 놓인 딥티크 향수"
-                className="absolute left-[-2px] top-0 h-full w-[434px] max-w-none object-cover"
+                className="size-full scale-[1.01] object-cover"
               />
             </div>
 
@@ -42,11 +42,11 @@ export default function MagazineDiptyque({ onBack }) {
               </p>
             </div>
 
-            <div className="flex h-[467px] w-full shrink-0 items-start justify-center">
+            <div className="aspect-[430/469] w-full shrink-0 overflow-hidden">
               <img
                 src={candle}
                 alt="책과 그림 사이에서 타고 있는 딥티크 캔들"
-                className="h-[469px] w-[430px] max-w-none object-cover"
+                className="size-full object-cover"
               />
             </div>
 
@@ -56,11 +56,11 @@ export default function MagazineDiptyque({ onBack }) {
               오늘날 딥티크만의 감성적인 세계관으로 이어졌습니다.
             </p>
 
-            <div className="flex h-[469px] w-full shrink-0 items-center justify-center">
+            <div className="aspect-[430/469] w-full shrink-0 overflow-hidden">
               <img
                 src={windowPerfume}
                 alt="창가에 놓인 딥티크 도 손 향수"
-                className="h-[469px] w-[430px] max-w-none object-cover"
+                className="size-full object-cover"
               />
             </div>
 
@@ -71,11 +71,11 @@ export default function MagazineDiptyque({ onBack }) {
               따뜻한 피부의 온기를 담아내고 있습니다.
             </p>
 
-            <div className="flex h-[469px] w-full shrink-0 items-center justify-center">
+            <div className="aspect-[430/469] w-full shrink-0 overflow-hidden">
               <img
                 src={store}
                 alt="파리의 딥티크 매장 외관"
-                className="h-[469px] w-[430px] max-w-none object-cover"
+                className="size-full object-cover"
               />
             </div>
           </article>
@@ -83,7 +83,7 @@ export default function MagazineDiptyque({ onBack }) {
 
         <BottomNav
           active="magazine"
-          className="fixed bottom-5 left-1/2 z-50 !w-[390px] -translate-x-1/2"
+          className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2"
         />
       </div>
     </div>

@@ -29,6 +29,7 @@ import matiere from "../assets/images/mypage/matiere.png";
 import { getUserProfile } from "../data/userProfile";
 import { ONBOARDING_RESULTS } from "../data/onboardingResults";
 import { getSavedOnboardingResultType } from "../data/onboardingProfile";
+import { getUserPoints } from "../data/userPoints";
 import reviewCell1 from "../assets/images/mypage/review-tab/review-cell-1.png";
 import reviewCell2 from "../assets/images/mypage/review-tab/review-cell-2.png";
 import reviewCell3 from "../assets/images/mypage/review-tab/review-cell-3.png";
@@ -276,6 +277,7 @@ export default function Mypage() {
   const [activeTab, setActiveTab] = useState("마이페이지");
   const [activeRecommendTab, setActiveRecommendTab] = useState("b");
   const [isPreparingOpen, setIsPreparingOpen] = useState(false);
+  const [userPoints] = useState(getUserPoints);
   const recommends = activeRecommendTab === "b" ? recommendsReceived : recommendsGiven;
   const perfumeDrag = useDragScroll();
   const magazineDrag = useDragScroll();
@@ -289,7 +291,7 @@ export default function Mypage() {
       {/* background + profile — 배경(305px) 중 프로필 카드에 가려지지 않고 보이는 높이가 210px */}
       <div className="relative h-76.25 w-full overflow-hidden">
         <img src={background} alt="" className="absolute inset-0 size-full object-cover" />
-        <LayerBadge className="absolute top-5 right-5">
+        <LayerBadge className="absolute right-5 top-[calc(20px+env(safe-area-inset-top))]">
           {onboardingResult.englishTitle}
         </LayerBadge>
       </div>
@@ -367,7 +369,10 @@ export default function Mypage() {
                   <div className="flex flex-col">
                     <p className="text-title-medium-20 text-offblack">NEWBIE</p>
                     <p className="flex items-center gap-1 text-body-regular-14 text-grey">
-                      포인트 <span className="text-body-medium-14 text-point-orange">1,200</span>
+                      포인트{" "}
+                      <span className="text-body-medium-14 text-point-orange">
+                        {userPoints.toLocaleString()}
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -379,7 +384,10 @@ export default function Mypage() {
                 </BtnSmall>
               </div>
               <p className="pl-1.5 text-body-regular-14 text-grey">
-                <span className="text-body-semibold-16 text-offblack">800P</span> 더 쌓으면 다음
+                <span className="text-body-semibold-16 text-offblack">
+                  {Math.max(0, 2000 - userPoints).toLocaleString()}P
+                </span>{" "}
+                더 쌓으면 다음
                 등급으로 올라갈 수 있어요!
               </p>
             </div>

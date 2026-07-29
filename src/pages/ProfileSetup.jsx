@@ -51,7 +51,7 @@ export default function ProfileSetup() {
   const photoInputRef = useRef(null);
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-107.5 flex-col bg-background px-5 pb-20.5 pt-3">
+    <div className="mx-auto flex min-h-dvh w-full max-w-107.5 flex-col bg-background px-5 pb-[max(24px,env(safe-area-inset-bottom))] pt-[calc(12px+env(safe-area-inset-top))]">
       <div className="flex justify-end">
         <BtnGo variant="more" onClick={() => navigate("/onboarding/skip")}>
           건너뛰기

@@ -226,7 +226,7 @@ function BotMessage({ message, chosen, onSelectMenu, onSelectPerfume }) {
     <div className="flex w-full items-start">
       <Character animated={isGreeting} />
 
-      <div className="flex min-w-0 flex-col items-start gap-4">
+      <div className="flex min-w-0 flex-1 flex-col items-start gap-4">
         {message.loading ? (
           <LoadingBubble />
         ) : (

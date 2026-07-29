@@ -17,12 +17,12 @@ export default function MagazineByredo({ onBack }) {
         />
 
         <main className="flex w-full flex-col gap-10 pb-[120px]">
-          <section className="relative flex h-[536px] shrink-0 flex-col items-start justify-end py-[30px]">
-            <div className="absolute left-0 top-0 h-[535px] w-full overflow-hidden bg-offwhite">
+          <section className="relative flex aspect-[430/536] w-full shrink-0 flex-col items-start justify-end py-[30px]">
+            <div className="absolute inset-0 overflow-hidden bg-offwhite">
               <img
                 src={heroByredo}
                 alt="열대 과일과 함께 놓인 바이레도 향수"
-                className="absolute left-[-2px] top-0 h-full w-[434px] max-w-none object-cover"
+                className="size-full scale-[1.01] object-cover"
               />
             </div>
 
@@ -31,7 +31,7 @@ export default function MagazineByredo({ onBack }) {
             </div>
           </section>
 
-          <article className="flex h-[1982px] w-full shrink-0 flex-col items-center gap-16">
+          <article className="flex w-full flex-col items-center gap-16">
             <div className="flex w-full flex-col gap-2 px-5 text-offblack">
               <h1 className="text-title-semibold-18">
                 기억과 감정을 향으로 담아내는 브랜드
@@ -43,11 +43,11 @@ export default function MagazineByredo({ onBack }) {
               </p>
             </div>
 
-            <div className="flex h-[467px] w-[390px] shrink-0 items-start justify-center">
+            <div className="aspect-[430/469] w-full shrink-0 overflow-hidden">
               <img
                 src={linenPerfumes}
                 alt="리넨과 레몬 사이에 놓인 바이레도 향수"
-                className="h-[469px] w-[430px] max-w-none object-cover"
+                className="size-full object-cover"
               />
             </div>
 
@@ -58,11 +58,11 @@ export default function MagazineByredo({ onBack }) {
               대표하는 브랜드로 성장했습니다.
             </p>
 
-            <div className="flex h-[469px] w-full shrink-0 items-center justify-center overflow-visible px-5">
+            <div className="aspect-[430/469] w-full shrink-0 overflow-hidden">
               <img
                 src={gypsyWater}
                 alt="바이레도 집시 워터 향수 라벨"
-                className="h-[469px] w-[430px] max-w-none object-cover"
+                className="size-full object-cover"
               />
             </div>
 
@@ -72,11 +72,11 @@ export default function MagazineByredo({ onBack }) {
               라이프스타일을 담아내며 많은 사랑을 받고 있습니다.
             </p>
 
-            <div className="flex h-[469px] w-full shrink-0 items-center justify-center overflow-visible px-5">
+            <div className="aspect-[430/469] w-full shrink-0 overflow-hidden">
               <img
                 src={altoAstral}
                 alt="코코넛 사이에 놓인 바이레도 알토 아스트랄 향수"
-                className="h-[469px] w-[430px] max-w-none object-cover"
+                className="size-full object-cover"
               />
             </div>
           </article>

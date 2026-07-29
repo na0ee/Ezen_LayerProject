@@ -172,6 +172,7 @@ export default function OnboardingQuestion() {
 
   const { multi, cols, width, height, gapX, gapY, noWrapLabel } = question;
   const answer = answers[step];
+  const responsiveOptionSize = `min(${width}px, calc((100vw - 40px - ${(cols - 1) * gapX}px) / ${cols}))`;
 
   const isPicked = (value) =>
     multi ? (answer ?? []).includes(value) : answer === value;
@@ -227,7 +228,7 @@ export default function OnboardingQuestion() {
   };
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-background pb-20">
+    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-background pb-[max(20px,env(safe-area-inset-bottom))] pt-[env(safe-area-inset-top)]">
       {/* slideindicater */}
       <div className="h-0.5 w-full bg-light-grey">
         <div
@@ -262,7 +263,7 @@ export default function OnboardingQuestion() {
       <div
         className="grid self-center"
         style={{
-          gridTemplateColumns: `repeat(${cols}, ${width}px)`,
+          gridTemplateColumns: `repeat(${cols}, ${responsiveOptionSize})`,
           columnGap: `${gapX}px`,
           rowGap: `${gapY}px`,
         }}
@@ -281,7 +282,10 @@ export default function OnboardingQuestion() {
                 className={`relative block overflow-hidden rounded-full ${
                   img ? "bg-offblack" : "bg-light-grey"
                 }`}
-                style={{ width, height }}
+                style={{
+                  width: responsiveOptionSize,
+                  aspectRatio: `${width} / ${height}`,
+                }}
               >
                 {img && (
                   <img
@@ -305,7 +309,11 @@ export default function OnboardingQuestion() {
                 className={`text-center text-body-medium-14 text-offblack ${
                   noWrapLabel ? "whitespace-nowrap" : ""
                 }`}
-                style={noWrapLabel ? undefined : { width }}
+                style={
+                  noWrapLabel
+                    ? undefined
+                    : { width: responsiveOptionSize }
+                }
               >
                 {label}
               </span>

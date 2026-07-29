@@ -109,7 +109,7 @@ export default function CommunityWriteCategorySheet({
           role="dialog"
           aria-modal="true"
           aria-label="글 카테고리 선택"
-          className="community-write-category-sheet__panel absolute inset-x-0 bottom-0 h-[550px] max-h-[100dvh] touch-pan-y overflow-y-auto overscroll-contain"
+          className="community-write-category-sheet__panel absolute inset-x-0 bottom-0 h-[min(550px,calc(100dvh_-_16px))] touch-pan-y overflow-y-auto overscroll-contain"
         >
           <CommunityComment
             items={categoryItems}

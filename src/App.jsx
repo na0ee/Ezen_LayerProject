@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   Navigate,
   Route,
@@ -19,6 +20,11 @@ import MagazineSummer from "../Magazine/Magazine_SEASON/Magazine_summer";
 import MagazineSummerPerfume from "../Magazine/Magazine_Summerperfume";
 import MagazineTip from "../Magazine/Magazine_TIP";
 import { findPerfume } from "./data/perfumeUtils";
+import {
+  completeChallenge,
+  getCompletedChallengeIds,
+} from "./data/challengeRewards";
+import { addUserPoints } from "./data/userPoints";
 import Category from "./pages/Category";
 import Chatbot from "./pages/Chatbot";
 import ComponentsPreview from "./pages/ComponentsPreview";
@@ -180,7 +186,60 @@ export default function App() {
           <Route path="/mypage/membership" element={<MyMembershipPage />} />
         </Routes>
       )}
+      <ChallengeRewardModal />
     </>
+  );
+}
+
+function ChallengeRewardModal() {
+  const location = useLocation();
+  const rewardFromRoute = location.state?.challengeReward;
+  const [reward, setReward] = useState(null);
+
+  useEffect(() => {
+    if (
+      rewardFromRoute?.challengeId &&
+      rewardFromRoute?.points &&
+      !getCompletedChallengeIds().has(rewardFromRoute.challengeId)
+    ) {
+      setReward(rewardFromRoute);
+      return;
+    }
+    setReward(null);
+  }, [location.key, rewardFromRoute]);
+
+  if (!reward) return null;
+
+  return createPortal(
+    <div
+      role="region"
+      aria-labelledby="challenge-reward-title"
+        className="fixed bottom-[calc(100px+env(safe-area-inset-bottom))] left-1/2 z-[110] flex h-14 w-[calc(100%_-_40px)] max-w-[350px] -translate-x-1/2 items-center justify-between gap-3 rounded-full bg-offblack/90 px-3 py-2 shadow-[0_8px_24px_rgba(26,26,26,0.25)] backdrop-blur-md"
+    >
+      <div className="flex min-w-0 items-center gap-1.5 pl-2">
+        <h2
+          id="challenge-reward-title"
+          className="whitespace-nowrap text-body-medium-14 text-offwhite"
+        >
+          챌린지 완료!
+        </h2>
+        <p className="whitespace-nowrap text-caption-medium-12 text-point-orange">
+          +{reward.points}P
+        </p>
+      </div>
+      <button
+        type="button"
+        onClick={() => {
+          addUserPoints(reward.points);
+          completeChallenge(reward.challengeId);
+          setReward(null);
+        }}
+        className="h-10 shrink-0 rounded-full bg-point-orange px-4 text-body-medium-14 text-offwhite"
+      >
+        포인트 받기
+      </button>
+    </div>,
+    document.body,
   );
 }
 

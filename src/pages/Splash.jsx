@@ -1,26 +1,15 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logoLayerWhite from "../assets/icons/logo-layer-white.svg";
-import splashVideo from "../assets/videos/splash.mp4";
+import splashAnimation from "../assets/images/splash.webp";
 
 export default function Splash() {
   const navigate = useNavigate();
-  const videoRef = useRef(null);
   const goToLogin = useCallback(() => {
     navigate("/login", { replace: true });
   }, [navigate]);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      video.muted = true;
-      video.defaultMuted = true;
-      video.playsInline = true;
-      video.play().catch(() => {
-        // 브라우저나 저전력 모드가 자동재생을 막으면 화면 클릭으로 바로 전환한다.
-      });
-    }
-
     const timer = window.setTimeout(goToLogin, 5000);
 
     return () => window.clearTimeout(timer);
@@ -28,7 +17,7 @@ export default function Splash() {
 
   return (
     <main
-      className="relative mx-auto h-[100dvh] min-h-[600px] w-full max-w-[430px] cursor-pointer overflow-hidden bg-offblack"
+      className="fixed inset-y-0 left-1/2 h-[100dvh] w-full max-w-[430px] -translate-x-1/2 cursor-pointer overflow-hidden bg-offblack"
       onClick={goToLogin}
       role="button"
       tabIndex={0}
@@ -40,17 +29,11 @@ export default function Splash() {
         }
       }}
     >
-      <video
-        ref={videoRef}
+      <img
         className="pointer-events-none absolute left-1/2 top-0 h-full min-w-full -translate-x-1/2 object-cover"
-        src={splashVideo}
-        autoPlay
-        muted
-        defaultMuted
-        playsInline
-        preload="auto"
+        src={splashAnimation}
+        alt=""
         aria-hidden="true"
-        onCanPlay={(event) => event.currentTarget.play().catch(() => {})}
       />
 
       <div className="absolute inset-0 bg-offblack/30" aria-hidden="true" />
@@ -61,12 +44,12 @@ export default function Splash() {
           alt="Layer"
           className="h-auto w-full"
         />
-        <p className="whitespace-nowrap font-en text-en-title-24 tracking-[-0.02em] text-offwhite">
+        <p className="whitespace-nowrap font-en text-[clamp(17px,5.6vw,24px)] font-semibold leading-normal tracking-[-0.02em] text-offwhite">
           Find your scent, leave your trace
         </p>
       </div>
 
-      <p className="absolute inset-x-0 bottom-[12px] text-center font-en text-en-semibold-16 tracking-[-0.02em] text-offwhite">
+      <p className="absolute inset-x-0 bottom-[calc(12px+env(safe-area-inset-bottom))] text-center font-en text-[clamp(12px,3.7vw,16px)] font-semibold leading-normal tracking-[-0.02em] text-offwhite">
         ⓒ 2026 LAYER. All rights reserved.
       </p>
     </main>

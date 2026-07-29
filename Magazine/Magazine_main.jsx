@@ -6,7 +6,6 @@ import {
   Category,
   Header,
   MagListCard,
-  MainBanner,
   PopularTextCard,
   TitleSection,
 } from "../src/components/common";
@@ -19,6 +18,8 @@ import popularDiptyque from "./assets/popular-diptyque.png";
 import popularJomalone from "./assets/popular-jomalone.png";
 import popularTip from "./assets/popular-tip.png";
 import exploreSummer from "./assets/summer-perfume-detail/hero.png";
+import trendBanner from "./assets/trend-banner-figma.png";
+import trendChevronRight from "./assets/trend-chevron-right.svg";
 
 const CATEGORIES = ["전체", "향수 상식", "추천", "트렌드", "선물", "브랜드"];
 
@@ -181,42 +182,42 @@ export default function MagazineMain({
 
         <main className="mt-6 flex w-full flex-col gap-[60px] pb-[120px]">
           <section
-            className="flex h-[236px] flex-col gap-[30px] px-5"
+            className="flex h-[273px] flex-col gap-[30px] px-5"
             aria-labelledby="trend-heading"
           >
             <TitleSection
               title="향수 트렌드"
               className="h-[29px] leading-[29px]"
             />
-            <div
-              className="relative h-[177px] w-full cursor-pointer"
+            <button
+              type="button"
+              className="relative flex h-[214px] w-full cursor-pointer flex-col items-start justify-between overflow-hidden rounded-2xl p-5 text-left"
               onClick={onNiche}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") onNiche?.();
-              }}
-              role="button"
-              tabIndex={0}
               aria-label="니치 향수 트렌드 읽기"
             >
-              <MainBanner
-                img={heroSantal}
-                imgClassName="size-full object-cover object-[center_66.36%]"
-                className="!h-[177px] !rounded-lg"
+              <img
+                src={trendBanner}
+                alt=""
+                className="pointer-events-none absolute left-[-0.07%] top-[-151.83%] h-[324.65%] w-full max-w-none"
               />
-              <div className="absolute bottom-3 left-3 flex flex-col items-start gap-2.5 text-offwhite">
-                <h3 className="text-title-semibold-18">니치 향수 트렌드</h3>
-                <BtnGo
-                  variant="more2"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    onNiche?.();
-                  }}
-                  className="[&_img]:brightness-0 [&_img]:invert [&>span>span]:!text-caption-medium-12 [&>span>span]:!text-offwhite"
-                >
+              <span className="relative font-en text-en-semibold-16 tracking-[-0.02em] text-offwhite">
+                Perfume Trend
+              </span>
+
+              <span className="relative flex w-full items-end justify-between">
+                <span className="text-title-semibold-18 tracking-[-0.02em] text-offwhite">
+                  니치 향수 트랜드
+                </span>
+                <span className="glass-surface-dark flex items-center gap-1.5 rounded-full py-2 pl-4 pr-2.5 text-body-regular-14 tracking-[-0.02em] text-offwhite">
                   지금 읽어보기
-                </BtnGo>
-              </div>
-            </div>
+                  <img
+                    src={trendChevronRight}
+                    alt=""
+                    className="size-[18px] shrink-0"
+                  />
+                </span>
+              </span>
+            </button>
           </section>
 
           <section className="h-[395px]" aria-labelledby="popular-heading">
@@ -336,7 +337,7 @@ export default function MagazineMain({
             id="magazine-list"
             aria-labelledby="explore-heading"
           >
-            <div className="mx-5 flex h-[29px] w-[390px] items-center justify-between overflow-hidden">
+            <div className="mx-5 flex h-[29px] items-center justify-between overflow-hidden">
               <TitleSection
                 title="더 둘러보기"
                 className="h-[29px] leading-[29px]"
@@ -358,7 +359,7 @@ export default function MagazineMain({
                   items={CATEGORIES}
                   active={category}
                   onChange={setCategory}
-                  className="w-max !gap-2.5 [&>button]:!h-[31px] [&>button]:!border-[0.8px] [&>button]:!leading-normal"
+                  className="w-max [&>button]:!border-[0.8px] [&>button]:!leading-normal"
                 />
               </div>
               <div

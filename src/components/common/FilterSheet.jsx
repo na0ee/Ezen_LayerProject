@@ -32,7 +32,7 @@ export default function FilterSheet({
   return (
     <div className="fixed inset-0 z-60 flex justify-center bg-offblack/40">
       <button aria-label="필터 닫기" className="absolute inset-0" onClick={onClose} type="button" />
-      <section className="absolute bottom-0 left-1/2 flex h-136.5 w-full max-w-107.5 -translate-x-1/2 flex-col overflow-hidden rounded-t-2xl bg-background">
+      <section className="absolute bottom-0 left-1/2 flex h-[min(546px,calc(100dvh_-_16px))] w-full max-w-107.5 -translate-x-1/2 flex-col overflow-hidden rounded-t-2xl bg-background">
         <div className="flex h-7.5 w-full shrink-0 items-center justify-center bg-offwhite">
           <div className="h-1 w-8 rounded-full bg-light-grey" />
         </div>

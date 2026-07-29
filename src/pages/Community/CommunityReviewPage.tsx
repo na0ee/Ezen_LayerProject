@@ -38,7 +38,6 @@ function DraggableProductTag({
   top,
 }: ProductTagProps) {
   const navigate = useNavigate();
-  const userProfile = getUserProfile();
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const drag = useRef({
     active: false,
@@ -127,8 +126,12 @@ function DraggableProductTag({
           </span>
         </span>
       </span>
-      <span className="community-review-product-marker flex size-3 items-center justify-center rounded-full bg-point-orange text-caption-semibold-10 leading-none text-offwhite">
-        +
+      <span
+        aria-hidden="true"
+        className="community-review-product-marker relative block size-3 rounded-full bg-point-orange"
+      >
+        <span className="absolute left-1/2 top-1/2 h-[1.5px] w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-offwhite" />
+        <span className="absolute left-1/2 top-1/2 h-1.5 w-[1.5px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-offwhite" />
       </span>
     </button>
   );
@@ -241,14 +244,17 @@ interface CommunityReviewPageProps {
   onTabChange?: (tab: (typeof communityTabs)[number]) => void;
   onWrite?: () => void;
   userPosts?: CommunityUserPost[];
+  onDeletePost?: (postId: string) => void;
 }
 
 export default function CommunityReviewPage({
   onTabChange,
   onWrite,
   userPosts = [],
+  onDeletePost,
 }: CommunityReviewPageProps) {
   const navigate = useNavigate();
+  const userProfile = getUserProfile();
 
   return (
     <main className="community-review-page min-h-[100dvh] bg-subtext">
@@ -307,6 +313,7 @@ export default function CommunityReviewPage({
                 keywords={post.keywords}
                 likes={0}
                 comments={0}
+                onDelete={() => onDeletePost?.(post.id)}
                 className="rounded-t-2xl"
               />
             </article>
