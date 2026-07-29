@@ -20,6 +20,7 @@ export default function CommunityEnter({
   onClick,
   editable = false,
   className = "",
+  placeholderClassName = "text-subtext",
 }) {
   const d = DEFAULTS[variant];
   const finalLabel = label ?? d.label;
@@ -58,7 +59,7 @@ export default function CommunityEnter({
             className="flex w-full items-center justify-between rounded-lg border border-light-grey bg-offwhite p-4"
           >
             <span
-              className={`text-body-regular-14 ${value ? "text-offblack" : "text-subtext"}`}
+              className={`text-body-regular-14 ${value ? "text-offblack" : placeholderClassName}`}
             >
               {value || finalPlaceholder}
             </span>

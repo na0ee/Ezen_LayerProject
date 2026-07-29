@@ -1,3 +1,7 @@
+import blackberryBayImage from "../assets/images/result/bold-signature/blackberry-bay.png";
+import myslfImage from "../assets/images/result/bold-signature/myslf.png";
+import orpheonImage from "../assets/images/result/bold-signature/orpheon.png";
+
 // src/data/perfumeData.js
 //
 // 향수 상품 목록 데이터.
@@ -1556,6 +1560,87 @@ export const perfumeData = [
   {
     id: 51,
     perfume: {
+      brandId: "jo-malone",
+      name: "블랙베리 앤 베이 코롱",
+      description:
+        "잘 익은 블랙베리의 생기와 월계수 잎의 푸른 향이 어우러진 산뜻한 향",
+      detailDescription:
+        "어린 시절 숲에서 블랙베리를 따던 기억을 맑고 생기 있게 담아낸 코롱이다.\n" +
+        "새콤달콤한 블랙베리의 첫인상 뒤로 월계수 잎의 싱그러운 그린 향이 번지며 선명한 대비를 만든다.\n" +
+        "시더우드의 드라이한 잔향이 가볍게 중심을 잡아 사계절 데일리로 부담 없이 어울린다.",
+      detailTitle: "생기",
+      image: blackberryBayImage,
+      familyIds: ["green", "floral"],
+      notes: {
+        top: ["블랙베리"],
+        middle: ["월계수 잎"],
+        base: ["시더우드"],
+      },
+      noteColors: { top: "#6C4A73", middle: "#52946B", base: "#9C6B4A" },
+      aiReview:
+        "상큼한 베리와 푸른 잎의 대비가 산뜻하다는 평이 많으며, 가볍고 자연스러운 데일리 향으로 사랑받는다.",
+    },
+    likeCount: 0,
+    isLiked: false,
+    isBookmarked: false,
+  },
+  {
+    id: 52,
+    perfume: {
+      brandId: "diptyque",
+      name: "오르페옹 오 드 퍼퓸",
+      description:
+        "주니퍼 베리와 파우더리한 꽃, 따뜻한 우드가 어우러진 세련된 향",
+      detailDescription:
+        "1960년대 파리의 예술가들이 모이던 바 오르페옹의 온기와 활기를 향으로 되살린 작품이다.\n" +
+        "주니퍼 베리의 맑고 스파이시한 시작에 재스민의 부드러운 꽃향이 포개지며 세련된 분위기를 만든다.\n" +
+        "시더우드와 통카빈, 머스크의 파우더리한 잔향이 피부 가까이 포근하고 깊게 남는다.",
+      detailTitle: "여운",
+      image: orpheonImage,
+      familyIds: ["woody", "powdery"],
+      notes: {
+        top: ["주니퍼 베리"],
+        middle: ["재스민"],
+        base: ["시더우드", "통카빈", "머스크"],
+      },
+      noteColors: { top: "#7FC29B", middle: "#F5E6E0", base: "#9C6B4A" },
+      aiReview:
+        "파우더리한 우드와 깨끗한 머스크가 고급스럽다는 평이 많고, 차분하지만 개성 있는 시그니처 향으로 꼽힌다.",
+    },
+    likeCount: 0,
+    isLiked: false,
+    isBookmarked: false,
+  },
+  {
+    id: 53,
+    perfume: {
+      brandId: "ysl",
+      name: "마이셀프 오 드 퍼퓸",
+      description:
+        "밝은 베르가못과 오렌지 블로섬, 깊은 우드가 만나는 모던한 향",
+      detailDescription:
+        "밝고 자신감 있는 현대적인 무드를 깔끔한 대비로 풀어낸 오 드 퍼퓸이다.\n" +
+        "칼라브리아산 베르가못의 선명한 시트러스가 오렌지 블로섬의 부드럽고 풍성한 꽃향으로 이어진다.\n" +
+        "따뜻한 우드와 파촐리의 잔향이 단단하게 중심을 잡아 낮과 밤 모두 자연스럽게 어울린다.",
+      detailTitle: "자신감",
+      image: myslfImage,
+      familyIds: ["citrus", "woody"],
+      notes: {
+        top: ["베르가못"],
+        middle: ["오렌지 블로섬"],
+        base: ["우드", "파촐리"],
+      },
+      noteColors: { top: "#F5C542", middle: "#F5E6E0", base: "#7A4E31" },
+      aiReview:
+        "깨끗한 시트러스 플로럴과 따뜻한 우드의 균형이 좋다는 평이 많으며, 단정하고 활용도 높은 향으로 호평받는다.",
+    },
+    likeCount: 0,
+    isLiked: false,
+    isBookmarked: false,
+  },
+  {
+    id: 54,
+    perfume: {
       brandId: "maison-margiela",
       name: "체이싱 선셋",
       description:
@@ -1581,7 +1666,7 @@ export const perfumeData = [
     isBookmarked: false,
   },
   {
-    id: 52,
+    id: 55,
     perfume: {
       brandId: "bvlgari",
       name: "옴니아 아메시스트",

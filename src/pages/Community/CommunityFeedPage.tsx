@@ -16,6 +16,7 @@ import {
 import CommunityRecommendationSelectSheet from "./CommunityRecommendationSelectSheet";
 import type { CommunityUserPost } from "./communityUserPosts";
 import { getUserProfile } from "../../data/userProfile";
+import { getCommunityGeneratedProfile } from "../../data/communityGeneratedProfiles";
 
 const communityTabs = ["리뷰", "질문", "챌린지", "향 추천"] as const;
 
@@ -172,13 +173,20 @@ export default function CommunityFeedPage({
                 <Profile
                   name={post.profileName}
                   time="5분 전"
-                  img={post.profileImage}
+                  img={
+                    getCommunityGeneratedProfile(
+                      `${post.id}-${post.profileName}`,
+                    )?.profile ?? post.profileImage
+                  }
                   onClick={() =>
                     navigate(`/community/profile/${post.id}`, {
                       state: {
                         profile: {
                           name: post.profileName,
-                          image: post.profileImage,
+                          image:
+                            getCommunityGeneratedProfile(
+                              `${post.id}-${post.profileName}`,
+                            )?.profile ?? post.profileImage,
                         },
                       },
                     })

@@ -311,12 +311,17 @@ function SearchResultRoute() {
 function PerfumeDetailRoute() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const item = findPerfume(Number(id));
+
   return (
     <PerfumeDetail
-      item={findPerfume(Number(id))}
+      key={item.id}
+      item={item}
       onBack={() => navigate(-1)}
       onSearch={() => navigate("/category")}
-      onSelectRelated={(item) => navigate(`/perfume/${item.id}`)}
+      onBell={() => navigate("/alarm")}
+      onMore={() => navigate("/search")}
+      onSelectRelated={(related) => navigate(`/perfume/${related.id}`)}
     />
   );
 }

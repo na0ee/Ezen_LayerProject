@@ -66,7 +66,7 @@ export default function MagazineNiche({ onBack }) {
             </div>
           </section>
 
-          <article className="flex w-full flex-col items-center gap-16">
+          <article className="flex w-full flex-col items-center gap-10">
             <div className="flex w-full flex-col items-center justify-center gap-2 px-5 text-offblack">
               <h2 className="w-full text-title-semibold-18">
                 향수가 취향을 넘어 아이덴티티가 되기까지

@@ -17,8 +17,10 @@ import reviewCell1 from "../assets/images/mypage/review-tab/review-cell-1.png";
 import reviewCell2 from "../assets/images/mypage/review-tab/review-cell-2.png";
 import reviewCell3 from "../assets/images/mypage/review-tab/review-cell-3.png";
 import reviewCell4 from "../assets/images/mypage/review-tab/review-cell-4.png";
+import { getCommunityGeneratedProfile } from "../data/communityGeneratedProfiles";
 
 const tabs = ["향수추천", "리뷰"];
+const emptyGeneratedPosts = [];
 const profileBackgrounds = [
   background,
   feedCell1,
@@ -161,25 +163,46 @@ export default function CommunityProfilePage() {
   const profile = location.state?.profile ?? {};
   const [activeTab, setActiveTab] = useState("향수추천");
   const [isFollowing, setIsFollowing] = useState(false);
-  const profileSeed = hashProfileId(
-    `${profileId}-${profile.name ?? "community-user"}`,
+  const profileKey = `${profileId}-${profile.name ?? "community-user"}`;
+  const profileSeed = hashProfileId(profileKey);
+  const generatedProfile = useMemo(
+    () => getCommunityGeneratedProfile(profileKey),
+    [profileKey],
   );
   const profileBackground =
+    generatedProfile?.background ??
     profileBackgrounds[profileSeed % profileBackgrounds.length];
+  const profileImage = generatedProfile?.profile ?? profile.image ?? defaultProfile;
+  const generatedPostImages = generatedProfile?.posts ?? emptyGeneratedPosts;
   const visibleRecommendationPosts = useMemo(
-    () => shuffleForProfile(recommendationPosts, profileSeed).slice(0, 3),
-    [profileSeed],
+    () =>
+      shuffleForProfile(recommendationPosts, profileSeed)
+        .slice(0, 3)
+        .map((post, index) => ({
+          ...post,
+          img: generatedPostImages[index] ?? post.img,
+        })),
+    [generatedPostImages, profileSeed],
   );
   const visibleReviewPosts = useMemo(
-    () => shuffleForProfile(reviewPosts, profileSeed + 97).slice(0, 3),
-    [profileSeed],
+    () =>
+      shuffleForProfile(reviewPosts, profileSeed + 97)
+        .slice(0, 3)
+        .map((post, index) => ({
+          ...post,
+          img:
+            generatedPostImages[index + 3] ??
+            generatedPostImages[index] ??
+            post.img,
+        })),
+    [generatedPostImages, profileSeed],
   );
 
   return (
     <main className="mx-auto min-h-[100dvh] w-full max-w-[430px] bg-background pb-28">
       <div className="relative h-76.25 overflow-hidden">
         <img
-          src={profile.background ?? profileBackground}
+          src={profileBackground}
           alt=""
           className="absolute inset-0 size-full object-cover"
         />
@@ -190,7 +213,7 @@ export default function CommunityProfilePage() {
         <section className="flex flex-col gap-6 p-5">
           <div className="flex items-center gap-4.5">
             <img
-              src={profile.image ?? defaultProfile}
+              src={profileImage}
               alt=""
               className="size-20 shrink-0 rounded-full object-cover"
             />
@@ -250,7 +273,7 @@ export default function CommunityProfilePage() {
                     type:
                       activeTab === "향수추천" ? "recommendation" : "review",
                     profileName: profile.name ?? "북극곰",
-                    profileImage: profile.image ?? defaultProfile,
+                    profileImage,
                     time: "5분 전",
                     image: post.img,
                     mood:

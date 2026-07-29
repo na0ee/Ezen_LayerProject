@@ -11,6 +11,7 @@ import {
 } from "../../components/common";
 import type { CommunityUserPost } from "./communityUserPosts";
 import { getUserProfile } from "../../data/userProfile";
+import { getCommunityGeneratedProfile } from "../../data/communityGeneratedProfiles";
 
 const communityTabs = ["리뷰", "질문", "챌린지", "향 추천"] as const;
 
@@ -145,7 +146,11 @@ export default function CommunityQuestionPage({
             <ConQuestion
               profileName="과일향러버"
               profileTime="5분 전"
-              profileImg={profileFruityLover}
+              profileImg={
+                getCommunityGeneratedProfile(
+                  "fruity-lover-과일향러버",
+                )?.profile ?? profileFruityLover
+              }
               title="상큼한 과일향 향수 추천해주세요"
               text={fruitQuestionText}
               likes={42}
@@ -156,7 +161,10 @@ export default function CommunityQuestionPage({
                   state: {
                     profile: {
                       name: "과일향러버",
-                      image: profileFruityLover,
+                      image:
+                        getCommunityGeneratedProfile(
+                          "fruity-lover-과일향러버",
+                        )?.profile ?? profileFruityLover,
                     },
                   },
                 })
@@ -168,7 +176,11 @@ export default function CommunityQuestionPage({
             <ConQuestion
               profileName="출근향찾는중"
               profileTime="18분 전"
-              profileImg={profileOfficeScent}
+              profileImg={
+                getCommunityGeneratedProfile(
+                  "office-scent-출근향찾는중",
+                )?.profile ?? profileOfficeScent
+              }
               title="매일 뿌리기 좋은 깨끗한 비누향 있을까요?"
               text={cleanQuestionText}
               likes={19}
@@ -179,7 +191,10 @@ export default function CommunityQuestionPage({
                   state: {
                     profile: {
                       name: "출근향찾는중",
-                      image: profileOfficeScent,
+                      image:
+                        getCommunityGeneratedProfile(
+                          "office-scent-출근향찾는중",
+                        )?.profile ?? profileOfficeScent,
                     },
                   },
                 })

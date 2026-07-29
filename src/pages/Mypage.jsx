@@ -301,6 +301,7 @@ export default function Mypage() {
   const { ids: wishlistIds, isWishlisted, toggleWishlist } =
     usePerfumeWishlist();
   const wishlist = wishlistIds.map(perfumeById).filter(Boolean);
+  const wishlistPreview = wishlist.slice(0, 3);
   const [activeTab, setActiveTab] = useState(
     location.state?.activeTab ?? "마이페이지",
   );
@@ -477,7 +478,14 @@ export default function Mypage() {
               </div>
             </div>
           </div>
-          <BtnSmall variant="white" onClick={() => setIsPreparingOpen(true)}>
+          <BtnSmall
+            variant="white"
+            onClick={() =>
+              navigate("/profile", {
+                state: { mode: "edit", returnTo: "/my" },
+              })
+            }
+          >
             프로필 편집
           </BtnSmall>
         </div>
@@ -600,7 +608,7 @@ export default function Mypage() {
                     className="flex shrink-0 flex-col items-center gap-7.5 rounded-2xl border border-light-grey bg-offwhite px-5 pt-5 pb-7.5"
                   >
                     <div className="flex size-30 items-center justify-center overflow-hidden rounded-lg">
-                      <img src={item.img} alt="" className="h-25 w-auto object-contain" />
+                      <img src={item.img} alt="" className="h-[90px] w-auto object-contain" />
                     </div>
                     <div className="flex w-42.5 flex-col items-center gap-1">
                       <p className="truncate text-body-semibold-16 text-offblack">{item.brand}</p>
@@ -643,7 +651,7 @@ export default function Mypage() {
                 <MoreLink onClick={() => navigate("/mypage/wishlist")} />
               </div>
               <div className="flex w-full flex-col gap-4">
-                {wishlist.map((item) => (
+                {wishlistPreview.map((item) => (
                   <CardSmall
                     key={item.name}
                     variant="medium-b"

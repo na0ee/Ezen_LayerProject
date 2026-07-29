@@ -31,7 +31,7 @@ export default function MagazineDiptyque({ onBack }) {
             </div>
           </section>
 
-          <article className="flex w-full flex-col items-center gap-16">
+          <article className="flex w-full flex-col items-center gap-10">
             <div className="flex w-full flex-col gap-2 px-5 text-offblack">
               <h1 className="text-title-semibold-18">
                 예술과 여행이 향으로 만나다

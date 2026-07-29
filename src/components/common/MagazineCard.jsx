@@ -15,7 +15,7 @@ export default function MagazineCard({
       {img && (
         <img src={img} alt="" className="absolute inset-0 size-full object-cover" />
       )}
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/40" />
       <div className="relative flex w-full flex-col gap-4">
         <div className="flex flex-col items-start justify-center gap-1">
           {tag && <TagMag>{tag}</TagMag>}
