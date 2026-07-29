@@ -1,29 +1,56 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import logoLayerWhite from "../assets/icons/logo-layer-white.svg";
 import splashVideo from "../assets/videos/splash.mp4";
 
 export default function Splash() {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      navigate("/login", { replace: true });
-    }, 2000);
-
-    return () => window.clearTimeout(timer);
+  const videoRef = useRef(null);
+  const goToLogin = useCallback(() => {
+    navigate("/login", { replace: true });
   }, [navigate]);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      video.play().catch(() => {
+        // 브라우저나 저전력 모드가 자동재생을 막으면 화면 클릭으로 바로 전환한다.
+      });
+    }
+
+    const timer = window.setTimeout(goToLogin, 5000);
+
+    return () => window.clearTimeout(timer);
+  }, [goToLogin]);
+
   return (
-    <main className="relative mx-auto h-[100dvh] min-h-[600px] w-full max-w-[430px] overflow-hidden bg-offblack">
+    <main
+      className="relative mx-auto h-[100dvh] min-h-[600px] w-full max-w-[430px] cursor-pointer overflow-hidden bg-offblack"
+      onClick={goToLogin}
+      role="button"
+      tabIndex={0}
+      aria-label="스플래시 건너뛰기"
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          goToLogin();
+        }
+      }}
+    >
       <video
-        className="absolute left-1/2 top-0 h-full min-w-full -translate-x-1/2 object-cover"
+        ref={videoRef}
+        className="pointer-events-none absolute left-1/2 top-0 h-full min-w-full -translate-x-1/2 object-cover"
         src={splashVideo}
         autoPlay
         muted
+        defaultMuted
         playsInline
         preload="auto"
         aria-hidden="true"
+        onCanPlay={(event) => event.currentTarget.play().catch(() => {})}
       />
 
       <div className="absolute inset-0 bg-offblack/30" aria-hidden="true" />
