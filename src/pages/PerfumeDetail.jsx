@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BtnBig,
   Category,
@@ -11,9 +11,8 @@ import {
 } from "../components/common";
 import useDragScroll from "../hooks/useDragScroll";
 import { allPerfumes, relatedPerfumes } from "../data/perfumeUtils";
-import { buildReviews } from "../data/perfumeReviews";
+import { buildComments, buildReviews } from "../data/perfumeReviews";
 import sparkles from "../assets/icons/sparkles.svg";
-import notesBottle from "../assets/images/perfume/notes-bottle.svg";
 
 // 피그마: 카테고리_향수보기 (3062:75401) + 리뷰 탭 (3062:75467)
 const tabs = ["상세페이지", "리뷰"];
@@ -41,9 +40,21 @@ export default function PerfumeDetail({
   const { perfume } = item;
   const related = relatedPerfumes(item);
   const reviews = buildReviews(item.id);
+  // 설명글의 마침표는 빼고 보여준다
   const description = (perfume.detailDescription ?? "")
     .split("\n")
+    .map((line) => line.replaceAll(".", "").trim())
     .filter(Boolean);
+
+  // 노트 색이 없는 향수는 회색 계열로 대체
+  const noteTop = perfume.noteColors?.top ?? "#dddddd";
+  const noteMiddle = perfume.noteColors?.middle ?? "#ededed";
+  const noteBase = perfume.noteColors?.base ?? "#f7f7f7";
+
+  // 다른 향수에서 넘어와도 항상 페이지 맨 위에서 시작한다
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [item.id]);
 
   const toggleReviewLike = (id) =>
     setLikedReviews((prev) =>
@@ -88,7 +99,7 @@ export default function PerfumeDetail({
               />
             </div>
             <p className="text-body-medium-14 text-offblack70">
-              {perfume.description}
+              {perfume.description.replaceAll(".", "").trim()}
             </p>
           </div>
 
@@ -119,6 +130,7 @@ export default function PerfumeDetail({
                   comments={review.comments}
                   liked={isLiked}
                   onLike={() => toggleReviewLike(review.id)}
+                  commentItems={buildComments(review.id)}
                 />
               );
             })}
@@ -137,13 +149,40 @@ export default function PerfumeDetail({
                 </div>
               </div>
 
-              <div className="flex w-full items-center justify-center gap-[60px] rounded-2xl border border-light-grey bg-offwhite py-[30px]">
-                <img
-                  src={notesBottle}
-                  alt=""
-                  className="h-40 w-[65.92px] shrink-0"
-                />
-                <div className="flex w-[142px] flex-col gap-6">
+              <div className="flex w-full items-center justify-center gap-6 rounded-2xl border border-light-grey bg-offwhite py-[30px]">
+                {/* 제품 이미지(배경 제거 PNG)를 마스크로 써서 실제 향수 실루엣 안에
+                    탑·미들·베이스 노트 색을 위에서부터 채운다.
+                    높이는 피그마 기준 160px, 가로는 향수 비율대로 늘어나되
+                    옆의 노트 글이 밀리지 않도록 130px에서 멈춘다
+                    (카드 350 - 여백 60 - 글 142 = 148이 한계) */}
+                <div className="relative flex h-40 w-[100px] shrink-0 items-center justify-center">
+                  {/* 실제 비율만큼 자리를 잡아주는 투명 이미지 */}
+                  <img
+                    src={perfume.image}
+                    alt=""
+                    aria-hidden
+                    className="h-40 w-auto max-w-full object-contain opacity-0"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0"
+                    style={{
+                      background: `linear-gradient(to bottom, ${noteTop} 0%, ${noteTop} 34%, ${noteMiddle} 34%, ${noteMiddle} 67%, ${noteBase} 67%, ${noteBase} 100%)`,
+                      WebkitMaskImage: `url(${perfume.image})`,
+                      maskImage: `url(${perfume.image})`,
+                      WebkitMaskSize: "contain",
+                      maskSize: "contain",
+                      WebkitMaskRepeat: "no-repeat",
+                      maskRepeat: "no-repeat",
+                      WebkitMaskPosition: "center",
+                      maskPosition: "center",
+                    }}
+                  />
+                </div>
+                {/* 폭 고정 — 유동으로 두면 향수마다 글 위치가 달라진다.
+                    실루엣 100 + 간격 24 + 글 160 = 284를 카드(350) 가운데 놓는다.
+                    간격을 벌리면 둘 사이가 비어서 병만 왼쪽에 떨어져 보인다 */}
+                <div className="flex w-[160px] shrink-0 flex-col gap-6">
                   {NOTE_STEPS.map(([label, key]) => (
                     <div key={key} className="flex w-full flex-col gap-1">
                       <p className="text-body-regular-14 text-offblack">
@@ -152,6 +191,7 @@ export default function PerfumeDetail({
                       <KeywordList
                         variant="grey"
                         keywords={perfume.notes?.[key] ?? []}
+                        className="overflow-hidden whitespace-nowrap [&>span]:shrink-0"
                       />
                     </div>
                   ))}
@@ -160,13 +200,9 @@ export default function PerfumeDetail({
 
               {perfume.detailImages?.length > 0 && (
                 <div className="flex flex-col items-center">
+                  {/* 높이를 고정하지 않아야 이미지가 잘리지 않고 전체가 보인다 */}
                   {perfume.detailImages.map((src) => (
-                    <img
-                      key={src}
-                      src={src}
-                      alt=""
-                      className="h-[338px] w-[390px] object-cover"
-                    />
+                    <img key={src} src={src} alt="" className="h-auto w-full" />
                   ))}
                 </div>
               )}

@@ -4,6 +4,7 @@ import {
   Routes,
   useLocation,
   useNavigate,
+  useParams,
   useSearchParams,
 } from "react-router-dom";
 import MagazineAllView from "../Magazine/Magazine_allview";
@@ -15,6 +16,7 @@ import MagazineMain from "../Magazine/Magazine_main";
 import MagazineNiche from "../Magazine/Magazine_NICHE";
 import MagazineSummer from "../Magazine/Magazine_SEASON/Magazine_summer";
 import MagazineTip from "../Magazine/Magazine_TIP";
+import { findPerfume } from "./data/perfumeUtils";
 import Category from "./pages/Category";
 import Chatbot from "./pages/Chatbot";
 import ComponentsPreview from "./pages/ComponentsPreview";
@@ -27,6 +29,7 @@ import MyPerfumePage from "./pages/MyPerfumePage";
 import MyPerfumeRecordPage from "./pages/MyPerfumeRecordPage";
 import MyReviewsPage from "./pages/MyReviewsPage";
 import Mypage from "./pages/Mypage";
+import PerfumeDetail from "./pages/PerfumeDetail";
 import MyWishlistPage from "./pages/MyWishlistPage";
 import OnboardingQuestion from "./pages/OnboardingQuestion";
 import OnboardingResult from "./pages/OnboardingResult";
@@ -101,7 +104,7 @@ export default function App() {
         <Route path="/alarm" element={<Alarm />} />
         <Route
           path="/chatbot"
-          element={<Chatbot onBack={() => navigate(-1)} onSelectPerfume={() => navigate("/category")} />}
+          element={<Chatbot onBack={() => navigate(-1)} onSelectPerfume={(entry) => navigate(`/perfume/${entry.id}`)} />}
         />
 
         <Route
@@ -144,6 +147,7 @@ export default function App() {
           }
         />
         <Route path="/search" element={<SearchResultRoute />} />
+        <Route path="/perfume/:id" element={<PerfumeDetailRoute />} />
         <Route path="/community" element={<CommunityWriteEntryPage />} />
         <Route path="/components" element={<ComponentsPreview />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
@@ -158,12 +162,29 @@ export default function App() {
   );
 }
 
-// 검색어를 쿼리스트링(?q=)으로 받는다.
-// 카드 클릭(onSelect)은 향수 상세 페이지가 생기면 연결한다.
+// 검색어를 쿼리스트링(?q=)으로 받는다. 카드를 누르면 그 향수의 상세로 이동한다.
 function SearchResultRoute() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   return (
-    <SearchResult query={params.get("q") ?? ""} onBack={() => navigate(-1)} />
+    <SearchResult
+      query={params.get("q") ?? ""}
+      onBack={() => navigate(-1)}
+      onSelect={(item) => navigate(`/perfume/${item.id}`)}
+    />
+  );
+}
+
+// 주소의 :id로 향수를 찾아 상세를 그린다 (/perfume/1 → 향수 1번)
+function PerfumeDetailRoute() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  return (
+    <PerfumeDetail
+      item={findPerfume(Number(id))}
+      onBack={() => navigate(-1)}
+      onSearch={() => navigate("/category")}
+      onSelectRelated={(item) => navigate(`/perfume/${item.id}`)}
+    />
   );
 }
