@@ -39,6 +39,14 @@ import reviewCell1 from "../assets/images/mypage/review-tab/review-cell-1.png";
 import reviewCell2 from "../assets/images/mypage/review-tab/review-cell-2.png";
 import reviewCell3 from "../assets/images/mypage/review-tab/review-cell-3.png";
 import reviewCell4 from "../assets/images/mypage/review-tab/review-cell-4.png";
+import personBeachSunset from "../assets/Community/GeneratedProfiles/01-post1.webp";
+import personBeachDay from "../assets/Community/GeneratedProfiles/02-post1.webp";
+import personSpringWalk from "../assets/Community/GeneratedProfiles/03-post.webp";
+import personRooftopSunset from "../assets/Community/GeneratedProfiles/05-post1.webp";
+import personBeachBreeze from "../assets/Community/GeneratedProfiles/01-post2.webp";
+import personSummerBeach from "../assets/Community/GeneratedProfiles/02-post2.webp";
+import personBlancheMoment from "../assets/Community/GeneratedProfiles/04-post2-1.webp";
+import personEveningDate from "../assets/Community/GeneratedProfiles/05-post3.webp";
 import usePerfumeWishlist from "../hooks/usePerfumeWishlist";
 
 const pageTabs = ["마이페이지", "향수추천", "리뷰"];
@@ -98,6 +106,7 @@ const feedPosts = [
     id: "my-night-walk",
     img: feedCell1,
     hashtags: ["#밤산책", "#우디향수"],
+    mood: "Bold Signature",
     title: "밤 산책에 어울리는 향을 찾고 있어요",
     text: "선선한 밤공기와 잘 어울리는 차분한 우디 향을 추천해주세요.",
   },
@@ -105,6 +114,7 @@ const feedPosts = [
     id: "my-warm-sunlight",
     img: feedCell2,
     hashtags: ["#햇살무드", "#포근한향"],
+    mood: "Soft Wanderer",
     title: "따뜻한 햇살 같은 향이 궁금해요",
     text: "부드럽고 포근하게 오래 남는 향수를 찾고 있어요.",
   },
@@ -112,6 +122,7 @@ const feedPosts = [
     id: "my-daily-mood",
     img: feedCell3,
     hashtags: ["#데일리향수", "#클린머스크"],
+    mood: "White Canvas",
     title: "매일 편하게 뿌릴 향을 추천해주세요",
     text: "부담 없이 사용할 수 있는 깨끗한 머스크 향이면 좋겠어요.",
   },
@@ -119,8 +130,41 @@ const feedPosts = [
     id: "my-weekend-outing",
     img: feedCell4,
     hashtags: ["#주말나들이", "#시트러스"],
+    mood: "Daily Basic",
     title: "주말 나들이에 어울리는 향 찾아요",
     text: "가볍고 산뜻해서 기분 전환이 되는 향수를 추천받고 싶어요.",
+  },
+  {
+    id: "my-sunset-beach",
+    img: personBeachSunset,
+    hashtags: ["#바다노을", "#여름향수"],
+    mood: "Mood Shifter",
+    title: "노을 진 바다에 어울리는 향수 추천해주세요",
+    text: "짭조름한 바닷바람 뒤로 따뜻한 햇살이 남는 순간과 어울릴 향을 찾고 있어요. 시원하지만 잔향은 부드러운 향수면 좋겠어요.",
+  },
+  {
+    id: "my-clear-beach",
+    img: personBeachDay,
+    hashtags: ["#청량한향", "#휴가무드"],
+    mood: "Layer Maximalist",
+    title: "맑은 해변의 기분을 담은 향이 있을까요?",
+    text: "햇빛이 반짝이는 바다처럼 투명하고 산뜻한 향을 추천받고 싶어요. 물기 어린 시트러스나 가벼운 아쿠아틱 계열을 좋아해요.",
+  },
+  {
+    id: "my-spring-stroll",
+    img: personSpringWalk,
+    hashtags: ["#봄산책", "#그린플로럴"],
+    mood: "Soft Wanderer",
+    title: "햇살 좋은 봄 산책에 뿌릴 향을 찾고 있어요",
+    text: "막 돋아난 잎과 작은 꽃이 함께 느껴지는 깨끗한 그린 플로럴 향이면 좋겠어요. 달기보다 자연스러운 분위기를 원해요.",
+  },
+  {
+    id: "my-rooftop-evening",
+    img: personRooftopSunset,
+    hashtags: ["#노을데이트", "#포근한잔향"],
+    mood: "Bold Signature",
+    title: "해 질 무렵 데이트에 어울리는 향 추천해주세요",
+    text: "노을 아래에서 편안하게 웃을 수 있는 따뜻한 향을 찾고 있어요. 은은한 머스크와 우디 노트가 함께 느껴지면 좋겠어요.",
   },
 ];
 
@@ -164,6 +208,46 @@ const reviewPosts = [
     likes: 31,
     comments: 5,
     perfumeIds: [37, 7],
+  },
+  {
+    id: "my-aqua-beach-review",
+    img: personBeachBreeze,
+    hashtags: ["#아쿠아틱", "#바다산책"],
+    title: "바닷바람처럼 맑게 퍼지는 향",
+    text: "불가리 아쿠아 뿌르 옴므를 바닷가에서 뿌려봤어요. 처음엔 시원한 물결처럼 선명하고, 시간이 지나면 우디한 잔향이 차분하게 남아 여름 산책에 잘 어울렸습니다.",
+    likes: 47,
+    comments: 9,
+    perfumeIds: [8, 30],
+  },
+  {
+    id: "my-citrus-vacation-review",
+    img: personSummerBeach,
+    hashtags: ["#시트러스", "#여름휴가"],
+    title: "햇빛 아래 더 산뜻했던 라임 향",
+    text: "조 말론 라임 바질 앤 만다린은 상큼하기만 한 향이 아니라 바질의 쌉쌀함이 섞여 깔끔했어요. 더운 날에도 답답하지 않아 휴가 내내 손이 갔습니다.",
+    likes: 39,
+    comments: 7,
+    perfumeIds: [18, 12],
+  },
+  {
+    id: "my-clean-linen-review",
+    img: personBlancheMoment,
+    hashtags: ["#블랑쉬", "#깨끗한향"],
+    title: "막 세탁한 침구처럼 깨끗한 블랑쉬",
+    text: "바이레도 블랑쉬는 비누 거품 같은 첫 향 뒤에 포근한 머스크가 남아요. 집에서 쉬는 날 가볍게 뿌리면 공간까지 정돈된 듯해서 자주 사용하고 있습니다.",
+    likes: 56,
+    comments: 11,
+    perfumeIds: [21, 1],
+  },
+  {
+    id: "my-warm-date-review",
+    img: personEveningDate,
+    hashtags: ["#데이트향수", "#따뜻한우디"],
+    title: "노을 진 저녁에 잘 어울린 모하비 고스트",
+    text: "바이레도 모하비 고스트는 부드러운 과일 향과 포근한 우디 잔향의 균형이 좋았어요. 가까이 있을 때 은은하게 느껴져 편안한 저녁 데이트에 특히 잘 어울렸습니다.",
+    likes: 44,
+    comments: 8,
+    perfumeIds: [23, 39],
   },
 ];
 
@@ -516,7 +600,7 @@ export default function Mypage() {
                     time: "30분 전",
                     image: post.img,
                     mood:
-                      activeTab === "향수추천" ? "Mood Shifter" : undefined,
+                      activeTab === "향수추천" ? post.mood : undefined,
                     title: post.title,
                     text: post.text,
                     likes: post.likes,
