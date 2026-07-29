@@ -25,6 +25,7 @@ const COLLECTIONS = [
     tag: "Maison Margiela",
     title: "Replica Chasing Sunsets",
     desc: "노을이 지는 해변의 순간을 표현한 향수로, 망고와 플로럴 노트, 샌달우드가 조화를 이룹니다. 과일의 생동감과 따뜻한 여름 저녁의 분위기를 동시에 느낄 수 있는 것이 특징입니다.",
+    className: "[&>div:last-child>div>p]:!tracking-[-0.07em]",
   },
   {
     img: byredo,
@@ -44,7 +45,7 @@ const COLLECTIONS = [
 ];
 
 const CARD_TEXT_CLASS =
-  "[&>div:last-child>p]:!text-caption-regular-12 [&>div:last-child>p]:!leading-[1.4] [&>div:last-child>p]:!tracking-[-0.05em]";
+  "[&>div:last-child>div>p]:!text-title-semibold-18 [&>div:last-child>p]:!text-caption-regular-12 [&>div:last-child>p]:!leading-[1.4] [&>div:last-child>p]:!tracking-[-0.05em]";
 
 export default function MagazineFragranceCollection({ onBack }) {
   const [liked, setLiked] = useState(false);
@@ -97,7 +98,7 @@ export default function MagazineFragranceCollection({ onBack }) {
         />
 
         <main className="mt-6 w-full pb-[120px]">
-          <section className="mx-auto flex h-[452px] w-[390px] flex-col gap-[30px]">
+          <section className="mx-auto flex w-[390px] flex-col gap-[30px]">
             <div className="flex w-full flex-col gap-2.5">
               <TagMag className="!bg-offblack">향수 트렌드</TagMag>
               <div className="flex w-full items-center justify-between">
@@ -111,7 +112,7 @@ export default function MagazineFragranceCollection({ onBack }) {
               </div>
             </div>
 
-            <div className="flex h-[357px] w-full flex-col items-center gap-4">
+            <div className="flex w-full flex-col items-center gap-10">
               <img
                 src={heroCollection}
                 alt="2026년 주목할 향수 컬렉션"
@@ -132,7 +133,7 @@ export default function MagazineFragranceCollection({ onBack }) {
           </section>
 
           <div
-            className="mt-6 w-full cursor-grab select-none overflow-x-auto overflow-y-hidden px-5 [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
+            className="mt-10 w-full cursor-grab select-none overflow-x-auto overflow-y-hidden px-5 [-webkit-overflow-scrolling:touch] active:cursor-grabbing [scrollbar-width:none] [&_img]:pointer-events-none [&::-webkit-scrollbar]:hidden"
             onPointerDown={handleRailPointerDown}
             onPointerMove={handleRailPointerMove}
             onPointerUp={handleRailPointerEnd}

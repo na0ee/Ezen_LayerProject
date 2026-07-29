@@ -29,10 +29,18 @@ export default function Search({
   };
 
   const handleClear = () => {
-    if (!isControlled && inputRef.current) inputRef.current.value = "";
+    if (inputRef.current) inputRef.current.value = "";
     setTyped(false);
     inputRef.current?.focus();
-    onClear?.();
+
+    if (onClear) {
+      onClear();
+    } else if (isControlled && inputRef.current) {
+      onChange?.({
+        target: inputRef.current,
+        currentTarget: inputRef.current,
+      });
+    }
   };
 
   const field = (
@@ -68,7 +76,7 @@ export default function Search({
         type="search"
         placeholder={placeholder}
         onChange={handleChange}
-        className={`min-w-0 flex-1 bg-transparent text-body-medium-14 text-offblack outline-none ${
+        className={`search-input min-w-0 flex-1 bg-transparent text-body-medium-14 text-offblack outline-none ${
           isBorder ? "placeholder:text-grey" : "placeholder:text-subtext"
         }`}
         {...rest}

@@ -3,7 +3,7 @@
 export default function LoginInput({ label, className = '', ...rest }) {
   return (
     <label
-      className={`flex h-[46px] w-full items-center rounded-[50px] border border-light-grey bg-offwhite pl-6 ${className}`}
+      className={`flex h-11.5 w-full items-center rounded-[50px] border border-light-grey bg-offwhite pl-6 ${className}`}
     >
       <span className="sr-only">{label}</span>
       <input

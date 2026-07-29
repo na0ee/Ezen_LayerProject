@@ -4,14 +4,14 @@
 export default function MagListCard({ img, label, title, desc, className = "" }) {
   return (
     <div
-      className={`relative h-[289px] w-[262px] overflow-hidden rounded-lg border-[0.8px] border-light-grey bg-light-grey ${className}`}
+      className={`relative h-72.25 w-65.5 overflow-hidden rounded-lg border-[0.8px] border-light-grey bg-light-grey ${className}`}
     >
       {img && (
         <img src={img} alt="" className="absolute inset-0 size-full object-cover" />
       )}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80" />
-      <div className="absolute inset-0 flex flex-col justify-between px-4 pb-[30px] pt-4">
-        <p className="truncate font-en text-[12px] font-medium tracking-[-0.02em] text-offwhite">
+      <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/80" />
+      <div className="absolute inset-0 flex flex-col justify-between px-4 pb-7.5 pt-4">
+        <p className="truncate font-en text-xs font-medium tracking-[-0.02em] text-offwhite">
           {label}
         </p>
         <div className="flex flex-col gap-1">

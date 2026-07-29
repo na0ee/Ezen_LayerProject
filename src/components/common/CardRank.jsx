@@ -7,7 +7,7 @@ export default function CardRank({
   img,
   name,
   brand,
-  imageFrameClassName = "w-[44px]",
+  imageFrameClassName = "w-11",
   imageClassName = "absolute h-[154.55px] w-[155.83px] left-[-55.92px] top-[-27.27px] max-w-none",
   liked = true,
   onLike,
@@ -15,13 +15,13 @@ export default function CardRank({
 }) {
   return (
     <div
-      className={`relative flex h-[300px] w-[240px] items-end justify-end rounded-2xl border border-light-grey bg-offwhite p-3 ${className}`}
+      className={`relative flex h-75 w-60 items-end justify-end rounded-2xl border border-light-grey bg-offwhite p-3 ${className}`}
     >
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
         <Tab active>{rank}</Tab>
-        <div className="flex size-[110px] items-center justify-center">
+        <div className="flex size-27.5 items-center justify-center">
           <div
-            className={`relative h-[100px] overflow-hidden ${imageFrameClassName}`}
+            className={`relative h-25 overflow-hidden ${imageFrameClassName}`}
           >
             {img && <img src={img} alt="" className={imageClassName} />}
           </div>

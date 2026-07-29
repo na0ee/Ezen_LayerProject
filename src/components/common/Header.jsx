@@ -33,6 +33,7 @@ export default function Header({
   onSave,
   onShare,
   transparent = false,
+  hideActions = false,
   className = '',
 }) {
   const navigate = useNavigate()
@@ -41,7 +42,7 @@ export default function Header({
 
   return (
     <header
-      className={`flex h-[54px] w-full items-center justify-between px-5 ${
+      className={`flex h-13.5 w-full items-center justify-between px-5 ${
         hasBg ? 'bg-offwhite' : ''
       } ${className}`}
     >
@@ -54,7 +55,7 @@ export default function Header({
           <img
             src={isWhite ? logoWhite : logoBlack}
             alt="Layer"
-            className="h-[30px] w-[72px]"
+            className="h-7.5 w-18"
           />
         )}
         {['detail-back', 'community-back'].includes(variant) && (
@@ -89,7 +90,7 @@ export default function Header({
         {variant === 'result' && (
           <IconButton src={shareResult} label="결과 공유하기" onClick={onShare} />
         )}
-        {['main', 'main2', 'detail', 'detail-back'].includes(variant) && (
+        {!hideActions && ['main', 'main2', 'detail', 'detail-back'].includes(variant) && (
           <>
             <IconButton
               src={isWhite ? searchWhite : searchBlack}

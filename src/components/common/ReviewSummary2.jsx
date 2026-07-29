@@ -11,10 +11,10 @@ export default function ReviewSummary2({
 }) {
   return (
     <div
-      className={`flex h-[128px] w-[300px] flex-col justify-center overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-4 ${className}`}
+      className={`flex h-32 w-75 flex-col justify-center overflow-hidden rounded-2xl border border-light-grey bg-offwhite p-4 ${className}`}
     >
       <div className="flex w-full flex-1 items-start justify-between">
-        <div className="flex h-full w-[172px] flex-col gap-3">
+        <div className="flex h-full w-43 flex-col gap-3">
           {badge && <Badge variant={badge} />}
           <div className="flex min-h-0 flex-1 flex-col gap-1.5 overflow-hidden">
             <p className="truncate text-body-semibold-16 text-offblack">{title}</p>

@@ -11,7 +11,7 @@ export default function MainBannerText({
 }) {
   return (
     <div
-      className={`relative flex h-[214px] w-full flex-col justify-between overflow-hidden rounded-2xl bg-light-grey p-5 ${className}`}
+      className={`relative flex h-53.5 w-full flex-col justify-between overflow-hidden rounded-2xl bg-light-grey p-5 ${className}`}
     >
       {img && (
         <img src={img} alt="" className="absolute inset-0 size-full object-cover" />

@@ -3,7 +3,7 @@ export default function Bubble({ variant = "bot", children, className = "" }) {
   const isBot = variant === "bot";
   return (
     <div
-      className={`inline-block max-w-[337px] rounded-[20px] p-4 text-subtitle-regular-16 text-offblack ${
+      className={`inline-block max-w-84.25 rounded-[20px] p-4 text-subtitle-regular-16 text-offblack ${
         isBot ? "border border-light-grey bg-offwhite" : "bg-light-grey"
       } ${className}`}
     >
