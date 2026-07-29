@@ -196,7 +196,7 @@ function ComponentsPreview() {
         하단바 (탭 클릭 가능)
       </h2>
       <div className="mt-3 rounded-2xl bg-light-grey p-4">
-        <BottomNav active={navTab} onChange={setNavTab} />
+        <BottomNav active={navTab} onChange={setNavTab} fixed={false} />
       </div>
 
       <h2 className="mt-8 text-sm font-semibold text-subtext">검색창</h2>

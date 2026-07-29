@@ -313,6 +313,7 @@ export default function CommunityReviewPage({
                 keywords={post.keywords}
                 likes={0}
                 comments={0}
+                commentKey={post.id}
                 onDelete={() => onDeletePost?.(post.id)}
                 className="rounded-t-2xl"
               />
@@ -335,6 +336,7 @@ export default function CommunityReviewPage({
                 keywords={[...post.keywords]}
                 likes={post.likes}
                 comments={post.comments}
+                commentKey={post.id}
                 onProfileClick={() =>
                   navigate(`/community/profile/${post.id}`, {
                     state: {

@@ -81,6 +81,22 @@ export default function MagazineAllView({
   onNiche,
 }) {
   const [category, setCategory] = useState("전체");
+  const [likedMagazineTargets, setLikedMagazineTargets] = useState(() => new Set());
+
+  const toggleMagazineLike = (target) => {
+    setLikedMagazineTargets((currentTargets) => {
+      const nextTargets = new Set(currentTargets);
+
+      if (nextTargets.has(target)) {
+        nextTargets.delete(target);
+      } else {
+        nextTargets.add(target);
+      }
+
+      return nextTargets;
+    });
+  };
+
   const magazineActions = {
     season: onSeason,
     santalTip: onSantalTip,
@@ -130,6 +146,8 @@ export default function MagazineAllView({
                   img={magazine.img}
                   title={magazine.title}
                   desc={magazine.desc}
+                  liked={likedMagazineTargets.has(magazine.target)}
+                  onLike={() => toggleMagazineLike(magazine.target)}
                   onClick={magazineActions[magazine.target]}
                   ariaLabel={`${magazine.title} 매거진 보기`}
                   className={`!h-auto !w-full aspect-[190/256] shrink-0 [&>div:last-child]:!w-[calc(100%_-_32px)] [&>div:nth-of-type(2)]:!p-3 ${magazine.className ?? ""}`}

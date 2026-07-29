@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import profileYeeunTv from "../../assets/Community/Profile/profile-yeeuntv.png";
 import countChat from "../../assets/icons/count-chat.svg";
 import countHeart from "../../assets/icons/count-heart.svg";
+import { getUserProfile } from "../../data/userProfile";
 import Input from "./Input";
 
 const COMMENTS = [
@@ -26,8 +27,11 @@ export default function CommunityReviewCommentSheet({
   open = false,
   onClose,
   comments,
+  onAddComment,
+  onDeleteComment,
+  commentKey = "comment",
 }) {
-  const commentList = comments?.length ? comments : COMMENTS;
+  const commentList = comments ?? COMMENTS;
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -50,7 +54,17 @@ export default function CommunityReviewCommentSheet({
   if (!open) return null;
 
   const handleSend = () => {
-    if (!message.trim()) return;
+    const nextMessage = message.trim();
+    if (!nextMessage) return;
+    onAddComment?.({
+      id: `${commentKey}-user-${Date.now()}`,
+      author: getUserProfile().nickname || "나",
+      avatar: getUserProfile().image,
+      message: nextMessage,
+      likes: 0,
+      replies: 0,
+      isMine: true,
+    });
     setMessage("");
   };
 
@@ -99,11 +113,24 @@ export default function CommunityReviewCommentSheet({
                   className="size-[26px] shrink-0 rounded-full object-cover"
                 />
 
-                <div className="flex min-w-0 flex-col gap-[17px]">
+                <div className="flex min-w-0 flex-1 flex-col gap-[17px]">
                   <div className="flex min-w-0 flex-col gap-1">
-                    <p className="text-body-regular-14 text-grey">
-                      {comment.author}
-                    </p>
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="truncate text-body-regular-14 text-grey">
+                        {comment.author}
+                      </p>
+                      {(comment.isMine ||
+                        String(comment.id).includes("-user-")) && (
+                        <button
+                          type="button"
+                          aria-label="댓글 삭제"
+                          onClick={() => onDeleteComment?.(comment.id)}
+                          className="shrink-0 text-caption-regular-12 text-grey underline"
+                        >
+                          삭제
+                        </button>
+                      )}
+                    </div>
                     <p className="text-body-regular-14 text-offblack">
                       {comment.message}
                     </p>

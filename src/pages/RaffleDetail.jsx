@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { BtnBig, Header } from "../components/common";
-import detailContent1 from "../assets/images/raffle/detail-content-1.png";
-import detailContent2 from "../assets/images/raffle/detail-content-2.png";
 
 const details = [
   ["모집 기간", "26.07.07 (화) ~ 26.07.09 (목)"],
@@ -16,6 +14,10 @@ export default function RaffleDetail({ raffle, onBack, onApplied }) {
   const contentRef = useRef(null);
   const [showGradient, setShowGradient] = useState(false);
   const [popup, setPopup] = useState(null);
+  const perfume = raffle.perfumeItem?.perfume;
+  const heroImage = perfume?.image ?? raffle.img;
+  const detailImages =
+    perfume?.detailImages?.length > 0 ? perfume.detailImages : [raffle.img];
 
   useEffect(() => {
     const content = contentRef.current;
@@ -43,20 +45,20 @@ export default function RaffleDetail({ raffle, onBack, onApplied }) {
         <section className="flex flex-col gap-3">
           <div className="h-84.5 w-full overflow-hidden">
             <img
-              src={raffle.img}
+              src={heroImage}
               alt={raffle.name}
-              className="size-full object-cover"
+              className="size-full object-contain"
             />
           </div>
 
           <div className="flex flex-col gap-7.5">
             <div className="flex flex-col items-center gap-4.5">
               <div className="relative flex w-full flex-col items-center gap-2">
-                <div className="flex items-center gap-2">
-                  <h1 className="text-title-semibold-24 text-offblack">
+                <div className="flex w-full items-start justify-center gap-2">
+                  <h1 className="min-w-0 text-center text-title-semibold-24 text-offblack">
                     {raffle.detailName}
                   </h1>
-                  <span className="rounded bg-point-orange2 px-2 py-1.25 text-caption-semibold-10 text-point-orange">
+                  <span className="mt-1 shrink-0 whitespace-nowrap rounded bg-point-orange2 px-2 py-1.25 text-caption-semibold-10 text-point-orange">
                     D-1
                   </span>
                 </div>
@@ -81,19 +83,18 @@ export default function RaffleDetail({ raffle, onBack, onApplied }) {
         </section>
 
         <section ref={contentRef} className="mt-6 border-t border-light-grey pt-6">
-          <img
-            src={detailContent1}
-            alt={`${raffle.name} 제품 연출 이미지`}
-            className="h-84.5 w-full object-cover"
-          />
-          <div className="relative h-84.5 w-full">
-            <img
-              src={detailContent2}
-              alt={`${raffle.name} 사용 이미지`}
-              className="size-full object-cover"
-            />
-            <div className="absolute inset-0 bg-linear-to-b from-transparent from-[55%] to-background" />
-          </div>
+          {detailImages.map((src, index) => (
+            <div key={src} className="relative w-full">
+              <img
+                src={src}
+                alt={`${raffle.name} 상세 이미지 ${index + 1}`}
+                className="h-auto w-full object-cover"
+              />
+              {index === detailImages.length - 1 && (
+                <div className="absolute inset-0 bg-linear-to-b from-transparent from-[70%] to-background" />
+              )}
+            </div>
+          ))}
         </section>
       </main>
 

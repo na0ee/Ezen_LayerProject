@@ -149,7 +149,15 @@ export default function CommunityRecommendationDetailPage() {
       <main className="mx-auto min-h-[100dvh] w-full max-w-[430px] bg-background">
         <Header
           variant="detail-back"
-          onBack={() => navigate(-1)}
+          onBack={() => {
+            if (location.state?.returnTo) {
+              navigate(location.state.returnTo, {
+                state: { activeTab: location.state.returnTab },
+              });
+              return;
+            }
+            navigate(-1);
+          }}
           hideActions
           className="sticky top-0 z-20"
         />
@@ -215,6 +223,7 @@ export default function CommunityRecommendationDetailPage() {
               <Icon
                 likes={post.likes ?? 42}
                 comments={post.comments ?? 8}
+                commentKey={post.id ?? postId}
               />
               <Badge variant={post.badge ?? "good"} />
             </div>

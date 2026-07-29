@@ -90,7 +90,7 @@ export default function CommunityWriteCategorySheet({
   if (!open || !viewportBounds) return null;
 
   return createPortal(
-    <div className="community-write-category-sheet fixed inset-0 z-50">
+    <div className="community-write-category-sheet fixed inset-0 z-[110]">
       <div
         className="community-write-category-sheet__viewport absolute inset-y-0"
         style={{

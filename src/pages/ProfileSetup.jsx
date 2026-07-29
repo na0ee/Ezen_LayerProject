@@ -7,6 +7,7 @@ import {
   DEFAULT_USER_PROFILE,
   saveUserProfile,
 } from "../data/userProfile";
+import CameraCaptureModal from "../components/common/CameraCaptureModal";
 
 function resizeProfileImage(file) {
   return new Promise((resolve, reject) => {
@@ -48,6 +49,7 @@ export default function ProfileSetup() {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
   const photoInputRef = useRef(null);
 
   return (
@@ -89,7 +91,7 @@ export default function ProfileSetup() {
           <button
             type="button"
             aria-label="프로필 사진 등록"
-            onClick={() => photoInputRef.current?.click()}
+            onClick={() => setIsCameraOpen(true)}
             className="absolute left-20.5 top-23 size-7"
           >
             <img src={addPhoto} alt="" className="size-7" />
@@ -111,6 +113,13 @@ export default function ProfileSetup() {
             }}
           />
         </div>
+
+        <CameraCaptureModal
+          open={isCameraOpen}
+          onClose={() => setIsCameraOpen(false)}
+          onCapture={setProfileImage}
+          onChooseFile={() => photoInputRef.current?.click()}
+        />
 
         <CommunityEnter
           variant="title"

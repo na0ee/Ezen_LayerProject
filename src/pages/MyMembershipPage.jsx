@@ -40,7 +40,7 @@ export default function MyMembershipPage() {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-80 flex justify-center bg-offblack/40" onClick={goBack}>
+    <div className="fixed inset-0 z-[110] flex justify-center bg-offblack/40" onClick={goBack}>
       <section
         className="absolute bottom-0 left-1/2 flex max-h-[85dvh] w-full max-w-107.5 -translate-x-1/2 flex-col overflow-hidden rounded-t-2xl bg-background"
         onClick={(event) => event.stopPropagation()}

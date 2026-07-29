@@ -34,6 +34,7 @@ import reviewCell1 from "../assets/images/mypage/review-tab/review-cell-1.png";
 import reviewCell2 from "../assets/images/mypage/review-tab/review-cell-2.png";
 import reviewCell3 from "../assets/images/mypage/review-tab/review-cell-3.png";
 import reviewCell4 from "../assets/images/mypage/review-tab/review-cell-4.png";
+import usePerfumeWishlist from "../hooks/usePerfumeWishlist";
 
 const pageTabs = ["마이페이지", "향수추천", "리뷰"];
 
@@ -45,8 +46,6 @@ const magazines = [
   { path: "/magazine/season", img: magazine1, label: "Scent Match", title: "계절별 향수 선택 가이드", desc: "봄, 여름, 가을 , 겨울 어떤 향이 어울릴까?" },
   { path: "/magazine/collection", img: magazine2, label: "Scent Match", title: "New Fragrance Collection 2026", desc: "올해 가장 주목해야 할 새로운 향수들" },
 ];
-
-const wishlist = [1, 6, 14].map(perfumeById).filter(Boolean);
 
 const reviews = [
   { img: diptyque, title: "햇살 좋은 날의 베이지 룩" },
@@ -90,10 +89,34 @@ const recommendsGiven = [
 // 피그마 list/profile: 2열 그리드, 칸당 244px, 해시태그는 사진 위 좌하단 오버레이
 // 피드/리뷰 탭이 같은 틀(그리드)을 쓰고 내용만 다름
 const feedPosts = [
-  { img: feedCell1, hashtags: ["#밤산책", "#우디향수"] },
-  { img: feedCell2, hashtags: ["#햇살무드", "#포근한향"] },
-  { img: feedCell3, hashtags: ["#데일리향수", "#클린머스크"] },
-  { img: feedCell4, hashtags: ["#주말나들이", "#시트러스"] },
+  {
+    id: "my-night-walk",
+    img: feedCell1,
+    hashtags: ["#밤산책", "#우디향수"],
+    title: "밤 산책에 어울리는 향을 찾고 있어요",
+    text: "선선한 밤공기와 잘 어울리는 차분한 우디 향을 추천해주세요.",
+  },
+  {
+    id: "my-warm-sunlight",
+    img: feedCell2,
+    hashtags: ["#햇살무드", "#포근한향"],
+    title: "따뜻한 햇살 같은 향이 궁금해요",
+    text: "부드럽고 포근하게 오래 남는 향수를 찾고 있어요.",
+  },
+  {
+    id: "my-daily-mood",
+    img: feedCell3,
+    hashtags: ["#데일리향수", "#클린머스크"],
+    title: "매일 편하게 뿌릴 향을 추천해주세요",
+    text: "부담 없이 사용할 수 있는 깨끗한 머스크 향이면 좋겠어요.",
+  },
+  {
+    id: "my-weekend-outing",
+    img: feedCell4,
+    hashtags: ["#주말나들이", "#시트러스"],
+    title: "주말 나들이에 어울리는 향 찾아요",
+    text: "가볍고 산뜻해서 기분 전환이 되는 향수를 추천받고 싶어요.",
+  },
 ];
 
 const reviewPosts = [
@@ -274,7 +297,12 @@ function PreparingModal({ open, onClose }) {
 export default function Mypage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState("마이페이지");
+  const { ids: wishlistIds, isWishlisted, toggleWishlist } =
+    usePerfumeWishlist();
+  const wishlist = wishlistIds.map(perfumeById).filter(Boolean);
+  const [activeTab, setActiveTab] = useState(
+    location.state?.activeTab ?? "마이페이지",
+  );
   const [activeRecommendTab, setActiveRecommendTab] = useState("b");
   const [isPreparingOpen, setIsPreparingOpen] = useState(false);
   const [userPoints] = useState(getUserPoints);
@@ -332,30 +360,32 @@ export default function Mypage() {
         {activeTab !== "마이페이지" ? (
           <PostGrid
             items={activeTab === "향수추천" ? feedPosts : reviewPosts}
-            onItemClick={
-              activeTab === "리뷰"
-                ? (post) =>
-                    navigate(`/community/post/${post.id}`, {
-                      state: {
-                        post: {
-                          type: "review",
-                          profileName: userProfile.nickname,
-                          profileImage: userProfile.image,
-                          time: "30분 전",
-                          image: post.img,
-                          title: post.title,
-                          text: post.text,
-                          likes: post.likes,
-                          comments: post.comments,
-                          badge: "good",
-                          perfumeIds: post.perfumeIds,
-                          keywords: post.hashtags.map((tag) =>
-                            tag.replace(/^#/, ""),
-                          ),
-                        },
-                      },
-                    })
-                : undefined
+            onItemClick={(post) =>
+              navigate(`/community/post/${post.id}`, {
+                state: {
+                  returnTo: "/my",
+                  returnTab: activeTab,
+                  post: {
+                    type:
+                      activeTab === "향수추천" ? "recommendation" : "review",
+                    profileName: userProfile.nickname,
+                    profileImage: userProfile.image,
+                    time: "30분 전",
+                    image: post.img,
+                    mood:
+                      activeTab === "향수추천" ? "Mood Shifter" : undefined,
+                    title: post.title,
+                    text: post.text,
+                    likes: post.likes,
+                    comments: post.comments,
+                    badge: "good",
+                    perfumeIds: post.perfumeIds,
+                    keywords: post.hashtags.map((tag) =>
+                      tag.replace(/^#/, ""),
+                    ),
+                  },
+                },
+              })
             }
           />
         ) : (
@@ -470,6 +500,8 @@ export default function Mypage() {
                     variant="medium-b"
                     showHeart
                     {...item}
+                    liked={isWishlisted(item.id)}
+                    onLike={() => toggleWishlist(item.id)}
                     role="button"
                     tabIndex={0}
                     onClick={() => navigate(`/perfume/${item.id}`)}

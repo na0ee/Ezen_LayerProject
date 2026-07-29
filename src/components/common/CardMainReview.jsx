@@ -37,7 +37,7 @@ export default function CardMainReview({
               {label || brand}
             </LayerBadge>
           )}
-          <p className="text-body-semibold-16 text-offwhite">{name}</p>
+          <p className="text-title-semibold-18 text-offwhite">{name}</p>
         </div>
         <KeywordList keywords={keywords} />
       </div>

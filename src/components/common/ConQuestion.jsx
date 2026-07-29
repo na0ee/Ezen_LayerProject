@@ -11,6 +11,7 @@ export default function ConQuestion({
   text,
   likes = 0,
   comments = 0,
+  commentKey,
   onProfileClick,
   onDelete,
   className = "",
@@ -42,7 +43,7 @@ export default function ConQuestion({
         <p className="text-body-semibold-16 text-offblack">{title}</p>
         <p className="whitespace-pre-line text-body-regular-14 text-subtext">{text}</p>
       </div>
-      <Icon likes={likes} comments={comments} />
+      <Icon likes={likes} comments={comments} commentKey={commentKey} />
     </div>
   );
 }

@@ -23,6 +23,7 @@ import heroImg from "../assets/images/home/hero.png";
 import heroRecordImg from "../assets/images/home/hero-record.png";
 import magazine1 from "../assets/images/home/magazine-1.png";
 import magazine2 from "../assets/images/home/magazine-2.png";
+import magazine3 from "../assets/images/home/magazine-3.png";
 import raffleImg from "../assets/images/home/raffle.png";
 import scent1 from "../assets/images/home/scent-1.png";
 import scent2 from "../assets/images/home/scent-2.png";
@@ -31,6 +32,7 @@ import { allPerfumes } from "../data/perfumeUtils";
 import profileFadedscent from "../assets/Community/Profile/profile-fadedscent.png";
 import profilePassingPerfumer from "../assets/Community/Profile/profile-passing-perfumer.png";
 import profileRainyScent from "../assets/Community/Profile/profile-rainy-scent.png";
+import usePerfumeWishlist from "../hooks/usePerfumeWishlist";
 
 const days = [
   { day: "Mon", date: "6", recorded: true },
@@ -86,7 +88,7 @@ const scentCards = [
   },
   {
     img: scent3,
-    label: "Bold Signature",
+    label: "Mood Shifter",
     name: "dansu_o",
     keywords: ["우디", "빈티지"],
     profileImage: profileRainyScent,
@@ -194,6 +196,7 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
   const [isPastHero, setIsPastHero] = useState(false);
   const [activeHero, setActiveHero] = useState(0);
   const [heroTimerKey, setHeroTimerKey] = useState(0);
+  const { isWishlisted, toggleWishlist } = usePerfumeWishlist();
   const heroDrag = useRef({
     active: false,
     dragged: false,
@@ -521,6 +524,14 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
                 onClick={() => navigate("/magazine/byredo")}
                 className="shrink-0"
               />
+              <CardMag
+                img={magazine3}
+                imgClassName="absolute inset-0 size-full object-cover object-bottom"
+                title="여름 밤에 어울리는 향"
+                desc={"해가 진 뒤에 피어나는 관능적인 노트들\n열대야의 공기와 어울리는 향수를 소개합니다"}
+                onClick={() => navigate("/magazine/summer-perfume")}
+                className="shrink-0"
+              />
             </div>
           </section>
 
@@ -552,6 +563,8 @@ export default function Home({ onRaffle, onStartOnboarding, onNavigate }) {
                   brand={card.brand}
                   imageFrameClassName="w-20"
                   imageClassName="size-full object-contain"
+                  liked={isWishlisted(card.id)}
+                  onLike={() => toggleWishlist(card.id)}
                   className="shrink-0"
                 />
               ))}

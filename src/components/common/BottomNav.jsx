@@ -1,4 +1,5 @@
 import characterLay from "../../assets/images/character-lay.png";
+import { createPortal } from "react-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import TabNav from "./TabNav";
 
@@ -10,6 +11,7 @@ export default function BottomNav({
   active,
   onChange,
   onCharacter,
+  fixed = true,
   className = "",
 }) {
   const location = useLocation();
@@ -31,10 +33,12 @@ export default function BottomNav({
     onChange?.(tab);
   };
 
-  return (
+  const navigation = (
     <nav
       aria-label="주요 메뉴"
-      className={`pointer-events-auto z-[100] flex w-[calc(100vw-40px)] max-w-[390px] items-center ${className}`}
+      className={`pointer-events-auto z-[100] flex w-[calc(100vw-40px)] max-w-[390px] items-center ${
+        fixed ? "fixed bottom-5 left-1/2 -translate-x-1/2" : ""
+      } ${className}`}
     >
       <div className="flex w-[391px] shrink-0 items-center justify-center gap-1.5">
         <div className="glass-surface-dark glass-rim-light glass-depth relative h-16 min-w-0 flex-1 overflow-hidden rounded-[50px]">
@@ -78,4 +82,6 @@ export default function BottomNav({
       </div>
     </nav>
   );
+
+  return fixed ? createPortal(navigation, document.body) : navigation;
 }

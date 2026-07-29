@@ -3,12 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { BottomNav, BtnSmall, Header, Heart, KeywordList } from "../components/common";
 import FilterSheet from "../components/common/FilterSheet";
 import chevronDown from "../assets/icons/chevron-down.svg";
-import buly from "../assets/images/mypage/buly.png";
-import bvlgari from "../assets/images/mypage/bvlgari.png";
-import byredo from "../assets/images/mypage/byredo.png";
-import diptyque from "../assets/images/mypage/diptyque.png";
-import jomalone from "../assets/images/mypage/jomalone.png";
-import masion from "../assets/images/mypage/masion.png";
+import { allPerfumes } from "../data/perfumeUtils";
+import usePerfumeWishlist from "../hooks/usePerfumeWishlist";
 
 // 참고 파일(MyWishlistPage.tsx)의 레이아웃/기능을 이 프로젝트 컴포넌트·토큰으로 이식
 const filterTabs = ["브랜드", "향 계열/향기", "용량"];
@@ -31,78 +27,32 @@ const filterOptions = {
   용량: volumeOptions,
 };
 
-const wishItems = [
-  {
-    brand: "MAISON MARGIELA FRAGRANCES",
-    name: "체이싱 선셋 EDT 30ML",
-    image: masion,
-    keywords: ["#망고", "#이슬비", "#상큼함"],
-  },
-  {
-    brand: "BVLGARI PERFUME",
-    name: "불가리 옴니아 아메시스트 오 드 뚜왈렛 100ml",
-    image: bvlgari,
-    keywords: ["#파우더리", "#아이리스", "#바닐라"],
-  },
-  {
-    brand: "BULY",
-    name: "휠 오 트리플 향수 75ml - 이리 드 말트",
-    image: buly,
-    keywords: ["#레몬 그라스", "#아이리스", "#시트러스"],
-  },
-  {
-    brand: "MAISON MARGIELA FRAGRANCES",
-    name: "레이지 선데이 모닝 EDT 100ML",
-    image: masion,
-    keywords: ["#세탁세제향", "#아이리스", "#화이트 머스크"],
-  },
-  {
-    brand: "DIPTYQUE",
-    name: "오 데 썽 오 드 뚜왈렛 100ML",
-    image: diptyque,
-    keywords: ["#비터 오렌지", "#오렌지 블로섬", "#패츌리"],
-  },
-  {
-    brand: "JO MALONE",
-    name: "우드 세이지 앤 씨솔트 코롱 100ML",
-    image: jomalone,
-    keywords: ["#라벤더", "#씨솔트", "#드라이 허브"],
-  },
-  {
-    brand: "BYREDO",
-    name: "블랑쉬 오 드 퍼퓸 100ML",
-    image: byredo,
-    keywords: ["#라벤더", "#장미", "#화이트 머스크"],
-  },
-];
-
 function WishImagePlaceholder() {
   return <div className="size-full bg-2light-grey" />;
 }
 
-function WishCard({ item }) {
-  const [isFavorite, setIsFavorite] = useState(true);
+function WishCard({ item, onRemove, onSelect }) {
   const [isRegisteredOpen, setIsRegisteredOpen] = useState(false);
 
   return (
     <article className="min-w-0">
       <div className="relative flex h-63.5 items-center justify-center overflow-hidden bg-offwhite">
-        {item.image ? (
-          <img alt={item.name} className="h-42.5 w-auto object-contain" src={item.image} />
+        {item.img ? (
+          <img alt={item.name} className="h-42.5 w-auto object-contain" src={item.img} />
         ) : (
           <WishImagePlaceholder />
         )}
         <Heart
-          variant={isFavorite ? "abled" : "grey1"}
+          variant="abled"
           className="absolute right-3 bottom-3 size-6"
-          onClick={() => setIsFavorite((favorite) => !favorite)}
+          onClick={onRemove}
         />
       </div>
 
-      <div className="mt-3 flex h-14 flex-col gap-1">
+      <button type="button" className="mt-3 flex h-14 w-full flex-col gap-1 text-left" onClick={onSelect}>
         <p className="truncate text-caption-regular-12 text-grey">{item.brand}</p>
         <h3 className="line-clamp-2 text-body-semibold-16 text-offblack">{item.name}</h3>
-      </div>
+      </button>
 
       <KeywordList
         keywords={item.keywords}
@@ -141,8 +91,12 @@ function WishCard({ item }) {
 
 export default function MyWishlistPage() {
   const navigate = useNavigate();
+  const { ids: wishlistIds, toggleWishlist } = usePerfumeWishlist();
   const [activeFilter, setActiveFilter] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const wishItems = wishlistIds
+    .map((id) => allPerfumes.find((item) => item.id === id))
+    .filter(Boolean);
 
   const toggleFilter = (option) => {
     setSelectedFilters((current) =>
@@ -167,7 +121,7 @@ export default function MyWishlistPage() {
 
       <div className="flex flex-col gap-4 px-5 pt-6">
         <p className="text-body-regular-14 text-grey">
-          담아둔 향수 <span className="text-offblack">{wishItems.length}</span>개 · 플로럴 계열에 관심이 많아요
+          담아둔 향수 <span className="text-offblack">{wishItems.length}</span>개
         </p>
 
         <div className="flex items-center justify-between gap-2">
@@ -201,11 +155,22 @@ export default function MyWishlistPage() {
           </button>
         </div>
 
-        <section className="grid grid-cols-2 gap-x-2.5 gap-y-7.5">
-          {filteredWishItems.map((item) => (
-            <WishCard item={item} key={item.name} />
-          ))}
-        </section>
+        {filteredWishItems.length > 0 ? (
+          <section className="grid grid-cols-2 gap-x-2.5 gap-y-7.5">
+            {filteredWishItems.map((item) => (
+              <WishCard
+                item={item}
+                key={item.id}
+                onRemove={() => toggleWishlist(item.id)}
+                onSelect={() => navigate(`/perfume/${item.id}`)}
+              />
+            ))}
+          </section>
+        ) : (
+          <p className="py-20 text-center text-body-regular-14 text-grey">
+            위시리스트에 담긴 향수가 없어요.
+          </p>
+        )}
       </div>
 
       <div className="fixed bottom-0 left-1/2 w-full max-w-107.5 -translate-x-1/2 px-5 pb-5">
