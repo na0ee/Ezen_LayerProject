@@ -170,9 +170,11 @@ export default function CommunityProfilePage() {
     [profileKey],
   );
   const profileBackground =
+    profile.background ??
     generatedProfile?.background ??
     profileBackgrounds[profileSeed % profileBackgrounds.length];
-  const profileImage = generatedProfile?.profile ?? profile.image ?? defaultProfile;
+  const profileImage =
+    profile.image ?? generatedProfile?.profile ?? defaultProfile;
   const generatedPostImages = generatedProfile?.posts ?? emptyGeneratedPosts;
   const visibleRecommendationPosts = useMemo(
     () =>
