@@ -1,5 +1,5 @@
 const generatedImages = import.meta.glob(
-  "../assets/Community/GeneratedProfiles/*.{webp,png,jpg,jpeg}",
+  "../assets/Community/GeneratedProfiles/*.{avif,webp,png,jpg,jpeg}",
   {
     eager: true,
     import: "default",
