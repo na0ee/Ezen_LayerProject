@@ -142,6 +142,7 @@ export default function CommunityWritePage({
   const [text, setText] = useState("");
   const [hashtagInput, setHashtagInput] = useState("");
   const [hashtags, setHashtags] = useState<string[]>([]);
+  const [isAnonymous, setIsAnonymous] = useState(true);
   const [selectedMood, setSelectedMood] =
     useState<(typeof moodTags)[number]>("깔끔한");
   const [selectedSituation, setSelectedSituation] =
@@ -206,6 +207,7 @@ export default function CommunityWritePage({
                 selectedSituation,
               ],
               images,
+              isAnonymous,
             });
           }}
         >
@@ -432,7 +434,11 @@ export default function CommunityWritePage({
           </section>
 
           <section className="community-write-profile">
-            <CommunityToggle label="프로필 비공개" checked />
+            <CommunityToggle
+              label="프로필 비공개"
+              checked={isAnonymous}
+              onChange={setIsAnonymous}
+            />
           </section>
 
           <BtnBig

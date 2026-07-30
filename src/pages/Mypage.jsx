@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Badge,
@@ -35,6 +35,11 @@ import reviewCell2 from "../assets/images/mypage/review-tab/review-cell-2.png";
 import reviewCell3 from "../assets/images/mypage/review-tab/review-cell-3.png";
 import reviewCell4 from "../assets/images/mypage/review-tab/review-cell-4.png";
 import usePerfumeWishlist from "../hooks/usePerfumeWishlist";
+import {
+  COMMUNITY_POSTS_CHANGED_EVENT,
+  COMMUNITY_POSTS_STORAGE_KEY,
+  loadCommunityUserPosts,
+} from "./Community/communityUserPosts";
 
 const pageTabs = ["마이페이지", "향수추천", "리뷰"];
 
@@ -307,6 +312,9 @@ export default function Mypage() {
   const [activeRecommendTab, setActiveRecommendTab] = useState("b");
   const [isPreparingOpen, setIsPreparingOpen] = useState(false);
   const [userPoints] = useState(getUserPoints);
+  const [communityUserPosts, setCommunityUserPosts] = useState(
+    loadCommunityUserPosts,
+  );
   const recommends = activeRecommendTab === "b" ? recommendsReceived : recommendsGiven;
   const perfumeDrag = useDragScroll();
   const magazineDrag = useDragScroll();
@@ -314,6 +322,68 @@ export default function Mypage() {
   const onboardingResult =
     ONBOARDING_RESULTS[getSavedOnboardingResultType()] ??
     ONBOARDING_RESULTS["mood-shifter"];
+  const userRecommendationPosts = useMemo(
+    () =>
+      communityUserPosts
+        .filter((post) => post.category === "향 추천")
+        .map((post) => ({
+          id: post.id,
+          img: post.images[0],
+          hashtags: post.keywords.map((keyword) => `#${keyword.replace(/^#/, "")}`),
+          title: post.title,
+          text: post.text,
+          likes: 0,
+          comments: 0,
+          isAnonymous: post.isAnonymous,
+          isUserPost: true,
+        })),
+    [communityUserPosts],
+  );
+  const userReviewPosts = useMemo(
+    () =>
+      communityUserPosts
+        .filter((post) => post.category === "리뷰")
+        .map((post) => ({
+          id: post.id,
+          img: post.images[0],
+          hashtags: post.keywords.map((keyword) => `#${keyword.replace(/^#/, "")}`),
+          title: post.title,
+          text: post.text,
+          likes: 0,
+          comments: 0,
+          perfumeIds: [],
+          isAnonymous: post.isAnonymous,
+          isUserPost: true,
+        })),
+    [communityUserPosts],
+  );
+  const visibleRecommendationPosts = [
+    ...userRecommendationPosts,
+    ...feedPosts,
+  ];
+  const visibleReviewPosts = [...userReviewPosts, ...reviewPosts];
+
+  useEffect(() => {
+    const syncCommunityPosts = (event) => {
+      if (
+        event.type === COMMUNITY_POSTS_CHANGED_EVENT ||
+        event.key === null ||
+        event.key === COMMUNITY_POSTS_STORAGE_KEY
+      ) {
+        setCommunityUserPosts(loadCommunityUserPosts());
+      }
+    };
+
+    window.addEventListener(COMMUNITY_POSTS_CHANGED_EVENT, syncCommunityPosts);
+    window.addEventListener("storage", syncCommunityPosts);
+    return () => {
+      window.removeEventListener(
+        COMMUNITY_POSTS_CHANGED_EVENT,
+        syncCommunityPosts,
+      );
+      window.removeEventListener("storage", syncCommunityPosts);
+    };
+  }, []);
 
   return (
     <div className="mx-auto min-h-screen w-full max-w-107.5 bg-background pb-26">
@@ -367,7 +437,11 @@ export default function Mypage() {
         {/* content */}
         {activeTab !== "마이페이지" ? (
           <PostGrid
-            items={activeTab === "향수추천" ? feedPosts : reviewPosts}
+            items={
+              activeTab === "향수추천"
+                ? visibleRecommendationPosts
+                : visibleReviewPosts
+            }
             onItemClick={(post) =>
               navigate(`/community/post/${post.id}`, {
                 state: {
@@ -376,8 +450,14 @@ export default function Mypage() {
                   post: {
                     type:
                       activeTab === "향수추천" ? "recommendation" : "review",
-                    profileName: userProfile.nickname,
-                    profileImage: userProfile.image,
+                    profileName: post.isAnonymous
+                      ? "익명"
+                      : userProfile.nickname,
+                    profileImage: post.isAnonymous
+                      ? undefined
+                      : userProfile.image,
+                    anonymous: post.isAnonymous,
+                    canDelete: post.isUserPost === true,
                     time: "30분 전",
                     image: post.img,
                     mood:

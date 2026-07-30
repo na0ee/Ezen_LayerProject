@@ -23,6 +23,7 @@ export default function CommunityPollWritePage({
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [options, setOptions] = useState(["", ""]);
+  const [isAnonymous, setIsAnonymous] = useState(true);
 
   const updateOption = (index: number, value: string) => {
     setOptions((current) =>
@@ -53,6 +54,7 @@ export default function CommunityPollWritePage({
               text: text.trim(),
               keywords: [],
               images: [],
+              isAnonymous,
               pollOptions: options.map((option) => option.trim()).filter(Boolean),
             });
           }}
@@ -142,7 +144,11 @@ export default function CommunityPollWritePage({
               </div>
             </section>
 
-            <CommunityToggle label="프로필 비공개" checked />
+            <CommunityToggle
+              label="프로필 비공개"
+              checked={isAnonymous}
+              onChange={setIsAnonymous}
+            />
           </div>
 
           <BtnBig

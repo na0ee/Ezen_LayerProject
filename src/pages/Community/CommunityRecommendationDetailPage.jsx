@@ -10,6 +10,10 @@ import {
   Profile,
 } from "../../components/common";
 import CommunityRecommendationSelectSheet from "./CommunityRecommendationSelectSheet";
+import {
+  loadCommunityUserPosts,
+  saveCommunityUserPosts,
+} from "./communityUserPosts";
 
 const FALLBACK_POST = {
   profileName: "향기로운하루",
@@ -143,6 +147,23 @@ export default function CommunityRecommendationDetailPage() {
     .slice(0, 3);
   const [isRecommendationOpen, setIsRecommendationOpen] = useState(false);
   const [isPerfumeTagsVisible, setIsPerfumeTagsVisible] = useState(true);
+  const returnToPreviousPage = (replace = false) => {
+    if (location.state?.returnTo) {
+      navigate(location.state.returnTo, {
+        replace,
+        state: { activeTab: location.state.returnTab },
+      });
+      return;
+    }
+    navigate(-1);
+  };
+  const deletePost = () => {
+    const nextPosts = loadCommunityUserPosts().filter(
+      (savedPost) => savedPost.id !== postId,
+    );
+    saveCommunityUserPosts(nextPosts);
+    returnToPreviousPage(true);
+  };
 
   return (
     <>
@@ -150,13 +171,7 @@ export default function CommunityRecommendationDetailPage() {
         <Header
           variant="detail-back"
           onBack={() => {
-            if (location.state?.returnTo) {
-              navigate(location.state.returnTo, {
-                state: { activeTab: location.state.returnTab },
-              });
-              return;
-            }
-            navigate(-1);
+            returnToPreviousPage();
           }}
           hideActions
           className="sticky top-0 z-20"
@@ -167,9 +182,22 @@ export default function CommunityRecommendationDetailPage() {
           className="flex flex-col gap-6 bg-offwhite px-5 pb-10 pt-5"
         >
           <Profile
+            variant={post.anonymous ? "none" : "default"}
             name={post.profileName}
             time={post.time}
             img={post.profileImage}
+            trailing={
+              post.canDelete ? (
+                <button
+                  type="button"
+                  aria-label="게시물 삭제"
+                  onClick={deletePost}
+                  className="flex h-8 items-center justify-center px-1 text-body-medium-14 text-grey"
+                >
+                  삭제
+                </button>
+              ) : undefined
+            }
           />
 
           <div

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { CommunityComment } from "../../components/common";
 
@@ -33,21 +33,12 @@ interface CommunityWriteCategorySheetProps {
   onSelect: (item: CommunityWriteCategoryItem) => void;
 }
 
-interface ViewportBounds {
-  left: number;
-  width: number;
-}
-
 export default function CommunityWriteCategorySheet({
   open,
   onClose,
   onSelect,
 }: CommunityWriteCategorySheetProps) {
-  const [viewportBounds, setViewportBounds] = useState<ViewportBounds | null>(
-    null,
-  );
-
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!open) return undefined;
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -55,49 +46,23 @@ export default function CommunityWriteCategorySheet({
     };
     const previousBodyOverflow = document.body.style.overflow;
     const previousHtmlOverflow = document.documentElement.style.overflow;
-    const syncViewportBounds = () => {
-      const pageWrap = document.querySelector<HTMLElement>(
-        ".community-write-page__wrap, .community-review-page__wrap, .community-question-page__wrap, .community-challenge-page__wrap, .community-feed-page__wrap",
-      );
 
-      if (pageWrap) {
-        const { left, width } = pageWrap.getBoundingClientRect();
-        setViewportBounds({ left, width });
-        return;
-      }
-
-      const width = Math.min(window.innerWidth, 430);
-      setViewportBounds({
-        left: (window.innerWidth - width) / 2,
-        width,
-      });
-    };
-
-    syncViewportBounds();
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("resize", syncViewportBounds);
 
     return () => {
       document.body.style.overflow = previousBodyOverflow;
       document.documentElement.style.overflow = previousHtmlOverflow;
       window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("resize", syncViewportBounds);
     };
   }, [onClose, open]);
 
-  if (!open || !viewportBounds) return null;
+  if (!open) return null;
 
   return createPortal(
     <div className="community-write-category-sheet fixed inset-0 z-[110]">
-      <div
-        className="community-write-category-sheet__viewport absolute inset-y-0"
-        style={{
-          left: `${viewportBounds.left}px`,
-          width: `${viewportBounds.width}px`,
-        }}
-      >
+      <div className="community-write-category-sheet__viewport fixed inset-y-0 left-1/2 w-full max-w-[430px] -translate-x-1/2">
         <button
           type="button"
           aria-label="카테고리 선택 창 닫기"

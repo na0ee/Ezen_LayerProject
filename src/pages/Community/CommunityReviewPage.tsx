@@ -423,9 +423,10 @@ export default function CommunityReviewPage({
               className="community-review-card rounded-t-2xl"
             >
               <Con2
-                profileName={userProfile.nickname}
+                profileName={post.isAnonymous ? "익명" : userProfile.nickname}
                 profileTime="방금 전"
-                profileImg={userProfile.image}
+                profileImg={post.isAnonymous ? undefined : userProfile.image}
+                anonymous={post.isAnonymous}
                 imgs={post.images}
                 title={post.title}
                 text={post.text}

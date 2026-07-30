@@ -2,6 +2,7 @@ import { useState } from "react";
 import Badge from "./Badge";
 import Icon from "./Icon";
 import KeywordList from "./KeywordList";
+import iconUser from "../../assets/icons/icon-user.svg";
 
 // 피그마: con2 (430×687) — 이미지가 큰 피드형 게시글 카드
 // imgs를 배열로 받아 가로 스와이프(캐러셀)로 표시
@@ -9,6 +10,7 @@ export default function Con2({
   profileName,
   profileTime,
   profileImg,
+  anonymous = false,
   imgs = [],
   badge = "good",
   title,
@@ -36,12 +38,16 @@ export default function Con2({
           className="flex min-w-0 items-center gap-2.5 text-left"
         >
           <div className="size-[42px] shrink-0 overflow-hidden rounded-full bg-2light-grey">
-            {profileImg && (
+            {anonymous ? (
+              <img src={iconUser} alt="" className="m-auto size-6" />
+            ) : profileImg ? (
               <img src={profileImg} alt="" className="size-full object-cover" />
-            )}
+            ) : null}
           </div>
           <div className="flex min-w-0 flex-col justify-center gap-[3px]">
-            <p className="truncate text-body-semibold-16 text-offblack">{profileName}</p>
+            <p className="truncate text-body-semibold-16 text-offblack">
+              {anonymous ? "익명" : profileName}
+            </p>
             <p className="truncate text-caption-medium-12 text-grey">{profileTime}</p>
           </div>
         </button>

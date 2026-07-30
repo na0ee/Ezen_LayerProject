@@ -22,6 +22,7 @@ export default function CommunityFreeWritePage({
 }: CommunityFreeWritePageProps) {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [isAnonymous, setIsAnonymous] = useState(true);
 
   return (
     <main className="community-free-write-page min-h-[100dvh] bg-subtext">
@@ -44,6 +45,7 @@ export default function CommunityFreeWritePage({
               text: text.trim(),
               keywords: [],
               images: [],
+              isAnonymous,
             });
           }}
         >
@@ -90,7 +92,11 @@ export default function CommunityFreeWritePage({
               </div>
             </section>
 
-            <CommunityToggle label="프로필 비공개" checked />
+            <CommunityToggle
+              label="프로필 비공개"
+              checked={isAnonymous}
+              onChange={setIsAnonymous}
+            />
           </div>
 
           <BtnBig

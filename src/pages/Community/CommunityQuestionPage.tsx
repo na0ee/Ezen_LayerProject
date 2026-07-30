@@ -103,9 +103,10 @@ export default function CommunityQuestionPage({
                   className="community-question-card community-question-card--user-post"
                 >
                   <ConQuestion
-                    profileName={userProfile.nickname}
+                    profileName={post.isAnonymous ? "익명" : userProfile.nickname}
                     profileTime="방금 전"
-                    profileImg={userProfile.image}
+                    profileImg={post.isAnonymous ? undefined : userProfile.image}
+                    anonymous={post.isAnonymous}
                     title={post.title}
                     text={post.text}
                     likes={0}
@@ -123,9 +124,10 @@ export default function CommunityQuestionPage({
             return (
               <article key={post.id} className="community-question-card community-question-card--user-poll">
                 <ConQuestion1
-                  profileName={userProfile.nickname}
+                  profileName={post.isAnonymous ? "익명" : userProfile.nickname}
                   profileTime="방금 전"
-                  profileImg={userProfile.image}
+                  profileImg={post.isAnonymous ? undefined : userProfile.image}
+                  anonymous={post.isAnonymous}
                   sub={post.text}
                   title={post.title}
                   options={options.map((label, index) => ({

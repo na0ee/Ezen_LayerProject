@@ -6,11 +6,13 @@ export type CommunityUserPost = {
   text: string;
   keywords: string[];
   images: string[];
+  isAnonymous?: boolean;
   pollOptions?: string[];
   createdAt: number;
 };
 
 export const COMMUNITY_POSTS_STORAGE_KEY = "layer-community-user-posts";
+export const COMMUNITY_POSTS_CHANGED_EVENT = "layer-community-posts-changed";
 
 export function loadCommunityUserPosts(): CommunityUserPost[] {
   try {
@@ -25,4 +27,5 @@ export function loadCommunityUserPosts(): CommunityUserPost[] {
 
 export function saveCommunityUserPosts(posts: CommunityUserPost[]) {
   localStorage.setItem(COMMUNITY_POSTS_STORAGE_KEY, JSON.stringify(posts));
+  window.dispatchEvent(new CustomEvent(COMMUNITY_POSTS_CHANGED_EVENT));
 }
