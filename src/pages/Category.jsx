@@ -44,7 +44,10 @@ export default function Category({ onBack, onSelect, onSearch }) {
   return (
     <div className="min-h-screen bg-background">
       <main className="mx-auto w-full max-w-107.5 bg-background pb-6">
-        <div className="flex h-16 items-center justify-center bg-offwhite px-5">
+        <div
+          data-search-header
+          className="flex h-16 items-center justify-center bg-offwhite px-5"
+        >
           <Search
             onBack={onBack}
             value={query}

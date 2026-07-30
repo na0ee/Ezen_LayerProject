@@ -6,17 +6,17 @@ import {
   Category,
   LayerBadge,
 } from "../components/common";
-import badgeNewbie from "../assets/images/grade-badge/badge-newbie.png";
-import background from "../assets/images/mypage/background.png";
-import defaultProfile from "../assets/images/mypage/profile.png";
-import feedCell1 from "../assets/images/mypage/feed/feed-cell-1.png";
-import feedCell2 from "../assets/images/mypage/feed/feed-cell-2.png";
-import feedCell3 from "../assets/images/mypage/feed/feed-cell-3.png";
-import feedCell4 from "../assets/images/mypage/feed/feed-cell-4.png";
-import reviewCell1 from "../assets/images/mypage/review-tab/review-cell-1.png";
-import reviewCell2 from "../assets/images/mypage/review-tab/review-cell-2.png";
-import reviewCell3 from "../assets/images/mypage/review-tab/review-cell-3.png";
-import reviewCell4 from "../assets/images/mypage/review-tab/review-cell-4.png";
+import badgeNewbie from "../assets/images/grade-badge/badge-newbie.avif";
+import background from "../assets/images/mypage/background.avif";
+import defaultProfile from "../assets/images/mypage/profile.avif";
+import feedCell1 from "../assets/images/mypage/feed/feed-cell-1.avif";
+import feedCell2 from "../assets/images/mypage/feed/feed-cell-2.avif";
+import feedCell3 from "../assets/images/mypage/feed/feed-cell-3.avif";
+import feedCell4 from "../assets/images/mypage/feed/feed-cell-4.avif";
+import reviewCell1 from "../assets/images/mypage/review-tab/review-cell-1.avif";
+import reviewCell2 from "../assets/images/mypage/review-tab/review-cell-2.avif";
+import reviewCell3 from "../assets/images/mypage/review-tab/review-cell-3.avif";
+import reviewCell4 from "../assets/images/mypage/review-tab/review-cell-4.avif";
 import { getCommunityGeneratedProfile } from "../data/communityGeneratedProfiles";
 
 const tabs = ["향수추천", "리뷰"];

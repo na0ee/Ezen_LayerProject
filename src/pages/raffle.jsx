@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { CardInfo, Header, Tab } from "../components/common";
 import RaffleDetail from "./RaffleDetail";
-import byredoImg from "../assets/images/raffle/byredo.png";
-import creedImg from "../assets/images/raffle/creed.png";
-import hermesImg from "../assets/images/raffle/hermes.png";
-import kilianImg from "../assets/images/raffle/kilian.png";
-import maisonMargielaImg from "../assets/images/raffle/maison-margiela.png";
+import byredoImg from "../assets/images/raffle/byredo.avif";
+import creedImg from "../assets/images/raffle/creed.avif";
+import hermesImg from "../assets/images/raffle/hermes.avif";
+import kilianImg from "../assets/images/raffle/kilian.avif";
+import maisonMargielaImg from "../assets/images/raffle/maison-margiela.avif";
 import { allPerfumes } from "../data/perfumeUtils";
 
 const filters = ["전체", "진행중", "오픈 전", "참여완료"];

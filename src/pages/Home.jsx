@@ -18,25 +18,25 @@ import {
   MainBannerText,
   TitleMain,
 } from "../components/common";
-import challenge1 from "../assets/images/home/challenge-1.png";
-import challenge2 from "../assets/images/home/challenge-2.png";
-import challenge3 from "../assets/images/home/challenge-3.png";
+import challenge1 from "../assets/images/home/challenge-1.avif";
+import challenge2 from "../assets/images/home/challenge-2.avif";
+import challenge3 from "../assets/images/home/challenge-3.avif";
 import { CHALLENGE_REWARDS } from "../data/challengeRewards";
-import giftImg from "../assets/images/home/gift.png";
-import heroCommunityImg from "../assets/images/home/hero-community.png";
-import heroImg from "../assets/images/home/hero.png";
-import heroRecordImg from "../assets/images/home/hero-record.png";
-import magazine1 from "../assets/images/home/magazine-1.png";
-import magazine2 from "../assets/images/home/magazine-2.png";
-import magazine3 from "../assets/images/home/magazine-3.png";
-import raffleImg from "../assets/images/home/raffle.png";
-import scent1 from "../assets/images/home/scent-1.png";
-import scent2 from "../assets/images/home/scent-2.png";
-import scent3 from "../assets/images/home/scent-3-new.png";
+import giftImg from "../assets/images/home/gift.avif";
+import heroCommunityImg from "../assets/images/home/hero-community.avif";
+import heroImg from "../assets/images/home/hero.avif";
+import heroRecordImg from "../assets/images/home/hero-record.avif";
+import magazine1 from "../assets/images/home/magazine-1.avif";
+import magazine2 from "../assets/images/home/magazine-2.avif";
+import magazine3 from "../assets/images/home/magazine-3.avif";
+import raffleImg from "../assets/images/home/raffle.avif";
+import scent1 from "../assets/images/home/scent-1.avif";
+import scent2 from "../assets/images/home/scent-2.avif";
+import scent3 from "../assets/images/home/scent-3-new.avif";
 import { allPerfumes } from "../data/perfumeUtils";
-import profileFadedscent from "../assets/Community/Profile/profile-fadedscent.png";
-import profilePassingPerfumer from "../assets/Community/Profile/profile-passing-perfumer.png";
-import profileRainyScent from "../assets/Community/Profile/profile-rainy-scent.png";
+import profileFadedscent from "../assets/Community/Profile/profile-fadedscent.avif";
+import profilePassingPerfumer from "../assets/Community/Profile/profile-passing-perfumer.avif";
+import profileRainyScent from "../assets/Community/Profile/profile-rainy-scent.avif";
 import usePerfumeWishlist from "../hooks/usePerfumeWishlist";
 
 const days = [

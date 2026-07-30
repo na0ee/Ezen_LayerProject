@@ -7,7 +7,7 @@ import {
   FeatureGuideCard,
 } from "../components/common";
 import addPhoto from "../assets/icons/add-photo.svg";
-import characterLay from "../assets/images/character-lay.png";
+import characterLay from "../assets/images/character-lay.avif";
 import {
   DEFAULT_USER_PROFILE,
   getUserProfile,

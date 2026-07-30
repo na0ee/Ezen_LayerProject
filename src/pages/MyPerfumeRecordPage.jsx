@@ -11,10 +11,10 @@ import {
   toDateKey,
 } from "../data/perfumeRecords";
 import chevronDown from "../assets/icons/chevron-down.svg";
-import diptyque from "../assets/images/mypage/diptyque.png";
-import loewe from "../assets/images/mypage/loewe.png";
-import matiere from "../assets/images/mypage/matiere.png";
-import santamaria from "../assets/images/mypage/santamaria.png";
+import diptyque from "../assets/images/mypage/diptyque.avif";
+import loewe from "../assets/images/mypage/loewe.avif";
+import matiere from "../assets/images/mypage/matiere.avif";
+import santamaria from "../assets/images/mypage/santamaria.avif";
 
 // perfumeData.js에는 마티에 프리미에르 데이터가 없어 로컬 데이터로 유지하고 실데이터에 병합한다
 const matiereBrand = { id: "matiere-premiere", name: "마티에 프리미에르", nameEn: "Matiere Premiere" };

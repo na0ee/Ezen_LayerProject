@@ -1,7 +1,7 @@
 import { useState } from "react";
-import byredoBlanche from "../../assets/Community/PerfumeSelect/perfume-byredo-blanche.png";
-import diptyqueEauRose from "../../assets/Community/PerfumeSelect/perfume-diptyque-eau-rose.png";
-import joMaloneEnglishPear from "../../assets/Community/PerfumeSelect/perfume-jo-malone-english-pear.png";
+import byredoBlanche from "../../assets/Community/PerfumeSelect/perfume-byredo-blanche.avif";
+import diptyqueEauRose from "../../assets/Community/PerfumeSelect/perfume-diptyque-eau-rose.avif";
+import joMaloneEnglishPear from "../../assets/Community/PerfumeSelect/perfume-jo-malone-english-pear.avif";
 import {
   BtnBig,
   CheckBox,

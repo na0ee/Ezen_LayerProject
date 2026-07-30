@@ -6,13 +6,13 @@ import {
   MiddleCard,
 } from "../src/components/common";
 
-import byredo from "./assets/allview/byredo.png";
-import collection from "./assets/allview/collection.png";
-import diptyque from "./assets/allview/diptyque.png";
-import jomalone from "./assets/allview/jomalone.png";
-import santalTip from "./assets/allview/santal-tip.png";
-import seasons from "./assets/allview/seasons.png";
-import nicheTrend from "./assets/hero-santal.png";
+import byredo from "./assets/allview/byredo.avif";
+import collection from "./assets/allview/collection.avif";
+import diptyque from "./assets/allview/diptyque.avif";
+import jomalone from "./assets/allview/jomalone.avif";
+import santalTip from "./assets/allview/santal-tip.avif";
+import seasons from "./assets/allview/seasons.avif";
+import nicheTrend from "./assets/hero-santal.avif";
 
 const CATEGORIES = ["전체", "향수 상식", "추천", "트렌드", "선물", "브랜드"];
 

@@ -1,6 +1,6 @@
-import blackberryBayImage from "../assets/images/result/bold-signature/blackberry-bay.png";
-import myslfImage from "../assets/images/result/bold-signature/myslf.png";
-import orpheonImage from "../assets/images/result/bold-signature/orpheon.png";
+import blackberryBayImage from "../assets/images/result/bold-signature/blackberry-bay.avif";
+import myslfImage from "../assets/images/result/bold-signature/myslf.avif";
+import orpheonImage from "../assets/images/result/bold-signature/orpheon.avif";
 
 // src/data/perfumeData.js
 //
@@ -31,11 +31,11 @@ export const perfumeData = [
         "알데하이드와 배의 산뜻한 첫인상 뒤로 은방울꽃과 아이리스, 장미가 부드럽게 피어나며 비누처럼 깨끗한 인상을 남긴다.\n" +
         "잔향은 화이트 머스크와 앰버가 포근하게 감싸 주어 계절과 상황을 가리지 않는 데일리 향으로 손색이 없다.",
       detailTitle: "포근함",
-      image: "/assets/perfume/maison-margiela/lazy-sunday-morning.png",
+      image: "/assets/perfume/maison-margiela/lazy-sunday-morning.avif",
       detailImages: [
-        "/assets/perfume/maison-margiela/lazy-sunday-morning-d1.jpg",
-        "/assets/perfume/maison-margiela/lazy-sunday-morning-d2.jpg",
-        "/assets/perfume/maison-margiela/lazy-sunday-morning-d3.jpg",
+        "/assets/perfume/maison-margiela/lazy-sunday-morning-d1.avif",
+        "/assets/perfume/maison-margiela/lazy-sunday-morning-d2.avif",
+        "/assets/perfume/maison-margiela/lazy-sunday-morning-d3.avif",
       ],
       familyIds: ["floral", "musk"],
       notes: {
@@ -62,11 +62,11 @@ export const perfumeData = [
         "클로브와 핑크 페퍼의 알싸한 오프닝에 이어 달콤하게 구운 밤과 구아이악 우드의 스모키함이 서서히 번져 나간다.\n" +
         "바닐라와 캐시미어 우드의 잔향이 오래도록 포근하게 남아 쌀쌀한 계절의 니트 위에 특히 잘 어울린다.",
       detailTitle: "온기",
-      image: "/assets/perfume/maison-margiela/by-the-fireplace.png",
+      image: "/assets/perfume/maison-margiela/by-the-fireplace.avif",
       detailImages: [
-        "/assets/perfume/maison-margiela/by-the-fireplace-d1.jpg",
-        "/assets/perfume/maison-margiela/by-the-fireplace-d2.jpg",
-        "/assets/perfume/maison-margiela/by-the-fireplace-d3.jpg",
+        "/assets/perfume/maison-margiela/by-the-fireplace-d1.avif",
+        "/assets/perfume/maison-margiela/by-the-fireplace-d2.avif",
+        "/assets/perfume/maison-margiela/by-the-fireplace-d3.avif",
       ],
       familyIds: ["woody", "spicy"],
       notes: {
@@ -93,11 +93,11 @@ export const perfumeData = [
         "핑크 페퍼와 레몬의 산뜻한 시작이 럼의 달큰함과 클라리 세이지로 이어지며 깊고 어른스러운 무드를 만든다.\n" +
         "바닐라와 타바코 리프의 스모키한 잔향이 길게 이어져 가을·겨울 저녁 자리에서 존재감을 발휘한다.",
       detailTitle: "낭만",
-      image: "/assets/perfume/maison-margiela/jazz-club.png",
+      image: "/assets/perfume/maison-margiela/jazz-club.avif",
       detailImages: [
-        "/assets/perfume/maison-margiela/jazz-club-d1.jpg",
-        "/assets/perfume/maison-margiela/jazz-club-d2.jpg",
-        "/assets/perfume/maison-margiela/jazz-club-d3.jpg",
+        "/assets/perfume/maison-margiela/jazz-club-d1.avif",
+        "/assets/perfume/maison-margiela/jazz-club-d2.avif",
+        "/assets/perfume/maison-margiela/jazz-club-d3.avif",
       ],
       familyIds: ["oriental", "woody"],
       notes: {
@@ -124,11 +124,11 @@ export const perfumeData = [
         "갓 짜낸 듯한 레몬과 쁘띠그레인의 상큼함이 터진 뒤 그린 노트와 카다멈이 잎사귀의 푸릇함을 더한다.\n" +
         "머스크와 앰버우드가 은은하게 마무리해 무더운 여름철 가볍게 뿌리기 좋은 청량한 시트러스다.",
       detailTitle: "싱그러움",
-      image: "/assets/perfume/maison-margiela/under-the-lemon-trees.png",
+      image: "/assets/perfume/maison-margiela/under-the-lemon-trees.avif",
       detailImages: [
-        "/assets/perfume/maison-margiela/under-the-lemon-trees-d1.jpg",
-        "/assets/perfume/maison-margiela/under-the-lemon-trees-d2.jpg",
-        "/assets/perfume/maison-margiela/under-the-lemon-trees-d3.jpg",
+        "/assets/perfume/maison-margiela/under-the-lemon-trees-d1.avif",
+        "/assets/perfume/maison-margiela/under-the-lemon-trees-d2.avif",
+        "/assets/perfume/maison-margiela/under-the-lemon-trees-d3.avif",
       ],
       familyIds: ["citrus", "green"],
       notes: {
@@ -155,10 +155,10 @@ export const perfumeData = [
         "해양 노트와 베르가못의 청량한 오프닝에 해조류와 코리앤더가 더해져 짭조름한 바다 내음이 생생하게 살아난다.\n" +
         "앰버그리스와 머스크의 잔잔한 잔향까지 이어지는 흐름이 여름 데일리로 부담 없이 어울린다.",
       detailTitle: "청량함",
-      image: "/assets/perfume/maison-margiela/sailing-day.png",
+      image: "/assets/perfume/maison-margiela/sailing-day.avif",
       detailImages: [
-        "/assets/perfume/maison-margiela/sailing-day-d2.jpg",
-        "/assets/perfume/maison-margiela/sailing-day-d3.jpg",
+        "/assets/perfume/maison-margiela/sailing-day-d2.avif",
+        "/assets/perfume/maison-margiela/sailing-day-d3.avif",
       ],
       familyIds: ["aquatic", "green"],
       notes: {
@@ -187,7 +187,7 @@ export const perfumeData = [
         "대나무와 나시 배의 수분감 가득한 오프닝이 연꽃과 화이트 티의 은은한 꽃향으로 자연스럽게 이어진다.\n" +
         "발사 우드와 머스크가 깔끔하게 마무리해 오피스나 일상에서 부담 없이 쓰기 좋은 청순한 향이다.",
       detailTitle: "투명함",
-      image: "/assets/perfume/bvlgari/omnia-crystalline.png",
+      image: "/assets/perfume/bvlgari/omnia-crystalline.avif",
       familyIds: ["floral", "aquatic"],
       notes: {
         top: ["대나무", "나시 배"],
@@ -213,7 +213,7 @@ export const perfumeData = [
         "석류와 라즈베리의 상큼달콤한 과즙미가 장미와 피오니의 부드러운 꽃잎 향으로 사랑스럽게 이어진다.\n" +
         "머스크와 샌들우드의 포근한 잔향이 과하지 않게 남아 봄·여름 데이트 향수로 특히 인기가 높다.",
       detailTitle: "사랑스러움",
-      image: "/assets/perfume/bvlgari/rose-goldea-blossom-delight.png",
+      image: "/assets/perfume/bvlgari/rose-goldea-blossom-delight.avif",
       familyIds: ["floral", "musk"],
       notes: {
         top: ["석류", "라즈베리"],
@@ -239,11 +239,11 @@ export const perfumeData = [
         "만다린과 쁘띠그레인의 산뜻한 시작 뒤로 포시도니아 해초와 미네랄 노트가 짭조름한 바다의 깊이를 그려낸다.\n" +
         "산톨리나와 클라리 세이지의 드라이한 마무리가 깔끔해 무더운 여름 비즈니스 룩에도 잘 어울린다.",
       detailTitle: "깊이",
-      image: "/assets/perfume/bvlgari/aqva-pour-homme.png",
+      image: "/assets/perfume/bvlgari/aqva-pour-homme.avif",
       detailImages: [
-        "/assets/perfume/bvlgari/aqva-pour-homme-d1.jpg",
-        "/assets/perfume/bvlgari/aqva-pour-homme-d2.jpg",
-        "/assets/perfume/bvlgari/aqva-pour-homme-d3.jpg",
+        "/assets/perfume/bvlgari/aqva-pour-homme-d1.avif",
+        "/assets/perfume/bvlgari/aqva-pour-homme-d2.avif",
+        "/assets/perfume/bvlgari/aqva-pour-homme-d3.avif",
       ],
       familyIds: ["aquatic", "citrus"],
       notes: {
@@ -270,7 +270,7 @@ export const perfumeData = [
         "사이프러스와 베르가못의 상쾌한 숲 공기 같은 오프닝이 시더우드와 베티버의 단단한 나무 향으로 이어진다.\n" +
         "벤조인과 앰버의 따뜻한 잔향이 부드럽게 감싸 사계절 내내 신뢰감 있는 인상을 만들어 준다.",
       detailTitle: "안정감",
-      image: "/assets/perfume/bvlgari/man-wood-essence.png",
+      image: "/assets/perfume/bvlgari/man-wood-essence.avif",
       familyIds: ["woody", "green"],
       notes: {
         top: ["사이프러스", "베르가못"],
@@ -297,11 +297,11 @@ export const perfumeData = [
         "럼과 스파이스의 화끈한 오프닝에 이어 튜베로즈와 레더가 어우러지며 남성적인 깊이를 더한다.\n" +
         "통카빈과 벤조인의 달콤하고 묵직한 잔향이 오래 지속되어 가을·겨울 저녁 모임에서 존재감이 확실하다.",
       detailTitle: "카리스마",
-      image: "/assets/perfume/bvlgari/man-in-black.png",
+      image: "/assets/perfume/bvlgari/man-in-black.avif",
       detailImages: [
-        "/assets/perfume/bvlgari/man-in-black-d1.jpg",
-        "/assets/perfume/bvlgari/man-in-black-d2.jpg",
-        "/assets/perfume/bvlgari/man-in-black-d3.jpg",
+        "/assets/perfume/bvlgari/man-in-black-d1.avif",
+        "/assets/perfume/bvlgari/man-in-black-d2.avif",
+        "/assets/perfume/bvlgari/man-in-black-d3.avif",
       ],
       familyIds: ["oriental", "spicy"],
       notes: {
@@ -330,7 +330,7 @@ export const perfumeData = [
         "베르가못과 네롤리의 싱그러운 오프닝이 오렌지 블로섬과 재스민의 화사한 꽃향으로 자연스럽게 피어난다.\n" +
         "머스크와 앰버의 은은한 잔향이 인공적인 느낌 없이 깨끗하게 마무리되어 낮 시간 어느 자리에나 어울린다.",
       detailTitle: "우아함",
-      image: "/assets/perfume/buly/orange-blossom.png",
+      image: "/assets/perfume/buly/orange-blossom.avif",
       familyIds: ["floral", "citrus"],
       notes: {
         top: ["베르가못", "네롤리"],
@@ -356,7 +356,7 @@ export const perfumeData = [
         "톡 터지는 유자와 민트의 청량감이 월계수 잎의 허브 그린으로 이어지며 세련된 인상을 만든다.\n" +
         "베티버와 머스크의 차분한 잔향이 가볍게 남아 여름철 유니섹스 데일리로 제격이다.",
       detailTitle: "상쾌함",
-      image: "/assets/perfume/buly/kiso-yuzu.png",
+      image: "/assets/perfume/buly/kiso-yuzu.avif",
       familyIds: ["citrus", "green"],
       notes: {
         top: ["유자", "민트"],
@@ -383,7 +383,7 @@ export const perfumeData = [
         "소나무와 베르가못의 청명한 오프닝 뒤로 젖은 이끼와 사이프러스가 숲 바닥의 습기를 생생하게 그려낸다.\n" +
         "베티버와 시더우드의 잔향이 고요하게 이어져 차분한 개성을 원하는 이들에게 잘 어울린다.",
       detailTitle: "숲내음",
-      image: "/assets/perfume/buly/komi-forest.png",
+      image: "/assets/perfume/buly/komi-forest.avif",
       familyIds: ["green", "woody"],
       notes: {
         top: ["소나무", "베르가못"],
@@ -410,7 +410,7 @@ export const perfumeData = [
         "시트로넬라와 오렌지 블로섬의 산뜻한 시작 위로 아이리스의 부드럽고 우아한 꽃향이 피어난다.\n" +
         "패출리와 인센스의 차분한 잔향이 깊이를 더해 깨끗하면서도 신비로운 분위기를 남긴다.",
       detailTitle: "우아함",
-      image: "/assets/perfume/buly/iris-de-malte-transparent.png",
+      image: "/assets/perfume/buly/iris-de-malte-transparent.avif",
       familyIds: ["floral", "powdery"],
       notes: {
         top: ["시트로넬라", "오렌지 블로섬"],
@@ -437,7 +437,7 @@ export const perfumeData = [
         "베르가못과 스파이스의 오프닝을 지나 파우더리한 아이리스와 타바코가 깊고 부드러운 무드를 만든다.\n" +
         "앰버와 샌들우드, 레더의 잔향이 묵직하게 이어져 가을·겨울 격식 있는 자리에 잘 어울린다.",
       detailTitle: "중후함",
-      image: "/assets/perfume/buly/makassar.png",
+      image: "/assets/perfume/buly/makassar.avif",
       familyIds: ["oriental", "powdery"],
       notes: {
         top: ["베르가못", "스파이스"],
@@ -466,11 +466,11 @@ export const perfumeData = [
         "즙이 가득한 배와 멜론의 오프닝이 프리지아와 장미의 화사한 부케로 부드럽게 이어진다.\n" +
         "파촐리와 머스크의 잔향이 세련되게 마무리되어 첫 니치 향수나 선물용으로 실패가 없는 선택이다.",
       detailTitle: "달콤함",
-      image: "/assets/perfume/jo-malone/english-pear-freesia.png",
+      image: "/assets/perfume/jo-malone/english-pear-freesia.avif",
       detailImages: [
-        "/assets/perfume/jo-malone/english-pear-freesia-d1.jpg",
-        "/assets/perfume/jo-malone/english-pear-freesia-d2.jpg",
-        "/assets/perfume/jo-malone/english-pear-freesia-d3.jpg",
+        "/assets/perfume/jo-malone/english-pear-freesia-d1.avif",
+        "/assets/perfume/jo-malone/english-pear-freesia-d2.avif",
+        "/assets/perfume/jo-malone/english-pear-freesia-d3.avif",
       ],
       familyIds: ["floral", "woody"],
       notes: {
@@ -498,11 +498,11 @@ export const perfumeData = [
         "암브레트 씨드의 포근한 시작에 씨 솔트의 짭짤한 미네랄감이 더해져 탁 트인 해변을 그려낸다.\n" +
         "세이지와 드리프트우드의 중성적인 잔향이 깔끔하게 남아 성별과 계절을 가리지 않는 스테디셀러다.",
       detailTitle: "자유로움",
-      image: "/assets/perfume/jo-malone/wood-sage-sea-salt.png",
+      image: "/assets/perfume/jo-malone/wood-sage-sea-salt.avif",
       detailImages: [
-        "/assets/perfume/jo-malone/wood-sage-sea-salt-d1.jpg",
-        "/assets/perfume/jo-malone/wood-sage-sea-salt-d2.jpg",
-        "/assets/perfume/jo-malone/wood-sage-sea-salt-d3.jpg",
+        "/assets/perfume/jo-malone/wood-sage-sea-salt-d1.avif",
+        "/assets/perfume/jo-malone/wood-sage-sea-salt-d2.avif",
+        "/assets/perfume/jo-malone/wood-sage-sea-salt-d3.avif",
       ],
       familyIds: ["aquatic", "woody"],
       notes: {
@@ -530,11 +530,11 @@ export const perfumeData = [
         "톡 쏘는 라임과 만다린의 상큼함에 바질과 화이트 타임의 허브향이 더해져 흔한 시트러스와 차별화된다.\n" +
         "파촐리와 베티버가 은은한 깊이로 마무리해 캐주얼부터 포멀까지 두루 어울리는 만능 향수다.",
       detailTitle: "활력",
-      image: "/assets/perfume/jo-malone/lime-basil-mandarin.png",
+      image: "/assets/perfume/jo-malone/lime-basil-mandarin.avif",
       detailImages: [
-        "/assets/perfume/jo-malone/lime-basil-mandarin-d1.jpg",
-        "/assets/perfume/jo-malone/lime-basil-mandarin-d2.jpg",
-        "/assets/perfume/jo-malone/lime-basil-mandarin-d3.jpg",
+        "/assets/perfume/jo-malone/lime-basil-mandarin-d1.avif",
+        "/assets/perfume/jo-malone/lime-basil-mandarin-d2.avif",
+        "/assets/perfume/jo-malone/lime-basil-mandarin-d3.avif",
       ],
       familyIds: ["citrus", "green"],
       notes: {
@@ -562,11 +562,11 @@ export const perfumeData = [
         "레드 애플의 과즙 어린 오프닝이 피오니와 장미, 재스민의 풍성한 꽃향으로 사랑스럽게 피어난다.\n" +
         "부드러운 스웨이드의 잔향이 벨벳처럼 감싸 봄철 데이트나 결혼식 하객 룩에 특히 잘 어울린다.",
       detailTitle: "설렘",
-      image: "/assets/perfume/jo-malone/peony-blush-suede.png",
+      image: "/assets/perfume/jo-malone/peony-blush-suede.avif",
       detailImages: [
-        "/assets/perfume/jo-malone/peony-blush-suede-d1.jpg",
-        "/assets/perfume/jo-malone/peony-blush-suede-d2.jpg",
-        "/assets/perfume/jo-malone/peony-blush-suede-d3.jpg",
+        "/assets/perfume/jo-malone/peony-blush-suede-d1.avif",
+        "/assets/perfume/jo-malone/peony-blush-suede-d2.avif",
+        "/assets/perfume/jo-malone/peony-blush-suede-d3.avif",
       ],
       familyIds: ["floral", "powdery"],
       notes: {
@@ -594,11 +594,11 @@ export const perfumeData = [
         "라벤더의 차분한 오프닝을 지나 몰약의 발사믹한 깊이가 서서히 퍼지며 이국적인 무드를 만든다.\n" +
         "통카빈과 바닐라, 아몬드의 달콤한 잔향이 오래 지속되어 쌀쌀한 계절의 저녁 향수로 사랑받는다.",
       detailTitle: "관능",
-      image: "/assets/perfume/jo-malone/myrrh-tonka.png",
+      image: "/assets/perfume/jo-malone/myrrh-tonka.avif",
       detailImages: [
-        "/assets/perfume/jo-malone/myrrh-tonka-d1.jpg",
-        "/assets/perfume/jo-malone/myrrh-tonka-d2.jpg",
-        "/assets/perfume/jo-malone/myrrh-tonka-d3.jpg",
+        "/assets/perfume/jo-malone/myrrh-tonka-d1.avif",
+        "/assets/perfume/jo-malone/myrrh-tonka-d2.avif",
+        "/assets/perfume/jo-malone/myrrh-tonka-d3.avif",
       ],
       familyIds: ["oriental", "spicy"],
       notes: {
@@ -628,11 +628,11 @@ export const perfumeData = [
         "알데하이드의 비누 같은 첫인상 뒤로 장미와 바이올렛, 피오니가 은은하게 겹쳐지며 깨끗한 꽃내음을 더한다.\n" +
         "화이트 머스크와 블론드 우드의 잔향이 살결처럼 부드럽게 남아 '깨끗한 사람'의 인상을 완성해 준다.",
       detailTitle: "순수",
-      image: "/assets/perfume/byredo/blanche.png",
+      image: "/assets/perfume/byredo/blanche.avif",
       detailImages: [
-        "/assets/perfume/byredo/blanche-d1.jpg",
-        "/assets/perfume/byredo/blanche-d2.jpg",
-        "/assets/perfume/byredo/blanche-d3.jpg",
+        "/assets/perfume/byredo/blanche-d1.avif",
+        "/assets/perfume/byredo/blanche-d2.avif",
+        "/assets/perfume/byredo/blanche-d3.avif",
       ],
       familyIds: ["floral", "musk"],
       notes: {
@@ -660,11 +660,11 @@ export const perfumeData = [
         "베르가못과 네롤리, 마리골드의 따뜻한 시트러스가 바이올렛과 재스민의 부드러운 꽃향과 어우러진다.\n" +
         "베티버와 시더우드의 잔향이 세련되게 이어져 사계절 데일리로 완성도가 높은 바이레도의 대표작이다.",
       detailTitle: "세련됨",
-      image: "/assets/perfume/byredo/bal-dafrique.png",
+      image: "/assets/perfume/byredo/bal-dafrique.avif",
       detailImages: [
-        "/assets/perfume/byredo/bal-dafrique-d1.jpg",
-        "/assets/perfume/byredo/bal-dafrique-d2.jpg",
-        "/assets/perfume/byredo/bal-dafrique-d3.jpg",
+        "/assets/perfume/byredo/bal-dafrique-d1.avif",
+        "/assets/perfume/byredo/bal-dafrique-d2.avif",
+        "/assets/perfume/byredo/bal-dafrique-d3.avif",
       ],
       familyIds: ["citrus", "woody"],
       notes: {
@@ -692,11 +692,11 @@ export const perfumeData = [
         "암브레트의 부드러운 오프닝에 바이올렛과 매그놀리아가 은은하게 겹쳐지며 몽환적인 분위기를 자아낸다.\n" +
         "샌들우드와 머스크의 크리미한 잔향이 조용히 오래 남아 과하지 않은 세련됨을 원하는 이들에게 제격이다.",
       detailTitle: "신비",
-      image: "/assets/perfume/byredo/mojave-ghost.png",
+      image: "/assets/perfume/byredo/mojave-ghost.avif",
       detailImages: [
-        "/assets/perfume/byredo/mojave-ghost-d1.jpg",
-        "/assets/perfume/byredo/mojave-ghost-d2.jpg",
-        "/assets/perfume/byredo/mojave-ghost-d3.jpg",
+        "/assets/perfume/byredo/mojave-ghost-d1.avif",
+        "/assets/perfume/byredo/mojave-ghost-d2.avif",
+        "/assets/perfume/byredo/mojave-ghost-d3.avif",
       ],
       familyIds: ["woody", "powdery"],
       notes: {
@@ -724,11 +724,11 @@ export const perfumeData = [
         "베르가못과 주니퍼 베리의 청량한 오프닝이 인센스와 솔잎의 신비로운 숲 내음으로 이어진다.\n" +
         "샌들우드와 바닐라의 부드러운 드라이다운이 중독적으로 남아 우디 입문자에게도 자주 추천된다.",
       detailTitle: "방랑",
-      image: "/assets/perfume/byredo/gypsy-water.png",
+      image: "/assets/perfume/byredo/gypsy-water.avif",
       detailImages: [
-        "/assets/perfume/byredo/gypsy-water-d1.jpg",
-        "/assets/perfume/byredo/gypsy-water-d2.jpg",
-        "/assets/perfume/byredo/gypsy-water-d3.jpg",
+        "/assets/perfume/byredo/gypsy-water-d1.avif",
+        "/assets/perfume/byredo/gypsy-water-d2.avif",
+        "/assets/perfume/byredo/gypsy-water-d3.avif",
       ],
       familyIds: ["woody", "spicy"],
       notes: {
@@ -756,11 +756,11 @@ export const perfumeData = [
         "레몬과 그린 만다린의 반짝이는 오프닝이 네롤리와 이모르뗄의 부드러운 달콤함으로 이어진다.\n" +
         "화이트 머스크의 포근한 잔향이 산뜻하게 마무리되어 휴가지는 물론 일상에서도 기분을 환하게 만들어 준다.",
       detailTitle: "햇살",
-      image: "/assets/perfume/byredo/sundazed.png",
+      image: "/assets/perfume/byredo/sundazed.avif",
       detailImages: [
-        "/assets/perfume/byredo/sundazed-d1.jpg",
-        "/assets/perfume/byredo/sundazed-d2.jpg",
-        "/assets/perfume/byredo/sundazed-d3.jpg",
+        "/assets/perfume/byredo/sundazed-d1.avif",
+        "/assets/perfume/byredo/sundazed-d2.avif",
+        "/assets/perfume/byredo/sundazed-d3.avif",
       ],
       familyIds: ["citrus", "musk"],
       notes: {
@@ -790,11 +790,11 @@ export const perfumeData = [
         "바이올렛과 카다멈의 오프닝을 지나 아이리스와 앰브록스가 건조하면서도 매끈한 질감을 만들어 낸다.\n" +
         "샌들우드와 시더우드, 레더의 잔향이 강한 확산력으로 오래 지속되어 시그니처 향으로 삼기 좋다.",
       detailTitle: "존재감",
-      image: "/assets/perfume/le-labo/santal-33.png",
+      image: "/assets/perfume/le-labo/santal-33.avif",
       detailImages: [
-        "/assets/perfume/le-labo/santal-33-d1.jpg",
-        "/assets/perfume/le-labo/santal-33-d2.jpg",
-        "/assets/perfume/le-labo/santal-33-d3.jpg",
+        "/assets/perfume/le-labo/santal-33-d1.avif",
+        "/assets/perfume/le-labo/santal-33-d2.avif",
+        "/assets/perfume/le-labo/santal-33-d3.avif",
       ],
       familyIds: ["woody", "spicy"],
       notes: {
@@ -821,11 +821,11 @@ export const perfumeData = [
         "앰브록스의 은은한 오프닝에 재스민과 암브레트가 살짝 얹혀 비누 같은 깨끗함을 더한다.\n" +
         "머스크와 배의 잔향이 피부에 밀착되듯 오래 남아 매일 뿌려도 질리지 않는 데일리 향수로 꼽힌다.",
       detailTitle: "은은함",
-      image: "/assets/perfume/le-labo/another-13.png",
+      image: "/assets/perfume/le-labo/another-13.avif",
       detailImages: [
-        "/assets/perfume/le-labo/another-13-d1.jpg",
-        "/assets/perfume/le-labo/another-13-d2.jpg",
-        "/assets/perfume/le-labo/another-13-d3.jpg",
+        "/assets/perfume/le-labo/another-13-d1.avif",
+        "/assets/perfume/le-labo/another-13-d2.avif",
+        "/assets/perfume/le-labo/another-13-d3.avif",
       ],
       familyIds: ["musk", "powdery"],
       notes: {
@@ -853,11 +853,11 @@ export const perfumeData = [
         "베르가못과 자몽의 쌉싸름한 오프닝이 오렌지 블로섬의 화사함으로 부드럽게 이어진다.\n" +
         "머스크와 앰버, 시더우드의 잔향이 깊이를 더해 가벼운 시트러스에 아쉬움을 느꼈던 이들에게 제격이다.",
       detailTitle: "산뜻함",
-      image: "/assets/perfume/le-labo/bergamote-22.png",
+      image: "/assets/perfume/le-labo/bergamote-22.avif",
       detailImages: [
-        "/assets/perfume/le-labo/bergamote-22-d1.jpg",
-        "/assets/perfume/le-labo/bergamote-22-d2.jpg",
-        "/assets/perfume/le-labo/bergamote-22-d3.jpg",
+        "/assets/perfume/le-labo/bergamote-22-d1.avif",
+        "/assets/perfume/le-labo/bergamote-22-d2.avif",
+        "/assets/perfume/le-labo/bergamote-22-d3.avif",
       ],
       familyIds: ["citrus", "green"],
       notes: {
@@ -885,11 +885,11 @@ export const perfumeData = [
         "재스민과 백합의 진한 오프닝에 튜베로즈와 일랑일랑이 더해져 크리미하고 관능적인 꽃향이 피어난다.\n" +
         "바닐라와 머스크의 따뜻한 잔향이 우아하게 이어져 존재감 있는 플로럴을 찾는 이들에게 사랑받는다.",
       detailTitle: "화려함",
-      image: "/assets/perfume/le-labo/lys-41.png",
+      image: "/assets/perfume/le-labo/lys-41.avif",
       detailImages: [
-        "/assets/perfume/le-labo/lys-41-d1.jpg",
-        "/assets/perfume/le-labo/lys-41-d2.jpg",
-        "/assets/perfume/le-labo/lys-41-d3.jpg",
+        "/assets/perfume/le-labo/lys-41-d1.avif",
+        "/assets/perfume/le-labo/lys-41-d2.avif",
+        "/assets/perfume/le-labo/lys-41-d3.avif",
       ],
       familyIds: ["floral", "oriental"],
       notes: {
@@ -917,11 +917,11 @@ export const perfumeData = [
         "네롤리와 오렌지 블로섬, 만다린이 어우러진 오프닝이 환하고 생기 있는 첫인상을 만든다.\n" +
         "머스크와 바닐라의 달콤하고 포근한 잔향이 부드럽게 이어져 남녀 모두 부담 없이 쓰기 좋은 데일리 향이다.",
       detailTitle: "명랑함",
-      image: "/assets/perfume/le-labo/neroli-36.png",
+      image: "/assets/perfume/le-labo/neroli-36.avif",
       detailImages: [
-        "/assets/perfume/le-labo/neroli-36-d1.jpg",
-        "/assets/perfume/le-labo/neroli-36-d2.jpg",
-        "/assets/perfume/le-labo/neroli-36-d3.jpg",
+        "/assets/perfume/le-labo/neroli-36-d1.avif",
+        "/assets/perfume/le-labo/neroli-36-d2.avif",
+        "/assets/perfume/le-labo/neroli-36-d3.avif",
       ],
       familyIds: ["floral", "citrus"],
       notes: {
@@ -950,7 +950,7 @@ export const perfumeData = [
         "상쾌한 유자와 바질의 오프닝이 그린 노트의 푸릇함으로 이어지며 깨끗하고 지적인 무드를 만든다.\n" +
         "베티버의 드라이한 잔향이 담백하게 마무리되어 미니멀한 취향의 유니섹스 데일리로 잘 어울린다.",
       detailTitle: "절제미",
-      image: "/assets/perfume/aesop/tacit.png",
+      image: "/assets/perfume/aesop/tacit.avif",
       familyIds: ["citrus", "green"],
       notes: {
         top: ["유자", "바질"],
@@ -977,7 +977,7 @@ export const perfumeData = [
         "해양 노트와 주니퍼의 차가운 오프닝에 커민과 스파이스가 더해져 흔치 않은 개성을 만들어 낸다.\n" +
         "우드와 베티버의 잔향이 단단하게 이어져 뻔한 아쿠아틱이 지겨워진 이들에게 신선한 선택지가 된다.",
       detailTitle: "개성",
-      image: "/assets/perfume/aesop/karst.png",
+      image: "/assets/perfume/aesop/karst.avif",
       familyIds: ["aquatic", "spicy"],
       notes: {
         top: ["해양 노트", "주니퍼"],
@@ -1004,7 +1004,7 @@ export const perfumeData = [
         "사프란의 이국적인 오프닝을 지나 미모사와 아이리스, 수선화가 파우더리하게 겹겹이 피어난다.\n" +
         "우드와 스파이스의 잔향이 아련하게 남아 조용하지만 기억에 남는 개성을 원하는 이들에게 어울린다.",
       detailTitle: "몽환",
-      image: "/assets/perfume/aesop/gloam.png",
+      image: "/assets/perfume/aesop/gloam.avif",
       familyIds: ["floral", "powdery"],
       notes: {
         top: ["사프란"],
@@ -1030,7 +1030,7 @@ export const perfumeData = [
         "카다멈과 베르가못의 알싸한 오프닝에 클로브와 장미, 재스민이 더해져 풍성한 레이어를 만든다.\n" +
         "샌들우드와 시더우드의 잔향이 포근하게 이어져 가을·겨울 유니섹스 향수로 꾸준히 사랑받는다.",
       detailTitle: "이국미",
-      image: "/assets/perfume/aesop/marrakech-intense.png",
+      image: "/assets/perfume/aesop/marrakech-intense.avif",
       familyIds: ["oriental", "spicy"],
       notes: {
         top: ["카다멈", "베르가못"],
@@ -1056,7 +1056,7 @@ export const perfumeData = [
         "사이프러스의 청명한 오프닝이 베티버의 흙내음으로 가라앉으며 명상적인 분위기를 자아낸다.\n" +
         "인센스와 프랑킨센스의 스모키한 잔향이 깊게 이어져 차분하고 사색적인 무드를 완성한다.",
       detailTitle: "고요",
-      image: "/assets/perfume/aesop/hwyl.png",
+      image: "/assets/perfume/aesop/hwyl.avif",
       familyIds: ["woody", "green"],
       notes: {
         top: ["사이프러스"],
@@ -1085,11 +1085,11 @@ export const perfumeData = [
         "쌉싸름한 비터 오렌지와 안젤리카의 오프닝이 오렌지 블로섬과 주니퍼 베리의 싱그러움으로 이어진다.\n" +
         "파촐리의 잔향이 깊이를 더해 단순한 시트러스를 넘어선 세련된 완성도를 보여 준다.",
       detailTitle: "감각",
-      image: "/assets/perfume/diptyque/eau-des-sens.png",
+      image: "/assets/perfume/diptyque/eau-des-sens.avif",
       detailImages: [
-        "/assets/perfume/diptyque/eau-des-sens-d1.jpg",
-        "/assets/perfume/diptyque/eau-des-sens-d2.jpg",
-        "/assets/perfume/diptyque/eau-des-sens-d3.jpg",
+        "/assets/perfume/diptyque/eau-des-sens-d1.avif",
+        "/assets/perfume/diptyque/eau-des-sens-d2.avif",
+        "/assets/perfume/diptyque/eau-des-sens-d3.avif",
       ],
       familyIds: ["citrus", "green"],
       notes: {
@@ -1117,11 +1117,11 @@ export const perfumeData = [
         "알데하이드와 베르가못의 깨끗한 오프닝이 아이리스와 암브레트의 파우더리함으로 부드럽게 이어진다.\n" +
         "머스크와 레더, 앰버의 잔향이 포근하게 감싸 가까이 다가온 사람에게만 은은하게 전해지는 매력이 있다.",
       detailTitle: "살결",
-      image: "/assets/perfume/diptyque/fleur-de-peau.png",
+      image: "/assets/perfume/diptyque/fleur-de-peau.avif",
       detailImages: [
-        "/assets/perfume/diptyque/fleur-de-peau-d1.jpg",
-        "/assets/perfume/diptyque/fleur-de-peau-d2.jpg",
-        "/assets/perfume/diptyque/fleur-de-peau-d3.jpg",
+        "/assets/perfume/diptyque/fleur-de-peau-d1.avif",
+        "/assets/perfume/diptyque/fleur-de-peau-d2.avif",
+        "/assets/perfume/diptyque/fleur-de-peau-d3.avif",
       ],
       familyIds: ["musk", "powdery"],
       notes: {
@@ -1149,11 +1149,11 @@ export const perfumeData = [
         "장미와 오렌지 플라워의 산뜻한 오프닝이 튜베로즈와 재스민의 풍성한 화이트 플로럴로 피어난다.\n" +
         "머스크와 벤조인의 잔향이 가볍게 마무리되어 무거운 튜베로즈가 부담스러웠던 이들도 여름 내내 즐기기 좋다.",
       detailTitle: "청초함",
-      image: "/assets/perfume/diptyque/do-son.png",
+      image: "/assets/perfume/diptyque/do-son.avif",
       detailImages: [
-        "/assets/perfume/diptyque/do-son-d1.jpg",
-        "/assets/perfume/diptyque/do-son-d2.jpg",
-        "/assets/perfume/diptyque/do-son-d3.jpg",
+        "/assets/perfume/diptyque/do-son-d1.avif",
+        "/assets/perfume/diptyque/do-son-d2.avif",
+        "/assets/perfume/diptyque/do-son-d3.avif",
       ],
       familyIds: ["floral", "aquatic"],
       notes: {
@@ -1181,11 +1181,11 @@ export const perfumeData = [
         "사이프러스와 로즈우드의 오프닝을 지나 크리미한 샌들우드가 중심을 잡으며 부드럽게 퍼져 나간다.\n" +
         "앰버와 머스크의 잔향이 포근하게 이어져 명상하듯 차분한 하루를 만들어 주는 힐링 향수로 꼽힌다.",
       detailTitle: "편안함",
-      image: "/assets/perfume/diptyque/tam-dao.png",
+      image: "/assets/perfume/diptyque/tam-dao.avif",
       detailImages: [
-        "/assets/perfume/diptyque/tam-dao-d1.jpg",
-        "/assets/perfume/diptyque/tam-dao-d2.jpg",
-        "/assets/perfume/diptyque/tam-dao-d3.jpg",
+        "/assets/perfume/diptyque/tam-dao-d1.avif",
+        "/assets/perfume/diptyque/tam-dao-d2.avif",
+        "/assets/perfume/diptyque/tam-dao-d3.avif",
       ],
       familyIds: ["woody", "spicy"],
       notes: {
@@ -1213,11 +1213,11 @@ export const perfumeData = [
         "클로브와 시나몬의 알싸하고 따뜻한 오프닝이 장미와 제라늄의 클래식한 꽃향과 어우러진다.\n" +
         "샌들우드의 잔향이 단정하게 마무리되어 빈티지한 무드와 뚜렷한 개성을 원하는 이들에게 사랑받는다.",
       detailTitle: "고전미",
-      image: "/assets/perfume/diptyque/leau.png",
+      image: "/assets/perfume/diptyque/leau.avif",
       detailImages: [
-        "/assets/perfume/diptyque/leau-d1.jpg",
-        "/assets/perfume/diptyque/leau-d2.jpg",
-        "/assets/perfume/diptyque/leau-d3.jpg",
+        "/assets/perfume/diptyque/leau-d1.avif",
+        "/assets/perfume/diptyque/leau-d2.avif",
+        "/assets/perfume/diptyque/leau-d3.avif",
       ],
       familyIds: ["oriental", "spicy"],
       notes: {
@@ -1247,11 +1247,11 @@ export const perfumeData = [
         "자몽과 퀸스의 과즙 어린 오프닝이 재스민과 히아신스의 맑은 꽃향으로 사랑스럽게 이어진다.\n" +
         "화이트 머스크와 아이리스의 포근한 잔향이 은은하게 남아 봄날의 데일리 향수로 꾸준히 사랑받는다.",
       detailTitle: "다정함",
-      image: "/assets/perfume/chanel/chance-eau-tendre.png",
+      image: "/assets/perfume/chanel/chance-eau-tendre.avif",
       detailImages: [
-        "/assets/perfume/chanel/chance-eau-tendre-d1.jpg",
-        "/assets/perfume/chanel/chance-eau-tendre-d2.jpg",
-        "/assets/perfume/chanel/chance-eau-tendre-d3.jpg",
+        "/assets/perfume/chanel/chance-eau-tendre-d1.avif",
+        "/assets/perfume/chanel/chance-eau-tendre-d2.avif",
+        "/assets/perfume/chanel/chance-eau-tendre-d3.avif",
       ],
       familyIds: ["floral", "musk"],
       notes: {
@@ -1279,11 +1279,11 @@ export const perfumeData = [
         "자몽과 레몬, 민트의 청량한 오프닝에 생강과 넛맥의 스파이시함이 세련된 긴장감을 더한다.\n" +
         "인센스와 시더우드, 샌들우드의 깊은 잔향이 오래 이어져 비즈니스와 캐주얼 어디에나 어울린다.",
       detailTitle: "신뢰감",
-      image: "/assets/perfume/chanel/bleu-de-chanel.png",
+      image: "/assets/perfume/chanel/bleu-de-chanel.avif",
       detailImages: [
-        "/assets/perfume/chanel/bleu-de-chanel-d1.jpg",
-        "/assets/perfume/chanel/bleu-de-chanel-d2.jpg",
-        "/assets/perfume/chanel/bleu-de-chanel-d3.jpg",
+        "/assets/perfume/chanel/bleu-de-chanel-d1.avif",
+        "/assets/perfume/chanel/bleu-de-chanel-d2.avif",
+        "/assets/perfume/chanel/bleu-de-chanel-d3.avif",
       ],
       familyIds: ["woody", "citrus"],
       notes: {
@@ -1311,11 +1311,11 @@ export const perfumeData = [
         "오렌지와 베르가못의 생기 넘치는 오프닝이 장미와 재스민의 우아한 꽃향으로 화사하게 이어진다.\n" +
         "파촐리와 바닐라, 화이트 머스크의 관능적인 잔향이 오래 남아 낮과 밤 어디서든 존재감을 발휘한다.",
       detailTitle: "당당함",
-      image: "/assets/perfume/chanel/coco-mademoiselle.png",
+      image: "/assets/perfume/chanel/coco-mademoiselle.avif",
       detailImages: [
-        "/assets/perfume/chanel/coco-mademoiselle-d1.jpg",
-        "/assets/perfume/chanel/coco-mademoiselle-d2.jpg",
-        "/assets/perfume/chanel/coco-mademoiselle-d3.jpg",
+        "/assets/perfume/chanel/coco-mademoiselle-d1.avif",
+        "/assets/perfume/chanel/coco-mademoiselle-d2.avif",
+        "/assets/perfume/chanel/coco-mademoiselle-d3.avif",
       ],
       familyIds: ["oriental", "citrus"],
       notes: {
@@ -1343,11 +1343,11 @@ export const perfumeData = [
         "레몬과 만다린의 반짝이는 오프닝이 장미와 재스민, 일랑일랑의 클래식한 부케로 이어진다.\n" +
         "시더우드와 화이트 머스크의 깨끗한 잔향이 산뜻하게 마무리되어 클래식 입문용으로도 손색이 없다.",
       detailTitle: "모던함",
-      image: "/assets/perfume/chanel/no5-leau.png",
+      image: "/assets/perfume/chanel/no5-leau.avif",
       detailImages: [
-        "/assets/perfume/chanel/no5-leau-d1.jpg",
-        "/assets/perfume/chanel/no5-leau-d2.jpg",
-        "/assets/perfume/chanel/no5-leau-d3.jpg",
+        "/assets/perfume/chanel/no5-leau-d1.avif",
+        "/assets/perfume/chanel/no5-leau-d2.avif",
+        "/assets/perfume/chanel/no5-leau-d3.avif",
       ],
       familyIds: ["floral", "powdery"],
       notes: {
@@ -1375,11 +1375,11 @@ export const perfumeData = [
         "핑크 페퍼와 파인애플의 톡 쏘는 오프닝이 재스민과 아이리스의 화사함으로 생기 있게 이어진다.\n" +
         "파촐리와 앰버, 바닐라의 잔향이 풍성하게 퍼져 밝고 당찬 에너지를 온종일 유지해 준다.",
       detailTitle: "생기",
-      image: "/assets/perfume/chanel/chance.png",
+      image: "/assets/perfume/chanel/chance.avif",
       detailImages: [
-        "/assets/perfume/chanel/chance-d1.jpg",
-        "/assets/perfume/chanel/chance-d2.jpg",
-        "/assets/perfume/chanel/chance-d3.jpg",
+        "/assets/perfume/chanel/chance-d1.avif",
+        "/assets/perfume/chanel/chance-d2.avif",
+        "/assets/perfume/chanel/chance-d3.avif",
       ],
       familyIds: ["floral", "spicy"],
       notes: {
@@ -1409,11 +1409,11 @@ export const perfumeData = [
         "베르가못과 레몬, 네롤리의 클래식한 시트러스가 로즈메리와 라벤더의 허브향과 우아하게 어우러진다.\n" +
         "머스크의 담백한 잔향이 기품 있게 마무리되어 시대를 초월한 품격을 일상에서 느끼게 해 준다.",
       detailTitle: "품격",
-      image: "/assets/perfume/santa-maria-novella/acqua-della-regina.png",
+      image: "/assets/perfume/santa-maria-novella/acqua-della-regina.avif",
       detailImages: [
-        "/assets/perfume/santa-maria-novella/acqua-della-regina-d1.jpg",
-        "/assets/perfume/santa-maria-novella/acqua-della-regina-d2.jpg",
-        "/assets/perfume/santa-maria-novella/acqua-della-regina-d3.jpg",
+        "/assets/perfume/santa-maria-novella/acqua-della-regina-d1.avif",
+        "/assets/perfume/santa-maria-novella/acqua-della-regina-d2.avif",
+        "/assets/perfume/santa-maria-novella/acqua-della-regina-d3.avif",
       ],
       familyIds: ["citrus", "green"],
       notes: {
@@ -1441,11 +1441,11 @@ export const perfumeData = [
         "베르가못과 아쿠아틱 노트의 시원한 오프닝이 연꽃과 프리지아의 여린 꽃향으로 부드럽게 이어진다.\n" +
         "머스크와 우드의 은은한 잔향이 가볍게 남아 계절을 가리지 않는 단정한 데일리 향으로 좋다.",
       detailTitle: "잔잔함",
-      image: "/assets/perfume/santa-maria-novella/acqua.png",
+      image: "/assets/perfume/santa-maria-novella/acqua.avif",
       detailImages: [
-        "/assets/perfume/santa-maria-novella/acqua-d1.jpg",
-        "/assets/perfume/santa-maria-novella/acqua-d2.jpg",
-        "/assets/perfume/santa-maria-novella/acqua-d3.jpg",
+        "/assets/perfume/santa-maria-novella/acqua-d1.avif",
+        "/assets/perfume/santa-maria-novella/acqua-d2.avif",
+        "/assets/perfume/santa-maria-novella/acqua-d3.avif",
       ],
       familyIds: ["aquatic", "floral"],
       notes: {
@@ -1473,11 +1473,11 @@ export const perfumeData = [
         "베르가못의 산뜻한 오프닝 뒤로 생생한 장미와 화이트 플라워가 겹겹이 피어나며 중심을 이룬다.\n" +
         "스파이스와 우드, 머스크의 잔향이 달지 않게 마무리되어 클래식하고 고급스러운 장미를 찾는 이들에게 제격이다.",
       detailTitle: "격조",
-      image: "/assets/perfume/santa-maria-novella/rosa-novella.png",
+      image: "/assets/perfume/santa-maria-novella/rosa-novella.avif",
       detailImages: [
-        "/assets/perfume/santa-maria-novella/rosa-novella-d1.jpg",
-        "/assets/perfume/santa-maria-novella/rosa-novella-d2.jpg",
-        "/assets/perfume/santa-maria-novella/rosa-novella-d3.jpg",
+        "/assets/perfume/santa-maria-novella/rosa-novella-d1.avif",
+        "/assets/perfume/santa-maria-novella/rosa-novella-d2.avif",
+        "/assets/perfume/santa-maria-novella/rosa-novella-d3.avif",
       ],
       familyIds: ["floral", "spicy"],
       notes: {
@@ -1505,11 +1505,11 @@ export const perfumeData = [
         "갈바넘의 푸릇한 오프닝과 네롤리의 산뜻함이 아이리스의 우아한 분내음으로 자연스럽게 이어진다.\n" +
         "머스크와 파우더리 노트의 잔향이 차분하게 남아 단정하고 지적인 인상을 완성해 준다.",
       detailTitle: "단정함",
-      image: "/assets/perfume/santa-maria-novella/liris.png",
+      image: "/assets/perfume/santa-maria-novella/liris.avif",
       detailImages: [
-        "/assets/perfume/santa-maria-novella/liris-d1.jpg",
-        "/assets/perfume/santa-maria-novella/liris-d2.jpg",
-        "/assets/perfume/santa-maria-novella/liris-d3.jpg",
+        "/assets/perfume/santa-maria-novella/liris-d1.avif",
+        "/assets/perfume/santa-maria-novella/liris-d2.avif",
+        "/assets/perfume/santa-maria-novella/liris-d3.avif",
       ],
       familyIds: ["powdery", "green"],
       notes: {
@@ -1537,11 +1537,11 @@ export const perfumeData = [
         "석류와 시트러스의 새콤한 오프닝이 장미와 일랑일랑, 카네이션의 클래식한 꽃향과 겹쳐진다.\n" +
         "머스크와 스파이스, 우드의 잔향이 고풍스럽게 이어져 오래도록 기억에 남는 개성을 선사한다.",
       detailTitle: "고풍",
-      image: "/assets/perfume/santa-maria-novella/melograno.png",
+      image: "/assets/perfume/santa-maria-novella/melograno.avif",
       detailImages: [
-        "/assets/perfume/santa-maria-novella/melograno-d1.jpg",
-        "/assets/perfume/santa-maria-novella/melograno-d2.jpg",
-        "/assets/perfume/santa-maria-novella/melograno-d3.jpg",
+        "/assets/perfume/santa-maria-novella/melograno-d1.avif",
+        "/assets/perfume/santa-maria-novella/melograno-d2.avif",
+        "/assets/perfume/santa-maria-novella/melograno-d3.avif",
       ],
       familyIds: ["oriental", "spicy"],
       notes: {
@@ -1650,7 +1650,7 @@ export const perfumeData = [
         "밝은 시트러스의 첫인상이 부드러운 화이트 플로럴로 이어지며 편안한 분위기를 만든다.\n" +
         "머스크와 우드의 포근한 잔향이 피부에 은은하게 남아 일상의 여유를 떠올리게 한다.",
       detailTitle: "노을",
-      image: "/assets/perfume/maison-margiela/chasing-sunset.png",
+      image: "/assets/perfume/maison-margiela/chasing-sunset.avif",
       familyIds: ["citrus", "floral"],
       notes: {
         top: ["베르가못", "만다린"],
@@ -1677,7 +1677,7 @@ export const perfumeData = [
         "그린 샙과 핑크 자몽의 산뜻한 시작 뒤로 아이리스와 불가리안 로즈가 부드럽게 피어난다.\n" +
         "헬리오트로프와 우드의 포근한 잔향이 깨끗하고 여성스러운 분위기를 완성한다.",
       detailTitle: "자수정",
-      image: "/assets/perfume/bvlgari/omnia-amethyste.png",
+      image: "/assets/perfume/bvlgari/omnia-amethyste.avif",
       familyIds: ["floral", "powdery"],
       notes: {
         top: ["그린 샙", "핑크 자몽"],

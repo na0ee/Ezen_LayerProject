@@ -1,9 +1,9 @@
 import { BottomNav, Header, TitleMag } from "../src/components/common";
 
-import candle from "./assets/diptyque-detail/candle.png";
-import heroDiptyque from "./assets/diptyque-detail/hero.png";
-import store from "./assets/diptyque-detail/store.png";
-import windowPerfume from "./assets/diptyque-detail/window.png";
+import candle from "./assets/diptyque-detail/candle.avif";
+import heroDiptyque from "./assets/diptyque-detail/hero.avif";
+import store from "./assets/diptyque-detail/store.avif";
+import windowPerfume from "./assets/diptyque-detail/window.avif";
 
 export default function MagazineDiptyque({ onBack }) {
   return (

@@ -1,9 +1,9 @@
 import { BottomNav, Header, TitleMag } from "../src/components/common";
 
-import gift from "./assets/jomalone-detail/gift.png";
-import heroJomalone from "./assets/jomalone-detail/hero.png";
-import layering from "./assets/jomalone-detail/layering.png";
-import signature from "./assets/jomalone-detail/signature.png";
+import gift from "./assets/jomalone-detail/gift.avif";
+import heroJomalone from "./assets/jomalone-detail/hero.avif";
+import layering from "./assets/jomalone-detail/layering.avif";
+import signature from "./assets/jomalone-detail/signature.avif";
 
 export default function MagazineJomalone({ onBack }) {
   return (

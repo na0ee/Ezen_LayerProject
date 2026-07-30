@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import defaultProfile from "../../assets/images/mypage/profile.png";
+import defaultProfile from "../../assets/images/mypage/profile.avif";
 import { allPerfumes } from "../../data/perfumeUtils";
 import {
   Badge,

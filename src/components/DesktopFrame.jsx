@@ -10,10 +10,26 @@ const VIEW_MODES = [
 export default function DesktopFrame({ children }) {
   const [viewMode, setViewMode] = useState("430");
   const [guideVisible, setGuideVisible] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(() =>
+    window.matchMedia("(min-width: 1024px)").matches,
+  );
   const activeMode =
     VIEW_MODES.find((mode) => mode.id === viewMode) ?? VIEW_MODES[1];
   const appWidth = activeMode.width;
   const isMockup = viewMode === "mockup";
+  const isGuideEnabled = isDesktop && guideVisible;
+
+  useEffect(() => {
+    const desktopMedia = window.matchMedia("(min-width: 1024px)");
+    const handleDesktopChange = (event) => setIsDesktop(event.matches);
+
+    setIsDesktop(desktopMedia.matches);
+    desktopMedia.addEventListener("change", handleDesktopChange);
+
+    return () => {
+      desktopMedia.removeEventListener("change", handleDesktopChange);
+    };
+  }, []);
 
   useEffect(() => {
     document.documentElement.style.setProperty(
@@ -31,11 +47,11 @@ export default function DesktopFrame({ children }) {
   }, [appWidth, viewMode]);
 
   useEffect(() => {
-    document.documentElement.dataset.guideEnabled = String(guideVisible);
+    document.documentElement.dataset.guideEnabled = String(isGuideEnabled);
     window.dispatchEvent(
-      new CustomEvent("layer:guide-change", { detail: guideVisible }),
+      new CustomEvent("layer:guide-change", { detail: isGuideEnabled }),
     );
-  }, [guideVisible]);
+  }, [isGuideEnabled]);
 
   return (
     <div
@@ -78,7 +94,7 @@ export default function DesktopFrame({ children }) {
       </aside>
 
       <main
-        className={`desktop-app${guideVisible ? " desktop-app-guide" : ""}${
+        className={`desktop-app${isGuideEnabled ? " desktop-app-guide" : ""}${
           isMockup ? " desktop-app-mockup" : ""
         }`}
       >

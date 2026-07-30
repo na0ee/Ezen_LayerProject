@@ -599,6 +599,11 @@ html[data-community-guide-step='5'] [data-guide-community-write] {
     padding-top: 32px;
   }
 
+  .desktop-app-mockup [data-search-header] {
+    height: 96px;
+    padding-top: 32px;
+  }
+
   .desktop-app-mockup
     [data-app-header]:not([data-header-variant='main']) {
     background-color: var(--color-offwhite);
@@ -684,6 +689,20 @@ html[data-community-guide-step='5'] [data-guide-community-write] {
     overflow: hidden;
     border-radius: 55px;
     clip-path: inset(0 round 55px);
+  }
+
+  /*
+   * These sheets are portaled to body and calculate viewport coordinates for
+   * the regular desktop frame. In mockup mode their portal root is already
+   * positioned and clipped to the device, so reuse that root as the local
+   * coordinate system instead of applying the global left offset twice.
+   */
+  html[data-desktop-view='mockup']
+    .community-write-category-sheet__viewport,
+  html[data-desktop-view='mockup']
+    .community-recommendation-select-sheet__viewport {
+    left: 0 !important;
+    width: 100% !important;
   }
 
   html[data-desktop-view='mockup'] [data-mockup-fullscreen] {

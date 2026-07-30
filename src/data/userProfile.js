@@ -1,4 +1,4 @@
-import defaultProfileImage from "../assets/images/mypage/profile.png";
+import defaultProfileImage from "../assets/images/mypage/profile.avif";
 
 export const USER_PROFILE_STORAGE_KEY = "layer-user-profile";
 export const DEFAULT_USER_PROFILE = {

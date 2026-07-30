@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/common";
-import badgeNewbie from "../assets/images/grade-badge/badge-newbie.png";
-import badgeBronze from "../assets/images/grade-badge/badge-bronze.png";
-import badgeSilver from "../assets/images/grade-badge/badge-silver.png";
-import badgeGold from "../assets/images/grade-badge/badge-gold.png";
-import badgeVip from "../assets/images/grade-badge/badge-vip.png";
-import badgeGrey from "../assets/images/grade-badge/badge-grey.png";
-import badgeVipGrey from "../assets/images/grade-badge/badge-vip-grey.png";
+import badgeNewbie from "../assets/images/grade-badge/badge-newbie.avif";
+import badgeBronze from "../assets/images/grade-badge/badge-bronze.avif";
+import badgeSilver from "../assets/images/grade-badge/badge-silver.avif";
+import badgeGold from "../assets/images/grade-badge/badge-gold.avif";
+import badgeVip from "../assets/images/grade-badge/badge-vip.avif";
+import badgeGrey from "../assets/images/grade-badge/badge-grey.avif";
+import badgeVipGrey from "../assets/images/grade-badge/badge-vip-grey.avif";
 import { getUserPoints } from "../data/userPoints";
 
 // 참고 파일(MyMembershipPage.tsx)의 레이아웃/기능을 이 프로젝트 컴포넌트·토큰으로 이식

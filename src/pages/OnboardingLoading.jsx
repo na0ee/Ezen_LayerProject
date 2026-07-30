@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import fallbackOne from "../assets/images/onboarding/q1-none.png";
-import fallbackTwo from "../assets/images/onboarding/q2-travel.png";
-import fallbackThree from "../assets/images/onboarding/q3-floral.png";
+import fallbackOne from "../assets/images/onboarding/q1-none.avif";
+import fallbackTwo from "../assets/images/onboarding/q2-travel.avif";
+import fallbackThree from "../assets/images/onboarding/q3-floral.avif";
 
 const FALLBACK_IMAGES = [fallbackOne, fallbackTwo, fallbackThree];
 const RESULT_STORAGE_KEY = "layer-onboarding-result-path";

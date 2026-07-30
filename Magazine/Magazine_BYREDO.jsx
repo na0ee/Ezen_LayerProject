@@ -1,9 +1,9 @@
 import { BottomNav, Header, TitleMag } from "../src/components/common";
 
-import altoAstral from "./assets/byredo-detail/alto-astral-render.png";
-import gypsyWater from "./assets/byredo-detail/gypsy-water-render.png";
-import heroByredo from "./assets/byredo-detail/hero-render.png";
-import linenPerfumes from "./assets/byredo-detail/linen-render.png";
+import altoAstral from "./assets/byredo-detail/alto-astral-render.avif";
+import gypsyWater from "./assets/byredo-detail/gypsy-water-render.avif";
+import heroByredo from "./assets/byredo-detail/hero-render.avif";
+import linenPerfumes from "./assets/byredo-detail/linen-render.avif";
 
 export default function MagazineByredo({ onBack }) {
   return (

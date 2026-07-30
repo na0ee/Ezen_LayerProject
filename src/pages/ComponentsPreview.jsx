@@ -1,5 +1,5 @@
 import { useState } from "react";
-import reviewReply from "../assets/alarm/review-reply.png";
+import reviewReply from "../assets/alarm/review-reply.avif";
 import {
   AlertCard,
   Badge,

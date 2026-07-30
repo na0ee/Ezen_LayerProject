@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import skipCenter from "../assets/images/onboarding/skip-center.png";
-import skipLeft from "../assets/images/onboarding/skip-left.png";
-import skipRight from "../assets/images/onboarding/skip-right.png";
+import skipCenter from "../assets/images/onboarding/skip-center.avif";
+import skipLeft from "../assets/images/onboarding/skip-left.avif";
+import skipRight from "../assets/images/onboarding/skip-right.avif";
 
 export default function OnboardingSkip() {
   const navigate = useNavigate();

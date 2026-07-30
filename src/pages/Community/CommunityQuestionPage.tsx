@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import profileFruityLover from "../../assets/Community/Profile/profile-fruity-lover.png";
-import profileOfficeScent from "../../assets/Community/Profile/profile-office-scent.png";
+import profileFruityLover from "../../assets/Community/Profile/profile-fruity-lover.avif";
+import profileOfficeScent from "../../assets/Community/Profile/profile-office-scent.avif";
 import {
   BottomNav,
   ConQuestion,
