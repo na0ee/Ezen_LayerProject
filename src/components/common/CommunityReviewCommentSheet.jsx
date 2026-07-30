@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import profileYeeunTv from "../../assets/Community/Profile/profile-yeeuntv.avif";
 import countChat from "../../assets/icons/count-chat.svg";
 import countHeart from "../../assets/icons/count-heart.svg";
@@ -68,7 +69,7 @@ export default function CommunityReviewCommentSheet({
     setMessage("");
   };
 
-  return (
+  return createPortal(
     <div
       className="community-review-comments fixed inset-y-0 left-1/2 z-[200] w-full max-w-[430px] -translate-x-1/2"
       role="presentation"
@@ -76,7 +77,7 @@ export default function CommunityReviewCommentSheet({
       <button
         type="button"
         aria-label="댓글 창 닫기"
-        className="absolute inset-0 bg-offblack/30"
+        className="community-review-comments__backdrop absolute inset-0 bg-offblack/30"
         onClick={onClose}
       />
 
@@ -101,7 +102,7 @@ export default function CommunityReviewCommentSheet({
         </header>
 
         <div className="community-review-comments__body flex min-h-0 flex-1 flex-col">
-          <div className="community-review-comments__list flex min-h-0 flex-1 flex-col gap-7 overflow-y-auto px-5 pt-[30px]">
+          <div className="community-review-comments__list no-scrollbar flex min-h-0 flex-1 flex-col gap-7 overflow-y-auto px-5 pt-[30px]">
             {commentList.map((comment) => (
               <article
                 key={comment.id}
@@ -138,21 +139,13 @@ export default function CommunityReviewCommentSheet({
 
                   <div className="flex items-center gap-3">
                     <span className="flex items-center gap-1">
-                      <img
-                        src={countHeart}
-                        alt=""
-                        className="size-[14px]"
-                      />
+                      <img src={countHeart} alt="" className="size-[14px]" />
                       <span className="text-caption-regular-12 text-grey">
                         {comment.likes}
                       </span>
                     </span>
                     <span className="flex items-center gap-1">
-                      <img
-                        src={countChat}
-                        alt=""
-                        className="size-[14px]"
-                      />
+                      <img src={countChat} alt="" className="size-[14px]" />
                       <span className="text-caption-regular-12 text-grey">
                         {comment.replies}
                       </span>
@@ -168,10 +161,7 @@ export default function CommunityReviewCommentSheet({
               value={message}
               onChange={(event) => setMessage(event.target.value)}
               onKeyDown={(event) => {
-                if (
-                  event.key === "Enter" &&
-                  !event.nativeEvent.isComposing
-                ) {
+                if (event.key === "Enter" && !event.nativeEvent.isComposing) {
                   event.preventDefault();
                   handleSend();
                 }
@@ -182,6 +172,7 @@ export default function CommunityReviewCommentSheet({
           </div>
         </div>
       </section>
-    </div>
+    </div>,
+    document.body,
   );
 }
