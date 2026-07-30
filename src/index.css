@@ -604,6 +604,14 @@ html[data-community-guide-step='5'] [data-guide-community-write] {
     padding-top: 32px;
   }
 
+  html[data-desktop-view='mockup'] [data-profile-page] {
+    padding-top: calc(60px + env(safe-area-inset-top));
+  }
+
+  html[data-desktop-view='mockup'] [data-onboarding-test-page] {
+    padding-top: calc(48px + env(safe-area-inset-top));
+  }
+
   .desktop-app-mockup
     [data-app-header]:not([data-header-variant='main']) {
     background-color: var(--color-offwhite);

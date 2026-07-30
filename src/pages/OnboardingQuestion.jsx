@@ -228,7 +228,10 @@ export default function OnboardingQuestion() {
   };
 
   return (
-    <div className="mx-auto flex min-h-[var(--app-height,100dvh)] w-full max-w-[430px] flex-col bg-background pb-[max(20px,env(safe-area-inset-bottom))] pt-[env(safe-area-inset-top)]">
+    <div
+      data-onboarding-test-page
+      className="mx-auto flex min-h-[var(--app-height,100dvh)] w-full max-w-[430px] flex-col bg-background pb-[max(20px,env(safe-area-inset-bottom))] pt-[env(safe-area-inset-top)]"
+    >
       {/* slideindicater */}
       <div className="h-0.5 w-full bg-light-grey">
         <div
