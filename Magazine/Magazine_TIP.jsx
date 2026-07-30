@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import { BottomNav, Header, TitleMag } from "../src/components/common";
 
-import clothesHair from "./assets/tip-detail/clothes-hair.png";
-import heroTip from "./assets/tip-detail/hero-original.png";
-import moisturize from "./assets/tip-detail/moisturize.png";
-import noRubbing from "./assets/tip-detail/no-rubbing.png";
-import storage from "./assets/tip-detail/storage.png";
+import clothesHair from "./assets/tip-detail/clothes-hair.avif";
+import heroTip from "./assets/tip-detail/hero-original.avif";
+import moisturize from "./assets/tip-detail/moisturize.avif";
+import noRubbing from "./assets/tip-detail/no-rubbing.avif";
+import storage from "./assets/tip-detail/storage.avif";
 
 const SECTIONS = [
   {

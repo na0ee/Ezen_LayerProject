@@ -5,6 +5,10 @@ import './index.css'
 import App from './App.jsx'
 import DesktopFrame from './components/DesktopFrame.jsx'
 
+document.documentElement.dataset.guideEnabled = String(
+  window.matchMedia('(min-width: 1024px)').matches,
+)
+
 const syncAppViewportHeight = () => {
   const isStandalone =
     window.matchMedia('(display-mode: standalone)').matches ||

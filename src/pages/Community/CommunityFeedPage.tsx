@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import feedBeachImage from "../../assets/Community/Feed/feed-beach.png";
-import feedRainyWalkImage from "../../assets/Community/Feed/feed-rainy-walk.png";
-import feedSunsetImage from "../../assets/Community/Feed/feed-sunset.png";
-import profileFadedscent from "../../assets/Community/Profile/profile-fadedscent.png";
-import profilePassingPerfumer from "../../assets/Community/Profile/profile-passing-perfumer.png";
-import profileRainyScent from "../../assets/Community/Profile/profile-rainy-scent.png";
+import feedBeachImage from "../../assets/Community/Feed/feed-beach.avif";
+import feedRainyWalkImage from "../../assets/Community/Feed/feed-rainy-walk.avif";
+import feedSunsetImage from "../../assets/Community/Feed/feed-sunset.avif";
+import profileFadedscent from "../../assets/Community/Profile/profile-fadedscent.avif";
+import profilePassingPerfumer from "../../assets/Community/Profile/profile-passing-perfumer.avif";
+import profileRainyScent from "../../assets/Community/Profile/profile-rainy-scent.avif";
 import {
   BottomNav,
   BtnSmall,

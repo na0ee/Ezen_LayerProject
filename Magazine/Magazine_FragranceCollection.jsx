@@ -7,11 +7,11 @@ import {
   TagMag,
 } from "../src/components/common";
 
-import byredo from "./assets/fragrance-collection/byredo.png";
-import dior from "./assets/fragrance-collection/dior.png";
-import heroCollection from "./assets/fragrance-collection/hero.png";
-import margiela from "./assets/fragrance-collection/margiela.png";
-import milky from "./assets/fragrance-collection/milky.png";
+import byredo from "./assets/fragrance-collection/byredo.avif";
+import dior from "./assets/fragrance-collection/dior.avif";
+import heroCollection from "./assets/fragrance-collection/hero.avif";
+import margiela from "./assets/fragrance-collection/margiela.avif";
+import milky from "./assets/fragrance-collection/milky.avif";
 
 const COLLECTIONS = [
   {

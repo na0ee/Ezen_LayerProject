@@ -1,17 +1,17 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import byredoBlancheProduct from "../../assets/Community/product-byredo-blanche.png";
-import diptyqueEauRoseProduct from "../../assets/Community/product-diptyque-eau-rose.png";
-import joMaloneEnglishPearProduct from "../../assets/Community/product-jo-malone-english-pear.png";
-import lazySundayMorningProduct from "../../assets/Community/product-lazy-sunday-morning.png";
-import leLaboSantal33Product from "../../assets/Community/product-le-labo-santal-33.png";
-import profileCottonScent from "../../assets/Community/Profile/profile-cotton-scent.png";
-import profileHaesu from "../../assets/Community/Profile/profile-haesu-v2.png";
-import profileWoodyCollector from "../../assets/Community/Profile/profile-woody-collector.png";
-import beigeLookImage from "../../assets/Community/review-beige-look.png";
-import lazySundayMorningImage from "../../assets/Community/review-lazy-sunday-morning.png";
-import santal33Image from "../../assets/Community/review-santal-33.png";
-import loeweProduct from "../../assets/images/mypage/loewe.png";
+import byredoBlancheProduct from "../../assets/Community/product-byredo-blanche.avif";
+import diptyqueEauRoseProduct from "../../assets/Community/product-diptyque-eau-rose.avif";
+import joMaloneEnglishPearProduct from "../../assets/Community/product-jo-malone-english-pear.avif";
+import lazySundayMorningProduct from "../../assets/Community/product-lazy-sunday-morning.avif";
+import leLaboSantal33Product from "../../assets/Community/product-le-labo-santal-33.avif";
+import profileCottonScent from "../../assets/Community/Profile/profile-cotton-scent.avif";
+import profileHaesu from "../../assets/Community/Profile/profile-haesu-v2.avif";
+import profileWoodyCollector from "../../assets/Community/Profile/profile-woody-collector.avif";
+import beigeLookImage from "../../assets/Community/review-beige-look.avif";
+import lazySundayMorningImage from "../../assets/Community/review-lazy-sunday-morning.avif";
+import santal33Image from "../../assets/Community/review-santal-33.avif";
+import loeweProduct from "../../assets/images/mypage/loewe.avif";
 import {
   BottomNav,
   Con2,

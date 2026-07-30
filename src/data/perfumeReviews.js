@@ -16,11 +16,11 @@ const reviewNicknames = [
 ];
 
 const reviewAvatars = [
-  "/assets/recommend/yujin.png",
-  "/assets/recommend/by_sana.png",
-  "/assets/recommend/katarina.png",
-  "/assets/recommend/yawn.png",
-  "/assets/recommend/3an.png",
+  "/assets/recommend/yujin.avif",
+  "/assets/recommend/by_sana.avif",
+  "/assets/recommend/katarina.avif",
+  "/assets/recommend/yawn.avif",
+  "/assets/recommend/3an.avif",
 ];
 
 const reviewTimes = [

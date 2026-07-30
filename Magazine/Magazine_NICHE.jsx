@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import { BottomNav, Header, TitleMag } from "../src/components/common";
 
-import collection from "./assets/niche-detail/collection.png";
-import heroNiche from "./assets/niche-detail/hero.png";
-import layering from "./assets/niche-detail/layering.png";
-import onlineCollection from "./assets/niche-detail/online-collection.png";
-import onlineHand from "./assets/niche-detail/online-hand.png";
+import collection from "./assets/niche-detail/collection.avif";
+import heroNiche from "./assets/niche-detail/hero.avif";
+import layering from "./assets/niche-detail/layering.avif";
+import onlineCollection from "./assets/niche-detail/online-collection.avif";
+import onlineHand from "./assets/niche-detail/online-hand.avif";
 
 const SECTIONS = [
   {

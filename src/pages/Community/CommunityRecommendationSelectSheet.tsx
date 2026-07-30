@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import creedOriginalVetiver from "../../assets/Community/Recommendation/product-creed-original-vetiver.png";
-import diptyqueDoSon from "../../assets/Community/Recommendation/product-diptyque-do-son.png";
+import creedOriginalVetiver from "../../assets/Community/Recommendation/product-creed-original-vetiver.avif";
+import diptyqueDoSon from "../../assets/Community/Recommendation/product-diptyque-do-son.avif";
 import {
   BtnBig,
   CardSmall,

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import byredoBlancheProduct from "../../assets/Community/product-byredo-blanche.png";
-import diptyqueEauRoseProduct from "../../assets/Community/product-diptyque-eau-rose.png";
-import joMaloneEnglishPearProduct from "../../assets/Community/product-jo-malone-english-pear.png";
+import byredoBlancheProduct from "../../assets/Community/product-byredo-blanche.avif";
+import diptyqueEauRoseProduct from "../../assets/Community/product-diptyque-eau-rose.avif";
+import joMaloneEnglishPearProduct from "../../assets/Community/product-jo-malone-english-pear.avif";
 import chevronDown from "../../assets/icons/chevron-down.svg";
 import {
   BtnBig,

@@ -2,7 +2,7 @@
 //
 // 브랜드별 오프라인 매장 정보. brands.js의 id를 키로 사용.
 // 매장이 없는 브랜드는 이 객체에 항목을 추가하지 않음 (LocCard 미표시 처리).
-import shiroSeongsuImage from "../assets/images/chatbot/shiro-seongsu-figma.png";
+import shiroSeongsuImage from "../assets/images/chatbot/shiro-seongsu-figma.avif";
 
 export const storeLocations = {
   shiro: {

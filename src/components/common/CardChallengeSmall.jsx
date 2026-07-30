@@ -23,6 +23,7 @@ export default function CardChallengeSmall({
 
   return (
     <div
+      data-challenge-small
       role={onAction ? "button" : undefined}
       tabIndex={onAction ? 0 : undefined}
       onClick={onAction}

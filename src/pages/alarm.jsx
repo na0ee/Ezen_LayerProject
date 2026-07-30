@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import raffleOpen from "../assets/alarm/raffle-open.png";
-import raffleResult from "../assets/alarm/raffle-result.png";
-import recommendation from "../assets/alarm/recommendation.png";
-import reviewReply from "../assets/alarm/review-reply.png";
-import newFollower from "../assets/alarm/new-follower.png";
+import raffleOpen from "../assets/alarm/raffle-open.avif";
+import raffleResult from "../assets/alarm/raffle-result.avif";
+import recommendation from "../assets/alarm/recommendation.avif";
+import reviewReply from "../assets/alarm/review-reply.avif";
+import newFollower from "../assets/alarm/new-follower.avif";
 import { AlertCard, Header } from "../components/common";
 
 const TODAY_NOTIFICATIONS = [

@@ -11,15 +11,15 @@ import {
   TitleSection,
 } from "../src/components/common";
 
-import brandByredo from "./assets/brand-byredo.png";
-import exploreCollection from "./assets/explore-collection.png";
-import exploreSeasons from "./assets/explore-seasons.png";
-import heroSantal from "./assets/hero-santal.png";
-import popularDiptyque from "./assets/popular-diptyque.png";
-import popularJomalone from "./assets/popular-jomalone.png";
-import popularTip from "./assets/popular-tip.png";
-import exploreSummer from "./assets/summer-perfume-detail/hero.png";
-import trendBanner from "./assets/trend-banner-figma.png";
+import brandByredo from "./assets/brand-byredo.avif";
+import exploreCollection from "./assets/explore-collection.avif";
+import exploreSeasons from "./assets/explore-seasons.avif";
+import heroSantal from "./assets/hero-santal.avif";
+import popularDiptyque from "./assets/popular-diptyque.avif";
+import popularJomalone from "./assets/popular-jomalone.avif";
+import popularTip from "./assets/popular-tip.avif";
+import exploreSummer from "./assets/summer-perfume-detail/hero.avif";
+import trendBanner from "./assets/trend-banner-figma.avif";
 import trendChevronRight from "./assets/trend-chevron-right.svg";
 
 const CATEGORIES = ["전체", "향수 상식", "추천", "트렌드", "선물", "브랜드"];
@@ -105,7 +105,9 @@ export default function MagazineMain({
   onNavigate,
 }) {
   const [category, setCategory] = useState("전체");
-  const [isGuideOpen, setIsGuideOpen] = useState(true);
+  const [isGuideOpen, setIsGuideOpen] = useState(
+    () => document.documentElement.dataset.guideEnabled !== "false",
+  );
   const articleActions = {
     fragranceCollection: onFragranceCollection,
     season: onSeason,

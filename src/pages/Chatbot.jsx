@@ -12,7 +12,7 @@ import { fragranceFamilies } from "../data/fragranceFamilies";
 import { perfumeData } from "../data/perfumeData";
 import { storeLocations } from "../data/storeLocations";
 import characterLayAnimation from "../assets/images/chatbot/Lay-transparent.webp";
-import characterLay from "../assets/images/character-lay.png";
+import characterLay from "../assets/images/character-lay.avif";
 
 const TYPING_DELAY_MS = 800;
 

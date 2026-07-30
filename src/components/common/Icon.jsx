@@ -2,12 +2,12 @@ import { useId, useState } from "react";
 import countChat from "../../assets/icons/count-chat.svg";
 import countHeart from "../../assets/icons/count-heart.svg";
 import heartAbled from "../../assets/icons/heart-abled.svg";
-import profileCottonScent from "../../assets/Community/Profile/profile-cotton-scent.png";
-import profileFruityLover from "../../assets/Community/Profile/profile-fruity-lover.png";
-import profileOfficeScent from "../../assets/Community/Profile/profile-office-scent.png";
-import profilePassingPerfumer from "../../assets/Community/Profile/profile-passing-perfumer.png";
-import profileRainyScent from "../../assets/Community/Profile/profile-rainy-scent.png";
-import profileWoodyCollector from "../../assets/Community/Profile/profile-woody-collector.png";
+import profileCottonScent from "../../assets/Community/Profile/profile-cotton-scent.avif";
+import profileFruityLover from "../../assets/Community/Profile/profile-fruity-lover.avif";
+import profileOfficeScent from "../../assets/Community/Profile/profile-office-scent.avif";
+import profilePassingPerfumer from "../../assets/Community/Profile/profile-passing-perfumer.avif";
+import profileRainyScent from "../../assets/Community/Profile/profile-rainy-scent.avif";
+import profileWoodyCollector from "../../assets/Community/Profile/profile-woody-collector.avif";
 import CommunityReviewCommentSheet from "./CommunityReviewCommentSheet";
 
 const COMMENT_POOL = [

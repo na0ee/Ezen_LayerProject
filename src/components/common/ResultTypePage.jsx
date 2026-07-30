@@ -43,7 +43,9 @@ export default function ResultTypePage({
   const dragStartRef = useRef({ x: 0, scrollLeft: 0 })
   const didDragRef = useRef(false)
   const [isDragging, setIsDragging] = useState(false)
-  const [isGuideOpen, setIsGuideOpen] = useState(true)
+  const [isGuideOpen, setIsGuideOpen] = useState(
+    () => document.documentElement.dataset.guideEnabled !== 'false',
+  )
 
   useEffect(() => {
     const handleGuideChange = (event) => {

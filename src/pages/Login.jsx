@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BtnBig, LoginInput } from "../components/common";
-import appleIcon from "../assets/icons/social-apple.png";
-import googleIcon from "../assets/icons/social-google.png";
-import kakaoIcon from "../assets/icons/social-kakao.png";
-import naverIcon from "../assets/icons/social-naver.png";
+import appleIcon from "../assets/icons/social-apple.avif";
+import googleIcon from "../assets/icons/social-google.avif";
+import kakaoIcon from "../assets/icons/social-kakao.avif";
+import naverIcon from "../assets/icons/social-naver.avif";
 
 // 피그마: 로그인화면 (3312:15251)
 const SOCIAL = [

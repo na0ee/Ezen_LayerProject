@@ -1,4 +1,4 @@
-import characterLay from "../../assets/images/character-lay.png";
+import characterLay from "../../assets/images/character-lay.avif";
 import { createPortal } from "react-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import TabNav from "./TabNav";

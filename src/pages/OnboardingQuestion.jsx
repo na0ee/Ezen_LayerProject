@@ -8,31 +8,31 @@ import {
 import { BtnBig, BtnGo } from "../components/common";
 import checkCircle from "../assets/icons/check-circle.svg";
 import chevronGrey from "../assets/icons/chevron-right-grey.svg";
-import q1None from "../assets/images/onboarding/q1-none.png";
-import q1One from "../assets/images/onboarding/q1-1-2.png";
-import q1Three from "../assets/images/onboarding/q1-3-5.png";
-import q1Six from "../assets/images/onboarding/q1-6plus.png";
-import q2Refresh from "../assets/images/onboarding/q2-refresh.png";
-import q2Sleep from "../assets/images/onboarding/q2-sleep.png";
-import q2Special from "../assets/images/onboarding/q2-special.png";
-import q2Travel from "../assets/images/onboarding/q2-travel.png";
-import q2Work from "../assets/images/onboarding/q2-work.png";
-import q2Workout from "../assets/images/onboarding/q2-workout.png";
-import q3Aquatic from "../assets/images/onboarding/q3-aquatic.png";
-import q3Citrus from "../assets/images/onboarding/q3-citrus.png";
-import q3Floral from "../assets/images/onboarding/q3-floral.png";
-import q3Green from "../assets/images/onboarding/q3-green.png";
-import q3Musk from "../assets/images/onboarding/q3-musk.png";
-import q3Oriental from "../assets/images/onboarding/q3-oriental.png";
-import q3Powdery from "../assets/images/onboarding/q3-powdery.png";
-import q3Spicy from "../assets/images/onboarding/q3-spicy.png";
-import q3Woody from "../assets/images/onboarding/q3-woody.png";
-import q4Casual from "../assets/images/onboarding/q4-casual.png";
-import q4Chic from "../assets/images/onboarding/q4-chic.png";
-import q4Feminine from "../assets/images/onboarding/q4-feminine.png";
-import q4Minimal from "../assets/images/onboarding/q4-minimal.png";
-import q5Layering from "../assets/images/onboarding/q5-layering.png";
-import q5Signature from "../assets/images/onboarding/q5-signature.png";
+import q1None from "../assets/images/onboarding/q1-none.avif";
+import q1One from "../assets/images/onboarding/q1-1-2.avif";
+import q1Three from "../assets/images/onboarding/q1-3-5.avif";
+import q1Six from "../assets/images/onboarding/q1-6plus.avif";
+import q2Refresh from "../assets/images/onboarding/q2-refresh.avif";
+import q2Sleep from "../assets/images/onboarding/q2-sleep.avif";
+import q2Special from "../assets/images/onboarding/q2-special.avif";
+import q2Travel from "../assets/images/onboarding/q2-travel.avif";
+import q2Work from "../assets/images/onboarding/q2-work.avif";
+import q2Workout from "../assets/images/onboarding/q2-workout.avif";
+import q3Aquatic from "../assets/images/onboarding/q3-aquatic.avif";
+import q3Citrus from "../assets/images/onboarding/q3-citrus.avif";
+import q3Floral from "../assets/images/onboarding/q3-floral.avif";
+import q3Green from "../assets/images/onboarding/q3-green.avif";
+import q3Musk from "../assets/images/onboarding/q3-musk.avif";
+import q3Oriental from "../assets/images/onboarding/q3-oriental.avif";
+import q3Powdery from "../assets/images/onboarding/q3-powdery.avif";
+import q3Spicy from "../assets/images/onboarding/q3-spicy.avif";
+import q3Woody from "../assets/images/onboarding/q3-woody.avif";
+import q4Casual from "../assets/images/onboarding/q4-casual.avif";
+import q4Chic from "../assets/images/onboarding/q4-chic.avif";
+import q4Feminine from "../assets/images/onboarding/q4-feminine.avif";
+import q4Minimal from "../assets/images/onboarding/q4-minimal.avif";
+import q5Layering from "../assets/images/onboarding/q5-layering.avif";
+import q5Signature from "../assets/images/onboarding/q5-signature.avif";
 import { getOnboardingResultPath } from "../utils/onboardingScoring";
 import { saveOnboardingResultType } from "../data/onboardingProfile";
 
@@ -172,7 +172,7 @@ export default function OnboardingQuestion() {
 
   const { multi, cols, width, height, gapX, gapY, noWrapLabel } = question;
   const answer = answers[step];
-  const responsiveOptionSize = `min(${width}px, calc((100vw - 40px - ${(cols - 1) * gapX}px) / ${cols}))`;
+  const responsiveOptionSize = `min(${width}px, calc((min(100vw, var(--desktop-app-width, 100vw)) - 40px - ${(cols - 1) * gapX}px) / ${cols}))`;
 
   const isPicked = (value) =>
     multi ? (answer ?? []).includes(value) : answer === value;

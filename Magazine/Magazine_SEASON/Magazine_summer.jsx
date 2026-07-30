@@ -5,22 +5,22 @@ import {
   TitleMag,
 } from "../../src/components/common";
 
-import springHero from "./assets/spring-hero.png";
-import springPerfume1 from "./assets/spring-perfume-1.png";
-import springPerfume2 from "./assets/spring-perfume-2.png";
-import springPerfume3 from "./assets/spring-perfume-3.png";
-import fallHero from "./assets/fall-hero.png";
-import fallPerfume1 from "./assets/fall-perfume-1.png";
-import fallPerfume2 from "./assets/fall-perfume-2.png";
-import fallPerfume3 from "./assets/fall-perfume-3.png";
-import summerHero from "./assets/summer-hero.png";
-import summerPerfume1 from "./assets/summer-perfume-1.png";
-import summerPerfume2 from "./assets/summer-perfume-2.png";
-import summerPerfume3 from "./assets/summer-perfume-3.png";
-import winterHero from "./assets/winter-hero.png";
-import winterPerfume1 from "./assets/winter-perfume-1.png";
-import winterPerfume2 from "./assets/winter-perfume-2.png";
-import winterPerfume3 from "./assets/winter-perfume-3.png";
+import springHero from "./assets/spring-hero.avif";
+import springPerfume1 from "./assets/spring-perfume-1.avif";
+import springPerfume2 from "./assets/spring-perfume-2.avif";
+import springPerfume3 from "./assets/spring-perfume-3.avif";
+import fallHero from "./assets/fall-hero.avif";
+import fallPerfume1 from "./assets/fall-perfume-1.avif";
+import fallPerfume2 from "./assets/fall-perfume-2.avif";
+import fallPerfume3 from "./assets/fall-perfume-3.avif";
+import summerHero from "./assets/summer-hero.avif";
+import summerPerfume1 from "./assets/summer-perfume-1.avif";
+import summerPerfume2 from "./assets/summer-perfume-2.avif";
+import summerPerfume3 from "./assets/summer-perfume-3.avif";
+import winterHero from "./assets/winter-hero.avif";
+import winterPerfume1 from "./assets/winter-perfume-1.avif";
+import winterPerfume2 from "./assets/winter-perfume-2.avif";
+import winterPerfume3 from "./assets/winter-perfume-3.avif";
 
 const SEASONS = [
   {

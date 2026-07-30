@@ -7,7 +7,7 @@ import {
   FeatureGuideCard,
 } from "../components/common";
 import addPhoto from "../assets/icons/add-photo.svg";
-import characterLay from "../assets/images/character-lay.png";
+import characterLay from "../assets/images/character-lay.avif";
 import {
   DEFAULT_USER_PROFILE,
   getUserProfile,
@@ -62,7 +62,9 @@ export default function ProfileSetup() {
   const [nickname, setNickname] = useState(initialProfile.nickname);
   const [profileImage, setProfileImage] = useState(initialProfile.image);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
-  const [isGuideOpen, setIsGuideOpen] = useState(true);
+  const [isGuideOpen, setIsGuideOpen] = useState(
+    () => document.documentElement.dataset.guideEnabled !== "false",
+  );
   const [guideTop, setGuideTop] = useState(null);
   const photoInputRef = useRef(null);
   const pageRef = useRef(null);

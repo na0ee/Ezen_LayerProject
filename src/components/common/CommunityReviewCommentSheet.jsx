@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import profileYeeunTv from "../../assets/Community/Profile/profile-yeeuntv.png";
+import profileYeeunTv from "../../assets/Community/Profile/profile-yeeuntv.avif";
 import countChat from "../../assets/icons/count-chat.svg";
 import countHeart from "../../assets/icons/count-heart.svg";
 import { getUserProfile } from "../../data/userProfile";

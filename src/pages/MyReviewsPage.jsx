@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Badge, BottomNav, BtnSmall, Header, Icon } from "../components/common";
 import moreDots from "../assets/icons/more-dots.svg";
-import diptyque from "../assets/images/mypage/diptyque.png";
-import loewe from "../assets/images/mypage/loewe.png";
-import matiere from "../assets/images/mypage/matiere.png";
-import santamaria from "../assets/images/mypage/santamaria.png";
+import diptyque from "../assets/images/mypage/diptyque.avif";
+import loewe from "../assets/images/mypage/loewe.avif";
+import matiere from "../assets/images/mypage/matiere.avif";
+import santamaria from "../assets/images/mypage/santamaria.avif";
 
 // 참고 파일(MyReviewsPage.tsx)의 레이아웃/기능을 이 프로젝트 컴포넌트·토큰으로 이식
 const pendingReviews = [

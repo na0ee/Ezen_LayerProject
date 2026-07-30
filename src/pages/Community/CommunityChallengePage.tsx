@@ -1,11 +1,11 @@
 import { useState } from "react";
 import challengeCompletePopper from "../../assets/Community/Challenge/challenge-complete-popper.svg";
-import challengeCommunity from "../../assets/Community/Challenge/challenge-community-warm.png";
-import challengeGiftWithAi from "../../assets/Community/Challenge/challenge-gift-with-ai-warm.png";
-import challengeMainCommunity from "../../assets/Community/Challenge/challenge-main-community-warm.png";
-import challengeMyLayer from "../../assets/Community/Challenge/challenge-my-layer-warm.png";
-import challengeRecommendPerfume from "../../assets/Community/Challenge/challenge-recommend-perfume-warm.png";
-import challengeRegisterPerfume from "../../assets/Community/Challenge/challenge-register-perfume-warm.png";
+import challengeCommunity from "../../assets/Community/Challenge/challenge-community-warm.avif";
+import challengeGiftWithAi from "../../assets/Community/Challenge/challenge-gift-with-ai-warm.avif";
+import challengeMainCommunity from "../../assets/Community/Challenge/challenge-main-community-warm.avif";
+import challengeMyLayer from "../../assets/Community/Challenge/challenge-my-layer-warm.avif";
+import challengeRecommendPerfume from "../../assets/Community/Challenge/challenge-recommend-perfume-warm.avif";
+import challengeRegisterPerfume from "../../assets/Community/Challenge/challenge-register-perfume-warm.avif";
 import {
   BottomNav,
   CardChallenge,

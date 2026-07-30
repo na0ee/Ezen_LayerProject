@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import { BottomNav, Header, TitleMag } from "../src/components/common";
 
-import diptyqueDoSon from "./assets/summer-perfume-detail/diptyque-do-son.png";
-import heroSummerNight from "./assets/summer-perfume-detail/hero.png";
-import joMaloneMyrrhTonka from "./assets/summer-perfume-detail/jo-malone-myrrh-tonka.png";
-import narcisoForHer from "./assets/summer-perfume-detail/narciso-for-her.png";
-import tomFordSoleilBlanc from "./assets/summer-perfume-detail/tom-ford-soleil-blanc.png";
+import diptyqueDoSon from "./assets/summer-perfume-detail/diptyque-do-son.avif";
+import heroSummerNight from "./assets/summer-perfume-detail/hero.avif";
+import joMaloneMyrrhTonka from "./assets/summer-perfume-detail/jo-malone-myrrh-tonka.avif";
+import narcisoForHer from "./assets/summer-perfume-detail/narciso-for-her.avif";
+import tomFordSoleilBlanc from "./assets/summer-perfume-detail/tom-ford-soleil-blanc.avif";
 
 const PERFUMES = [
   {
